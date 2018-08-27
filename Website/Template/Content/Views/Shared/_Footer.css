@@ -7,7 +7,8 @@
 #MainFooter {
     margin-top: 30px;
     min-height: 20vh;
-    background-color: #555;
+    background-color: #353e48;
+    /* to test #353e48*/
 }
 
 #divCopyRight {

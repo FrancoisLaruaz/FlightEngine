@@ -17,17 +17,18 @@ namespace DataEntities.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Province()
         {
-            this.Users = new HashSet<User>();
+            this.Addresses = new HashSet<Address>();
+            this.SubProvinces = new HashSet<SubProvince>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string code { get; set; }
-        public int Order { get; set; }
         public int CountryId { get; set; }
     
         public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubProvince> SubProvinces { get; set; }
     }
 }

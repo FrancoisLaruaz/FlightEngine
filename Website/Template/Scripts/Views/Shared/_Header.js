@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-
+    fixToTopNavBar('homeNavDefault');
 
     $('#LogInHeader').on('click', function (e) {
         e.preventDefault();
@@ -14,12 +14,7 @@ $(document).ready(function () {
         ShowSignUpFormNow(true);
     });
 
-    $("#LinkLogOff").unbind("click");
-    $('#LinkLogOff').on('click', function (e) {
-        e.preventDefault();
-        ShowSpinner();
-        document.getElementById('logoutForm').submit();
-    });
+
 
     $('ul.nav li.dropdown').addClass('open');
     $('ul.nav li.dropdown').hover(function (e) {
@@ -33,16 +28,24 @@ $(document).ready(function () {
         if ($(window).width() > 1070) {
             $(this).removeClass('li_hover');
         }
-    });
-
+        });
+    $('li.dropdown :first-child').unbind('click');
     $('li.dropdown :first-child').on('click', function () {
         var $el = $(this).parent();
         if ($el.hasClass('open')) {
             var $a = $el.children('a.dropdown-toggle');
+            var href = $a.attr('href');
             if ($a.length && $a.attr('href')) {
-                location.href = $a.attr('href');
+                location.href = href;
             }
         }
+    });
+
+    $("#LinkLogOff").unbind("click");
+    $('#LinkLogOff').on('click', function (e) {
+        e.preventDefault();
+        ShowSpinner();
+        document.getElementById('logoutForm').submit();
     });
 });
 

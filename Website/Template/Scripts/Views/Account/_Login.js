@@ -25,6 +25,7 @@ function LoginFailure() {
 }
 
 function handleLoginBegin() {
+    ShowSpinner();
     $('#SubmitButtonLogin').val("[[[Logging In ...]]]");
     $("#SubmitButtonLogin").toggleClass("disabled", true);
 }
@@ -69,6 +70,7 @@ function LoginSuccess(Data) {
 
     }
     else {
+        HideSpinner();
         SetLoginSubmitForm();
     }
 

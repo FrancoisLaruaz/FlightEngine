@@ -135,3 +135,8 @@ add [PublicProfile] bit not null default 1
 
 alter table [dbo].[User]
 Add FacebookLink nvarchar(500) null
+
+
+
+alter table [dbo].[User]
+Add [BackgroundPictureSrc] nvarchar(500) null

@@ -1,3 +1,18 @@
+.fix-at-top {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0px;
+    z-index: 500;
+}
+
+
+.navBarBackgroundColor {
+    background-color: white;
+    border-color: white;
+}
+
+
 .dropdown-menu
 {
     padding-top:0px !important;
@@ -8,9 +23,20 @@
     padding: 10px 20px 10px 20px;
     line-height: 40px;
     z-index: 2;
-    font-size: 1.85rem;
+    font-size: 1.5rem;
 }
 
+
+@media (min-width: 1070px) {
+
+    .navigation li a {
+        padding: 10px 20px 10px 20px;
+        line-height: 40px;
+        z-index: 2;
+        font-size: 1.85rem;
+    }
+
+}
 
 
 .marginLeftHeader {
@@ -59,10 +85,6 @@
     font-size: 1.6rem;
 }
 
-.loginSignUpHeader {
-    padding: 10px 10px 10px 10px !important;
-    font-size: 1.6rem !important;
-}
 
 
 
@@ -77,10 +99,6 @@
     margin: 0;
 }
 
-#homeNavDefault.navbar-default {
-    background-color: transparent;
-    border-color: transparent;
-}
 
 
 
@@ -267,13 +285,17 @@
 .navbar-nav li .dropdown-menu {
     margin-top: 40px;
     visibility: hidden;
+    border-radius: 7px !important;
+    -webkit-border-radius: 7px !important;
+    -moz-border-radius: 7px !important;
 }
+
+
 
 
 .navbar-nav li:hover .dropdown-menu {
     margin-top: 0px;
     visibility: visible;
-    border-radius: 0;
     font-weight: bold;
     transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -552,12 +574,9 @@
 #headerContainer {
     padding-left: 0px;
     padding-right: 0px;
-    margin-bottom: 15px;
+  
 }
 
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > li > a {
-    color: white;
-}
 
 #SearchTbx {
     padding: 5px;
@@ -593,4 +612,69 @@
         margin-left: 15px;
         display: inline;
     }
+}
+
+.navBarBottomBorder {
+    border-bottom: 3px solid rgba(46,62,72,.12);
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > li > a {
+    color: #555;
+}
+
+
+@media (min-width: 1070px) {
+
+    .liLogin {
+        padding: 0px !important;
+        float: right;
+    }
+
+
+
+    .aLogIn {
+        font-size: 1.75rem !important;
+        text-align: right !important;
+        padding: 10px 14px 10px 14px !important;
+    }
+
+
+
+    .aSignUp {
+        font-size: 1.75rem !important;
+        text-align: left !important;
+        padding: 10px 14px 10px 14px !important;
+    }
+
+    .liSignUp {
+        padding: 0px !important;
+        float: left;
+        margin-right:30px;
+    }
+}
+
+
+.marginUserNavBar {
+    margin-left: 0px !important;
+}
+
+@media (min-width: 1070px) {
+
+    .marginUserNavBar {
+        margin-left: 80px !important;
+    }
+}
+
+.burger {
+    margin-top: 13px;
+    margin-right: 25px;
+}
+
+
+.sub-nav .navbar-default .navbar-toggle:hover, .sub-nav .navbar-default .navbar-toggle:focus {
+    background-color: #e7e7e7;
+}
+
+.navbar-toggle {
+    border: 2px solid black;
 }

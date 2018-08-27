@@ -15,6 +15,8 @@ using Models.ViewModels.Account;
 using Models.Class.SignUp;
 using Service.Admin.Interface;
 using Models.ViewModels.Shared;
+using Models.ViewModels.Profile;
+using Models.Class.UserFollow;
 
 namespace Service.UserArea
 {
@@ -23,20 +25,26 @@ namespace Service.UserArea
 
         private readonly IGenericRepository<DataEntities.Model.AspNetUser> _aspNetUserRepo;
         private readonly IGenericRepository<DataEntities.Model.User> _userRepo;
+        private readonly IGenericRepository<DataEntities.Model.UserFollow> _userFollowRepo;
         private readonly ICategoryService _categoryService;
         private readonly IProvinceService _provinceService;
         private readonly ICountryService _countryService;
         private readonly IScheduledTaskService _scheduledTaskService;
+        public readonly IUserRolesService _userRolesService;
+        public readonly IUserFollowService _userFollowService;
 
-        public UserService(IGenericRepository<DataEntities.Model.User> userRepo, IGenericRepository<DataEntities.Model.AspNetUser> aspNetUserRepo, ICategoryService categoryService,
-            IProvinceService provinceService, ICountryService countryService, IScheduledTaskService scheduledTaskService)
+        public UserService(IGenericRepository<DataEntities.Model.User> userRepo, IUserFollowService userFollowService, IGenericRepository<DataEntities.Model.AspNetUser> aspNetUserRepo, ICategoryService categoryService,
+            IProvinceService provinceService, ICountryService countryService, IScheduledTaskService scheduledTaskService, IUserRolesService userRolesService, IGenericRepository<DataEntities.Model.UserFollow> userFollowRepo)
         {
+            _userFollowService = userFollowService;
             _userRepo = userRepo;
             _aspNetUserRepo = aspNetUserRepo;
             _categoryService = categoryService;
             _provinceService = provinceService;
             _countryService = countryService;
             _scheduledTaskService = scheduledTaskService;
+            _userRolesService = userRolesService;
+            _userFollowRepo = userFollowRepo;
         }
 
         public UserService()
@@ -44,6 +52,199 @@ namespace Service.UserArea
             var context = new TemplateEntities();
             _userRepo =new  GenericRepository<DataEntities.Model.User>(context);
             _aspNetUserRepo = new GenericRepository<AspNetUser>(context);
+        }
+
+
+        public ProfileViewModel GetProfileViewModel(int UserId, int LoggedUserId)
+        {
+            ProfileViewModel model = new ProfileViewModel();
+            try
+            {
+                var user = _userRepo.Get(UserId);
+                if (user != null)
+                {
+                    model.UserId = user.Id;
+
+                    model.GeneralInformation = GetGeneralInformationViewModel(UserId, LoggedUserId);
+                    string PeopleYouFollowTitle = "[[[Following]]]";
+                    if (UserId != LoggedUserId)
+                    {
+                        PeopleYouFollowTitle = "[[[Following]]]";
+                    }
+
+
+                    model.PeopleYouFollow = new FollowersViewModel(PeopleYouFollowTitle, _userFollowService.GetUsersFollowedByUser(UserId));
+                    model.Followers = new FollowersViewModel("[[[Followers]]]", _userFollowService.GetUsersFollowingUser(UserId));
+
+                }
+            }
+            catch (Exception e)
+            {
+                model = new ProfileViewModel();
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "UserId = " + UserId);
+            }
+            return model;
+        }
+
+        public GeneralInformationViewModel GetGeneralInformationViewModel(int UserId, int LoggedUserId)
+        {
+            GeneralInformationViewModel model = new GeneralInformationViewModel();
+            try
+            {
+                var user = _userRepo.Get(UserId);
+                if (user != null)
+                {
+                    model.UserId = user.Id;
+                    model.BackgroundPictureSrc =( user.BackgroundPictureSrc ?? DefaultImage.BackgroundPicture).Replace("~", "");
+                    model.ImageSrc =( user.PictureSrc ?? DefaultImage.DefaultImageUser).Replace("~","");
+                    model.FirstName = user.FirstName;
+                    model.LastName = user.LastName;
+                    model.CreationDateTxt = "[[[Joined ]]]" + user.CreationDate.ToLocalTime().ToString("MMMM yyyy");
+                    model.Description = user.Description;
+                    model.Facebook = user.FacebookLink;
+                    model.LastConnectionDate = user.DateLastConnection;
+                    //   model.City = user.Address?.ci
+                    model.Province = user.Address?.Province.Name;
+                    model.Country = user.Address?.Province?.Country.Name;
+
+
+
+                    if (LoggedUserId > 0)
+                    {
+                        model.FollowedUser = _userFollowRepo.FindAllBy(u => u.FollowedUserId == UserId && u.UserId == LoggedUserId).Any();
+                    }
+                    else
+                    {
+                        model.FollowedUser = false;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                model = new GeneralInformationViewModel();
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "UserId = " + UserId+ " and LoggedUserId = "+ LoggedUserId);
+            }
+            return model;
+        }
+
+        public bool UpdateBackgroundPicture(int id, string path)
+        {
+            bool result = false;
+            try
+            {
+                var user = _userRepo.Get(id);
+                if (user != null)
+                {
+                    user.BackgroundPictureSrc = path;
+                    user.DateLastConnection = DateTime.UtcNow;
+                    _userRepo.Edit(user);
+                    result = _userRepo.Save();
+                }
+            }
+            catch (Exception e)
+            {
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "id = " + id + " and path = " + path);
+            }
+            return result;
+        }
+
+        public FollowersViewModel GetFollowers(int UserId)
+        {
+            FollowersViewModel model = new FollowersViewModel();
+            try
+            {
+                model = new FollowersViewModel("[[[Followers]]]", _userFollowService.GetUsersFollowingUser(UserId));
+            }
+            catch (Exception e)
+            {
+                model = new FollowersViewModel();
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "UserId = " + UserId);
+            }
+            return model;
+        }
+
+
+        public bool SaveGeneralInformation(EditGeneralInformationViewModel model)
+        {
+            bool result = false;
+            try
+            {
+                var user = _userRepo.Get(model.UserId);
+                if (user != null)
+                {
+                    user.FirstName = model.FirstName;
+                    user.LastName =model.LastName;
+                    user.Description = model.Description;
+                    user.FacebookLink = model.Facebook;
+                    user.Description = model.Description;
+                    user.DateLastConnection = DateTime.UtcNow;
+                    _userRepo.Edit(user);
+                    result = _userRepo.Save();
+                }
+            }
+            catch (Exception e)
+            {
+                result = false;
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "UserId = " + model.UserId);
+            }
+            return result;
+        }
+
+        public EditGeneralInformationViewModel GetEditGeneralInformationViewModel(int UserId)
+        {
+            EditGeneralInformationViewModel model = new EditGeneralInformationViewModel();
+            try
+            {
+                var user = _userRepo.Get(UserId);
+                if (user != null)
+                {
+                    model.UserId = user.Id;
+                    model.FirstName =user.FirstName;
+                    model.LastName = user.LastName;
+                    model.Description = user.Description;
+                    model.Facebook = user.FacebookLink;
+                }
+            }
+            catch (Exception e)
+            {
+                model = new EditGeneralInformationViewModel();
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "UserId = " + UserId );
+            }
+            return model;
+        }
+
+
+        public bool CanUserEditProfile(int toBeEditedUserId, string currentUserName)
+        {
+            bool result = false;
+            try
+            {
+                if (String.IsNullOrWhiteSpace(currentUserName) || toBeEditedUserId <= 0)
+                {
+                    result = false;
+                }
+                else
+                {
+                    User currentUser = _userRepo.FindAllBy(u => u.AspNetUser.UserName.ToLower().Trim() == currentUserName.ToLower().Trim()).FirstOrDefault();
+                    if (currentUser != null)
+                    {
+                        if (toBeEditedUserId == currentUser.Id)
+                        {
+                            result = true;
+                        }
+                        else if (_userRolesService.IsInRole(currentUserName, UserRoles.Admin))
+                        {
+                            result = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result = false;
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "toBeEditedUserId = " + toBeEditedUserId + " and currentUserName = " + currentUserName);
+            }
+            return result;
         }
 
         public int CreateUser(UserSignUp model)
@@ -57,7 +258,7 @@ namespace Service.UserArea
                 if (aspNetUser != null)
                 {
                     User user = new User();
-                    user.PictureSrc = model.PictureSrc ?? CommonsConst.Const.DefaultImageUser;
+                    user.PictureSrc = model.PictureSrc ?? CommonsConst.DefaultImage.DefaultImageUser;
                     user.FirstName =model.FirstName;
                     user.LastName = model.LastName;
                     user.GenderId = model.GenderId;
@@ -167,7 +368,7 @@ namespace Service.UserArea
                     result.UserId = user.Id;
                     result.DateLastConnection = user.DateLastConnection;
                     result.LanguageTag = user.Language?.Code??CommonsConst.Const.DefaultCulture;
-                    result.PictureThumbnailSrc = user.PictureThumbnailSrc ?? CommonsConst.Const.DefaultThumbnailUser;
+                    result.PictureThumbnailSrc = user.PictureThumbnailSrc ?? CommonsConst.DefaultImage.DefaultThumbnailUser;
                     result.EmailConfirmed = user.AspNetUser.EmailConfirmed == null ? false : user.AspNetUser.EmailConfirmed.Value;
                 }
 
@@ -217,11 +418,13 @@ namespace Service.UserArea
                 if (user != null)
                 {
                     model.UserId = user.Id;
+                    /*
                     model.CountryId = user.CountryId;
                     model.ProvinceId = user.ProvinceId;
                     model.Adress1 = user.Adress1;
                     model.Adress2 = user.Adress2;
                     model.Adress3 = user.Adress3;
+                    */
                 }
                 model.ProvinceList = _provinceService.GetProvinceList(model.CountryId);
                 model.CountryList = _countryService.GetCountryList();
@@ -313,12 +516,13 @@ namespace Service.UserArea
             {
                 var user = _userRepo.Get(model.UserId);
                 if (user != null)
-                {
+                {/*
                     user.Adress1 = model.Adress1;
                     user.Adress2 = model.Adress2;
                     user.CountryId = model.CountryId;
                     user.CountryId = model.CountryId;
                     user.ProvinceId = model.ProvinceId;
+                    */
                     _userRepo.Edit(user);
                     result = _userRepo.Save();
                 }

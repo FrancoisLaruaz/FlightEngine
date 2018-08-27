@@ -18,16 +18,19 @@ namespace Service.Admin
     {
 
         private readonly IGenericRepository<User> _userRepo;
+        private readonly IGenericRepository<Product> _productRepo;
 
-        public FileUploadService(IGenericRepository<User> userRepo)
+        public FileUploadService(IGenericRepository<User> userRepo, IGenericRepository<Product> productRepo)
         {
             _userRepo = userRepo;
+            _productRepo = productRepo;
         }
 
         public FileUploadService()
         {
             var context = new TemplateEntities();
             _userRepo = new GenericRepository<User>(context);
+            _productRepo= new GenericRepository<Product>(context);
         }
 
         /// <summary>
@@ -49,10 +52,13 @@ namespace Service.Admin
                 DateTime DateToCompare = DateTime.UtcNow.AddDays(-2);
 
                 var UsersList = _userRepo.List();
+                var ProductsList = _productRepo.List();
+
                 List<string> ListUsedFilesPictureSrc = UsersList.Select(u => u.PictureSrc)?.ToList();
                 List<string> ListUsedFilesPictureThumbnailSrc = UsersList.Select(u => u.PictureThumbnailSrc)?.ToList();
+                List<string> ListUsedFilesProductsImageSrc = ProductsList.Select(u => u.ImageSrc)?.ToList();
 
-                List<string> ListUsedFiles = ListUsedFilesPictureSrc.Concat(ListUsedFilesPictureThumbnailSrc).ToList();
+                List<string> ListUsedFiles = ListUsedFilesPictureSrc.Concat(ListUsedFilesPictureThumbnailSrc).Concat(ListUsedFilesProductsImageSrc).ToList();
 
                 if (ListUsedFiles != null && ListUsedFiles.Count > 0)
                 {

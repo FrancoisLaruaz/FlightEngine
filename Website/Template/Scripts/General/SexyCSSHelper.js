@@ -53,6 +53,17 @@ function DeleteSexyCSSElements() {
     $(".highlightSexyCSS").remove();
 }
 
+
+function GetToggleValue(name) {
+    var result = false;
+    var element = $("#" + name);
+    if ($(element).length > 0) {
+        result=$(element).find(".sliderMessage").html() == "ON" ? true : false;
+    }
+
+    return result;
+}
+
 function SetSexySelect() {
     $('.select-text').each(function (index, value) {
         var FieldToAdd = $(this).parent();

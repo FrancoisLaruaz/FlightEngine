@@ -729,12 +729,14 @@ namespace Website.Controllers
                         {
                             case SignInStatus.Success:
                                 _Result = true;
+                                Session[CommonsConst.Const.JsonConstantsSession] = null;
                                 userSession = _userService.GetUserSession(User.Identity.GetUserName());
                                 if (userSession != null)
                                 {
                                     _aspNetUsersService.UpdateUserIdentityLoginSuccess(userSession.UserIdentityId);
                                     _Language = userSession.LanguageTag;
                                     UserSession = userSession;
+                                    WebsiteLanguage = _Language;
                                 }
 
 
@@ -800,6 +802,7 @@ namespace Website.Controllers
                                                 {
                                                     case SignInStatus.Success:
                                                         _Result = true;
+                                                        Session[CommonsConst.Const.JsonConstantsSession] = null;
                                                         userSession = _userService.GetUserSession(User.Identity.GetUserName());
                                                         if (userSession != null)
                                                         {
@@ -807,6 +810,7 @@ namespace Website.Controllers
                                                             _socialMediaConnectionService.InsertSocialMediaConnections(ExternalSignUpInformation.FriendsList, ExternalSignUpInformation.ProviderKey, ExternalSignUpInformation.LoginProvider);
                                                             _Language = userSession.LanguageTag;
                                                             UserSession = userSession;
+                                                            WebsiteLanguage = _Language;
                                                         }
 
                                                         break;
@@ -969,6 +973,7 @@ namespace Website.Controllers
                                             if (result.Succeeded)
                                             {
                                                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                                                Session[CommonsConst.Const.JsonConstantsSession] = null;
                                                 if (!String.IsNullOrWhiteSpace(ExternalSignUpInformation.Email))
                                                 {
                                                     UserSession userSession = _userService.GetUserSession(ExternalSignUpInformation.Email);
@@ -1114,6 +1119,7 @@ namespace Website.Controllers
                                             {
                                                 UserSession = _userService.GetUserSession(model.Email);
                                                 _Result = true;
+                                                Session[CommonsConst.Const.JsonConstantsSession] = null;
                                                 string UserName = model.Email;
                                                 _emailService.SendEMailToUser(UserName, CommonsConst.EmailTypes.UserWelcome);
                                             }
@@ -1285,6 +1291,7 @@ namespace Website.Controllers
                         {
                             case SignInStatus.Success:
                                 _Result = true;
+                                Session[CommonsConst.Const.JsonConstantsSession] = null;
                                 UserSession userSession = _userService.GetUserSession(model.Email);
                                 if (userSession != null)
                                 {
@@ -1293,6 +1300,7 @@ namespace Website.Controllers
                                     model.LanguageTag = userSession.LanguageTag;
                                     _LangTag = userSession.LanguageTag; ;
                                     UserSession = userSession;
+                                    WebsiteLanguage = _LangTag;
                                 }
                                 break;
                             case SignInStatus.LockedOut:
@@ -1345,6 +1353,7 @@ namespace Website.Controllers
             try
             {
                 Session[CommonsConst.Const.UserSession] = null;
+                Session[CommonsConst.Const.JsonConstantsSession] = null;
                 Session.Clear();
                 Session.Abandon();
                 AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
@@ -1360,6 +1369,8 @@ namespace Website.Controllers
         [HttpGet]
         public ActionResult AutomaticLogOff()
         {
+            Session[CommonsConst.Const.UserSession] = null;
+            Session[CommonsConst.Const.JsonConstantsSession] = null;
             Session.Clear();
             Session.Abandon();
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
@@ -1478,7 +1489,7 @@ namespace Website.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        if (UserSession != null)
+                        if (UserSession != null && UserSession.UserId>0)
                         {
                             _Langtag = UserSession.LanguageTag;
                             IdentityResult result = await UserManager.ChangePasswordAsync(UserSession.UserIdentityId, model.OldPassword, model.NewPassword);

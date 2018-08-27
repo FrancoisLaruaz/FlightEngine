@@ -168,6 +168,7 @@ namespace Template
 
                 if (!String.IsNullOrEmpty(languageBrowser))
                 {
+                    Session[CommonsConst.Const.WebsiteLanguageSession] = languageBrowser;
                     i18n.LanguageTag lt = i18n.LanguageTag.GetCachedInstance(languageBrowser);
                     Response.Cookies.Add(new HttpCookie(CommonsConst.Const.i18nlangtag)
                     {
@@ -204,8 +205,11 @@ namespace Template
         /// <param name="e">E.</param>
         private void Application_Error(object sender, EventArgs e)
         {
+            string redirection = null;
             try
             {
+                string WebsiteURL = ConfigurationManager.AppSettings["WebsiteURL"];
+                bool ClearHeaders = true;
                 var ex = HttpContext.Current.Server.GetLastError();
                 bool NeedToLogError = true;
                 string messageErreur = "";
@@ -221,13 +225,12 @@ namespace Template
                     messageErreur = ex.ToString();
                     messagePageErreur = ex.Message;
                 }
-                string redirection = String.Format("~/Error/{0}/?Message={1}", "DisplayError", messagePageErreur.Replace("\r", "").Replace("\n", ""));
+                redirection = String.Format("~/Error/{0}/?Message={1}", "DisplayError", messagePageErreur.Replace("\r", "").Replace("\n", ""));
                 if (ex != null )
                 {
                     string Url = HttpContext.Current?.Request?.Url?.AbsoluteUri;
                     string UrlReferrer = HttpContext.Current?.Request?.UrlReferrer?.AbsoluteUri;
 
-                    string WebsiteURL = ConfigurationManager.AppSettings["WebsiteURL"];
 
                     if (ex.Message!=null && ex.Message.Contains("A potentially dangerous Request.Path value was detected from the client (&)") && Url != null && Url.Substring(Url.Length - 1) == "&")
                     {
@@ -239,11 +242,11 @@ namespace Template
                         NeedToLogError = false;
                         if (String.IsNullOrWhiteSpace(UrlReferrer))
                         {
-                            Response.Redirect(WebsiteURL);
+                            redirection=WebsiteURL;
                         }
                         else
                         {
-                            Response.Redirect(UrlReferrer);
+                            redirection=UrlReferrer;
                         }
                     }
 
@@ -252,11 +255,52 @@ namespace Template
                 if (NeedToLogError)
                     Commons.Logger.GenerateError(ex, typeof(HttpApplication));
 
-                Response.Redirect(redirection);
+                if (ex.Message.Contains("or its master was not found or no view engine supports the searched locations"))
+                {
+                    ClearHeaders = false;
+                }
+
+                if (ex != null)
+                {
+                    HttpException httpException = ex as HttpException;
+                    if (httpException != null)
+                    {
+
+                        switch (httpException.GetHttpCode())
+                        {
+                            case 404:
+                                redirection = WebsiteURL+"/Error404";
+                                ClearHeaders = false;
+                                break;
+                            case 500:
+                                //  action = "Http500";
+                                break;
+                            default:
+        
+                                break;
+                        }
+                    }
+                }
+
+                if (!String.IsNullOrWhiteSpace(redirection))
+                {
+                    Server.ClearError();
+                    if (!(HttpContext.Current?.Request?.Url?.AbsoluteUri ?? "").Contains("."))
+                    {
+                        ClearHeaders = false;
+                    }
+                    if (ClearHeaders)
+                        Response.Headers.Clear();
+                    Response.Redirect(redirection, false);
+                }
             }
             catch (Exception e2)
             {
-                Commons.Logger.GenerateError(e2, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+                Commons.Logger.GenerateError(e2, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,"Error in Global.asax");
+                if (!String.IsNullOrWhiteSpace(redirection))
+                {
+                    Response.Redirect(redirection, false);
+                }
             }
         }
     }

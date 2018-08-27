@@ -14,6 +14,8 @@ using System.Web.Script.Serialization;
 using System.Reflection;
 using CommonsConst;
 using Service.UserArea.Interface;
+using Models.Class.Localization;
+using System.Security.Claims;
 
 namespace Website.Controllers
 {
@@ -29,13 +31,13 @@ namespace Website.Controllers
             _userService = userService;
         }
 
-        public  string CurrentLangTag
+        public string CurrentLangTag
         {
             get
             {
                 try
                 {
-                    return Request.RequestContext.HttpContext.GetPrincipalAppLanguageForRequest().GetLanguage()?? CommonsConst.Const.DefaultCulture;
+                    return Request.RequestContext.HttpContext.GetPrincipalAppLanguageForRequest().GetLanguage() ?? CommonsConst.Const.DefaultCulture;
                 }
                 catch
                 {
@@ -51,6 +53,38 @@ namespace Website.Controllers
                 if (Session[CommonsConst.Const.JsonConstantsSession] == null)
                 {
                     var constants = CommonsConst.ConstantsHelper.GetJSonConstants();
+                    constants.Add("APIKeys", new Dictionary<string, object>() { { "GoogleMap", System.Configuration.ConfigurationManager.AppSettings["GoogleMapKey"].ToString() } });
+                    constants.Add("Environment", new Dictionary<string, object>() { { "IsLocalhost", Utils.IsLocalhost() }, { "IsProduction", Utils.IsProductionWebsite() } });
+
+                    var userDic = new Dictionary<string, object>() { };
+                    List<object> roles = Utils.GetPropertiesList(typeof(UserRoles));
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        foreach (var role in roles)
+                        {
+                            if (User.IsInRole(role.ToString()))
+                            {
+                                userDic.Add("Is_" + role.ToString().Replace(" ", "").ToLower(), true);
+                            }
+                            else
+                            {
+                                userDic.Add("Is_" + role.ToString().Replace(" ", "").ToLower(), false);
+                            }
+                        }
+                        userDic.Add("IsAuthenticated", true);
+                        userDic.Add("UserName", User.Identity.Name);
+                    }
+                    else
+                    {
+                        foreach (var role in roles)
+                        {
+                            userDic.Add("Is_" + role.ToString().Replace(" ", "").ToLower(), false);
+                        }
+                        userDic.Add("IsAuthenticated", false);
+                        userDic.Add("UserName", "");
+                    }
+                    constants.Add("User", userDic);
+
                     Session[CommonsConst.Const.JsonConstantsSession] = new JavaScriptSerializer().Serialize(constants);
                 }
                 return Session[CommonsConst.Const.JsonConstantsSession].ToString();
@@ -78,7 +112,35 @@ namespace Website.Controllers
             }
             catch (Exception ex)
             {
-                Commons.Logger.GenerateError(ex, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "userName = "+ userName);
+                Commons.Logger.GenerateError(ex, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "userName = " + userName);
+            }
+        }
+
+        public string WebsiteLanguage
+        {
+            get
+            {
+                if (Session[CommonsConst.Const.WebsiteLanguageSession] == null)
+                {
+                    return CommonsConst.Const.DefaultCulture;
+                }
+
+                try
+                {
+                    return Session[CommonsConst.Const.WebsiteLanguageSession].ToString();
+                }
+                catch
+                {
+                    return CommonsConst.Const.DefaultCulture;
+                }
+            }
+
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    Session[CommonsConst.Const.WebsiteLanguageSession] = value.Split('-')[0];
+                }
             }
         }
 
@@ -112,6 +174,48 @@ namespace Website.Controllers
             }
         }
 
+
+        public LocalizationItem DefaultUserLocalization
+        {
+            get
+            {
+                try
+                {
+                    if (Session[CommonsConst.Const.DefaultUserLocalization] == null)
+                    {
+                        LocalizationItem loc = GeoLocalizationHelper.GetLocalizationItemFromIpAddress(Request?.UserHostAddress);
+                        DefaultUserLocalization = loc;
+                        return loc;
+                    }
+                    else
+                    {
+                        LocalizationItem loc = Session[CommonsConst.Const.DefaultUserLocalization] as LocalizationItem;
+                        if (Request?.UserHostAddress != null && loc.userHostAddress!=null && Request?.UserHostAddress == loc.userHostAddress)
+                        {
+                            return loc;
+                        }
+                        else
+                        {
+                            loc = GeoLocalizationHelper.GetLocalizationItemFromIpAddress(Request?.UserHostAddress);
+                            DefaultUserLocalization = loc;
+                            return loc;
+                        }
+                    }
+
+
+                }
+                catch (Exception e)
+                {
+                    Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "User.Identity.IsAuthenticated = " + User.Identity.IsAuthenticated + " and Request?.UserHostAddress = " + (Request?.UserHostAddress ?? "NULL"));
+                    return null;
+                }
+            }
+            set
+            {
+                Session[CommonsConst.Const.DefaultUserLocalization] = value;
+            }
+        }
+
         /// <summary>
         /// Get the id of the authenticated user
         /// </summary>
@@ -130,7 +234,7 @@ namespace Website.Controllers
                         if (Session[CommonsConst.Const.UserSession] == null)
                         {
                             UserSession ConnectedUser = _userService.GetUserSession(User.Identity.GetUserName());
-                            if(ConnectedUser==null)
+                            if (ConnectedUser == null)
                             {
                                 return null;
                             }
@@ -150,9 +254,9 @@ namespace Website.Controllers
                     }
 
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "User.Identity.IsAuthenticated = "+ User.Identity.IsAuthenticated + " and User.Identity.GetUserName() = "+ User.Identity.GetUserName());
+                    Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "User.Identity.IsAuthenticated = " + User.Identity.IsAuthenticated + " and User.Identity.GetUserName() = " + User.Identity.GetUserName());
                     return null;
                 }
             }
@@ -171,7 +275,7 @@ namespace Website.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home",new { area=""});
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
         }
 
@@ -182,7 +286,8 @@ namespace Website.Controllers
         /// <returns></returns>
         public ActionResult Constants()
         {
-            try {
+            try
+            {
                 return JavaScript("var Constants = " + JsonConstants + ";");
             }
             catch (Exception e)
@@ -201,13 +306,13 @@ namespace Website.Controllers
                 String ControllerName = filterContext.Controller.ToString();
                 if (ControllerName.Contains("Website.Areas.Admin.Controllers") && filterContext.ActionDescriptor != null && filterContext.ActionDescriptor.ActionName != "Logs" && filterContext.ActionDescriptor.ActionName != "_DisplayLogs")
                 {
-                  
+
                     if (!User.Identity.IsAuthenticated)
                         filterContext.Result = RedirectToAction("Login", "Account", new { returnUrl = Request.Url.AbsoluteUri.ToString(), area = "" });
-                    else if(!User.IsInRole(CommonsConst.UserRoles.Admin))
-                        filterContext.Result = RedirectToAction("Index", "Home", new {  area = "" });
+                    else if (!User.IsInRole(CommonsConst.UserRoles.Admin))
+                        filterContext.Result = RedirectToAction("Index", "Home", new { area = "" });
                     return;
-                  
+
                 }
 
             }

@@ -1,0 +1,490 @@
+/* ==========================================================================
+  Begin  Profile
+   ========================================================================== */
+
+
+
+#my-nav {
+    z-index: 190;
+}
+
+.pointerCursor {
+    cursor: pointer;
+}
+
+
+#ProfilContainer {
+    padding-bottom: 35px;
+    padding-top: 0px;
+}
+
+.navbar.nav-2017 li.active {
+    border-bottom: #f36f23 4px solid;
+}
+
+#divBackgroundPicture {
+    height: 290px;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+
+.backgroundUploadOverlay {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 3;
+    font-size: 50px;
+    text-align: center;
+    display: none;
+    line-height: 290px;
+    height: 290px;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+}
+
+#divProfilePicture {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 4;
+    left: 50%;
+}
+
+#divSocialLinks {
+    position: absolute;
+    top: 165px;
+    left: 0px;
+    text-align: center;
+}
+
+@media (min-width: 992px) {
+    #divSocialLinks {
+        position: absolute;
+        top: 150px;
+        left: 200px;
+        text-align: center;
+        max-width: 178px;
+    }
+}
+
+.puce {
+    text-align: center;
+    margin-left: 9px;
+    margin-right: 9px;
+}
+
+
+.portraitPicture {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    border: grey 2px solid;
+    position: absolute;
+    bottom: -100px;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.portraitUploadOverlay {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    font-size: 50px;
+    text-align: center;
+    display: none;
+    line-height: 200px;
+    text-align: center;
+    bottom: -100px;
+    left: 98px !important;
+    top: 0px !important;
+}
+
+
+.profileSection {
+    margin-top: 35px;
+}
+
+@media (min-width: 992px) {
+    #divProfilePicture {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        left: 170px;
+        z-index: 4;
+    }
+
+
+    .portraitPicture {
+        border-radius: 50%;
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+        width: 210px;
+        border: grey 2px solid;
+        position: absolute;
+        bottom: -130px;
+        height: 210px;
+    }
+
+    .portraitUploadOverlay {
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 5;
+        font-size: 50px;
+        text-align: center;
+        display: none;
+        line-height: 210px;
+        left: -2px !important;
+        bottom: 0px !important;
+        top: -2px !important;
+    }
+}
+
+#divProfileInfoGeneral {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 150px;
+    min-height: 150px;
+}
+
+
+@media (min-width: 992px) {
+    #divProfileInfoGeneral {
+        padding-left: 415px;
+        padding-top: 30px;
+        padding-bottom: 10px;
+    }
+}
+
+
+.profileName {
+    font-size: 33px;
+    color: grey;
+    font-weight: bold;
+}
+
+
+#divProfileName {
+    text-align: center;
+    margin-top: -30px;
+    padding-bottom: 45px;
+}
+
+@media (min-width: 992px) {
+    #divProfileName {
+        text-align: left;
+        padding-bottom: 10px;
+        margin-top: 0px;
+    }
+}
+
+
+
+
+.divInfoGenerale {
+    padding-bottom: 5px;
+    padding-top: 6px;
+}
+
+.socialIconLink {
+    cursor: pointer;
+    font-size: 1.3em;
+    margin-left: 8px;
+    margin-right: 8px;
+    color: rgba(45,191,183, 1);
+    z-index: 30;
+}
+
+.facebookColor {
+    color: #3b5998;
+}
+
+.websiteColor {
+    color: rgba(45,191,183, 1);
+}
+
+
+.twitterColor {
+    color: #00aced;
+}
+
+.linkedinColor {
+    color: #007bb6;
+}
+
+
+.socialIconLink:hover {
+    color: black !important;
+}
+
+
+.CreationDateTxt {
+    opacity: 0.6;
+    font-size: 15px;
+}
+
+.ProfileLocation {
+    opacity: 0.8;
+    margin-left: 10px;
+}
+
+
+#divEditProfileMobile {
+    text-align: center;
+    display: inherit;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#EditProfileWideScreenBtn {
+    display: none;
+}
+
+
+@media (min-width: 992px) {
+    #divEditProfileMobile {
+        display: none;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    #EditProfileWideScreenBtn {
+        display: inherit;
+        width: 150px;
+        margin-left: 15px;
+    }
+}
+
+
+.suggestionLinkDiv {
+    margin-bottom: 8px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.suggestionLink {
+    text-align: center;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+    .suggestionLink:hover {
+        text-align: center;
+        text-decoration: underline;
+        cursor: pointer;
+        color: black;
+    }
+
+/* ==========================================================================
+  End  Profile
+   ========================================================================== */
+.MyProfilePanel {
+    border: #DEE3DE 2px solid;
+    margin-bottom: 12px;
+}
+
+
+.MyProfilePanel {
+    border-radius: 0;
+    border: 1px solid #dce0e0;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.MyProfilePanel-header {
+    color: #484848;
+    font-size: 18px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 40px;
+    border-bottom: 1px solid #dce0e0;
+    font-weight: bold;
+    background-color: #DEE3DE;
+}
+
+.noRecordDiv {
+    margin-top: 5px;
+    text-align: center;
+}
+
+.MyProfilePanel-Body {
+    padding-bottom: 12px;
+    padding-top: 12px;
+}
+
+
+
+#modal-dialog-editprofile {
+    top: 25px;
+}
+
+#NamesEditProfileDiv {
+    margin-top: 20px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+
+
+
+/* ==========================================================================
+   Begin Followers
+   ========================================================================== */
+.cardFollowerTopLevel {
+    cursor: pointer;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.myProfileFollowerCard {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    -webkit-transition: 0.5s ease-out;
+    -moz-transition: 0.5s ease-out;
+    -o-transition: 0.5s ease-out;
+    -ms-transition: 0.5s ease-out;
+    transition: 0.5s ease-out;
+}
+
+
+
+@media (min-width: 992px) {
+    .divZoomOnHoverFollower {
+        overflow: hidden;
+        width: 110px;
+        height: 110px;
+        margin: auto;
+        border-radius: 50%;
+        text-align: center;
+        border: #DEE3DE 1px solid;
+    }
+
+    #divFollowers {
+        margin-top: 0px;
+    }
+}
+
+
+
+.divZoomOnHoverFollower {
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    border-radius: 50%;
+    text-align: center;
+    border: #DEE3DE 1px solid;
+}
+
+#divFollowers {
+    margin-top: 35px;
+}
+
+@media (min-width: 992px) {
+    .divZoomOnHoverFollower {
+        overflow: hidden;
+        width: 100px;
+        height: 100px;
+        margin: auto;
+        border-radius: 50%;
+        text-align: center;
+    }
+
+    #divFollowers {
+        margin-top: 0px;
+    }
+}
+
+
+.myProfileFollowerCard:hover {
+    width: 110%;
+    height: 110%;
+    background-size: cover;
+    background-position: center;
+    margin-left: -5%;
+    margin-top: -5%;
+}
+
+
+
+.followerName {
+    font-weight: bold;
+    color: #f36f23;
+    font-size: 1em;
+    text-align: center;
+    padding-top: 8px;
+}
+
+
+.followBigScreen {
+    display: inherit !important;
+    margin-right: 15px;
+}
+
+.followSmallScreen {
+    display: none !important;
+}
+
+@media (max-width: 992px) {
+    .followBigScreen {
+        display: none !important;
+    }
+
+    .followSmallScreen {
+        display: inherit !important;
+        width: 60% !important;
+        margin-left: 20%;
+        margin-right: 20%;
+        margin-left: 45px;
+    }
+}
+
+.divAccordion {
+    text-align: center;
+}
+
+
+.accordion {
+    cursor: pointer;
+}
+
+/* ==========================================================================
+  End  Followers
+   ========================================================================== */
+
+
+
+
+
+
+#targetContainer {
+    min-height: 500px;
+}
+
+
+
+/* ==========================================================================
+  Begin  follow button
+   ========================================================================== */
+
+
+
+.FollowUnfollowBtn {
+    height: 42px !important;
+    padding-top: 9px !important;
+    font-size: 1.2em !important;
+}
+
+
+/* ==========================================================================
+  End  follow button
+   ========================================================================== */

@@ -16,6 +16,7 @@ namespace Service.Admin.Interface
 {
     public interface IUserRolesService
     {
+         bool IsInRole(string userName, string roleName);
         DisplayUsersViewModel GetDisplayUsersViewModel(string Pattern, int StartAt, int PageSize);
 
         UserRoleItem GetUserRolesByUseridentityId(string UserIdentity);

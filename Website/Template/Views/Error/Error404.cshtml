@@ -1,0 +1,21 @@
+﻿@{
+
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (!Request.IsAjaxRequest())
+{
+    @Html.Partial("_PageTitle")
+}
+<div class="col-xs-12 col-md-10 col-md-offset-1">
+
+    <div class="main-content" style="text-align:center;padding-bottom:40px;">
+        <img src="~/Ressources/Files/Images/Error.gif" />
+    </div>
+</div>
+
+@section scripts {
+    @Html.ScriptImportContent("~/Scripts/General/StopSpinner.js")
+}
+
+

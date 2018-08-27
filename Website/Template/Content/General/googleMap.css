@@ -1,0 +1,83 @@
+.GMmarker {
+    position: absolute;
+    cursor: pointer;
+    width: 75px;
+    height: 30px;
+    z-Index: 200000;
+    background-color: white;
+    border-radius: 5px;
+    border: solid 1px #555;
+    color: white;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+.infoBox {
+    background-color: white;
+    border: solid 1px #353e48;
+    border-radius: 5px;
+    width: 200px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.marker_info
+{
+
+}
+
+.marker_infotext {
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0px;
+    text-align:center;
+}
+
+.marker_image {
+    width: 100%;
+    height: 130px;
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px;
+}
+
+.marker_titletext {
+    font-size: 19px;
+    color: #353e48;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.spanDateClass {
+    font-weight: bold;
+    font-size: 9px;
+    position: absolute;
+    color: black;
+    top: 2px;
+    margin-left: 4px;
+}
+
+.spanPriceClass {
+    font-weight: bold;
+    font-size: 9px;
+    position: absolute;
+    top: 15px;
+    color: black;
+    margin-left:4px;
+}
+
+.marker_carousel
+{
+    margin-bottom:-15px;
+}
+
+.categoryImage
+{
+    margin-top:3px;
+}

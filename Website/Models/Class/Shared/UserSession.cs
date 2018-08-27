@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Models.Class.Localization;
 
 namespace Models.Class
 {
@@ -31,9 +32,10 @@ namespace Models.Class
 
         public string UserFullName { get { return (FirstName + " " + LastName).Trim(); } }
 
+
         public UserSession()
         {
-
+            
         }
     }
 }

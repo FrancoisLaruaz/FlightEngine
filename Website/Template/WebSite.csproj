@@ -206,6 +206,8 @@
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TasksController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\BrowseController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\ContentFileController.cs" />
@@ -240,10 +242,18 @@
     <Content Include="Areas\Admin\Content\News\Edit.css" />
     <Content Include="Areas\Admin\Scripts\Views\Tasks\Index.js" />
     <Content Include="Areas\Admin\Scripts\Views\Users\Index.js" />
+    <Content Include="Content\General\CookieConsent.css">
+      <DependentUpon>CookieConsent.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\General\CookieConsent.min.css">
+      <DependentUpon>CookieConsent.css</DependentUpon>
+    </Content>
     <Content Include="Content\General\PopUp.css" />
     <Content Include="Content\General\fakeSocialMediaStyle.css" />
+    <Content Include="Content\General\googleMap.css" />
     <Content Include="Content\General\webcam.css" />
     <Content Include="Content\General\mainscss.min.css" />
+    <Content Include="Content\General\lightbox.min.css" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
@@ -268,19 +278,46 @@
     <Content Include="Content\General\jtsage-datebox.min.css" />
     <Content Include="Content\General\_Spinner.css" />
     <Content Include="Content\Views\Account\_PasswordPolicy.css" />
+    <Content Include="Content\Views\Home\Index.css" />
     <Content Include="Content\Views\Home\ContactUs.css" />
+    <Content Include="Content\Views\Profile\Profile.css" />
+    <Content Include="Content\Views\Browse\Index.css" />
     <Content Include="Content\Views\Search\Index.css" />
+    <Content Include="Content\jquery-ui-min.css" />
     <Content Include="Content\Views\Search\Search_Bar.css">
       <DependentUpon>Search_Bar.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\Search\Search_Bar.min.css">
       <DependentUpon>Search_Bar.css</DependentUpon>
     </Content>
-    <Content Include="Content\jquery-ui-min.css" />
     <Content Include="Content\Views\Shared\FollowUserBtn.css" />
+    <Content Include="Content\Views\Shared\Carousel.css" />
     <Content Include="Content\Views\Shared\SquaredCheckBox.css" />
+    <Content Include="Content\Views\Shared\_CookieConsent.css" />
+    <Content Include="Ressources\Files\Images\Background.jpg" />
+    <Content Include="Ressources\Files\Images\Error\404.gif" />
+    <Content Include="Ressources\Files\Images\HomePage\slider_homepage1.jpg" />
+    <Content Include="Ressources\Files\Images\GoogleMap\close_marker.png" />
+    <Content Include="Ressources\Files\Images\HomePage\slider_homepage2.jpg" />
+    <Content Include="Ressources\Files\Images\HomePage\slider_homepage3.jpg" />
+    <Content Include="Ressources\Files\Images\HomePage\slider_homepage4.jpg" />
+    <Content Include="Ressources\Files\Images\ProductIcon\bike.png" />
+    <Content Include="Ressources\Files\Images\ProductIcon\drinks.png" />
     <Content Include="Ressources\Files\Images\Search\noresult.png" />
+    <Content Include="Ressources\Files\Images\titlebackground.jpg" />
+    <Content Include="Scripts\General\FormaterHelper.js" />
+    <Content Include="Scripts\General\DateHelper.js" />
+    <Content Include="Scripts\General\CarouselHelper.js" />
+    <Content Include="Scripts\General\GoogleMapHelper.js" />
+    <Content Include="Scripts\General\CaptchaHelper.js" />
+    <Content Include="Scripts\General\InfoBox.js" />
+    <Content Include="Scripts\General\CustomGoogleMapMarker.js" />
+    <Content Include="Scripts\General\lightbox.min.js" />
     <Content Include="Scripts\General\PopUp.js" />
+    <Content Include="Scripts\Views\Browse\Index.js" />
+    <Content Include="Scripts\Views\Profile\_Settings.js" />
+    <Content Include="Scripts\Views\Profile\_Profile.js" />
+    <Content Include="Scripts\Views\Profile\Profile.js" />
     <Content Include="Scripts\Views\Search\SearchBar.js" />
     <Content Include="Content\Views\Shared\_LanguageSelector.css" />
     <Content Include="Content\Views\Shared\_Footer.css" />
@@ -289,11 +326,12 @@
     <Content Include="Areas\Admin\Views\Users\_DisplayUsersModifications.cshtml" />
     <Content Include="Areas\Admin\Views\Users\_DisplayUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
-    <Content Include="Content\Views\Search\Search_Bar.scss" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="Content\Views\Search\Search_Bar.scss" />
+    <Content Include="Content\General\CookieConsent.scss" />
     <None Include="Content\Views\Shared\_LoginModal.less" />
     <Content Include="Content\Views\Shared\_Header.css" />
     <Content Include="Content\Views\Shared\_PageTitle.css" />
@@ -496,6 +534,8 @@
     <Content Include="Scripts\Views\Home\ContactUs.js" />
     <Content Include="Scripts\Views\Home\_VideoHomePage.js" />
     <Content Include="Scripts\Views\Home\Index.js" />
+    <Content Include="Scripts\Views\Shared\_TawkToHelper.js" />
+    <Content Include="Scripts\Views\Shared\_CookieConsent.js" />
     <Content Include="Scripts\Views\Shared\_Header.js" />
     <Content Include="Scripts\Views\Shared\Index.js" />
     <Content Include="Scripts\Views\Shared\FollowUserBtn.js" />
@@ -579,13 +619,20 @@
     <Content Include="Views\Account\MyProfile\_MyProfileEdit.cshtml" />
     <Content Include="Views\Account\MyProfile\_MyProfilePhotos.cshtml" />
     <Content Include="Views\Account\MyProfile\_MyProfileTrustAndVerifications.cshtml" />
-    <Content Include="Views\Shared\Layout\_TawkTo.cshtml" />
     <Content Include="Views\Account\MyProfile\_MyProfileAddress.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\_IndexSearchResultItem.cshtml" />
     <Content Include="Views\Search\_SearchBar.cshtml" />
     <Content Include="Views\Search\_IndexSearchResult.cshtml" />
     <Content Include="Views\Search\_IndexSearchResultType.cshtml" />
+    <Content Include="Views\Profile\Profile.cshtml" />
+    <Content Include="Views\Profile\_Profile.cshtml" />
+    <Content Include="Views\Profile\Profile\_GeneralInformation.cshtml" />
+    <Content Include="Views\Profile\Profile\_EditGeneralInformation.cshtml" />
+    <Content Include="Views\Browse\Index.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
+    <Content Include="Views\Shared\Layout\_CookieConsent.cshtml" />
+    <Content Include="Views\Error\Error404.cshtml" />
     <None Include="Web.config.perso">
       <SubType>Designer</SubType>
     </None>

@@ -1,0 +1,67 @@
+﻿@model  Models.ViewModels.Profile.PublicProfileViewModel
+
+
+
+@Html.CssImportContent("~/Content/Views/Profile/Profile.css")
+@Html.CssImportContent("~/Content/Views/Shared/FollowUserBtn.css")
+@Html.CssImportContent("~/Content/Views/Shared/SquaredCheckBox.css")
+
+
+
+
+@if (Model.CanUserEdit)
+{
+    @Html.Partial("_PageTitle")
+}
+
+
+@Html.HiddenFor(m => m.UserId, new { id = "HiddenUserId" })
+@Html.HiddenFor(m => m.CanUserEdit)
+@Html.HiddenFor(m => m.IsLoggedUserProfile)
+<input type="hidden" id="TabToShow" value="@Model.Show" />
+<input type="hidden" id="SettingsTabToGo" value="" />
+
+<nav class="navbar nav-2017" id="MyProfileNavBar" style="display:none">
+    <div class="container">
+        <div class="navbar-header">
+            <div id="burger-17" class="navbar-toggle" data-toggle="collapse" data-target="#my-nav">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="my-nav">
+            <ul class="nav navbar-nav">
+                <li data-viewid="_profile" id="li_Profile">
+
+                    <a class="profiletabs" href="" data-viewid="_profile" data-toggle="tab" id="tab_profile">
+                        [[[My Profile]]]
+                    </a>
+                </li>
+                @if (Model.CanUserEdit)
+                {
+                    <li data-viewid="_settings" id="li_settings">
+                        <a class="profiletabs" href="" data-viewid="_settings" data-toggle="tab" id="tab_settings">
+                            [[[Settings]]]
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div id="profile-page-container">
+    <div class="container-fluid" id="ProfilContainer">
+        <div id="targetContainer">
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts {
+    @Html.ScriptImportContent("~/Scripts/Views/Shared/FollowUserBtn.js")
+    @Html.ScriptImportContent("~/Scripts/Views/Profile/Profile.js")
+    @Html.ScriptImportContent("~/Scripts/Views/Profile/_Profile.js")
+    @Html.ScriptImportContent("~/Scripts/Views/Profile/_Settings.js")
+}

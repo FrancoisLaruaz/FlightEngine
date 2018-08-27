@@ -233,18 +233,18 @@ namespace Service.UserArea
                             searchItem.ItemId = item.Id;
                             searchItem.Name = fullNameDecrypted;
                             searchItem.LoggedUserId = user == null ? 0 : user.Id;
-                            searchItem.ImageSrc = item.PictureSrc ?? CommonsConst.Const.DefaultImageUser;
+                            searchItem.ImageSrc = item.PictureSrc ?? CommonsConst.DefaultImage.DefaultThumbnailUser;
                             searchItem.ItemFollowed = user == null ? false : user.UserFollows1.Where(f => f.FollowedUserId == item.Id).Any();
                             if (!System.IO.File.Exists(HttpContext.Current.Server.MapPath(searchItem.ImageSrc)))
                             {
-                                searchItem.ImageSrc = CommonsConst.Const.DefaultImageUser.Replace("~","");
+                                searchItem.ImageSrc = CommonsConst.DefaultImage.DefaultThumbnailUser.Replace("~","");
                             }
                             searchItem.ImageSrc = searchItem.ImageSrc.Replace("~", "");
                             searchItem.Description = item.Description;
                             searchItem.Url = "/MyProfile/" + item.Id;
                             searchItem.ShortDescription = "";
                             string city = "";
-                            string province = item.Province?.Name;
+                            string province = item.Address?.Province?.Name;
 
 
                             if (!String.IsNullOrWhiteSpace(city))

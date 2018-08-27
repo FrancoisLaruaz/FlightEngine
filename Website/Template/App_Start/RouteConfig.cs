@@ -12,11 +12,17 @@ namespace Template
             routes.MapRoute(
             "ContentHash",
             "c/{hash}",
-            new { controller = "ContentFile", action = "Get", area="" },
+            new { controller = "ContentFile", action = "Get", area = "" },
             new { hash = @"^[0-9a-zA-Z]+$" } // constraint
             );
 
+            #region Browse  
 
+
+
+
+
+            #endregion 
 
             #region Search
 
@@ -44,7 +50,20 @@ namespace Template
                 );
 
 
-            #endregion 
+            #endregion
+
+            #region Error
+
+            routes.MapRoute(
+                "Error404",
+                "Error404",
+                new { controller = "Error", action = "Error404" },
+                namespaces: new[] { "Website.Controllers" }
+            );
+
+
+
+            #endregion
 
             #region Home
 
@@ -52,6 +71,13 @@ namespace Template
                 "ContactUs",
                 "ContactUs",
                 new { controller = "Home", action = "ContactUs" },
+                namespaces: new[] { "Website.Controllers" }
+            );
+
+            routes.MapRoute(
+                "FAQ",
+                "FAQ",
+                new { controller = "Home", action = "FAQ" },
                 namespaces: new[] { "Website.Controllers" }
             );
 
@@ -75,7 +101,7 @@ namespace Template
                 namespaces: new[] { "Website.Controllers" }
             );
 
-            
+
 
             routes.MapRoute(
                 "TermsAndConditions",
@@ -99,19 +125,22 @@ namespace Template
             );
 
 
-            routes.MapRoute(
-            "UserProfile",
-            "MyProfile/{id}",
-            new { controller = "Account", action = "MyProfile", id = UrlParameter.Optional },
-            namespaces: new[] { "Website.Controllers" }
-            );
+
 
             routes.MapRoute(
-            "MyProfile",
-            "MyProfile",
-            new { controller = "Account", action = "MyProfile" },
-            namespaces: new[] { "Website.Controllers" }
-            );
+                name: "MyOtherProfile",
+                url: "MyProfile/{id}/{show}",
+                defaults: new { controller = "Profile", action = "Index", show = UrlParameter.Optional, id = UrlParameter.Optional },
+                namespaces: new[] { "Website.Controllers" },
+                constraints: new { id = @"\d+" }
+                );
+
+            routes.MapRoute(
+                name: "MyProfile",
+                url: "MyProfile/{show}",
+                defaults: new { controller = "Profile", action = "Index", show = UrlParameter.Optional },
+                namespaces: new[] { "Website.Controllers" }
+                );
 
             #endregion
 

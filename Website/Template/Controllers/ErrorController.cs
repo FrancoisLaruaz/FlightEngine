@@ -33,8 +33,14 @@ namespace Website.Controllers
             return View("~/Views/Error/Index.cshtml");
         }
 
+        public ActionResult Error404()
+        {
+            ViewBag.Title = "[[[Error]]]";
+            return View("~/Views/Error/Error404.cshtml");
+        }
 
-        public JsonResult LogJavascriptError(string errorMsg, string url, string lineNumber, string col, string error, string browser, bool custom)
+
+        public JsonResult LogJavascriptError(string errorMsg="", string url = "", string lineNumber = "", string col = "", string error = "", string browser = "", bool custom=false)
         {
             bool _success = true;
 

@@ -1,0 +1,63 @@
+﻿@model Models.ViewModels.Profile.EditGeneralInformationViewModel
+
+@{
+    Layout = null;
+}
+
+
+<div class="col-md-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
+    <form id="EditGeneralInformationForm" action="/Profile/_EditGeneralInformation">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.UserId)
+        <div class="col-xs-12 col-md-12">
+            <h4>[[[About you]]]</h4>
+        </div>
+        <div class="col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1 divErrorForm">
+            <span id="GeneralInformationFormError" class="text-danger"> </span>
+        </div>
+        <div class="row col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1" id="NamesEditProfileDiv">
+            <div class="sexyTBgroup col-md-6 col-xs-6">
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "sexyTB" })
+                <label class="labelSexyTb">@Html.DisplayNameFor(m => m.FirstName)</label>
+                <i class="fa fa-user SexyField-iconsSmall" aria-hidden="true"></i>
+                @Html.ValidationMessageFor(m => m.FirstName)
+            </div>
+            <div class="sexyTBgroup col-md-6 col-xs-6">
+                @Html.TextBoxFor(model => model.LastName, new { @class = "sexyTB" })
+                <label class="labelSexyTb">@Html.DisplayNameFor(m => m.LastName)</label>
+                <i class="fa fa-user SexyField-iconsSmall" aria-hidden="true"></i>
+                @Html.ValidationMessageFor(m => m.LastName)
+            </div>
+        </div>
+
+        <div class="col-md-10 col-md-10 col-md-offset-1 col-xs-offset-1 websiteFormGroup" style="padding-bottom:25px;padding-top:5px;">
+            <div class="col-md-12 col-xs-12 noMarginNoPaddingHorizontal" style="text-align:left;">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "labelTextArea" })
+            </div>
+            <div class="col-md-12 col-xs-12 noMarginNoPaddingHorizontal" style="margin-bottom:6px;">
+                @Html.TextAreaFor(m => Model.Description, new { @class = "SexyTextArea", @rows = "5" })
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12">
+            <h4>[[[Links]]]</h4>
+        </div>
+        <div class="sexyTBgroup col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1 websiteFormGroupShort">
+            @Html.TextBoxFor(model => model.Facebook, new { @class = "sexyTB" })
+            <label class="labelSexyTb">@Html.DisplayNameFor(m => m.Facebook)</label>
+            <i class="fa fa-facebook SexyField-iconsSmall" aria-hidden="true"></i>
+            @Html.ValidationMessageFor(m => m.Facebook)
+        </div>
+        <div class="col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1" style="padding-top: 5px;padding-bottom:35px;">
+            <input type="submit" class="square-btn square-inverse" value="[[[Save]]]" style="width:100% !important;" />
+        </div>
+    </form>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        SetEditGeneralInformationForm();
+    });
+</script>

@@ -87,7 +87,7 @@ function SetSearchBarAutoComplete() {
 
                 $('.HiddenSearchTerm_js').val(request.term);
                 var clearUrl = "/Search/GetSearchAutocomplete/" + cleanUrlTerm(request.term);
-
+            
                 $.ajax({
                     url: clearUrl,
                     type: "POST",

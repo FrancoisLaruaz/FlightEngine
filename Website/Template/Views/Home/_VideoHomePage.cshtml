@@ -1,15 +1,17 @@
 ﻿@using i18n
 
+@Html.CssImportContent("~/Content/Views/Home/_VideoHomePage.css")
+
 <div class="hero-video-container">
     <div class="hero-inner">
-        
-    <video id="homepageHeroVideo" preload="auto" loop="loop" autoplay="autoplay" muted>
-        <source src="~/Ressources/Files/Video/Homepage.mp4"  />
-        <div class="video-fallback-cover"></div>
-    </video>
-     
-   
-    
+
+        <video id="homepageHeroVideo" preload="auto" loop="loop" autoplay="autoplay" muted>
+            <source src="~/Ressources/Files/Video/Homepage.mp4" />
+            <div class="video-fallback-cover"></div>
+        </video>
+
+
+
 
         <div class="home-mobile-cover"></div>
 
@@ -28,3 +30,7 @@
     <iframe id="videoplayer" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="auto" src="https://www.youtube.com/embed/nkhpGC10OVw?showinfo=0&amp;controls=0&amp;autohide=1&amp;modestbranding=0&amp;rel=0&amp;wmode=transparent&amp;cc_load_policy=0&amp;hl=en&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fmywebsite&amp;widgetid=1&amp;autoplay=0"></iframe>
     <span id="videoPlayerClose" class="glyphicon glyphicon-remove-circle"></span>
 </div>
+
+@section scripts {
+    @Html.ScriptImportContent("~/Scripts/Views/Home/_VideoHomePage.js")
+}

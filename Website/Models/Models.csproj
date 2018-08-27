@@ -61,7 +61,12 @@
     <Compile Include="Class\ExternalAuthentification\ExternalSignUpInformation.cs" />
     <Compile Include="Class\ExternalAuthentification\FacebookOauthResponse.cs" />
     <Compile Include="Class\ExternalAuthentification\ExternalAuthentificationResult.cs" />
+    <Compile Include="Class\Localization\LocalizationItem.cs" />
     <Compile Include="Class\News\NewsItem.cs" />
+    <Compile Include="Class\Product\ProductFilter.cs" />
+    <Compile Include="Class\Product\ProductItem.cs" />
+    <Compile Include="Class\UserFollow\ToggleUserFollowResult.cs" />
+    <Compile Include="Class\UserFollow\UserFollowItem.cs" />
     <Compile Include="Class\Search\SearchFilter.cs" />
     <Compile Include="Class\Search\SearchItem.cs" />
     <Compile Include="Class\SignUp\UserSignUp.cs" />
@@ -100,6 +105,13 @@
     <Compile Include="ViewModel\Admin\Logs\DisplayLogsViewModel.cs" />
     <Compile Include="ViewModel\Admin\News\NewsViewModel.cs" />
     <Compile Include="ViewModel\Admin\Tasks\SchedulerStatusViewModel.cs" />
+    <Compile Include="ViewModel\Home\FAQViewModel.cs" />
+    <Compile Include="ViewModel\Profile\Profile\EditProfileGeneralInformationViewModel.cs" />
+    <Compile Include="ViewModel\Profile\Profile\GeneralInformationViewModel.cs" />
+    <Compile Include="ViewModel\Profile\Profile\FollowersViewModel.cs" />
+    <Compile Include="ViewModel\Profile\Profile\ProfileViewModel.cs" />
+    <Compile Include="ViewModel\Profile\PublicProfileViewModel.cs" />
+    <Compile Include="ViewModel\Browse\BrowseIndexViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchIndexResultTypeViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchIndexViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchIndexResultViewModel.cs" />
@@ -116,6 +128,9 @@
       <Name>DataEntities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Class\Profile\" />
+    <Folder Include="ViewModel\Profile\Settings\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

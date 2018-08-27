@@ -1,0 +1,28 @@
+﻿@model Models.ViewModels.Browse.BrowseIndexViewModel
+
+@Html.CssImportContent("~/Content/Views/Browse/Index.css")
+
+
+
+@Html.Partial("_PageTitle")
+
+<div class="container-fluid noMarginNoPaddingHorizontal" id="MainContainer">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-5 col-xs-12 col-xs-offset-0" style="position:absolute">
+            <div id="googleMap"></div>
+        </div>
+    </div>
+
+</div>
+
+@Html.HiddenFor(m => m.LocalizationJson)
+@Html.HiddenFor(m => m.Language)
+@Html.HiddenFor(m => m.ProductsListJson)
+
+
+@section scripts {
+    @Html.ScriptImportContent("~/Scripts/General/GoogleMapHelper.js")
+    @Html.ScriptImportContent("~/Scripts/Views/Browse/Index.js")
+}
+
+

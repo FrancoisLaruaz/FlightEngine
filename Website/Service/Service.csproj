@@ -53,14 +53,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Service\Admin\FileUploadService.cs" />
+    <Compile Include="Service\Admin\Interface\ICurrencyService.cs" />
     <Compile Include="Service\Admin\Interface\IUserRolesService.cs" />
     <Compile Include="Service\Admin\Interface\ITaskLogService.cs" />
     <Compile Include="Service\Admin\Interface\IFileUploadService.cs" />
     <Compile Include="Service\Admin\Interface\IScheduledTaskService.cs" />
     <Compile Include="Service\Admin\Interface\INewsService.cs" />
     <Compile Include="Service\Admin\Interface\ILogService.cs" />
+    <Compile Include="Service\Admin\CurrencyService.cs" />
     <Compile Include="Service\Admin\ScheduledTaskService.cs" />
     <Compile Include="Service\Admin\TaskLogService.cs" />
+    <Compile Include="Service\User\Interface\IProductService.cs" />
+    <Compile Include="Service\User\Interface\IUserFollowService.cs" />
+    <Compile Include="Service\User\ProductService.cs" />
+    <Compile Include="Service\User\UserFollowService.cs" />
     <Compile Include="Service\User\Interface\IEMailService.cs" />
     <Compile Include="Service\User\Interface\ICategoryService.cs" />
     <Compile Include="Service\User\Interface\IASPNetUsersService.cs" />
@@ -73,10 +79,11 @@
     <Compile Include="Service\User\SearchService.cs" />
     <Compile Include="Service\User\SocialMediaConnectionService.cs" />
     <Compile Include="Task\OneShot\SendNews.cs" />
+    <Compile Include="Task\Recurring\DeleteLogs.cs" />
     <Compile Include="Task\Recurring\DeleteUploadedFiles.cs" />
     <Compile Include="Task\Base\RecurringJobBase.cs" />
     <Compile Include="Task\Base\JobBase.cs" />
-    <Compile Include="Task\Recurring\DeleteLogs.cs" />
+    <Compile Include="Task\Recurring\ConvertCurrency.cs" />
     <Compile Include="Task\OneShot\SendEMailToUser.cs" />
     <Compile Include="Service\User\ProvinceService.cs" />
     <Compile Include="Service\User\CountryService.cs" />

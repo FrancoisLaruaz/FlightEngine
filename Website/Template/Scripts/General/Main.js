@@ -1,18 +1,12 @@
-var LoggedUserName = "";
-
-
-
-
 $(document).ready(function () {
     DisplayBrowserBanner();
-
-    var LoggedUserName = $("#HiddenLoggedUserName").val();
-
     SetSpinner();
 
-    $(".BackToHomePageButton_js").unbind("click");
-    $(".BackToHomePageButton_js").on("click", function (e) { e.preventDefault(); GoBackToHomePage(); });
 
+    $(document).on("click", ".BackToHomePageButton_js", function (e) {
+        e.preventDefault();
+        GoBackToHomePage();
+    });
     
 
     //Reset the validation forms of the page
@@ -55,8 +49,8 @@ function SetSpinner() {
         });
     });
 
-
-    $("a.showSpinnerBeforeRedirect_js").on("click", function (e) {
+    $(document).on("click", "a.showSpinnerBeforeRedirect_js", function () {
         ShowSpinner();
     });
+
 }

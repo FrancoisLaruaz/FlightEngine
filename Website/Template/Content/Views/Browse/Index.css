@@ -1,0 +1,27 @@
+#googleMap {
+    top: 20px;
+    height: 600px;
+    width: 100%;
+    border: 1px solid #AAA;
+}
+
+#bodyContainer
+{
+    min-height:900px !important;
+}
+
+
+
+.carousel-control.left, .carousel-control.right {
+    background-image: none !important;
+}
+
+
+.carousel-indicators
+{
+    bottom:0px !important;
+}
+
+.carousel{
+    top:-18px;
+}

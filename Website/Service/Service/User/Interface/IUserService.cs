@@ -12,12 +12,13 @@ using DataEntities.Model;
 using Models.ViewModels.Account;
 using Models.ViewModels.Home;
 using Models.Class.SignUp;
+using Models.ViewModels.Profile;
 
 namespace Service.UserArea.Interface
 {
     public interface IUserService
     {
-
+        bool CanUserEditProfile(int toBeEditedUserId, string currentUserName);
         bool SetUserLastConnectionDate(string UserName);
         bool IsEmailAvailable(string UserName);
 
@@ -28,6 +29,18 @@ namespace Service.UserArea.Interface
         DataEntities.Model.User GetUserByUserName(string UserName);
 
         bool UpdateLanguageUser(string Language, string UserName);
+
+        bool UpdateBackgroundPicture(int id, string path);
+
+        FollowersViewModel GetFollowers(int UserId);
+
+        GeneralInformationViewModel GetGeneralInformationViewModel(int UserId, int LoggedUserId);
+
+        ProfileViewModel GetProfileViewModel(int UserId, int LoggedUserId);
+
+        bool SaveGeneralInformation(EditGeneralInformationViewModel model);
+
+        EditGeneralInformationViewModel GetEditGeneralInformationViewModel(int UserId);
 
         UserSession GetUserSession(string UserName);
 

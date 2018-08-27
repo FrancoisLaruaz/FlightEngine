@@ -1,6 +1,24 @@
 ﻿@model Models.ViewModels.Home.HomeViewModel
 
-@Html.CssImportContent("~/Content/Views/Home/_VideoHomePage.css")
+@Html.CssImportContent("~/Content/Views/Home/Index.css")
+@Html.HiddenFor(m => m.SliderHomePageJson)
+<div id="background_homepage" class="background_homepage" style="background-image:  url(@CommonsConst.SliderHomePage.Image1.Replace("~", ""))">
+</div>
+<div id="divSlider" class="col-xs-12">
+    <div class="col-md-8 col-md-offset-2 col-xs-12 sliderTitle">
+        <span id="sliderTitle1">[[[Slider Title1]]]</span>
+    </div>
+    <div class="col-md-8 col-md-offset-2 col-xs-12 sliderTitle">
+        <span id="sliderTitle2">[[[Slider Title2]]]</span>
+    </div>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="col-md-4 col-md-offset-4 col-xs-12" id="divStartNowButton">
+            <input type="button" value="[[[Start now]]]" class="btn-maxWidth btn website-btn" id="StartNowHomePage" />
+        </div>
+    }
+</div>
+
 
 <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
 
@@ -10,22 +28,17 @@
     </div>
     <input id="hidden_RedirectTo" type="hidden" value="@Model.RedirectTo" />
 
-    @if (!User.Identity.IsAuthenticated)
-            {
-        <div class="col-md-4 col-md-offset-4 col-xs-12">
-            <input type="button" value="[[[Start now]]]" class="btn-maxWidth btn website-btn" id="StartNowHomePage" />
-        </div>
-    }
 </div>
 
+<div style="margin-top:500px" class="col-xs-12">
 
+</div>
 
 
 
 
 @section scripts {
     @Html.ScriptImportContent("~/Scripts/Views/Home/Index.js")
-    @Html.ScriptImportContent("~/Scripts/Views/Home/_VideoHomePage.js")
 }
 
 

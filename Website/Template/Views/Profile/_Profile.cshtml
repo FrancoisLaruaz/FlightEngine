@@ -1,0 +1,31 @@
+﻿@model Models.ViewModels.Profile.ProfileViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="row" id="GeneralInformationDiv">
+    @Html.Partial("Profile/_GeneralInformation", Model.GeneralInformation)
+</div>
+<div class="row col-xs-12 col-md-10 col-md-offset-1 col-xs-offset-0" style="margin-top:55px;">
+    <div class="col-xs-12 col-md-8">
+
+    </div>
+    <div class="col-xs-12 col-md-4">
+        <!--
+            <div class="col-xs-12" id="divFollowers">
+               Html.Partial("Profile/_Followers", Model.Followers)
+            </div>
+
+            <div class="col-xs-12 profileSection" id="PeopleYouFollowDiv">
+                Html.Partial("Profile/_Followers", Model.PeopleYouFollow)
+            </div>
+        -->
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        SetProfileTab();
+    });
+</script>

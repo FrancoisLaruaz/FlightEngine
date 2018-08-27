@@ -98,6 +98,27 @@ namespace Service.Admin
         }
 
 
+        public bool IsInRole(string userName, string roleName)
+        {
+            try
+            {
+                if (!String.IsNullOrWhiteSpace(userName))
+                {
+                    var role = _aspNetRoleRepo.FindAllBy(x => x.Name == roleName).FirstOrDefault();
+                    var user = _userRepo.FindAllBy(u => u.AspNetUser.UserName.ToLower().Trim() == userName.Trim().ToLower()).FirstOrDefault();
+                    if (user != null && user.AspNetUser != null)
+                    {
+                        if (role != null && role.AspNetUsers.Any(x => x.UserName == user.AspNetUser?.UserName)) return true;
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "userName = " + userName + " and roleName = " + roleName);
+            }
+            return false;
+        }
 
         public bool IsInRole(int UserId, string roleName)
         {

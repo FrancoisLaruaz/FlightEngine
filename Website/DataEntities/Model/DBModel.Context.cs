@@ -47,6 +47,12 @@ namespace DataEntities.Model
         public virtual DbSet<ValidTopLevelDomain> ValidTopLevelDomains { get; set; }
         public virtual DbSet<SearchResult> SearchResults { get; set; }
         public virtual DbSet<UserFollow> UserFollows { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductSubType> ProductSubTypes { get; set; }
+        public virtual DbSet<ProductType> ProductTypes { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<SubProvince> SubProvinces { get; set; }
+        public virtual DbSet<Currency> Currencies { get; set; }
     
         public virtual int DeleteNewsById(Nullable<int> newsId)
         {
@@ -176,6 +182,24 @@ namespace DataEntities.Model
                 new ObjectParameter("ScheduledTaskId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteScheduledTaskById", scheduledTaskIdParameter);
+        }
+    
+        public virtual int DeleteProductById_NoTransaction(Nullable<int> productId)
+        {
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("ProductId", productId) :
+                new ObjectParameter("ProductId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteProductById_NoTransaction", productIdParameter);
+        }
+    
+        public virtual int DeleteProductById_WithTransaction(Nullable<int> productId)
+        {
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("ProductId", productId) :
+                new ObjectParameter("ProductId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteProductById_WithTransaction", productIdParameter);
         }
     }
 }

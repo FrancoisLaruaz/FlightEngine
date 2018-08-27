@@ -2,5 +2,9 @@
   {
     "outputFile": "Content/Views/Search/Search_Bar.css",
     "inputFile": "Content/Views/Search/Search_Bar.scss"
+  },
+  {
+    "outputFile": "Content/General/CookieConsent.css",
+    "inputFile": "Content/General/CookieConsent.scss"
   }
 ]

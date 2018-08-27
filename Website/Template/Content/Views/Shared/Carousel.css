@@ -1,0 +1,11 @@
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 100%;
+    margin: auto;
+}
+
+
+
+.carousel-control.left, .carousel-control.right {
+    background-image: none !important;
+}

@@ -17,7 +17,7 @@ using Service.UserArea.Interface;
 using Models.ViewModels.Home;
 using Models.Class.Email;
 using Models.ViewModels.Shared;
-
+using Newtonsoft.Json;
 
 namespace Website.Controllers
 {
@@ -85,6 +85,17 @@ namespace Website.Controllers
             return PartialView("~/Views/Shared/Layout/_Header.cshtml", model);
         }
 
+        #region FAQ
+
+        [HttpGet]
+        public ActionResult FAQ()
+        {
+            ViewBag.Title = "[[[FAQ]]]";
+            return View(new FAQViewModel());
+        }
+
+        #endregion
+
         #region contactUs
         [HttpGet]
         public ActionResult ContactUs()
@@ -147,18 +158,20 @@ namespace Website.Controllers
             var model = new HomeViewModel();
             try
             {
-                ViewBag.ShowVideo = true;
+                ViewBag.ShowVideo = false;
                 model.SignUp = SignUp;
                 model.PromptLogin = PromptLogin;
                 model.RedirectTo = RedirectTo;
+                model.SliderHomePageJson = JsonConvert.SerializeObject(Utils.GetPropertiesList(typeof(CommonsConst.SliderHomePage)));
             }
             catch (Exception e)
             {
-                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SignUp = "+ SignUp+ " and PromptLogin = "+ PromptLogin+ " and RedirectTo = "+ RedirectTo);
             }
 
             return View(model);
         }
+
 
         /// <summary>
         /// Action executed to change the language of the website
@@ -175,6 +188,7 @@ namespace Website.Controllers
                 i18n.LanguageTag lt = i18n.LanguageTag.GetCachedInstance(langtag);
                 if (lt.IsValid())
                 {
+                    WebsiteLanguage = langtag;
                     // Set persistent cookie in the client to remember the language choice.
                     Response.Cookies.Add(new HttpCookie(CommonsConst.Const.i18nlangtag)
                     {

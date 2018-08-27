@@ -4,23 +4,23 @@
 @Html.CssImportContent("~/Content/Views/Search/Search_Bar.css")
 @Html.CssImportContent("~/Content/Views/Shared/_Header.css")
 
-<header class="sub-nav">
+<header class="sub-nav" id="MainHeader">
     @Html.Hidden("CentralGoToUrl")
-    <nav class="navbar navbar-default navigation" id="homeNavDefault">
+    <nav class="navbar navbar-default navigation navBarBottomBorder navBarBackgroundColor" id="homeNavDefault">
         @Html.Partial("~/Views/Shared/Layout/_BrowserBanner.cshtml")
-        <div class="container-fluid bgColorWebsite2" id="headerContainer">
+        <div class="container-fluid" id="headerContainer">
             <div class="navbar-header" style="padding-left:40px;">
                 <div class="mobileSearchBar">
                     @Html.Partial("~/Views/Search/_SearchBar.cshtml")
                 </div>
-                <button type="button" class="navbar-toggle collapsed burger" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" style="margin-top:13px;">
+                <button type="button" class="navbar-toggle collapsed burger" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" >
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand formSpinnerLoad" href="/" id="Logo">
-                    <img class="brand-logoNav" src="~/Ressources/Files/Images/Logo.png" />
+                    <img class="brand-logoNav" src="@CommonsConst.Const.Logo.Replace("~","")" />
                 </a>
             </div>
             <div class="collapse navbar-collapse navigationLink" id="bs-example-navbar-collapse-1" style="padding-right:25px;">
@@ -28,7 +28,7 @@
                     @if (Request.IsAuthenticated && User.IsInRole(CommonsConst.UserRoles.Admin))
                     {
                         <li class="dropdown signHupLinkNavBar">
-                            <a class="dropdown-toggle navMenuItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">[[[Admin]]]</a>
+                            <a class="dropdown-toggle navMenuItem" href="/Admin/Logs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">[[[Admin]]]</a>
                             <ul class="dropdown-menu noPaddingVertical">
                                 <li><a class="NavMenuItemDDL formSpinnerLoad" href="/Admin/Logs">[[[Logs]]]</a></li>
                                 <li><a class="NavMenuItemDDL formSpinnerLoad" href="/Admin/EmailAudits">[[[Email Audits]]]</a></li>
@@ -61,7 +61,6 @@
                                     {
                                         @Html.AntiForgeryToken()
                                     }
-                                    <li><a href="/ChangePassword" class="formSpinnerLoad">[[[Change Password]]]</a></li>
                                     <li><a id="LinkLogOff" class="formSpinnerLoad">[[[Log Off]]]</a></li>
                                 </ul>
                             </li>
@@ -70,8 +69,8 @@
                         {
                             if (!HttpContext.Current.Request.Url.AbsolutePath.Contains("Login"))
                             {
-                                <li class="dropdown marginLeftHeader"><a href="" id="LogInHeader" class="loginSignUpHeader">[[[Log In]]]</a></li>
-                                <li class="dropdown signHupLinkNavBar"><a href="" id="SignUpHeader" class="loginSignUpHeader">[[[Sign Up]]]</a></li>
+                                <li class="liLogin marginUserNavBar"><a href="" id="LogInHeader" class="aLogIn">[[[Log In]]]</a></li>
+                                <li class="liSignUp"><a href="" id="SignUpHeader" class="aSignUp">[[[Sign Up]]]</a></li>
                             }
                         }
                     }

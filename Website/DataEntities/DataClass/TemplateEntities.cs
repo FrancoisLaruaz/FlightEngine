@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataEntities.Model;
-using Z.EntityFramework.Plus;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
@@ -60,58 +59,13 @@ namespace DataEntities.Model
             return result;
         }
 
-        public override int SaveChanges()
-        {
-            try
-            {
-                var audit = new Audit();
-                audit.PreSaveChanges(this);
-                var rowAffecteds = base.SaveChanges();
-                audit.PostSaveChanges();
 
-                if (audit.Configuration.AutoSavePreAction != null)
-                {
-                    audit.Configuration.AutoSavePreAction(this, audit);
-                    base.SaveChanges();
-                }
-
-                return rowAffecteds;
-            }
-            catch (System.Exception e)
-            {
-                Logger.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, null);
-            }
-            return 0;
-        }
 
         public override Task<int> SaveChangesAsync()
         {
             return SaveChangesAsync(CancellationToken.None);
         }
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
-        {
-            try
-            {
-                var audit = new Audit();
-                audit.PreSaveChanges(this);
-                var rowAffecteds = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-                audit.PostSaveChanges();
 
-                if (audit.Configuration.AutoSavePreAction != null)
-                {
-                    audit.Configuration.AutoSavePreAction(this, audit);
-                    await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-                }
-
-                return rowAffecteds;
-            }
-
-            catch (System.Exception e)
-            {
-                Logger.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "cancellationToken = "+ cancellationToken==null?"NULL": cancellationToken.ToString());
-            }
-            return 0;
-        }
     }
 }

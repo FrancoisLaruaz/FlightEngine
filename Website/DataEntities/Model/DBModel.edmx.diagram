@@ -12,11 +12,11 @@
         <EntityTypeShape EntityType="TemplateModel.AspNetUser" Width="1.5" PointX="6" PointY="9.625" />
         <EntityTypeShape EntityType="TemplateModel.Category" Width="1.5" PointX="6" PointY="0.75" />
         <EntityTypeShape EntityType="TemplateModel.CategoryType" Width="1.5" PointX="3.75" PointY="3.125" />
-        <EntityTypeShape EntityType="TemplateModel.Country" Width="1.5" PointX="3.75" PointY="6.125" />
+        <EntityTypeShape EntityType="TemplateModel.Country" Width="1.5" PointX="2.5" PointY="5.375" />
         <EntityTypeShape EntityType="TemplateModel.EmailAudit" Width="1.5" PointX="13.5" PointY="5.5" />
         <EntityTypeShape EntityType="TemplateModel.EmailTypeLanguage" Width="1.5" PointX="11.25" PointY="2" />
         <EntityTypeShape EntityType="TemplateModel.News" Width="1.5" PointX="10.5" PointY="5.25" />
-        <EntityTypeShape EntityType="TemplateModel.Province" Width="1.5" PointX="6" PointY="6" />
+        <EntityTypeShape EntityType="TemplateModel.Province" Width="1.5" PointX="5.5" PointY="5.5" />
         <EntityTypeShape EntityType="TemplateModel.ScheduledTask" Width="1.5" PointX="15.75" PointY="5.375" />
         <EntityTypeShape EntityType="TemplateModel.SocialMediaConnection" Width="1.5" PointX="0.75" PointY="6.625" />
         <EntityTypeShape EntityType="TemplateModel.sysdiagram" Width="1.5" PointX="0.75" PointY="9.625" />
@@ -32,13 +32,11 @@
         <AssociationConnector Association="TemplateModel.FK_User_Gender" />
         <AssociationConnector Association="TemplateModel.FK_User_Language" />
         <AssociationConnector Association="TemplateModel.FK_Province_Country" />
-        <AssociationConnector Association="TemplateModel.FK_User_Country" />
         <AssociationConnector Association="TemplateModel.FK_EmailAudit_EMailTypeLanguageId" />
         <AssociationConnector Association="TemplateModel.FK_EmailAudit_ScheduledTaskId" />
         <AssociationConnector Association="TemplateModel.FK_EmailAudit_UserId" />
         <AssociationConnector Association="TemplateModel.FK_News_LastModificationUserId" />
         <AssociationConnector Association="TemplateModel.FK_ScheduledTask_News" />
-        <AssociationConnector Association="TemplateModel.FK_User_Province" />
         <AssociationConnector Association="TemplateModel.FK_ScheduledTask_User" />
         <AssociationConnector Association="TemplateModel.AspNetUserRoles" />
         <AssociationConnector Association="TemplateModel.FK_EmailTypeLanguage_Language" />
@@ -49,6 +47,21 @@
         <AssociationConnector Association="TemplateModel.FK_UserFollow_FollowedUserId" />
         <AssociationConnector Association="TemplateModel.FK_UserFollow_User" />
         <AssociationConnector Association="TemplateModel.FK_SearchResult_User" />
+        <EntityTypeShape EntityType="TemplateModel.Product" Width="1.5" PointX="13.5" PointY="0.75" />
+        <EntityTypeShape EntityType="TemplateModel.ProductSubType" Width="1.5" PointX="11.25" PointY="20.75" />
+        <EntityTypeShape EntityType="TemplateModel.ProductType" Width="1.5" PointX="9" PointY="20.875" />
+        <AssociationConnector Association="TemplateModel.FK_Product_StatusId" />
+        <AssociationConnector Association="TemplateModel.FK_Product_SubTypeId" />
+        <AssociationConnector Association="TemplateModel.FK_Product_UserId" />
+        <AssociationConnector Association="TemplateModel.FK_ProductSubType_ProductType" />
+        <EntityTypeShape EntityType="TemplateModel.Address" Width="1.5" PointX="15.5" PointY="10.5" />
+        <EntityTypeShape EntityType="TemplateModel.SubProvince" Width="1.5" PointX="8.25" PointY="16.875" />
+        <AssociationConnector Association="TemplateModel.FK_Address_Province" />
+        <AssociationConnector Association="TemplateModel.FK_Address_SubProvince" />
+        <AssociationConnector Association="TemplateModel.FK_Product_Address" />
+        <AssociationConnector Association="TemplateModel.FK_User_Address" />
+        <AssociationConnector Association="TemplateModel.FK_SubProvince_Province" />
+        <EntityTypeShape EntityType="TemplateModel.Currency" Width="1.5" PointX="0.75" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

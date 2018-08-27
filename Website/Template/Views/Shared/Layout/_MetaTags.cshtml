@@ -1,21 +1,71 @@
-﻿
+﻿@using System.Configuration;
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Template Website created by Francois LARUAZ (2017)">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="application-name" content="FrontFundr" />
-<meta name="msapplication-TileColor" content="@CommonsConst.Const.ColorWebsite" />
-<meta name="msapplication-TileImage" content="/Ressources/Files/Images/Logo.png" />
-<meta name="theme-color" content="@CommonsConst.Const.ColorWebsite">
-
-
+<title>@CommonsConst.Const.WebsiteTitle</title>
 @if (!String.IsNullOrWhiteSpace(ViewBag.MetaKeyWords))
 {
-<meta name="keywords" content="@ViewBag.MetaKeyWords">
+    <meta name="keywords" content="@ViewBag.MetaKeyWords">
 }
 else
 {
-<meta name="keywords" content="@CommonsConst.Const.BaseMetaKeyWords">
+    <meta name="keywords" content="@CommonsConst.BaseMetaData.KeyWords">
+}
+@if (!String.IsNullOrWhiteSpace(ViewBag.MetaDescription))
+{
+    <meta name="description" content="@ViewBag.MetaDescription">
+}
+else
+{
+    <meta name="description" content="@CommonsConst.BaseMetaData.Description">
+}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="application-name" content="@CommonsConst.Const.WebsiteTitle" />
+<meta name="msapplication-TileColor" content="@CommonsConst.Const.ColorWebsite" />
+@if (!String.IsNullOrWhiteSpace(ViewBag.MetaImageSrc))
+{
+    <meta name="msapplication-TileImage" content="@ViewBag.MetaImageSrc">
+}
+else
+{
+    <meta name="msapplication-TileImage" content="@ConfigurationManager.AppSettings["Website"]@CommonsConst.BaseMetaData.MetaImageSrc">
+}
+<meta name="theme-color" content="@CommonsConst.Const.ColorWebsite">
+@if (!String.IsNullOrWhiteSpace(ViewBag.MetaTitle))
+{
+    <meta property="og:title" content="@ViewBag.MetaTitle">
+}
+else
+{
+    <meta property="og:title" content="@CommonsConst.BaseMetaData.Title">
+}
+<meta property="og:type" content="article" />
+<meta property="og:url" content="@Request.Url.AbsoluteUri.Replace("https","http")" />
+@if (!String.IsNullOrWhiteSpace(ViewBag.MetaImageSrc))
+{
+    <meta property="og:image" content="@ViewBag.MetaImageSrc">
+}
+else
+{
+    <meta property="og:image" content="@ConfigurationManager.AppSettings["Website"]@CommonsConst.BaseMetaData.MetaImageSrc">
+}
+@if (!String.IsNullOrWhiteSpace(ViewBag.MetaDescription))
+{
+    <meta property="og:description" content="@ViewBag.MetaDescription">
+}
+else
+{
+    <meta property="og:description" content="@CommonsConst.BaseMetaData.Description">
+}
+<meta property="og:site_name" content="@CommonsConst.Const.WebsiteTitle" />
+
+@if (!String.IsNullOrWhiteSpace(ViewBag.MetaKeyWords))
+{
+    <meta name="keywords" content="@ViewBag.MetaKeyWords">
+}
+else
+{
+    <meta name="keywords" content="@CommonsConst.Const.BaseMetaKeyWords">
 }
 
 <meta name="charset" content="utf-8">
@@ -23,6 +73,43 @@ else
 <meta name="Author" content="By Francois LARUAZ">
 <meta name="robots" content="INDEX,FOLLOW">
 <meta name="Rating" content="general">
-<meta name="Copyright" content="©COPYRIGHT 2017 Zaural Ltd.">
+<meta name="Copyright" content="©COPYRIGHT 2017 @CommonsConst.Const.WebsiteTitle.">
 <meta name="Classification" content="">
 <meta name="google" content="notranslate" />
+<!-- Twitter Card data -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@Html.Raw("@")@CommonsConst.Const.WebsiteTitle">
+@if (!String.IsNullOrWhiteSpace(ViewBag.MetaTitle))
+{
+    <meta name="twitter:title" content="@ViewBag.MetaTitle">
+}
+else
+{
+    <meta name="twitter:title" content="@CommonsConst.BaseMetaData.Title">
+}
+@if (!String.IsNullOrWhiteSpace(ViewBag.MetaDescription))
+{
+    <meta name="twitter:description" content="@ViewBag.MetaDescription">
+}
+else
+{
+    <meta name="twitter:description" content="@CommonsConst.BaseMetaData.Description">
+}
+<meta name="twitter:creator" content="@CommonsConst.Const.WebsiteTitle">
+<!-- Twitter Summary card images must be at least 120x120px -->
+@if (!String.IsNullOrWhiteSpace(ViewBag.MetaImageSrc))
+{
+    <meta name="twitter:image" content="@ViewBag.MetaImageSrc">
+}
+else
+{
+<meta name="twitter:image" content="@ConfigurationManager.AppSettings["Website"]@CommonsConst.BaseMetaData.MetaImageSrc">
+}
+@if (!Commons.Utils.IsLocalhost())
+{
+<link rel="alternate" href="@Request.Url.AbsoluteUri.Replace(".com/en",".com").Replace(".com",".com/fr")" hreflang="fr" />
+}
+@if (!Commons.Utils.IsLocalhost())
+{
+<link rel="alternate" href="@Request.Url.AbsoluteUri.Replace(".com/fr",".com").Replace(".com",".com/en")" hreflang="en" />
+}

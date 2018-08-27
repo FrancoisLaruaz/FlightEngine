@@ -10,7 +10,7 @@ else
     <div class="row" style="margin-top:30px;margin-bottom:20px;">
 
         <div class="col-xs-12 col-md-12">
-            @using (Ajax.BeginForm("_LoginForm", "Account", new { }, new AjaxOptions() { HttpMethod = "POST", OnBegin = "handleLoginBegin", OnSuccess = "LoginSuccess", OnFailure = "LoginFailure" }, new { @id = "LoginModalForm" }))
+            @using (Ajax.BeginForm("_LoginForm", "Account", new { }, new AjaxOptions() { HttpMethod = "POST", OnBegin = "handleLoginBegin", OnSuccess = "LoginSuccess", OnFailure = "LoginFailure" }, new { @id = "LoginModalForm", @class= "noAjaxSpinner_js" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(m => m.URLRedirect)

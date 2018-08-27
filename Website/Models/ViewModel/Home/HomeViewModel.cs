@@ -15,6 +15,8 @@ namespace Models.ViewModels.Home
 
         public string RedirectTo { get; set; }
 
+        public string SliderHomePageJson { get; set; }
+
         public HomeViewModel()
         {
            

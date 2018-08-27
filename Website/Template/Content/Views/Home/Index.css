@@ -1,0 +1,98 @@
+.background_homepage {
+    width: 100%;
+    height: 480px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px;
+    padding: 0px;
+    position:absolute;
+    top:0px;
+}
+
+.navBarBackgroundColor {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.navBarBackgroundColorTransparent {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.navBarBackgroundColorWhite {
+    background-color: white !important;
+    border-color: white !important;
+}
+
+
+
+
+
+#background_homepage {
+    opacity: 0.4;
+    filter: alpha(opacity=4); /* For IE8 and earlier */
+    transition: opacity 1s;
+}
+
+    #background_homepage.fadeOut {
+        opacity: 0;
+        filter: alpha(opacity=0); /* For IE8 and earlier */
+    }
+
+
+
+#divSlider {
+    opacity: 1;
+    filter: alpha(opacity=100) !important; /* For IE8 and earlier */
+    position: absolute;
+    top: 100px;
+}
+
+.sliderTitle
+{
+    text-align:center;
+    margin-top:25px;
+    margin-bottom:auto;
+}
+
+#sliderTitle1 {
+    font-size: 4rem;
+    line-height: 4rem;
+    color: black;
+    font-weight: 900;
+}
+
+#sliderTitle2 {
+    font-size: 2rem;
+    line-height: 3rem;
+    color: #555;
+    margin-bottom: 1rem;
+    font-weight: 900;
+}
+
+#divStartNowButton
+{
+    margin-top:150px;
+}
+
+@media (min-width: 1070px) {
+    #divStartNowButton {
+        margin-top: 150px;
+    }
+
+}
+
+.navBarBottomBorder {
+    border-bottom: none !important;
+}
+
+
+.navBarBottomBorderNone {
+    border-bottom: none !important;
+}
+
+.navBarBottomBorderGrey {
+    border-bottom: 3px solid rgba(46,62,72,.12) !important;
+    ;
+}

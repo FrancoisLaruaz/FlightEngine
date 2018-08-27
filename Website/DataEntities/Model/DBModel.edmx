@@ -5,6 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TemplateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="Venue" Type="nvarchar" MaxLength="500" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="200" />
+          <Property Name="Street" Type="nvarchar" MaxLength="900" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Latitude" Type="decimal" Precision="38" Scale="20" Nullable="false" />
+          <Property Name="Longitude" Type="decimal" Precision="38" Scale="20" Nullable="false" />
+          <Property Name="SubProvinceId" Type="int" />
+          <Property Name="ProvinceId" Type="int" />
+          <Property Name="City" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -83,8 +99,17 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" />
-          <Property Name="Code" Type="nvarchar" MaxLength="255" />
-          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="255" />
+          <Property Name="Symbol" Type="nvarchar" MaxLength="10" />
+          <Property Name="EuroConversationRate" Type="decimal" Precision="38" Scale="19" Nullable="false" />
         </EntityType>
         <EntityType Name="EmailAudit">
           <Key>
@@ -140,14 +165,45 @@
           <Property Name="TypeUserMailingId" Type="int" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImageSrc" Type="nvarchar" MaxLength="256" />
+          <Property Name="Price" Type="decimal" Precision="25" Scale="2" />
+          <Property Name="SubTypeId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="AddressId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductSubType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ImageSrc" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ProductTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ImageSrc" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
         <EntityType Name="Province">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" />
-          <Property Name="code" Type="nvarchar" MaxLength="255" />
-          <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="CountryId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ScheduledTask">
@@ -186,6 +242,14 @@
           <Property Name="ProviderKeyUserFriend" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="SubProvince">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="ProvinceId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -216,13 +280,8 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="CountryId" Type="int" />
           <Property Name="DateOfBirth" Type="datetime" />
-          <Property Name="Adress1" Type="nvarchar" MaxLength="255" />
-          <Property Name="Adress2" Type="nvarchar" MaxLength="255" />
-          <Property Name="Adress3" Type="nvarchar" MaxLength="255" />
           <Property Name="LanguageId" Type="int" Nullable="false" />
-          <Property Name="ProvinceId" Type="int" />
           <Property Name="PictureSrc" Type="nvarchar" MaxLength="256" />
           <Property Name="ReceiveNews" Type="bit" Nullable="false" />
           <Property Name="PictureThumbnailSrc" Type="nvarchar" MaxLength="256" />
@@ -236,6 +295,8 @@
           <Property Name="UserNameModification" Type="nvarchar" MaxLength="256" />
           <Property Name="PublicProfile" Type="bit" Nullable="false" />
           <Property Name="FacebookLink" Type="nvarchar" MaxLength="500" />
+          <Property Name="BackgroundPictureSrc" Type="nvarchar" MaxLength="500" />
+          <Property Name="AddressId" Type="int" />
         </EntityType>
         <EntityType Name="UserFollow">
           <Key>
@@ -253,6 +314,30 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="200" />
         </EntityType>
+        <Association Name="FK_Address_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Address_SubProvince">
+          <End Role="SubProvince" Type="Self.SubProvince" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubProvince">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="SubProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Category_CategoryTypeId">
           <End Role="CategoryType" Type="Self.CategoryType" Multiplicity="1" />
           <End Role="Category" Type="Self.Category" Multiplicity="*" />
@@ -417,6 +502,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Product_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_StatusId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_SubTypeId">
+          <End Role="ProductSubType" Type="Self.ProductSubType" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSubType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="SubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_UserId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSubType_ProductType">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+          <End Role="ProductSubType" Type="Self.ProductSubType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSubType">
+              <PropertyRef Name="ProductTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Province_Country">
           <End Role="Country" Type="Self.Country" Multiplicity="1" />
           <End Role="Province" Type="Self.Province" Multiplicity="*" />
@@ -477,6 +622,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubProvince_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="SubProvince" Type="Self.SubProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubProvince">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_AspNetUser">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -486,18 +655,6 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="AspNetUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_Country">
-          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="CountryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -522,18 +679,6 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="LanguageId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_Province">
-          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Province">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="ProvinceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -563,6 +708,12 @@
         </Association>
         <Function Name="DeleteNewsById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NewsId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteProductById_NoTransaction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteProductById_WithTransaction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductId" Type="int" Mode="In" />
         </Function>
         <Function Name="DeleteScheduledTaskById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ScheduledTaskId" Type="int" Mode="In" />
@@ -602,6 +753,7 @@
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="TemplateModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -610,19 +762,32 @@
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoryType" EntityType="Self.CategoryType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmailAudit" EntityType="Self.EmailAudit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmailTypeLanguage" EntityType="Self.EmailTypeLanguage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log4Net" EntityType="Self.Log4Net" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductSubType" EntityType="Self.ProductSubType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScheduledTask" EntityType="Self.ScheduledTask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SearchResult" EntityType="Self.SearchResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SocialMediaConnection" EntityType="Self.SocialMediaConnection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubProvince" EntityType="Self.SubProvince" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskLog" EntityType="Self.TaskLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserFollow" EntityType="Self.UserFollow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ValidTopLevelDomain" EntityType="Self.ValidTopLevelDomain" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Address_Province" Association="Self.FK_Address_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_SubProvince" Association="Self.FK_Address_SubProvince">
+            <End Role="SubProvince" EntitySet="SubProvince" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
           <AssociationSet Name="FK_Category_CategoryTypeId" Association="Self.FK_Category_CategoryTypeId">
             <End Role="CategoryType" EntitySet="CategoryType" />
             <End Role="Category" EntitySet="Category" />
@@ -675,6 +840,26 @@
             <End Role="Category" EntitySet="Category" />
             <End Role="News" EntitySet="News" />
           </AssociationSet>
+          <AssociationSet Name="FK_Product_Address" Association="Self.FK_Product_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_StatusId" Association="Self.FK_Product_StatusId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_SubTypeId" Association="Self.FK_Product_SubTypeId">
+            <End Role="ProductSubType" EntitySet="ProductSubType" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_UserId" Association="Self.FK_Product_UserId">
+            <End Role="User" EntitySet="User" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSubType_ProductType" Association="Self.FK_ProductSubType_ProductType">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="ProductSubType" EntitySet="ProductSubType" />
+          </AssociationSet>
           <AssociationSet Name="FK_Province_Country" Association="Self.FK_Province_Country">
             <End Role="Country" EntitySet="Country" />
             <End Role="Province" EntitySet="Province" />
@@ -695,12 +880,16 @@
             <End Role="User" EntitySet="User" />
             <End Role="SearchResult" EntitySet="SearchResult" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_AspNetUser" Association="Self.FK_User_AspNetUser">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          <AssociationSet Name="FK_SubProvince_Province" Association="Self.FK_SubProvince_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="SubProvince" EntitySet="SubProvince" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Address" Association="Self.FK_User_Address">
+            <End Role="Address" EntitySet="Address" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Country" Association="Self.FK_User_Country">
-            <End Role="Country" EntitySet="Country" />
+          <AssociationSet Name="FK_User_AspNetUser" Association="Self.FK_User_AspNetUser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
@@ -709,10 +898,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_User_Language" Association="Self.FK_User_Language">
             <End Role="Category" EntitySet="Category" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Province" Association="Self.FK_User_Province">
-            <End Role="Province" EntitySet="Province" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_UserFollow_FollowedUserId" Association="Self.FK_UserFollow_FollowedUserId">
@@ -802,10 +987,6 @@
             <End Role="Country" EntitySet="Countries" />
             <End Role="Province" EntitySet="Provinces" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Country" Association="TemplateModel.FK_User_Country">
-            <End Role="Country" EntitySet="Countries" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
           <AssociationSet Name="FK_EmailAudit_EMailTypeLanguageId" Association="TemplateModel.FK_EmailAudit_EMailTypeLanguageId">
             <End Role="EmailTypeLanguage" EntitySet="EmailTypeLanguages" />
             <End Role="EmailAudit" EntitySet="EmailAudits" />
@@ -825,10 +1006,6 @@
           <AssociationSet Name="FK_ScheduledTask_News" Association="TemplateModel.FK_ScheduledTask_News">
             <End Role="News" EntitySet="News" />
             <End Role="ScheduledTask" EntitySet="ScheduledTasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Province" Association="TemplateModel.FK_User_Province">
-            <End Role="Province" EntitySet="Provinces" />
-            <End Role="User" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_ScheduledTask_User" Association="TemplateModel.FK_ScheduledTask_User">
             <End Role="User" EntitySet="Users" />
@@ -897,6 +1074,54 @@
             <End Role="User" EntitySet="Users" />
             <End Role="SearchResult" EntitySet="SearchResults" />
           </AssociationSet>
+          <EntitySet Name="Products" EntityType="TemplateModel.Product" />
+          <EntitySet Name="ProductSubTypes" EntityType="TemplateModel.ProductSubType" />
+          <EntitySet Name="ProductTypes" EntityType="TemplateModel.ProductType" />
+          <AssociationSet Name="FK_Product_StatusId" Association="TemplateModel.FK_Product_StatusId">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_SubTypeId" Association="TemplateModel.FK_Product_SubTypeId">
+            <End Role="ProductSubType" EntitySet="ProductSubTypes" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_UserId" Association="TemplateModel.FK_Product_UserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSubType_ProductType" Association="TemplateModel.FK_ProductSubType_ProductType">
+            <End Role="ProductType" EntitySet="ProductTypes" />
+            <End Role="ProductSubType" EntitySet="ProductSubTypes" />
+          </AssociationSet>
+          <FunctionImport Name="DeleteProductById_NoTransaction">
+          <Parameter Name="ProductId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteProductById_WithTransaction">
+          <Parameter Name="ProductId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Addresses" EntityType="TemplateModel.Address" />
+          <EntitySet Name="SubProvinces" EntityType="TemplateModel.SubProvince" />
+          <AssociationSet Name="FK_Address_Province" Association="TemplateModel.FK_Address_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_SubProvince" Association="TemplateModel.FK_Address_SubProvince">
+            <End Role="SubProvince" EntitySet="SubProvinces" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Address" Association="TemplateModel.FK_Product_Address">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Address" Association="TemplateModel.FK_User_Address">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubProvince_Province" Association="TemplateModel.FK_SubProvince_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="SubProvince" EntitySet="SubProvinces" />
+          </AssociationSet>
+          <EntitySet Name="Currencies" EntityType="TemplateModel.Currency" />
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -969,6 +1194,7 @@
           <NavigationProperty Name="Users" Relationship="TemplateModel.FK_User_Gender" FromRole="Category" ToRole="User" />
           <NavigationProperty Name="Users1" Relationship="TemplateModel.FK_User_Language" FromRole="Category" ToRole="User" />
           <NavigationProperty Name="EmailTypeLanguages1" Relationship="TemplateModel.FK_EmailTypeLanguage_Language" FromRole="Category" ToRole="EmailTypeLanguage" />
+          <NavigationProperty Name="Products" Relationship="TemplateModel.FK_Product_StatusId" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="CategoryType">
           <Key>
@@ -984,10 +1210,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Provinces" Relationship="TemplateModel.FK_Province_Country" FromRole="Country" ToRole="Province" />
-          <NavigationProperty Name="Users" Relationship="TemplateModel.FK_User_Country" FromRole="Country" ToRole="User" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="EmailAudit">
           <Key>
@@ -1046,11 +1270,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="CountryId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Country" Relationship="TemplateModel.FK_Province_Country" FromRole="Province" ToRole="Country" />
-          <NavigationProperty Name="Users" Relationship="TemplateModel.FK_User_Province" FromRole="Province" ToRole="User" />
+          <NavigationProperty Name="Addresses" Relationship="TemplateModel.FK_Address_Province" FromRole="Province" ToRole="Address" />
+          <NavigationProperty Name="SubProvinces" Relationship="TemplateModel.FK_SubProvince_Province" FromRole="Province" ToRole="SubProvince" />
         </EntityType>
         <EntityType Name="ScheduledTask">
           <Key>
@@ -1098,13 +1321,8 @@
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CountryId" Type="Int32" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
-          <Property Name="Adress1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Adress2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Adress3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="LanguageId" Type="Int32" Nullable="false" />
-          <Property Name="ProvinceId" Type="Int32" />
           <Property Name="PictureSrc" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="ReceiveNews" Type="Boolean" Nullable="false" />
           <Property Name="PictureThumbnailSrc" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
@@ -1118,10 +1336,8 @@
           <NavigationProperty Name="AspNetUser" Relationship="TemplateModel.FK_User_AspNetUser" FromRole="User" ToRole="AspNetUser" />
           <NavigationProperty Name="Gender" Relationship="TemplateModel.FK_User_Gender" FromRole="User" ToRole="Category" />
           <NavigationProperty Name="Language" Relationship="TemplateModel.FK_User_Language" FromRole="User" ToRole="Category" />
-          <NavigationProperty Name="Country" Relationship="TemplateModel.FK_User_Country" FromRole="User" ToRole="Country" />
           <NavigationProperty Name="EmailAudits" Relationship="TemplateModel.FK_EmailAudit_UserId" FromRole="User" ToRole="EmailAudit" />
           <NavigationProperty Name="News" Relationship="TemplateModel.FK_News_LastModificationUserId" FromRole="User" ToRole="News" />
-          <NavigationProperty Name="Province" Relationship="TemplateModel.FK_User_Province" FromRole="User" ToRole="Province" />
           <NavigationProperty Name="ScheduledTasks" Relationship="TemplateModel.FK_ScheduledTask_User" FromRole="User" ToRole="ScheduledTask" />
           <Property Name="UserNameModification" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserFollows" Relationship="TemplateModel.FK_UserFollow_FollowedUserId" FromRole="User" ToRole="UserFollow" />
@@ -1129,6 +1345,10 @@
           <NavigationProperty Name="SearchResults" Relationship="TemplateModel.FK_SearchResult_User" FromRole="User" ToRole="SearchResult" />
           <Property Name="PublicProfile" Type="Boolean" Nullable="false" />
           <Property Name="FacebookLink" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BackgroundPictureSrc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="TemplateModel.FK_Product_UserId" FromRole="User" ToRole="Product" />
+          <Property Name="AddressId" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="TemplateModel.FK_User_Address" FromRole="User" ToRole="Address" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
           <End Type="TemplateModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -1266,18 +1486,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Country">
-          <End Type="TemplateModel.Country" Role="Country" Multiplicity="0..1" />
-          <End Type="TemplateModel.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="CountryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_EmailAudit_EMailTypeLanguageId">
           <End Type="TemplateModel.EmailTypeLanguage" Role="EmailTypeLanguage" Multiplicity="1" />
           <End Type="TemplateModel.EmailAudit" Role="EmailAudit" Multiplicity="*" />
@@ -1335,18 +1543,6 @@
             </Principal>
             <Dependent Role="ScheduledTask">
               <PropertyRef Name="NewsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_Province">
-          <End Type="TemplateModel.Province" Role="Province" Multiplicity="0..1" />
-          <End Type="TemplateModel.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Province">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="ProvinceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1468,6 +1664,194 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageSrc" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="25" Scale="2" />
+          <Property Name="SubTypeId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="TemplateModel.FK_Product_StatusId" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="ProductSubType" Relationship="TemplateModel.FK_Product_SubTypeId" FromRole="Product" ToRole="ProductSubType" />
+          <NavigationProperty Name="CreatorUser" Relationship="TemplateModel.FK_Product_UserId" FromRole="Product" ToRole="User" />
+          <Property Name="AddressId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="TemplateModel.FK_Product_Address" FromRole="Product" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="ProductSubType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ImageSrc" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProductTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="TemplateModel.FK_Product_SubTypeId" FromRole="ProductSubType" ToRole="Product" />
+          <NavigationProperty Name="ProductType" Relationship="TemplateModel.FK_ProductSubType_ProductType" FromRole="ProductSubType" ToRole="ProductType" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ImageSrc" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductSubTypes" Relationship="TemplateModel.FK_ProductSubType_ProductType" FromRole="ProductType" ToRole="ProductSubType" />
+        </EntityType>
+        <Association Name="FK_Product_StatusId">
+          <End Type="TemplateModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="TemplateModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_SubTypeId">
+          <End Type="TemplateModel.ProductSubType" Role="ProductSubType" Multiplicity="1" />
+          <End Type="TemplateModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSubType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="SubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_UserId">
+          <End Type="TemplateModel.User" Role="User" Multiplicity="1" />
+          <End Type="TemplateModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSubType_ProductType">
+          <End Type="TemplateModel.ProductType" Role="ProductType" Multiplicity="1" />
+          <End Type="TemplateModel.ProductSubType" Role="ProductSubType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSubType">
+              <PropertyRef Name="ProductTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Venue" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="900" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="38" Scale="20" />
+          <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="38" Scale="20" />
+          <Property Name="SubProvinceId" Type="Int32" />
+          <Property Name="ProvinceId" Type="Int32" />
+          <NavigationProperty Name="Province" Relationship="TemplateModel.FK_Address_Province" FromRole="Address" ToRole="Province" />
+          <NavigationProperty Name="SubProvince" Relationship="TemplateModel.FK_Address_SubProvince" FromRole="Address" ToRole="SubProvince" />
+          <NavigationProperty Name="Products" Relationship="TemplateModel.FK_Product_Address" FromRole="Address" ToRole="Product" />
+          <NavigationProperty Name="Users" Relationship="TemplateModel.FK_User_Address" FromRole="Address" ToRole="User" />
+          <Property Name="City" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SubProvince">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProvinceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Addresses" Relationship="TemplateModel.FK_Address_SubProvince" FromRole="SubProvince" ToRole="Address" />
+          <NavigationProperty Name="Province" Relationship="TemplateModel.FK_SubProvince_Province" FromRole="SubProvince" ToRole="Province" />
+        </EntityType>
+        <Association Name="FK_Address_Province">
+          <End Type="TemplateModel.Province" Role="Province" Multiplicity="0..1" />
+          <End Type="TemplateModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Address_SubProvince">
+          <End Type="TemplateModel.SubProvince" Role="SubProvince" Multiplicity="0..1" />
+          <End Type="TemplateModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubProvince">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="SubProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Address">
+          <End Type="TemplateModel.Address" Role="Address" Multiplicity="1" />
+          <End Type="TemplateModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Address">
+          <End Type="TemplateModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="TemplateModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubProvince_Province">
+          <End Type="TemplateModel.Province" Role="Province" Multiplicity="1" />
+          <End Type="TemplateModel.SubProvince" Role="SubProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubProvince">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Symbol" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EuroConversationRate" Type="Decimal" Nullable="false" Precision="38" Scale="19" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1559,7 +1943,6 @@
           <EntitySetMapping Name="Countries">
             <EntityTypeMapping TypeName="TemplateModel.Country">
               <MappingFragment StoreEntitySet="Country">
-                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1614,8 +1997,6 @@
             <EntityTypeMapping TypeName="TemplateModel.Province">
               <MappingFragment StoreEntitySet="Province">
                 <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1661,6 +2042,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TemplateModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="BackgroundPictureSrc" ColumnName="BackgroundPictureSrc" />
                 <ScalarProperty Name="FacebookLink" ColumnName="FacebookLink" />
                 <ScalarProperty Name="PublicProfile" ColumnName="PublicProfile" />
                 <ScalarProperty Name="UserNameModification" ColumnName="UserNameModification" />
@@ -1674,13 +2057,8 @@
                 <ScalarProperty Name="PictureThumbnailSrc" ColumnName="PictureThumbnailSrc" />
                 <ScalarProperty Name="ReceiveNews" ColumnName="ReceiveNews" />
                 <ScalarProperty Name="PictureSrc" ColumnName="PictureSrc" />
-                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
                 <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
-                <ScalarProperty Name="Adress3" ColumnName="Adress3" />
-                <ScalarProperty Name="Adress2" ColumnName="Adress2" />
-                <ScalarProperty Name="Adress1" ColumnName="Adress1" />
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -1767,6 +2145,81 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="DeleteScheduledTaskById" FunctionName="TemplateModel.Store.DeleteScheduledTaskById" />
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="TemplateModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="SubTypeId" ColumnName="SubTypeId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImageSrc" ColumnName="ImageSrc" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSubTypes">
+            <EntityTypeMapping TypeName="TemplateModel.ProductSubType">
+              <MappingFragment StoreEntitySet="ProductSubType">
+                <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
+                <ScalarProperty Name="ImageSrc" ColumnName="ImageSrc" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypes">
+            <EntityTypeMapping TypeName="TemplateModel.ProductType">
+              <MappingFragment StoreEntitySet="ProductType">
+                <ScalarProperty Name="ImageSrc" ColumnName="ImageSrc" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DeleteProductById_NoTransaction" FunctionName="TemplateModel.Store.DeleteProductById_NoTransaction" />
+          <FunctionImportMapping FunctionImportName="DeleteProductById_WithTransaction" FunctionName="TemplateModel.Store.DeleteProductById_WithTransaction" />
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="TemplateModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="SubProvinceId" ColumnName="SubProvinceId" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubProvinces">
+            <EntityTypeMapping TypeName="TemplateModel.SubProvince">
+              <MappingFragment StoreEntitySet="SubProvince">
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Currencies">
+            <EntityTypeMapping TypeName="TemplateModel.Currency">
+              <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="EuroConversationRate" ColumnName="EuroConversationRate" />
+                <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

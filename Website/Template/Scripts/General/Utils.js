@@ -29,6 +29,19 @@ function HasValue(element)
     return result;
 }
 
+function getLanguageWebsite() {
+    var result = Constants.Const.DefaultCulture;
+    var LanguageSelector = $('#LanguageSelector');
+    if (LanguageSelector.length > 0) {
+        var language = LanguageSelector.find(":selected").text();
+        if (HasValue(language)) {
+            result = language.substr(0, 2).toLowerCase();
+        }
+    }
+    return result;
+}
+
+
 
 function GetHomePageUrl() {
     var result = null;
@@ -36,10 +49,10 @@ function GetHomePageUrl() {
         var OldURL = window.location.href.toLowerCase();
         var newURL = OldURL;
         var prefix = "";
-        if (OldURL.includes("https")) {
+        if (OldURL.indexOf("https") > -1) {
             prefix = "https://";
         }
-        else if (OldURL.includes("http")) {
+        else if (OldURL.indexOf("http") > -1) {
             prefix = "http://";
         }
         var tabURL = window.location.href.replace(prefix, "").split('/');
@@ -56,7 +69,8 @@ function GetHomePageUrl() {
 
     }
     catch (err) {
-        result = null;
+        result = window.location.href;
+        LogJsError('GetHomePageUrl error  ', window.location.href, null, null, err.message, true)
     }
     return result;
 }
@@ -64,6 +78,7 @@ function GetHomePageUrl() {
 function GoBackToHomePage() {
     var newUrl = GetHomePageUrl();
     if (newUrl != null) {
+        ShowSpinner();
         window.location.href = GetHomePageUrl();
     }
 }
@@ -173,6 +188,136 @@ function ScrollToErrorOrFirstInput(formname) {
 
 }
 
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(name) {
+    var dc = document.cookie;
+    var prefix = name + "=";
+    var begin = dc.indexOf("; " + prefix);
+    if (begin == -1) {
+        begin = dc.indexOf(prefix);
+        if (begin != 0) return null;
+    }
+    else
+    {
+        begin += 2;
+        var end = document.cookie.indexOf(";", begin);
+        if (end == -1) {
+        end = dc.length;
+        }
+    }
+    // because unescape has been deprecated, replaced with decodeURI
+    //return unescape(dc.substring(begin + prefix.length, end));
+    return decodeURI(dc.substring(begin + prefix.length, end));
+} 
+
+function animateValue(id, start, end, duration) {
+
+    // example : animateValue("StatisticsCompaniesNumberSpan", 0, parseInt($('#StatisticsCompaniesNumber').val()), 8000);
+
+
+    // assumes integer values for start and end
+
+    var element = document.getElementById(id);
+    if (typeof (element) != 'undefined' && element != null) {
+        // exists.
+
+
+        var obj = document.getElementById(id);
+        var range = end - start;
+        // no timer shorter than 50ms (not really visible any way)
+        var minTimer = 50;
+        // calc step time to show all interediate values
+        var stepTime = Math.abs(Math.floor(duration / range));
+
+        // never go below minTimer
+        stepTime = Math.max(stepTime, minTimer);
+
+        // get current time and calculate desired end time
+        var startTime = new Date().getTime();
+        var endTime = startTime + duration;
+        var timer;
+
+        function run() {
+            var now = new Date().getTime();
+            var remaining = Math.max((endTime - now) / duration, 0);
+            var value = Math.round(end - (remaining * range));
+            if (typeof GetIntegerFormat === "function") {
+                obj.innerHTML = GetIntegerFormat(value);
+            }
+            else {
+                obj.innerHTML = value;
+            }
+            if (value == end) {
+                clearInterval(timer);
+            }
+        }
+
+        timer = setInterval(run, stepTime);
+        run();
+    }
+}
+
+
+function fixToTopNavBar(id) {
+    $('#' + id+' li a').on('click', function (e) {
+        e.preventDefault();
+        $("body, html").animate({
+            'scrollTop': 0
+        }, 800);
+    });
+
+    var masterNavHeight = 0;
+    var navToFix = $('#' + id);
+    var gapNowToTop = navToFix.offset().top;
+    var gapReserved = gapNowToTop - masterNavHeight;
+    var wind = $(window);
+
+    wind.bind('scroll', function () {
+        if (wind.scrollTop() > gapReserved) {
+            if (!navToFix.hasClass('fix-at-top')) {
+                navToFix.addClass('fix-at-top');
+            }
+        } else {
+            if (navToFix.hasClass('fix-at-top')) {
+                navToFix.removeClass('fix-at-top');
+            }
+        }
+    });
+}
+
+function SetFielsAsNotRequired(id) {
+    var element = $('#' + id);
+    var formId = $(element).closest("form").prop("id");
+
+    if (formId != null && formId!='')
+        SetValidationForm(formId);
+    var validatorName = id + "_RequiredValidator_js";
+
+    if ($(element).length > 0) {
+        var fooRequired = $(element).rules().required || false;
+        if (fooRequired) {
+            element.removeClass(validatorName).rules("remove");
+        }
+    }
+}
+
+function SetFieldAsRequired(id) {
+    // + Add this in hml attributes of the element : @data_msg_required = "[[[Minimum investment is required]]]."
+    SetFielsAsNotRequired(id);
+    var validatorName = id + "_RequiredValidator_js";
+    var element = $('#' + id);
+    if ($(element).length > 0) {
+        element.addClass(validatorName);
+        jQuery.validator.classRuleSettings[validatorName] = { required: true };
+    }
+}
+
 
 jQuery.exists = function (selector) { return ($(selector).length > 0); }
 
@@ -184,6 +329,26 @@ function SetValidationForm(IdForm) {
         $(Form).removeData("unobtrusiveValidation");
         $.validator.unobtrusive.parse("#" + IdForm);
        // $(Form).data("validator").settings.ignore = ":hidden:not(.alwaysValidate_js), .ignorejqueryvalidation_js";
+
+        jQuery.extend(jQuery.validator.messages, {
+            required: "[[[This field is required.]]]",
+            remote: "[[[Please fix this field.]]]",
+            email: "[[[Please enter a valid email address.]]]",
+            url: "[[[Please enter a valid URL]]].",
+            date: "[[[Please enter a valid date.]]]",
+            dateISO: "[[[Please enter a valid date (ISO).]]]",
+            number: "[[[Please enter a valid number.]]]",
+            digits: "[[[Please enter only digits.]]]",
+            creditcard: "[[[Please enter a valid credit card number.]]]",
+            equalTo: "[[[Please enter the same value again.]]]",
+            accept: "[[[Please enter a value with a valid extension.]]]",
+            maxlength: jQuery.validator.format("[[[Please enter no more than {0} characters.]]]"),
+            minlength: jQuery.validator.format("[[[Please enter at least {0} characters.]]]"),
+            rangelength: jQuery.validator.format("[[[Please enter a value between {0} and {1} characters long.]]]"),
+            range: jQuery.validator.format("[[[Please enter a value between {0} and {1}.]]]"),
+            max: jQuery.validator.format("[[[Please enter a value less than or equal to {0}.]]]"),
+            min: jQuery.validator.format("[[[Please enter a value greater than or equal to {0}.]]]")
+        });
     }
 }
 
