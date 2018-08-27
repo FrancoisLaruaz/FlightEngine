@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c6351524c71c45b097cea6d9486bf9c3" Name="Diagram1">
+        <EntityTypeShape EntityType="TemplateModel.Address" Width="1.5" PointX="7.5" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.Airline" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.Airport" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.AspNetRole" Width="1.5" PointX="8.25" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.AspNetUserClaim" Width="1.5" PointX="12.75" PointY="34.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.AspNetUserLogin" Width="1.5" PointX="12.75" PointY="37" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.AspNetUser" Width="1.5" PointX="10.5" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.Category" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.CategoryType" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.City" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.Country" Width="1.5" PointX="0.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.Currency" Width="1.5" PointX="12.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.EmailAudit" Width="1.5" PointX="15" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.EmailTypeLanguage" Width="1.5" PointX="12.75" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.Flight" Width="1.5" PointX="7.5" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.Log4Net" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.News" Width="1.5" PointX="18" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.Product" Width="1.5" PointX="9.75" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.ProductSubType" Width="1.5" PointX="7.5" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.ProductType" Width="1.5" PointX="5.25" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.Provider" Width="1.5" PointX="3" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.Province" Width="1.5" PointX="3" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.ScheduledTask" Width="1.5" PointX="20.25" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.SearchResult" Width="1.5" PointX="15" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.SearchTrip" Width="1.5" PointX="10.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.SearchTripProvider" Width="1.5" PointX="12.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.SocialMediaConnection" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.SubProvince" Width="1.5" PointX="5.25" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.sysdiagram" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.TaskLog" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.Trip" Width="1.5" PointX="15" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.User" Width="1.5" PointX="12.75" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.UserFollow" Width="1.5" PointX="15" PointY="35" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.ValidTopLevelDomain" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="TemplateModel.FK_Address_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Address_SubProvince" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Product_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_User_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Flight_Airline" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Airport_City" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Flight_FromAirport" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Flight_ToAirport" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTrip_FromAirport" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTrip_ToAirport" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_User_AspNetUser" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Category_CategoryTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_EmailTypeLanguage_EMailTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_EmailTypeLanguage_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Flight_FlightTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_News_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_News_TypeUserMailingId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Product_StatusId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_ScheduledTask_EmailType" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_User_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_User_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_City_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTrip_FromCityId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTrip_ToCityId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Province_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Trip_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_EmailAudit_EMailTypeLanguageId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_EmailAudit_ScheduledTaskId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_EmailAudit_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Flight_Trip" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_News_LastModificationUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_ScheduledTask_News" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Product_SubTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Product_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_ProductSubType_ProductType" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripProvider_Provider" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_SubProvince_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_ScheduledTask_User" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_SearchResult_User" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripProvider_SearchTrip" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_Trip_SearchTripProvider" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_UserFollow_FollowedUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.FK_UserFollow_User" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="TemplateModel.ProviderCountry" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

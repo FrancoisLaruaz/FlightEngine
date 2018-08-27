@@ -1,0 +1,3184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TemplateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="Venue" Type="nvarchar" MaxLength="500" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="200" />
+          <Property Name="Street" Type="nvarchar" MaxLength="900" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Latitude" Type="decimal" Precision="38" Scale="20" Nullable="false" />
+          <Property Name="Longitude" Type="decimal" Precision="38" Scale="20" Nullable="false" />
+          <Property Name="SubProvinceId" Type="int" />
+          <Property Name="ProvinceId" Type="int" />
+          <Property Name="City" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Airline">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="255" />
+          <Property Name="ImageSrc" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Airport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="32" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="32" />
+          <Property Name="CityId" Type="int" Nullable="false" />
+          <Property Name="BusyAirport" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="EmailConfirmed" Type="bit" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="AccessFailedCount" Type="int" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Code" Type="nvarchar" MaxLength="25" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CategoryTypeId" Type="int" Nullable="false" />
+          <Property Name="DateModification" Type="datetime" Nullable="false" />
+          <Property Name="Field1" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Field2" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="CategoryType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Timezone" Type="varchar" MaxLength="10" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="255" />
+          <Property Name="Symbol" Type="nvarchar" MaxLength="10" />
+          <Property Name="EuroConversationRate" Type="decimal" Precision="38" Scale="19" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailAudit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="EMailFrom" Type="nvarchar" MaxLength="1000" />
+          <Property Name="EMailTo" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AttachmentNumber" Type="int" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="EMailTypeLanguageId" Type="int" Nullable="false" />
+          <Property Name="CCUsersNumber" Type="int" Nullable="false" />
+          <Property Name="ScheduledTaskId" Type="int" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="EmailTypeLanguage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMailTypeId" Type="int" Nullable="false" />
+          <Property Name="LanguageId" Type="int" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="TemplateName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Flight">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FlightNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="FromAirportId" Type="int" Nullable="false" />
+          <Property Name="ToAirportId" Type="int" Nullable="false" />
+          <Property Name="DepartureDate" Type="datetime" Nullable="false" />
+          <Property Name="ArrivalDate" Type="datetime" Nullable="false" />
+          <Property Name="AirlineId" Type="int" Nullable="false" />
+          <Property Name="StopNumber" Type="int" />
+          <Property Name="TripId" Type="int" Nullable="false" />
+          <Property Name="FlightTypeId" Type="int" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Log4Net">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Thread" Type="varchar" MaxLength="255" />
+          <Property Name="Level" Type="varchar" MaxLength="50" />
+          <Property Name="Logger" Type="varchar" MaxLength="5000" />
+          <Property Name="Message" Type="varchar(max)" />
+          <Property Name="Exception" Type="varchar" MaxLength="5000" />
+          <Property Name="UserLogin" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PublishDate" Type="datetime" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+          <Property Name="LastModificationUserId" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MailSubject" Type="nvarchar" MaxLength="100" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="TypeUserMailingId" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImageSrc" Type="nvarchar" MaxLength="256" />
+          <Property Name="Price" Type="decimal" Precision="25" Scale="2" />
+          <Property Name="SubTypeId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="AddressId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductSubType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ImageSrc" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ProductTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ImageSrc" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ImageSrc" Type="varchar" MaxLength="255" />
+          <Property Name="HasAPI" Type="bit" Nullable="false" />
+          <Property Name="IsSearchEngine" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProviderCountry">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="ProviderId" Type="int" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScheduledTask">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CallbackId" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CancellationDate" Type="datetime" />
+          <Property Name="ExecutionDate" Type="datetime" />
+          <Property Name="ExpectedExecutionDate" Type="datetime" Nullable="false" />
+          <Property Name="EmailTypeId" Type="int" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="NewsId" Type="int" />
+        </EntityType>
+        <EntityType Name="SearchResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="Term" Type="varchar" MaxLength="256" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="SearchResultsCount" Type="int" Nullable="false" />
+          <Property Name="ClickedUrl" Type="varchar" MaxLength="256" />
+          <Property Name="IsSearchBar" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SearchTrip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="FromAirportId" Type="int" />
+          <Property Name="ToAirportId" Type="int" />
+          <Property Name="FromDate" Type="datetime" Nullable="false" />
+          <Property Name="ToDate" Type="datetime" />
+          <Property Name="FromCityId" Type="int" />
+          <Property Name="ToCityId" Type="int" />
+          <Property Name="DirectFlightsOnly" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SearchTripProvider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ProviderId" Type="int" Nullable="false" />
+          <Property Name="SearchTripId" Type="int" Nullable="false" />
+          <Property Name="Proxy" Type="varchar" MaxLength="256" />
+          <Property Name="SearchSuccess" Type="bit" Nullable="false" />
+          <Property Name="EndSearchDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SocialMediaConnection">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProviderKeyUserSignedUp" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKeyUserFriend" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubProvince">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="ProvinceId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TaskLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Result" Type="bit" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CallbackId" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Trip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CurrencyId" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="25" Scale="2" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="1000" />
+          <Property Name="SearchTripProviderId" Type="int" Nullable="false" />
+          <Property Name="EuroPrice" Type="decimal" Precision="25" Scale="2" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="LanguageId" Type="int" Nullable="false" />
+          <Property Name="PictureSrc" Type="nvarchar" MaxLength="256" />
+          <Property Name="ReceiveNews" Type="bit" Nullable="false" />
+          <Property Name="PictureThumbnailSrc" Type="nvarchar" MaxLength="256" />
+          <Property Name="GenderId" Type="int" />
+          <Property Name="ResetPasswordToken" Type="varchar" MaxLength="256" />
+          <Property Name="EmailConfirmationToken" Type="varchar" MaxLength="256" />
+          <Property Name="DateLastConnection" Type="datetime" Nullable="false" />
+          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserNameModification" Type="nvarchar" MaxLength="256" />
+          <Property Name="PublicProfile" Type="bit" Nullable="false" />
+          <Property Name="FacebookLink" Type="nvarchar" MaxLength="500" />
+          <Property Name="BackgroundPictureSrc" Type="nvarchar" MaxLength="500" />
+          <Property Name="AddressId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserFollow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="FollowedUserId" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ValidTopLevelDomain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_Address_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Address_SubProvince">
+          <End Role="SubProvince" Type="Self.SubProvince" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubProvince">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="SubProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Airport_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Airport" Type="Self.Airport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Airport">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_CategoryTypeId">
+          <End Role="CategoryType" Type="Self.CategoryType" Multiplicity="1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="CategoryTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailAudit_EMailTypeLanguageId">
+          <End Role="EmailTypeLanguage" Type="Self.EmailTypeLanguage" Multiplicity="1" />
+          <End Role="EmailAudit" Type="Self.EmailAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailTypeLanguage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailAudit">
+              <PropertyRef Name="EMailTypeLanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailAudit_ScheduledTaskId">
+          <End Role="ScheduledTask" Type="Self.ScheduledTask" Multiplicity="0..1" />
+          <End Role="EmailAudit" Type="Self.EmailAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScheduledTask">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailAudit">
+              <PropertyRef Name="ScheduledTaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailAudit_UserId">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="EmailAudit" Type="Self.EmailAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailAudit">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailTypeLanguage_EMailTypeId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="EmailTypeLanguage" Type="Self.EmailTypeLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailTypeLanguage">
+              <PropertyRef Name="EMailTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailTypeLanguage_Language">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="EmailTypeLanguage" Type="Self.EmailTypeLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailTypeLanguage">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_Airline">
+          <End Role="Airline" Type="Self.Airline" Multiplicity="1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airline">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="AirlineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_FlightTypeId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="FlightTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_FromAirport">
+          <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="FromAirportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_ToAirport">
+          <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="ToAirportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_Trip">
+          <End Role="Trip" Type="Self.Trip" Multiplicity="1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="TripId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_LastModificationUserId">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="LastModificationUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Type">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_TypeUserMailingId">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="TypeUserMailingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_StatusId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_SubTypeId">
+          <End Role="ProductSubType" Type="Self.ProductSubType" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSubType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="SubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_UserId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSubType_ProductType">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+          <End Role="ProductSubType" Type="Self.ProductSubType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSubType">
+              <PropertyRef Name="ProductTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderCountry_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="ProviderCountry" Type="Self.ProviderCountry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProviderCountry">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderCountry_Provider">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
+          <End Role="ProviderCountry" Type="Self.ProviderCountry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProviderCountry">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Province_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Province" Type="Self.Province" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Province">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledTask_EmailType">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="ScheduledTask" Type="Self.ScheduledTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduledTask">
+              <PropertyRef Name="EmailTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledTask_News">
+          <End Role="News" Type="Self.News" Multiplicity="0..1" />
+          <End Role="ScheduledTask" Type="Self.ScheduledTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="News">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduledTask">
+              <PropertyRef Name="NewsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledTask_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ScheduledTask" Type="Self.ScheduledTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduledTask">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchResult_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="SearchResult" Type="Self.SearchResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchResult">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchTrip_FromAirport">
+          <End Role="Airport" Type="Self.Airport" Multiplicity="0..1" />
+          <End Role="SearchTrip" Type="Self.SearchTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchTrip">
+              <PropertyRef Name="FromAirportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchTrip_FromCityId">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="SearchTrip" Type="Self.SearchTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchTrip">
+              <PropertyRef Name="FromCityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchTrip_ToAirport">
+          <End Role="Airport" Type="Self.Airport" Multiplicity="0..1" />
+          <End Role="SearchTrip" Type="Self.SearchTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchTrip">
+              <PropertyRef Name="ToAirportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchTrip_ToCityId">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="SearchTrip" Type="Self.SearchTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchTrip">
+              <PropertyRef Name="ToCityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchTripProvider_Provider">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
+          <End Role="SearchTripProvider" Type="Self.SearchTripProvider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchTripProvider">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchTripProvider_SearchTrip">
+          <End Role="SearchTrip" Type="Self.SearchTrip" Multiplicity="1" />
+          <End Role="SearchTripProvider" Type="Self.SearchTripProvider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SearchTrip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchTripProvider">
+              <PropertyRef Name="SearchTripId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubProvince_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="SubProvince" Type="Self.SubProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubProvince">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trip_Currency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="0..1" />
+          <End Role="Trip" Type="Self.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trip_SearchTripProvider">
+          <End Role="SearchTripProvider" Type="Self.SearchTripProvider" Multiplicity="1" />
+          <End Role="Trip" Type="Self.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SearchTripProvider">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="SearchTripProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_AspNetUser">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Gender">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Language">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserFollow_FollowedUserId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserFollow" Type="Self.UserFollow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserFollow">
+              <PropertyRef Name="FollowedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserFollow_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserFollow" Type="Self.UserFollow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserFollow">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DeleteNewsById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NewsId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteProductById_NoTransaction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteProductById_WithTransaction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteScheduledTaskById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ScheduledTaskId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteUserById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="InsertInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Error_Message" Type="varchar" Mode="In" />
+          <Parameter Name="Exception" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="InsertLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Error_Message" Type="varchar" Mode="In" />
+          <Parameter Name="Exception" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="InsertTripWithTransaction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SearchTripProviderId" Type="int" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+          <Parameter Name="CurrencyCode" Type="varchar" Mode="In" />
+          <Parameter Name="Url" Type="varchar" Mode="In" />
+          <Parameter Name="OneWayTrip_FromAirportCode" Type="varchar" Mode="In" />
+          <Parameter Name="OneWayTrip_ToAirportCode" Type="varchar" Mode="In" />
+          <Parameter Name="OneWayTrip_DepartureDate" Type="varchar" Mode="In" />
+          <Parameter Name="OneWayTrip_ArrivalDate" Type="varchar" Mode="In" />
+          <Parameter Name="OneWayTrip_Duration" Type="int" Mode="In" />
+          <Parameter Name="OneWayTrip_AirlineName" Type="varchar" Mode="In" />
+          <Parameter Name="OneWayTrip_AirlineLogoSrc" Type="varchar" Mode="In" />
+          <Parameter Name="OneWayTrip_Stops" Type="int" Mode="In" />
+          <Parameter Name="ReturnTrip_FromAirportCode" Type="varchar" Mode="In" />
+          <Parameter Name="ReturnTrip_ToAirportCode" Type="varchar" Mode="In" />
+          <Parameter Name="ReturnTrip_DepartureDate" Type="varchar" Mode="In" />
+          <Parameter Name="ReturnTrip_ArrivalDate" Type="varchar" Mode="In" />
+          <Parameter Name="ReturnTrip_Duration" Type="int" Mode="In" />
+          <Parameter Name="ReturnTrip_AirlineName" Type="varchar" Mode="In" />
+          <Parameter Name="ReturnTrip_AirlineLogoSrc" Type="varchar" Mode="In" />
+          <Parameter Name="ReturnTrip_Stops" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="TemplateModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Airline" EntityType="Self.Airline" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Airport" EntityType="Self.Airport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryType" EntityType="Self.CategoryType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailAudit" EntityType="Self.EmailAudit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailTypeLanguage" EntityType="Self.EmailTypeLanguage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flight" EntityType="Self.Flight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log4Net" EntityType="Self.Log4Net" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductSubType" EntityType="Self.ProductSubType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provider" EntityType="Self.Provider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProviderCountry" EntityType="Self.ProviderCountry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduledTask" EntityType="Self.ScheduledTask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SearchResult" EntityType="Self.SearchResult" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SearchTrip" EntityType="Self.SearchTrip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SearchTripProvider" EntityType="Self.SearchTripProvider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SocialMediaConnection" EntityType="Self.SocialMediaConnection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubProvince" EntityType="Self.SubProvince" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskLog" EntityType="Self.TaskLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trip" EntityType="Self.Trip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserFollow" EntityType="Self.UserFollow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ValidTopLevelDomain" EntityType="Self.ValidTopLevelDomain" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Address_Province" Association="Self.FK_Address_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_SubProvince" Association="Self.FK_Address_SubProvince">
+            <End Role="SubProvince" EntitySet="SubProvince" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Airport_City" Association="Self.FK_Airport_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Airport" EntitySet="Airport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_CategoryTypeId" Association="Self.FK_Category_CategoryTypeId">
+            <End Role="CategoryType" EntitySet="CategoryType" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_Country" Association="Self.FK_City_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailAudit_EMailTypeLanguageId" Association="Self.FK_EmailAudit_EMailTypeLanguageId">
+            <End Role="EmailTypeLanguage" EntitySet="EmailTypeLanguage" />
+            <End Role="EmailAudit" EntitySet="EmailAudit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailAudit_ScheduledTaskId" Association="Self.FK_EmailAudit_ScheduledTaskId">
+            <End Role="ScheduledTask" EntitySet="ScheduledTask" />
+            <End Role="EmailAudit" EntitySet="EmailAudit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailAudit_UserId" Association="Self.FK_EmailAudit_UserId">
+            <End Role="User" EntitySet="User" />
+            <End Role="EmailAudit" EntitySet="EmailAudit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailTypeLanguage_EMailTypeId" Association="Self.FK_EmailTypeLanguage_EMailTypeId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="EmailTypeLanguage" EntitySet="EmailTypeLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailTypeLanguage_Language" Association="Self.FK_EmailTypeLanguage_Language">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="EmailTypeLanguage" EntitySet="EmailTypeLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_Airline" Association="Self.FK_Flight_Airline">
+            <End Role="Airline" EntitySet="Airline" />
+            <End Role="Flight" EntitySet="Flight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_FlightTypeId" Association="Self.FK_Flight_FlightTypeId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Flight" EntitySet="Flight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_FromAirport" Association="Self.FK_Flight_FromAirport">
+            <End Role="Airport" EntitySet="Airport" />
+            <End Role="Flight" EntitySet="Flight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_ToAirport" Association="Self.FK_Flight_ToAirport">
+            <End Role="Airport" EntitySet="Airport" />
+            <End Role="Flight" EntitySet="Flight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_Trip" Association="Self.FK_Flight_Trip">
+            <End Role="Trip" EntitySet="Trip" />
+            <End Role="Flight" EntitySet="Flight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_LastModificationUserId" Association="Self.FK_News_LastModificationUserId">
+            <End Role="User" EntitySet="User" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_Type" Association="Self.FK_News_Type">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_TypeUserMailingId" Association="Self.FK_News_TypeUserMailingId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Address" Association="Self.FK_Product_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_StatusId" Association="Self.FK_Product_StatusId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_SubTypeId" Association="Self.FK_Product_SubTypeId">
+            <End Role="ProductSubType" EntitySet="ProductSubType" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_UserId" Association="Self.FK_Product_UserId">
+            <End Role="User" EntitySet="User" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSubType_ProductType" Association="Self.FK_ProductSubType_ProductType">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="ProductSubType" EntitySet="ProductSubType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderCountry_Country" Association="Self.FK_ProviderCountry_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="ProviderCountry" EntitySet="ProviderCountry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderCountry_Provider" Association="Self.FK_ProviderCountry_Provider">
+            <End Role="Provider" EntitySet="Provider" />
+            <End Role="ProviderCountry" EntitySet="ProviderCountry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Province_Country" Association="Self.FK_Province_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Province" EntitySet="Province" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledTask_EmailType" Association="Self.FK_ScheduledTask_EmailType">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="ScheduledTask" EntitySet="ScheduledTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledTask_News" Association="Self.FK_ScheduledTask_News">
+            <End Role="News" EntitySet="News" />
+            <End Role="ScheduledTask" EntitySet="ScheduledTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledTask_User" Association="Self.FK_ScheduledTask_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ScheduledTask" EntitySet="ScheduledTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchResult_User" Association="Self.FK_SearchResult_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SearchResult" EntitySet="SearchResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchTrip_FromAirport" Association="Self.FK_SearchTrip_FromAirport">
+            <End Role="Airport" EntitySet="Airport" />
+            <End Role="SearchTrip" EntitySet="SearchTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchTrip_FromCityId" Association="Self.FK_SearchTrip_FromCityId">
+            <End Role="City" EntitySet="City" />
+            <End Role="SearchTrip" EntitySet="SearchTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchTrip_ToAirport" Association="Self.FK_SearchTrip_ToAirport">
+            <End Role="Airport" EntitySet="Airport" />
+            <End Role="SearchTrip" EntitySet="SearchTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchTrip_ToCityId" Association="Self.FK_SearchTrip_ToCityId">
+            <End Role="City" EntitySet="City" />
+            <End Role="SearchTrip" EntitySet="SearchTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchTripProvider_Provider" Association="Self.FK_SearchTripProvider_Provider">
+            <End Role="Provider" EntitySet="Provider" />
+            <End Role="SearchTripProvider" EntitySet="SearchTripProvider" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchTripProvider_SearchTrip" Association="Self.FK_SearchTripProvider_SearchTrip">
+            <End Role="SearchTrip" EntitySet="SearchTrip" />
+            <End Role="SearchTripProvider" EntitySet="SearchTripProvider" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubProvince_Province" Association="Self.FK_SubProvince_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="SubProvince" EntitySet="SubProvince" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trip_Currency" Association="Self.FK_Trip_Currency">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="Trip" EntitySet="Trip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trip_SearchTripProvider" Association="Self.FK_Trip_SearchTripProvider">
+            <End Role="SearchTripProvider" EntitySet="SearchTripProvider" />
+            <End Role="Trip" EntitySet="Trip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Address" Association="Self.FK_User_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_AspNetUser" Association="Self.FK_User_AspNetUser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Language" Association="Self.FK_User_Language">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserFollow_FollowedUserId" Association="Self.FK_UserFollow_FollowedUserId">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserFollow" EntitySet="UserFollow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserFollow_User" Association="Self.FK_UserFollow_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserFollow" EntitySet="UserFollow" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TemplateModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Venue" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="900" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="Decimal" Precision="38" Scale="20" Nullable="false" />
+          <Property Name="Longitude" Type="Decimal" Precision="38" Scale="20" Nullable="false" />
+          <Property Name="SubProvinceId" Type="Int32" />
+          <Property Name="ProvinceId" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Province" Relationship="Self.FK_Address_Province" FromRole="Address" ToRole="Province" />
+          <NavigationProperty Name="SubProvince" Relationship="Self.FK_Address_SubProvince" FromRole="Address" ToRole="SubProvince" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Address" FromRole="Address" ToRole="Product" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Address" FromRole="Address" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Airline">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ImageSrc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Flights" Relationship="Self.FK_Flight_Airline" FromRole="Airline" ToRole="Flight" />
+        </EntityType>
+        <EntityType Name="Airport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Latitude" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="BusyAirport" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Airport_City" FromRole="Airport" ToRole="City" />
+          <NavigationProperty Name="Flights" Relationship="Self.FK_Flight_FromAirport" FromRole="Airport" ToRole="Flight" />
+          <NavigationProperty Name="Flights1" Relationship="Self.FK_Flight_ToAirport" FromRole="Airport" ToRole="Flight" />
+          <NavigationProperty Name="SearchTrips" Relationship="Self.FK_SearchTrip_FromAirport" FromRole="Airport" ToRole="SearchTrip" />
+          <NavigationProperty Name="SearchTrips1" Relationship="Self.FK_SearchTrip_ToAirport" FromRole="Airport" ToRole="SearchTrip" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailConfirmed" Type="Boolean" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="AccessFailedCount" Type="Int32" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_AspNetUser" FromRole="AspNetUsers" ToRole="User" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CategoryTypeId" Type="Int32" Nullable="false" />
+          <Property Name="DateModification" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Field1" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Field2" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CategoryType" Relationship="Self.FK_Category_CategoryTypeId" FromRole="Category" ToRole="CategoryType" />
+          <NavigationProperty Name="EmailTypeLanguages" Relationship="Self.FK_EmailTypeLanguage_EMailTypeId" FromRole="Category" ToRole="EmailTypeLanguage" />
+          <NavigationProperty Name="EmailTypeLanguages1" Relationship="Self.FK_EmailTypeLanguage_Language" FromRole="Category" ToRole="EmailTypeLanguage" />
+          <NavigationProperty Name="Flights" Relationship="Self.FK_Flight_FlightTypeId" FromRole="Category" ToRole="Flight" />
+          <NavigationProperty Name="News" Relationship="Self.FK_News_Type" FromRole="Category" ToRole="News" />
+          <NavigationProperty Name="News1" Relationship="Self.FK_News_TypeUserMailingId" FromRole="Category" ToRole="News" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_StatusId" FromRole="Category" ToRole="Product" />
+          <NavigationProperty Name="ScheduledTasks" Relationship="Self.FK_ScheduledTask_EmailType" FromRole="Category" ToRole="ScheduledTask" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Gender" FromRole="Category" ToRole="User" />
+          <NavigationProperty Name="Users1" Relationship="Self.FK_User_Language" FromRole="Category" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CategoryType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_Category_CategoryTypeId" FromRole="CategoryType" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Timezone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Airports" Relationship="Self.FK_Airport_City" FromRole="City" ToRole="Airport" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_City_Country" FromRole="City" ToRole="Country" />
+          <NavigationProperty Name="SearchTrips" Relationship="Self.FK_SearchTrip_FromCityId" FromRole="City" ToRole="SearchTrip" />
+          <NavigationProperty Name="SearchTrips1" Relationship="Self.FK_SearchTrip_ToCityId" FromRole="City" ToRole="SearchTrip" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cities" Relationship="Self.FK_City_Country" FromRole="Country" ToRole="City" />
+          <NavigationProperty Name="Provinces" Relationship="Self.FK_Province_Country" FromRole="Country" ToRole="Province" />
+          <NavigationProperty Name="Providers" Relationship="Self.ProviderCountry" FromRole="Country" ToRole="Provider" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Symbol" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EuroConversationRate" Type="Decimal" Precision="38" Scale="19" Nullable="false" />
+          <NavigationProperty Name="Trips" Relationship="Self.FK_Trip_Currency" FromRole="Currency" ToRole="Trip" />
+        </EntityType>
+        <EntityType Name="EmailAudit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="EMailFrom" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="EMailTo" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AttachmentNumber" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EMailTypeLanguageId" Type="Int32" Nullable="false" />
+          <Property Name="CCUsersNumber" Type="Int32" Nullable="false" />
+          <Property Name="ScheduledTaskId" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EmailTypeLanguage" Relationship="Self.FK_EmailAudit_EMailTypeLanguageId" FromRole="EmailAudit" ToRole="EmailTypeLanguage" />
+          <NavigationProperty Name="ScheduledTask" Relationship="Self.FK_EmailAudit_ScheduledTaskId" FromRole="EmailAudit" ToRole="ScheduledTask" />
+          <NavigationProperty Name="User" Relationship="Self.FK_EmailAudit_UserId" FromRole="EmailAudit" ToRole="User" />
+        </EntityType>
+        <EntityType Name="EmailTypeLanguage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMailTypeId" Type="Int32" Nullable="false" />
+          <Property Name="LanguageId" Type="Int32" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TemplateName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_EmailTypeLanguage_EMailTypeId" FromRole="EmailTypeLanguage" ToRole="Category" />
+          <NavigationProperty Name="Category1" Relationship="Self.FK_EmailTypeLanguage_Language" FromRole="EmailTypeLanguage" ToRole="Category" />
+          <NavigationProperty Name="EmailAudits" Relationship="Self.FK_EmailAudit_EMailTypeLanguageId" FromRole="EmailTypeLanguage" ToRole="EmailAudit" />
+        </EntityType>
+        <EntityType Name="Flight">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FlightNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FromAirportId" Type="Int32" Nullable="false" />
+          <Property Name="ToAirportId" Type="Int32" Nullable="false" />
+          <Property Name="DepartureDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ArrivalDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AirlineId" Type="Int32" Nullable="false" />
+          <Property Name="StopNumber" Type="Int32" />
+          <Property Name="TripId" Type="Int32" Nullable="false" />
+          <Property Name="FlightTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Airline" Relationship="Self.FK_Flight_Airline" FromRole="Flight" ToRole="Airline" />
+          <NavigationProperty Name="Airport" Relationship="Self.FK_Flight_FromAirport" FromRole="Flight" ToRole="Airport" />
+          <NavigationProperty Name="Airport1" Relationship="Self.FK_Flight_ToAirport" FromRole="Flight" ToRole="Airport" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Flight_FlightTypeId" FromRole="Flight" ToRole="Category" />
+          <NavigationProperty Name="Trip" Relationship="Self.FK_Flight_Trip" FromRole="Flight" ToRole="Trip" />
+        </EntityType>
+        <EntityType Name="Log4Net">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Thread" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Level" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Logger" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Exception" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="UserLogin" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PublishDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastModificationUserId" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MailSubject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="TypeUserMailingId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_News_Type" FromRole="News" ToRole="Category" />
+          <NavigationProperty Name="Category1" Relationship="Self.FK_News_TypeUserMailingId" FromRole="News" ToRole="Category" />
+          <NavigationProperty Name="User" Relationship="Self.FK_News_LastModificationUserId" FromRole="News" ToRole="User" />
+          <NavigationProperty Name="ScheduledTasks" Relationship="Self.FK_ScheduledTask_News" FromRole="News" ToRole="ScheduledTask" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageSrc" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="25" Scale="2" />
+          <Property Name="SubTypeId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="AddressId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_Product_Address" FromRole="Product" ToRole="Address" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Product_StatusId" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="ProductSubType" Relationship="Self.FK_Product_SubTypeId" FromRole="Product" ToRole="ProductSubType" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Product_UserId" FromRole="Product" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ProductSubType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageSrc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_SubTypeId" FromRole="ProductSubType" ToRole="Product" />
+          <NavigationProperty Name="ProductType" Relationship="Self.FK_ProductSubType_ProductType" FromRole="ProductSubType" ToRole="ProductType" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageSrc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ProductSubTypes" Relationship="Self.FK_ProductSubType_ProductType" FromRole="ProductType" ToRole="ProductSubType" />
+        </EntityType>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageSrc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="HasAPI" Type="Boolean" Nullable="false" />
+          <Property Name="IsSearchEngine" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SearchTripProviders" Relationship="Self.FK_SearchTripProvider_Provider" FromRole="Provider" ToRole="SearchTripProvider" />
+          <NavigationProperty Name="Countries" Relationship="Self.ProviderCountry" FromRole="Provider" ToRole="Country" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_Province" FromRole="Province" ToRole="Address" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_Province_Country" FromRole="Province" ToRole="Country" />
+          <NavigationProperty Name="SubProvinces" Relationship="Self.FK_SubProvince_Province" FromRole="Province" ToRole="SubProvince" />
+        </EntityType>
+        <EntityType Name="ScheduledTask">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CallbackId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="GroupName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CancellationDate" Type="DateTime" Precision="3" />
+          <Property Name="ExecutionDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpectedExecutionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EmailTypeId" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NewsId" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_ScheduledTask_EmailType" FromRole="ScheduledTask" ToRole="Category" />
+          <NavigationProperty Name="EmailAudits" Relationship="Self.FK_EmailAudit_ScheduledTaskId" FromRole="ScheduledTask" ToRole="EmailAudit" />
+          <NavigationProperty Name="News" Relationship="Self.FK_ScheduledTask_News" FromRole="ScheduledTask" ToRole="News" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ScheduledTask_User" FromRole="ScheduledTask" ToRole="User" />
+        </EntityType>
+        <EntityType Name="SearchResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Term" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="SearchResultsCount" Type="Int32" Nullable="false" />
+          <Property Name="ClickedUrl" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="IsSearchBar" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_SearchResult_User" FromRole="SearchResult" ToRole="User" />
+        </EntityType>
+        <EntityType Name="SearchTrip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FromAirportId" Type="Int32" />
+          <Property Name="ToAirportId" Type="Int32" />
+          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ToDate" Type="DateTime" Precision="3" />
+          <Property Name="FromCityId" Type="Int32" />
+          <Property Name="ToCityId" Type="Int32" />
+          <Property Name="DirectFlightsOnly" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Airport" Relationship="Self.FK_SearchTrip_FromAirport" FromRole="SearchTrip" ToRole="Airport" />
+          <NavigationProperty Name="Airport1" Relationship="Self.FK_SearchTrip_ToAirport" FromRole="SearchTrip" ToRole="Airport" />
+          <NavigationProperty Name="City" Relationship="Self.FK_SearchTrip_FromCityId" FromRole="SearchTrip" ToRole="City" />
+          <NavigationProperty Name="City1" Relationship="Self.FK_SearchTrip_ToCityId" FromRole="SearchTrip" ToRole="City" />
+          <NavigationProperty Name="SearchTripProviders" Relationship="Self.FK_SearchTripProvider_SearchTrip" FromRole="SearchTrip" ToRole="SearchTripProvider" />
+        </EntityType>
+        <EntityType Name="SearchTripProvider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProviderId" Type="Int32" Nullable="false" />
+          <Property Name="SearchTripId" Type="Int32" Nullable="false" />
+          <Property Name="Proxy" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="SearchSuccess" Type="Boolean" Nullable="false" />
+          <Property Name="EndSearchDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Provider" Relationship="Self.FK_SearchTripProvider_Provider" FromRole="SearchTripProvider" ToRole="Provider" />
+          <NavigationProperty Name="SearchTrip" Relationship="Self.FK_SearchTripProvider_SearchTrip" FromRole="SearchTripProvider" ToRole="SearchTrip" />
+          <NavigationProperty Name="Trips" Relationship="Self.FK_Trip_SearchTripProvider" FromRole="SearchTripProvider" ToRole="Trip" />
+        </EntityType>
+        <EntityType Name="SocialMediaConnection">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProviderKeyUserSignedUp" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKeyUserFriend" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubProvince">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProvinceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_SubProvince" FromRole="SubProvince" ToRole="Address" />
+          <NavigationProperty Name="Province" Relationship="Self.FK_SubProvince_Province" FromRole="SubProvince" ToRole="Province" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TaskLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Result" Type="Boolean" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GroupName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CallbackId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Trip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CurrencyId" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="25" Scale="2" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SearchTripProviderId" Type="Int32" Nullable="false" />
+          <Property Name="EuroPrice" Type="Decimal" Precision="25" Scale="2" />
+          <NavigationProperty Name="Currency" Relationship="Self.FK_Trip_Currency" FromRole="Trip" ToRole="Currency" />
+          <NavigationProperty Name="Flights" Relationship="Self.FK_Flight_Trip" FromRole="Trip" ToRole="Flight" />
+          <NavigationProperty Name="SearchTripProvider" Relationship="Self.FK_Trip_SearchTripProvider" FromRole="Trip" ToRole="SearchTripProvider" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="LanguageId" Type="Int32" Nullable="false" />
+          <Property Name="PictureSrc" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiveNews" Type="Boolean" Nullable="false" />
+          <Property Name="PictureThumbnailSrc" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="GenderId" Type="Int32" />
+          <Property Name="ResetPasswordToken" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmailConfirmationToken" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastConnection" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserNameModification" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PublicProfile" Type="Boolean" Nullable="false" />
+          <Property Name="FacebookLink" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BackgroundPictureSrc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AddressId" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_User_Address" FromRole="User" ToRole="Address" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_User_AspNetUser" FromRole="User" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_User_Gender" FromRole="User" ToRole="Category" />
+          <NavigationProperty Name="Category1" Relationship="Self.FK_User_Language" FromRole="User" ToRole="Category" />
+          <NavigationProperty Name="EmailAudits" Relationship="Self.FK_EmailAudit_UserId" FromRole="User" ToRole="EmailAudit" />
+          <NavigationProperty Name="News" Relationship="Self.FK_News_LastModificationUserId" FromRole="User" ToRole="News" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_UserId" FromRole="User" ToRole="Product" />
+          <NavigationProperty Name="ScheduledTasks" Relationship="Self.FK_ScheduledTask_User" FromRole="User" ToRole="ScheduledTask" />
+          <NavigationProperty Name="SearchResults" Relationship="Self.FK_SearchResult_User" FromRole="User" ToRole="SearchResult" />
+          <NavigationProperty Name="UserFollows" Relationship="Self.FK_UserFollow_FollowedUserId" FromRole="User" ToRole="UserFollow" />
+          <NavigationProperty Name="UserFollows1" Relationship="Self.FK_UserFollow_User" FromRole="User" ToRole="UserFollow" />
+        </EntityType>
+        <EntityType Name="UserFollow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="FollowedUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserFollow_FollowedUserId" FromRole="UserFollow" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_UserFollow_User" FromRole="UserFollow" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ValidTopLevelDomain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Address_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Address_SubProvince">
+          <End Role="SubProvince" Type="Self.SubProvince" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubProvince">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="SubProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_Airline">
+          <End Role="Airline" Type="Self.Airline" Multiplicity="1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airline">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="AirlineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Airport_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Airport" Type="Self.Airport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Airport">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_FromAirport">
+          <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="FromAirportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_ToAirport">
+          <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="ToAirportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchTrip_FromAirport">
+          <End Role="Airport" Type="Self.Airport" Multiplicity="0..1" />
+          <End Role="SearchTrip" Type="Self.SearchTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchTrip">
+              <PropertyRef Name="FromAirportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchTrip_ToAirport">
+          <End Role="Airport" Type="Self.Airport" Multiplicity="0..1" />
+          <End Role="SearchTrip" Type="Self.SearchTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchTrip">
+              <PropertyRef Name="ToAirportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_AspNetUser">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_CategoryTypeId">
+          <End Role="CategoryType" Type="Self.CategoryType" Multiplicity="1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="CategoryTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailTypeLanguage_EMailTypeId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="EmailTypeLanguage" Type="Self.EmailTypeLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailTypeLanguage">
+              <PropertyRef Name="EMailTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailTypeLanguage_Language">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="EmailTypeLanguage" Type="Self.EmailTypeLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailTypeLanguage">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_FlightTypeId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="FlightTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Type">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_TypeUserMailingId">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="TypeUserMailingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_StatusId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledTask_EmailType">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="ScheduledTask" Type="Self.ScheduledTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduledTask">
+              <PropertyRef Name="EmailTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Gender">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Language">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchTrip_FromCityId">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="SearchTrip" Type="Self.SearchTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchTrip">
+              <PropertyRef Name="FromCityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchTrip_ToCityId">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="SearchTrip" Type="Self.SearchTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchTrip">
+              <PropertyRef Name="ToCityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Province_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Province" Type="Self.Province" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Province">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trip_Currency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="0..1" />
+          <End Role="Trip" Type="Self.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailAudit_EMailTypeLanguageId">
+          <End Role="EmailTypeLanguage" Type="Self.EmailTypeLanguage" Multiplicity="1" />
+          <End Role="EmailAudit" Type="Self.EmailAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmailTypeLanguage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailAudit">
+              <PropertyRef Name="EMailTypeLanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailAudit_ScheduledTaskId">
+          <End Role="ScheduledTask" Type="Self.ScheduledTask" Multiplicity="0..1" />
+          <End Role="EmailAudit" Type="Self.EmailAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScheduledTask">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailAudit">
+              <PropertyRef Name="ScheduledTaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailAudit_UserId">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="EmailAudit" Type="Self.EmailAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailAudit">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_Trip">
+          <End Role="Trip" Type="Self.Trip" Multiplicity="1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="TripId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_LastModificationUserId">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="LastModificationUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledTask_News">
+          <End Role="News" Type="Self.News" Multiplicity="0..1" />
+          <End Role="ScheduledTask" Type="Self.ScheduledTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="News">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduledTask">
+              <PropertyRef Name="NewsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_SubTypeId">
+          <End Role="ProductSubType" Type="Self.ProductSubType" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSubType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="SubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_UserId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSubType_ProductType">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+          <End Role="ProductSubType" Type="Self.ProductSubType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSubType">
+              <PropertyRef Name="ProductTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchTripProvider_Provider">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
+          <End Role="SearchTripProvider" Type="Self.SearchTripProvider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchTripProvider">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubProvince_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="SubProvince" Type="Self.SubProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubProvince">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledTask_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ScheduledTask" Type="Self.ScheduledTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduledTask">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchResult_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="SearchResult" Type="Self.SearchResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchResult">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchTripProvider_SearchTrip">
+          <End Role="SearchTrip" Type="Self.SearchTrip" Multiplicity="1" />
+          <End Role="SearchTripProvider" Type="Self.SearchTripProvider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SearchTrip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchTripProvider">
+              <PropertyRef Name="SearchTripId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trip_SearchTripProvider">
+          <End Role="SearchTripProvider" Type="Self.SearchTripProvider" Multiplicity="1" />
+          <End Role="Trip" Type="Self.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SearchTripProvider">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="SearchTripProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserFollow_FollowedUserId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserFollow" Type="Self.UserFollow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserFollow">
+              <PropertyRef Name="FollowedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserFollow_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserFollow" Type="Self.UserFollow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserFollow">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <Association Name="ProviderCountry">
+          <End Role="Country" Type="Self.Country" Multiplicity="*" />
+          <End Role="Provider" Type="Self.Provider" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="TemplateEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Airlines" EntityType="Self.Airline" />
+          <EntitySet Name="Airports" EntityType="Self.Airport" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="CategoryTypes" EntityType="Self.CategoryType" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Currencies" EntityType="Self.Currency" />
+          <EntitySet Name="EmailAudits" EntityType="Self.EmailAudit" />
+          <EntitySet Name="EmailTypeLanguages" EntityType="Self.EmailTypeLanguage" />
+          <EntitySet Name="Flights" EntityType="Self.Flight" />
+          <EntitySet Name="Log4Net" EntityType="Self.Log4Net" />
+          <EntitySet Name="News" EntityType="Self.News" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductSubTypes" EntityType="Self.ProductSubType" />
+          <EntitySet Name="ProductTypes" EntityType="Self.ProductType" />
+          <EntitySet Name="Providers" EntityType="Self.Provider" />
+          <EntitySet Name="Provinces" EntityType="Self.Province" />
+          <EntitySet Name="ScheduledTasks" EntityType="Self.ScheduledTask" />
+          <EntitySet Name="SearchResults" EntityType="Self.SearchResult" />
+          <EntitySet Name="SearchTrips" EntityType="Self.SearchTrip" />
+          <EntitySet Name="SearchTripProviders" EntityType="Self.SearchTripProvider" />
+          <EntitySet Name="SocialMediaConnections" EntityType="Self.SocialMediaConnection" />
+          <EntitySet Name="SubProvinces" EntityType="Self.SubProvince" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TaskLogs" EntityType="Self.TaskLog" />
+          <EntitySet Name="Trips" EntityType="Self.Trip" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserFollows" EntityType="Self.UserFollow" />
+          <EntitySet Name="ValidTopLevelDomains" EntityType="Self.ValidTopLevelDomain" />
+          <AssociationSet Name="FK_Address_Province" Association="Self.FK_Address_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_SubProvince" Association="Self.FK_Address_SubProvince">
+            <End Role="SubProvince" EntitySet="SubProvinces" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Address" Association="Self.FK_Product_Address">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Address" Association="Self.FK_User_Address">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_Airline" Association="Self.FK_Flight_Airline">
+            <End Role="Airline" EntitySet="Airlines" />
+            <End Role="Flight" EntitySet="Flights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Airport_City" Association="Self.FK_Airport_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Airport" EntitySet="Airports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_FromAirport" Association="Self.FK_Flight_FromAirport">
+            <End Role="Airport" EntitySet="Airports" />
+            <End Role="Flight" EntitySet="Flights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_ToAirport" Association="Self.FK_Flight_ToAirport">
+            <End Role="Airport" EntitySet="Airports" />
+            <End Role="Flight" EntitySet="Flights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchTrip_FromAirport" Association="Self.FK_SearchTrip_FromAirport">
+            <End Role="Airport" EntitySet="Airports" />
+            <End Role="SearchTrip" EntitySet="SearchTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchTrip_ToAirport" Association="Self.FK_SearchTrip_ToAirport">
+            <End Role="Airport" EntitySet="Airports" />
+            <End Role="SearchTrip" EntitySet="SearchTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_AspNetUser" Association="Self.FK_User_AspNetUser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_CategoryTypeId" Association="Self.FK_Category_CategoryTypeId">
+            <End Role="CategoryType" EntitySet="CategoryTypes" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailTypeLanguage_EMailTypeId" Association="Self.FK_EmailTypeLanguage_EMailTypeId">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="EmailTypeLanguage" EntitySet="EmailTypeLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailTypeLanguage_Language" Association="Self.FK_EmailTypeLanguage_Language">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="EmailTypeLanguage" EntitySet="EmailTypeLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_FlightTypeId" Association="Self.FK_Flight_FlightTypeId">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Flight" EntitySet="Flights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_Type" Association="Self.FK_News_Type">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_TypeUserMailingId" Association="Self.FK_News_TypeUserMailingId">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_StatusId" Association="Self.FK_Product_StatusId">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledTask_EmailType" Association="Self.FK_ScheduledTask_EmailType">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="ScheduledTask" EntitySet="ScheduledTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Language" Association="Self.FK_User_Language">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_Country" Association="Self.FK_City_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchTrip_FromCityId" Association="Self.FK_SearchTrip_FromCityId">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="SearchTrip" EntitySet="SearchTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchTrip_ToCityId" Association="Self.FK_SearchTrip_ToCityId">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="SearchTrip" EntitySet="SearchTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Province_Country" Association="Self.FK_Province_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Province" EntitySet="Provinces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trip_Currency" Association="Self.FK_Trip_Currency">
+            <End Role="Currency" EntitySet="Currencies" />
+            <End Role="Trip" EntitySet="Trips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailAudit_EMailTypeLanguageId" Association="Self.FK_EmailAudit_EMailTypeLanguageId">
+            <End Role="EmailTypeLanguage" EntitySet="EmailTypeLanguages" />
+            <End Role="EmailAudit" EntitySet="EmailAudits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailAudit_ScheduledTaskId" Association="Self.FK_EmailAudit_ScheduledTaskId">
+            <End Role="ScheduledTask" EntitySet="ScheduledTasks" />
+            <End Role="EmailAudit" EntitySet="EmailAudits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailAudit_UserId" Association="Self.FK_EmailAudit_UserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="EmailAudit" EntitySet="EmailAudits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_Trip" Association="Self.FK_Flight_Trip">
+            <End Role="Trip" EntitySet="Trips" />
+            <End Role="Flight" EntitySet="Flights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_LastModificationUserId" Association="Self.FK_News_LastModificationUserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledTask_News" Association="Self.FK_ScheduledTask_News">
+            <End Role="News" EntitySet="News" />
+            <End Role="ScheduledTask" EntitySet="ScheduledTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_SubTypeId" Association="Self.FK_Product_SubTypeId">
+            <End Role="ProductSubType" EntitySet="ProductSubTypes" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_UserId" Association="Self.FK_Product_UserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSubType_ProductType" Association="Self.FK_ProductSubType_ProductType">
+            <End Role="ProductType" EntitySet="ProductTypes" />
+            <End Role="ProductSubType" EntitySet="ProductSubTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchTripProvider_Provider" Association="Self.FK_SearchTripProvider_Provider">
+            <End Role="Provider" EntitySet="Providers" />
+            <End Role="SearchTripProvider" EntitySet="SearchTripProviders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubProvince_Province" Association="Self.FK_SubProvince_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="SubProvince" EntitySet="SubProvinces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledTask_User" Association="Self.FK_ScheduledTask_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ScheduledTask" EntitySet="ScheduledTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchResult_User" Association="Self.FK_SearchResult_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SearchResult" EntitySet="SearchResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchTripProvider_SearchTrip" Association="Self.FK_SearchTripProvider_SearchTrip">
+            <End Role="SearchTrip" EntitySet="SearchTrips" />
+            <End Role="SearchTripProvider" EntitySet="SearchTripProviders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trip_SearchTripProvider" Association="Self.FK_Trip_SearchTripProvider">
+            <End Role="SearchTripProvider" EntitySet="SearchTripProviders" />
+            <End Role="Trip" EntitySet="Trips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserFollow_FollowedUserId" Association="Self.FK_UserFollow_FollowedUserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserFollow" EntitySet="UserFollows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserFollow_User" Association="Self.FK_UserFollow_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserFollow" EntitySet="UserFollows" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="ProviderCountry" Association="Self.ProviderCountry">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Provider" EntitySet="Providers" />
+          </AssociationSet>
+          <FunctionImport Name="DeleteNewsById">
+          <Parameter Name="NewsId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteProductById_NoTransaction">
+          <Parameter Name="ProductId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteProductById_WithTransaction">
+          <Parameter Name="ProductId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteScheduledTaskById">
+          <Parameter Name="ScheduledTaskId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteUserById">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertInfo">
+            <Parameter Name="Error_Message" Mode="In" Type="String" />
+            <Parameter Name="Exception" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertLog">
+            <Parameter Name="Error_Message" Mode="In" Type="String" />
+            <Parameter Name="Exception" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertTripWithTransaction">
+            <Parameter Name="SearchTripProviderId" Mode="In" Type="Int32" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+            <Parameter Name="CurrencyCode" Mode="In" Type="String" />
+            <Parameter Name="Url" Mode="In" Type="String" />
+            <Parameter Name="OneWayTrip_FromAirportCode" Mode="In" Type="String" />
+            <Parameter Name="OneWayTrip_ToAirportCode" Mode="In" Type="String" />
+            <Parameter Name="OneWayTrip_DepartureDate" Mode="In" Type="String" />
+            <Parameter Name="OneWayTrip_ArrivalDate" Mode="In" Type="String" />
+            <Parameter Name="OneWayTrip_Duration" Mode="In" Type="Int32" />
+            <Parameter Name="OneWayTrip_AirlineName" Mode="In" Type="String" />
+            <Parameter Name="OneWayTrip_AirlineLogoSrc" Mode="In" Type="String" />
+            <Parameter Name="OneWayTrip_Stops" Mode="In" Type="Int32" />
+            <Parameter Name="ReturnTrip_FromAirportCode" Mode="In" Type="String" />
+            <Parameter Name="ReturnTrip_ToAirportCode" Mode="In" Type="String" />
+            <Parameter Name="ReturnTrip_DepartureDate" Mode="In" Type="String" />
+            <Parameter Name="ReturnTrip_ArrivalDate" Mode="In" Type="String" />
+            <Parameter Name="ReturnTrip_Duration" Mode="In" Type="Int32" />
+            <Parameter Name="ReturnTrip_AirlineName" Mode="In" Type="String" />
+            <Parameter Name="ReturnTrip_AirlineLogoSrc" Mode="In" Type="String" />
+            <Parameter Name="ReturnTrip_Stops" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(TemplateModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(TemplateModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TemplateModelStoreContainer" CdmEntityContainer="TemplateEntities1">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="TemplateModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="SubProvinceId" ColumnName="SubProvinceId" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Airlines">
+            <EntityTypeMapping TypeName="TemplateModel.Airline">
+              <MappingFragment StoreEntitySet="Airline">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ImageSrc" ColumnName="ImageSrc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Airports">
+            <EntityTypeMapping TypeName="TemplateModel.Airport">
+              <MappingFragment StoreEntitySet="Airport">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="BusyAirport" ColumnName="BusyAirport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="TemplateModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="TemplateModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="TemplateModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="TemplateModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="TemplateModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CategoryTypeId" ColumnName="CategoryTypeId" />
+                <ScalarProperty Name="DateModification" ColumnName="DateModification" />
+                <ScalarProperty Name="Field1" ColumnName="Field1" />
+                <ScalarProperty Name="Field2" ColumnName="Field2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryTypes">
+            <EntityTypeMapping TypeName="TemplateModel.CategoryType">
+              <MappingFragment StoreEntitySet="CategoryType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="TemplateModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Timezone" ColumnName="Timezone" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="TemplateModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Currencies">
+            <EntityTypeMapping TypeName="TemplateModel.Currency">
+              <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+                <ScalarProperty Name="EuroConversationRate" ColumnName="EuroConversationRate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailAudits">
+            <EntityTypeMapping TypeName="TemplateModel.EmailAudit">
+              <MappingFragment StoreEntitySet="EmailAudit">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="EMailFrom" ColumnName="EMailFrom" />
+                <ScalarProperty Name="EMailTo" ColumnName="EMailTo" />
+                <ScalarProperty Name="AttachmentNumber" ColumnName="AttachmentNumber" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EMailTypeLanguageId" ColumnName="EMailTypeLanguageId" />
+                <ScalarProperty Name="CCUsersNumber" ColumnName="CCUsersNumber" />
+                <ScalarProperty Name="ScheduledTaskId" ColumnName="ScheduledTaskId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailTypeLanguages">
+            <EntityTypeMapping TypeName="TemplateModel.EmailTypeLanguage">
+              <MappingFragment StoreEntitySet="EmailTypeLanguage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EMailTypeId" ColumnName="EMailTypeId" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flights">
+            <EntityTypeMapping TypeName="TemplateModel.Flight">
+              <MappingFragment StoreEntitySet="Flight">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FlightNumber" ColumnName="FlightNumber" />
+                <ScalarProperty Name="FromAirportId" ColumnName="FromAirportId" />
+                <ScalarProperty Name="ToAirportId" ColumnName="ToAirportId" />
+                <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="AirlineId" ColumnName="AirlineId" />
+                <ScalarProperty Name="StopNumber" ColumnName="StopNumber" />
+                <ScalarProperty Name="TripId" ColumnName="TripId" />
+                <ScalarProperty Name="FlightTypeId" ColumnName="FlightTypeId" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Log4Net">
+            <EntityTypeMapping TypeName="TemplateModel.Log4Net">
+              <MappingFragment StoreEntitySet="Log4Net">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Thread" ColumnName="Thread" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Logger" ColumnName="Logger" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Exception" ColumnName="Exception" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="TemplateModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="LastModificationUserId" ColumnName="LastModificationUserId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MailSubject" ColumnName="MailSubject" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="TypeUserMailingId" ColumnName="TypeUserMailingId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="TemplateModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ImageSrc" ColumnName="ImageSrc" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="SubTypeId" ColumnName="SubTypeId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSubTypes">
+            <EntityTypeMapping TypeName="TemplateModel.ProductSubType">
+              <MappingFragment StoreEntitySet="ProductSubType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageSrc" ColumnName="ImageSrc" />
+                <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypes">
+            <EntityTypeMapping TypeName="TemplateModel.ProductType">
+              <MappingFragment StoreEntitySet="ProductType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageSrc" ColumnName="ImageSrc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Providers">
+            <EntityTypeMapping TypeName="TemplateModel.Provider">
+              <MappingFragment StoreEntitySet="Provider">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageSrc" ColumnName="ImageSrc" />
+                <ScalarProperty Name="HasAPI" ColumnName="HasAPI" />
+                <ScalarProperty Name="IsSearchEngine" ColumnName="IsSearchEngine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="TemplateModel.Province">
+              <MappingFragment StoreEntitySet="Province">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduledTasks">
+            <EntityTypeMapping TypeName="TemplateModel.ScheduledTask">
+              <MappingFragment StoreEntitySet="ScheduledTask">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CallbackId" ColumnName="CallbackId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="CancellationDate" ColumnName="CancellationDate" />
+                <ScalarProperty Name="ExecutionDate" ColumnName="ExecutionDate" />
+                <ScalarProperty Name="ExpectedExecutionDate" ColumnName="ExpectedExecutionDate" />
+                <ScalarProperty Name="EmailTypeId" ColumnName="EmailTypeId" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="NewsId" ColumnName="NewsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SearchResults">
+            <EntityTypeMapping TypeName="TemplateModel.SearchResult">
+              <MappingFragment StoreEntitySet="SearchResult">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Term" ColumnName="Term" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="SearchResultsCount" ColumnName="SearchResultsCount" />
+                <ScalarProperty Name="ClickedUrl" ColumnName="ClickedUrl" />
+                <ScalarProperty Name="IsSearchBar" ColumnName="IsSearchBar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SearchTrips">
+            <EntityTypeMapping TypeName="TemplateModel.SearchTrip">
+              <MappingFragment StoreEntitySet="SearchTrip">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="FromAirportId" ColumnName="FromAirportId" />
+                <ScalarProperty Name="ToAirportId" ColumnName="ToAirportId" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromCityId" ColumnName="FromCityId" />
+                <ScalarProperty Name="ToCityId" ColumnName="ToCityId" />
+                <ScalarProperty Name="DirectFlightsOnly" ColumnName="DirectFlightsOnly" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SearchTripProviders">
+            <EntityTypeMapping TypeName="TemplateModel.SearchTripProvider">
+              <MappingFragment StoreEntitySet="SearchTripProvider">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="SearchTripId" ColumnName="SearchTripId" />
+                <ScalarProperty Name="Proxy" ColumnName="Proxy" />
+                <ScalarProperty Name="SearchSuccess" ColumnName="SearchSuccess" />
+                <ScalarProperty Name="EndSearchDate" ColumnName="EndSearchDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SocialMediaConnections">
+            <EntityTypeMapping TypeName="TemplateModel.SocialMediaConnection">
+              <MappingFragment StoreEntitySet="SocialMediaConnection">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProviderKeyUserSignedUp" ColumnName="ProviderKeyUserSignedUp" />
+                <ScalarProperty Name="ProviderKeyUserFriend" ColumnName="ProviderKeyUserFriend" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubProvinces">
+            <EntityTypeMapping TypeName="TemplateModel.SubProvince">
+              <MappingFragment StoreEntitySet="SubProvince">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TemplateModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskLogs">
+            <EntityTypeMapping TypeName="TemplateModel.TaskLog">
+              <MappingFragment StoreEntitySet="TaskLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="CallbackId" ColumnName="CallbackId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trips">
+            <EntityTypeMapping TypeName="TemplateModel.Trip">
+              <MappingFragment StoreEntitySet="Trip">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="SearchTripProviderId" ColumnName="SearchTripProviderId" />
+                <ScalarProperty Name="EuroPrice" ColumnName="EuroPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TemplateModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="PictureSrc" ColumnName="PictureSrc" />
+                <ScalarProperty Name="ReceiveNews" ColumnName="ReceiveNews" />
+                <ScalarProperty Name="PictureThumbnailSrc" ColumnName="PictureThumbnailSrc" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="ResetPasswordToken" ColumnName="ResetPasswordToken" />
+                <ScalarProperty Name="EmailConfirmationToken" ColumnName="EmailConfirmationToken" />
+                <ScalarProperty Name="DateLastConnection" ColumnName="DateLastConnection" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="UserNameModification" ColumnName="UserNameModification" />
+                <ScalarProperty Name="PublicProfile" ColumnName="PublicProfile" />
+                <ScalarProperty Name="FacebookLink" ColumnName="FacebookLink" />
+                <ScalarProperty Name="BackgroundPictureSrc" ColumnName="BackgroundPictureSrc" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserFollows">
+            <EntityTypeMapping TypeName="TemplateModel.UserFollow">
+              <MappingFragment StoreEntitySet="UserFollow">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FollowedUserId" ColumnName="FollowedUserId" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ValidTopLevelDomains">
+            <EntityTypeMapping TypeName="TemplateModel.ValidTopLevelDomain">
+              <MappingFragment StoreEntitySet="ValidTopLevelDomain">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="TemplateModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ProviderCountry" TypeName="TemplateModel.ProviderCountry" StoreEntitySet="ProviderCountry">
+            <EndProperty Name="Country">
+              <ScalarProperty Name="Id" ColumnName="CountryId" />
+            </EndProperty>
+            <EndProperty Name="Provider">
+              <ScalarProperty Name="Id" ColumnName="ProviderId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="DeleteNewsById" FunctionName="TemplateModel.Store.DeleteNewsById" />
+          <FunctionImportMapping FunctionImportName="DeleteProductById_NoTransaction" FunctionName="TemplateModel.Store.DeleteProductById_NoTransaction" />
+          <FunctionImportMapping FunctionImportName="DeleteProductById_WithTransaction" FunctionName="TemplateModel.Store.DeleteProductById_WithTransaction" />
+          <FunctionImportMapping FunctionImportName="DeleteScheduledTaskById" FunctionName="TemplateModel.Store.DeleteScheduledTaskById" />
+          <FunctionImportMapping FunctionImportName="DeleteUserById" FunctionName="TemplateModel.Store.DeleteUserById" />
+          <FunctionImportMapping FunctionImportName="InsertInfo" FunctionName="TemplateModel.Store.InsertInfo" />
+          <FunctionImportMapping FunctionImportName="InsertLog" FunctionName="TemplateModel.Store.InsertLog" />
+          <FunctionImportMapping FunctionImportName="InsertTripWithTransaction" FunctionName="TemplateModel.Store.InsertTripWithTransaction" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="TemplateModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="TemplateModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="TemplateModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="TemplateModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TemplateModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="TemplateModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TemplateModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="TemplateModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="TemplateModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  </configSections>
+  <appSettings>
+    <add key="MainPythonScriptPath" value="C:\Test\WebScraper\Main.py" />
+    <add key="PythonPath" value="C:\Test\Python37-32\python.exe" />
+    <add key="ExitWhenFinished" value="YES" />
+  </appSettings>
+  <connectionStrings>
+    <add name="DefaultConnection" connectionString="data source=.; initial catalog=Template; persist security info=True; user id=sa;password=kaQ2lm3Jqn!So7pEe9Nn.v;" providerName="System.Data.SqlClient" />
+    <add name="TemplateEntities" connectionString="metadata=res://*/Model.DBModel.csdl|res://*/Model.DBModel.ssdl|res://*/Model.DBModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.;initial catalog=Template;persist security info=True;user id=sa;password=kaQ2lm3Jqn!So7pEe9Nn.v;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+  </connectionStrings>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.1" />
+  </startup>
+  <log4net>
+    <appender name="AdoNetAppender" type="log4net.Appender.AdoNetAppender">
+      <bufferSize value="1" />
+      <connectionType value="System.Data.SqlClient.SqlConnection, System.Data, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+      <connectionString value="data source=.;Initial Catalog=Templat;persist security info=True;user id=sa;password=kaQ2lm3Jqn!So7pEe9Nn.v;multipleactiveresultsets=True;" />
+      <commandText value="INSERT INTO Log4Net (Date,Thread,Level,Logger,Message,Exception,UserLogin) VALUES (@log_date, @thread, @log_level, @logger, @message, @exception,'*** BATCH ***');" />
+      <parameter>
+        <parameterName value="@log_date" />
+        <dbType value="DateTime" />
+        <layout type="log4net.Layout.RawTimeStampLayout" />
+      </parameter>
+      <parameter>
+        <parameterName value="@thread" />
+        <dbType value="String" />
+        <size value="255" />
+        <layout type="log4net.Layout.PatternLayout">
+          <conversionPattern value="%thread" />
+        </layout>
+      </parameter>
+      <parameter>
+        <parameterName value="@log_level" />
+        <dbType value="String" />
+        <size value="50" />
+        <layout type="log4net.Layout.PatternLayout">
+          <conversionPattern value="%level" />
+        </layout>
+      </parameter>
+      <parameter>
+        <parameterName value="@logger" />
+        <dbType value="String" />
+        <size value="5000" />
+        <layout type="log4net.Layout.PatternLayout">
+          <conversionPattern value="%logger" />
+        </layout>
+      </parameter>
+      <parameter>
+        <parameterName value="@message" />
+        <dbType value="String" />
+        <size value="5000" />
+        <layout type="log4net.Layout.PatternLayout">
+          <conversionPattern value="%message" />
+        </layout>
+      </parameter>
+      <parameter>
+        <parameterName value="@exception" />
+        <dbType value="String" />
+        <size value="5000" />
+        <layout type="log4net.Layout.PatternLayout">
+          <conversionPattern value="%exception" />
+        </layout>
+      </parameter>
+    </appender>
+    <appender name="ConsoleAppender" type="log4net.Appender.ConsoleAppender">
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%d [%t] %-5p %m%n" />
+      </layout>
+    </appender>
+    <root>
+      <level value="DEBUG" />
+      <appender-ref ref="AdoNetAppender" />
+    </root>
+  </log4net>
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
+      <parameters>
+        <parameter value="mssqllocaldb" />
+      </parameters>
+    </defaultConnectionFactory>
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
+</configuration>

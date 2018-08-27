@@ -1,14 +1,14 @@
-Template/Template/App_Data/
-Template/Commons/bin/
-Template/Commons/obj/
-Template/DataAccess/bin/
-Template/DataAccess/obj/
-Template/Models/bin
-Template/Models/obj
-Template/Service/bin
-Template/Service/obj
-Batch1/Batch/Batch1/bin/Debug
-Batch1/Batch/Batch1/obj/Debug
+Website/Template/App_Data/
+Website/Commons/bin/
+Website/Commons/obj/
+Website/DataAccess/bin/
+Website/DataAccess/obj/
+Website/Models/bin
+Website/Models/obj
+Website/Service/bin
+Website/Service/obj
+Batch/Batch/Batch1/bin/Debug
+Batch/Batch/Batch1/obj/Debug
 
 
 ## Ignore Visual Studio temporary files, build results, and
