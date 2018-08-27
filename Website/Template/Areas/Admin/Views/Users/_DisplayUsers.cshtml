@@ -1,0 +1,56 @@
+﻿@model Models.ViewModels.Admin.Users.DisplayUsersViewModel
+
+
+
+
+<div class="table-responsive">
+    <div class="pull-right">
+        <p style="font-weight:bold"><span id="numRowCount">@Model.Count</span> [[[row(s) found]]]</p>
+    </div>
+    <table class="table table-striped" id="userContainer">
+        <thead>
+            <tr style="width:100% !important;">
+                <th style="width:26% !important;">[[[Name]]]</th>
+                <th style="width:23% !important;">[[[User Name]]]</th>
+                <th style="width:35% !important;">[[[Roles]]]</th>
+                <th style="width:17% !important;">[[[Last Connection]]]</th>
+                <th style="width:8% !important;"></th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model.UserRolesList)
+        {
+
+
+            <tr style="width:100% !important;" id="UserTr_@item.UserId">
+                <td style="width:26% !important;">@item.UserFirstNameDecrypt @item.UserLastNameDecrypt</td>
+                <td style="width:23% !important;"><a class="applicationLink" href="../MyProfile/@item.UserId">@item.UserNameDecrypt</a></td>
+                <td id="td_userroles_@item.UseridentityId"  style="width:35% !important;" >
+                    <div id="div_userroles_@item.UseridentityId"  style="width:100% !important;" class="container-fluid noMarginNoPaddingVertical">
+                        @Html.Partial("~/Areas/Admin/Views/Users/_DisplayUsersModifications.cshtml", item)
+                    </div>
+                </td>
+                <td style="width:17% !important;text-align:center">
+                    @Commons.FormaterHelper.GetFormatStringForDateDisplay(item.DateLastConnection)
+                </td>
+                <td  style="width:8% !important;text-align:center">
+                    <span title="[[[Delete the user]]]" class="glyphicon glyphicon-remove" style="color:red;text-align:center;cursor:pointer;" onclick="AskConfirmationToDeleteUser(@item.UserId)"></span>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@using (Html.BeginForm("_DisplayUsers", "Admin", FormMethod.Post, new { id = "_pager" }))
+{
+    @Html.Partial("_Pager")
+    @Html.HiddenFor(m => m.Pattern)
+}
+
+<script>
+    $(document).ready(function () {
+        HideSpinner();
+    });
+
+</script>

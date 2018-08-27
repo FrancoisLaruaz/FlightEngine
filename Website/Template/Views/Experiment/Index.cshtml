@@ -1,0 +1,52 @@
+﻿<link href="~/Content/Views/Experiment/Experiment.css" rel="stylesheet" />
+
+
+
+        <div class="main-content">
+            <h2>Experiment</h2>
+    
+            <input type="button" style="display:none" value="Shoot!" class="webcamBtn" />
+
+            <div class="col-xs-12 col-md-4 col-md-offset-4">
+                <div id="CameraTest" style="width:100%;"></div>
+                <imput type="hidden" name="CameraFileSrc" id="CameraFileSrc" />
+                <div id="CameraNotFound" style="width:100%;display:none">
+                    @Html.Partial("~/Views/Shared/_CameraNotFound.cshtml")
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-4 col-md-offset-4">
+                <div  class="wrapPicPrev">
+                    <label id="CameraPreview" class="circular PicturePreview" for="Pic">
+                        <i class="fa fa-camera" aria-hidden="true"></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+<script>
+    $(document).ready(function () {
+        SetCamera('UserPicture', 'CameraTest', 'CameraFileSrc', 'CameraPreview');
+    });
+
+</script>
+
+<script type='text/javascript'
+        src='//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js'> </script>
+
+<script type='text/javascript'>
+    var isFlashExists = swfobject.hasFlashPlayerVersion('1') ? true : false;
+    if (isFlashExists) {
+        alert('flash exists');
+    } else {
+        alert('NO flash');
+    }
+</script>
+
+@section scripts {
+    @Html.ScriptImportContent("~/Scripts/Views/Experiment/Index.js")
+}
+
+
+

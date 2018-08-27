@@ -1,0 +1,14 @@
+#LanguageSelector {
+    text-align: center !important;
+    border-radius: 15px;
+    display: block;
+    margin: 0 auto;
+    max-width: 300px;
+}
+
+
+#LanguageSelectorWrapper {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}

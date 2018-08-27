@@ -1,0 +1,36 @@
+﻿@model Models.ViewModels.Account.MyProfileViewModel
+
+@Html.CssImportContent("~/Content/Views/Account/MyProfile.css")
+
+
+@Html.Partial("_PageTitle")
+
+
+<div class="col-md-10 col-xs-12 col-md-offset-1 col-md-offset-0 row" id="MyProfileMainDiv">
+    @Html.HiddenFor(m => m.UserId,new { id="HiddenUserId"})
+    <div class="col-xs-12 col-md-3 paddingHorizontalOnlyFullScreen">
+        <ul class="ulAlignLeft">
+            <li class="navVerticalList">
+                <a class="navVerticalItem navActive" id="EditProfilLink" data-actiontogo="_MyProfileEdit"><i class="fa fa-user iconListNav" aria-hidden="true"></i>[[[Profile]]]</a>
+            </li>
+            <li class="navVerticalList">
+                <a class="navVerticalItem" id="PhotosLink" data-actiontogo="_MyProfilePhotos"><i class="fa fa-picture-o iconListNav" aria-hidden="true"></i>[[[Photos]]]</a>
+            </li>
+            <li class="navVerticalList">
+                <a class="navVerticalItem" id="AddressLink" data-actiontogo="_MyProfileAddress"><i class="fa fa-map-marker iconListNav" aria-hidden="true"></i>[[[Address]]]</a>
+            </li>
+            <li class="navVerticalList">
+                <a class="navVerticalItem" id="TrustAndVerificationLink" data-actiontogo="_MyProfileTrustAndVerifications"><i class="fa fa-check iconListNav" aria-hidden="true"></i>[[[Trust and Verification]]]</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-12 col-md-9 paddingHorizontalOnlyFullScreen" id="divMyProfileAction">
+    </div>
+</div>
+@section scripts {
+    @Html.ScriptImportContent("~/Scripts/Views/Account/MyProfile/MyProfile.js")
+}
+
+
+
+

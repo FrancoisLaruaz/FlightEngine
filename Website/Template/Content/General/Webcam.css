@@ -1,0 +1,20 @@
+﻿.PicturePreview {
+    height: 160px;
+    width: 160px;
+    padding-top: 35px;
+    background: #bbbdc0;
+    cursor: pointer;
+    background-size: cover;
+}
+
+.wrapPicPrev {
+    text-align: center;
+}
+
+.PicturePreview .fa-camera {
+    color: white;
+    text-align: center;
+    opacity: 0.3;
+    padding-top: 29px !important;
+    font-size: 44px;
+}

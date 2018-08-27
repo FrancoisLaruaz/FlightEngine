@@ -1,0 +1,46 @@
+﻿@if (!String.IsNullOrEmpty(CommonsConst.Const.FacebookPixelID))
+{
+    <script>
+        if (!IsTestEnvironment()) {
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq) return; n = f.fbq = function () {
+                    n.callMethod ?
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                }; if (!f._fbq) f._fbq = n;
+                n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
+                t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+            }(window,
+                document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '@CommonsConst.Const.FacebookPixelID');
+            fbq('track', 'PageView');
+        }
+    </script>
+}
+
+<script>
+    function SendHit(_FBId, Type, Param) {
+
+        if (_FBId != null && _FBId.toString() != '') {
+            var FBId = _FBId.toString();
+            if (!IsTestEnvironment()) {
+                !function (f, b, e, v, n, t, s) {
+                    if (f.fbq) return; n = f.fbq = function () {
+                        n.callMethod ?
+                            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                    }; if (!f._fbq) f._fbq = n;
+                    n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
+                    t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+                }(window,
+                    document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', FBId);
+                if (Param != null && typeof Param != "undefined") {
+                    fbq('track', Type, Param);
+                }
+                else {
+                    fbq('track', Type);
+                }
+                // alert('hit sent  Id : ' + FBId + '  and type : ' + Type);
+            }
+        }
+    }
+</script>

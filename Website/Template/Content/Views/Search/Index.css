@@ -1,0 +1,256 @@
+#divSearchBoxWrap {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+#searchTbx {
+    width: 100%;
+    border-radius: 30px;
+    margin-right: auto;
+    text-align: left;
+}
+
+
+
+
+
+
+#searchIcon {
+    position: absolute;
+    right: -20px;
+    cursor: pointer;
+    top: 10px;
+    z-index: 3;
+}
+
+
+    #searchIcon:hover {
+        color: #f36f23;
+    }
+
+.divWrapSearchItem {
+    border-top: #DEE3DE 1px solid;
+    border-bottom: #DEE3DE 1px solid;
+    cursor: pointer;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+@media (min-width: 992px) {
+    .imageSearchItem {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
+
+
+.divWrapSearchItem:hover {
+    border-top: #f2f2f2 1px solid;
+    border-bottom: #f2f2f2 1px solid;
+    cursor: pointer;
+    background-color: #f2f2f2;
+}
+
+.imageSearchItem {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 140px;
+    width: 100%;
+    margin: auto;
+    max-width: 230px;
+    text-align: center;
+}
+
+.searchImageRounded {
+    margin: auto;
+    width: 140px !important;
+}
+
+@media (min-width: 992px) {
+    .imageSearchItem {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 56px;
+        width: 84px;
+        text-align: center;
+    }
+
+    .searchImageRounded {
+        margin-left: 14px;
+        margin-right: 14px;
+        width: 56px !important;
+    }
+}
+
+
+.imageSearchItemDiv {
+    text-align: center;
+}
+
+.nameSearchItem {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.nameSearchItemDiv {
+    margin-top: 4px;
+}
+
+.typeSearchItem {
+    opacity: 0.6;
+}
+
+.typeSearchItemDiv {
+    margin-top: 2px;
+}
+
+
+#divSearchResultCount {
+    padding-right: 0px;
+    margin-top: 10px;
+}
+
+@media (min-width: 992px) {
+    #searchResultCount {
+        padding-right: 70px;
+        margin-top: 0px;
+    }
+}
+
+
+#searchResultCount {
+    opacity: 0.7;
+}
+
+@media (min-width: 992px) {
+    #searchResultCount {
+        float: right !important;
+    }
+}
+
+
+.no-resultsFound {
+    max-width: 300px;
+    max-height: auto;
+}
+
+#no-resultsFoundDiv {
+    margin-top: 30px;
+}
+
+
+#searchFiltersDiv {
+    padding-right: 80px;
+}
+
+.divSearchFilterLedtSide {
+    margin-top: 40px;
+}
+
+#MainContainer {
+    min-height: 500px;
+}
+
+.divWrapSearchItemNotVisible {
+    display: none;
+}
+
+#searchResultsDiv {
+    padding-bottom: 70px;
+    padding-top: 70px;
+}
+
+@media (min-width: 1070px) {
+    #searchResultsDiv {
+        padding-bottom: 70px;
+        padding-top: 0px;
+    }
+}
+
+.viewMoreSearchResultsLink {
+    color: #f36f23;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .viewMoreSearchResultsLink:hover {
+        color: black;
+        cursor: pointer;
+    }
+
+.divViewMoreSearchResultsLink {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+
+.SearchTypePanel {
+    border: #DEE3DE 2px solid;
+    margin-bottom: 12px;
+}
+
+
+.SearchTypePanel {
+    border-radius: 0;
+    border: 1px solid #dce0e0;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 35px;
+}
+
+.SearchTypePanel-header {
+    color: #484848;
+    font-size: 18px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 40px;
+    border-bottom: 1px solid #dce0e0;
+    font-weight: bold;
+    background-color: #DEE3DE;
+}
+
+.SearchTypePanel-Body {
+    padding-top: 22px;
+    padding-bottom: 22px;
+}
+
+
+.searchTypeIcon {
+    margin-right: 10px;
+}
+
+
+.privateSearchItem {
+    font-size: 20px;
+}
+
+.followSearchSpan {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    float: none !important;
+}
+
+@media (min-width: 1070px) {
+    .followSearchSpan {
+        position: absolute;
+        top: 8px;
+        right: 30px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        float: right !important;
+    }
+}
+
+
+@media (max-width: 1070px) {
+
+    .FollowUnfollowBtn {
+        margin: auto;
+    }
+}

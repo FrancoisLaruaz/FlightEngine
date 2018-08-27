@@ -1,0 +1,104 @@
+
+
+#newUserWelcomePg .plsTxt {
+    padding: 20px 0;
+    font-size: 20px !important;
+}
+
+#newUserWelcomePg .welcomeTo {
+    padding-bottom: 30px;
+}
+
+
+.modal-headers {
+    font-weight: bold;
+    text-align: center;
+    font-size: 26px;
+    padding-bottom: 20px;
+}
+
+
+#newUserWelcomePg {
+    background-image: linear-gradient(rgba(27,27,27,0.6),rgba(27,27,27,0.6)), url(/Ressources/Files/Images/SignUp/signupwelcome.jpg);
+    background-size: cover;
+    padding: 3em 1em;
+}
+
+
+
+.white-txt {
+    color: white;
+}
+
+.welcomeTo {
+    padding-bottom: 30px;
+}
+
+
+
+
+
+.SignUpPictureTitle {
+    padding-bottom: 18px;
+}
+
+
+.indicator-dots {
+    padding: 6px;
+    margin-right: 3px;
+    border: grey 1px solid;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+.indicator-dots.filled-dots {
+        background: grey;
+    }
+
+
+.wrapIndicator {
+    padding-bottom: 10px;
+}
+
+
+.ModalWarningSignUpFA {
+    font-size: 7.1em;
+}
+
+.btw-space-modal {
+    padding: 6px;
+}
+
+
+.modalGoBackBtns {
+    position: absolute;
+    top: -4px;
+    left: 35px;
+    cursor: pointer;
+}
+
+.signUpProcessText
+{
+    font-size:19px;
+}
+
+
+.welcomeAboard svg {
+    width: 150px;
+}
+
+.grey-txt {
+    color: grey;
+}
+
+#newUserConfirmationPg {
+    background-image: linear-gradient(rgba(27,27,27,0.6),rgba(27,27,27,0.6)), url(/Ressources/Files/Images/SignUp/signupconfirmation.jpg);
+    background-size: cover;
+    padding: 1em 1em;
+}
+
+
+.PaddingSignUpProcess {
+    padding-bottom: 25px;
+    padding-top: 25px;
+}

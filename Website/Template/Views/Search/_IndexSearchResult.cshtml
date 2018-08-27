@@ -1,0 +1,25 @@
+﻿@model  Models.ViewModels.Search.SearchIndexResultViewModel
+
+@{
+    Layout = null;
+}
+
+@Html.HiddenFor(m => m.SearchResultsGeneralCount)
+
+
+@if (Model.SearchResultsGeneralCount > 0)
+{
+    @Html.Partial("_IndexSearchResultType", Model.Users)
+    @Html.Partial("_IndexSearchResultType", Model.Pages)
+}
+
+<div class="col-xs-12 col-md-8 col-md-offset-2" id="no-resultsFoundDiv" style="display:none">
+    <img src="~/Ressources/Files/Images/Search/noresult.png" class="no-resultsFound" />
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        SetResultCount();
+    });
+</script>

@@ -1,0 +1,56 @@
+﻿@model Models.ViewModels.Admin.Email.DisplayEmailAuditViewModel
+
+
+
+
+<div class="table-responsive">
+    <div class="pull-right">
+        <p style="font-weight:bold">@Model.Count [[[row(s) found]]]</p>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>[[[Id]]]</th>
+                <th>[[[Date]]]</th>
+                <th>[[[Type]]]</th>
+                <th>[[[To]]]</th>
+                <th>[[[User]]]</th>
+                <th>[[[Comment]]]</th>
+                <th>[[[Language]]]</th>
+                <th>[[[Attachments]]]</th>
+                <th>[[[CC]]]</th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model.AuditsList)
+        {
+
+
+            <tr>
+                <td>@item.Id</td>
+                <td>@Commons.FormaterHelper.GetFormatStringForDateDisplay(@item.Date)</td>
+                <td>@item.EMailTypeName</td>
+                <td><span title="[[[Email from ]]]@item.EMailFromDecrypt">@item.EMailToDecrypt</span></td>
+                <td title="UserId : @item.UserId">@item.UserFirstNameDecrypt @item.UserLastNameDecrypt</td>
+                <td>@item.CommentToDisplay</td>
+                <td>@item.LanguageName</td>
+                <td>@item.AttachmentNumber</td>
+                <td>@item.CCUsersNumber</td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@using (Html.BeginForm("_DisplayEmailAudits", "EmailAudits", FormMethod.Post, new { id = "_pager" }))
+{
+    @Html.Partial("_Pager")
+    @Html.HiddenFor(m => m.Pattern)
+}
+
+<script>
+    $(document).ready(function () {
+        HideSpinner();
+    });
+
+</script>

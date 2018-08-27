@@ -1,0 +1,8 @@
+﻿@model Models.ViewModels.Admin.News.PreviewNewsMailViewModel
+
+@{
+    Layout = null;
+}
+
+
+@{this.GetOutputWriter().Write(Model.Body);}

@@ -1,0 +1,56 @@
+﻿@using System.Web.Optimization;
+<!DOCTYPE html>
+
+<html>
+<head>
+    @Html.Partial("~/Views/Shared/Layout/_MetaTags.cshtml")
+    <title>@CommonsConst.Const.WebsiteTitle</title>
+    <link rel="shortcut icon" href="@Url.Content("~/Ressources/Files/Images/icone.ico")" type="image/x-icon">
+    <link rel="icon" href="@Url.Content("~/Ressources/Files/Images/icone.ico")" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/bundles/Bootstrap")
+    @Styles.Render("~/bundles/Style?" + ContentFileHelpers.AssemlyVersion)
+    @Styles.Render("~/bundles/less?" + ContentFileHelpers.AssemlyVersion)
+    @Scripts.Render("~/Scripts/JQuery")
+    @Scripts.Render("~/Scripts/JQueryVal")
+    <script type="text/javascript" src="/Base/Constants"></script>
+    @Scripts.Render("~/Scripts/ScriptsErrors")
+    @Html.Partial("~/Views/Shared/Layout/_TawkTo.cshtml")
+
+</head>
+<body class="bodyMainclass">
+    <input type="hidden" id="HiddenLoggedUserName" value="@User.Identity.Name" />
+
+    <div id="divHeader">
+
+        @Html.Action("_Header", "Home",new { @area="" })
+        @if (ViewBag.ShowVideo != null && ViewBag.ShowVideo)
+        {
+            <div id="VideoHomePageDiv">
+                @Html.Partial("~/Views/Home/_VideoHomePage.cshtml")
+            </div>
+        }
+
+    </div>
+    <div class="container-fluid" style="padding-bottom:60px;min-height:72vh;">
+        @RenderBody()
+    </div>
+
+    @if (CommonsConst.Const.UserManagement && !Request.IsAuthenticated)
+    {
+        @Html.Partial("~/Views/Account/_LoginOrSignInModal.cshtml")
+    }
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    @Scripts.Render("~/Scripts/Scripts?" + ContentFileHelpers.AssemlyVersion)
+    @Html.Partial("~/Views/Shared/Layout/_Footer.cshtml")
+    @Html.Partial("~/Views/Shared/Layout/_PartialBackToTop.cshtml")
+    @Html.Partial("~/Views/Shared/Layout/_Spinner.cshtml")
+    @Html.Partial("~/Views/Shared/Layout/_GoogleAnalytics.cshtml")
+    @Html.Partial("~/Views/Shared/Layout/_FacebookPixel.cshtml")
+    @Html.Partial("~/Views/Shared/Layout/_Audio.cshtml")
+    @Html.Partial("~/Views/Shared/Layout/_FileForm.cshtml")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

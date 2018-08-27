@@ -1,0 +1,28 @@
+﻿@model Models.ViewModels.Admin.News.NewsViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_PageTitle")
+
+
+<div class="main-content noMarginNoPaddingHorizontal">
+    <div class="col-md-12 noMarginNoPaddingHorizontal">
+        <div class="col-md-12 col-xs-12 noMarginNoPaddingHorizontal" id="NotPublishedNewsDiv">
+            @Html.Partial("~/Areas/Admin/Views/News/_NotPublishedNews.cshtml", Model)
+        </div>
+        <div class="col-md-12 col-xs-12 noMarginNoPaddingHorizontal" id="PublishedNewsDiv">
+            @Html.Partial("~/Areas/Admin/Views/News/_PublishedNews.cshtml")
+        </div>
+
+    </div>
+</div>
+
+
+
+
+@section scripts {
+    @Html.ScriptImportContent("~/Areas/Admin/Scripts/Views/News/Index.js")
+}
+

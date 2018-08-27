@@ -1,0 +1,26 @@
+﻿@model Models.ViewModels.Admin.News.NewsViewModel
+
+<div class="col-xs-12 col-md-10 col-md-offset-1 row" style="margin-bottom:10px;">
+    <div class="col-md-9 col-xs-12">
+        <h2>[[[Up coming News]]]</h2>
+    </div>
+    <div class="col-md-3 col-xs-12">
+            <a class="btn website-btn" id="AddNews" href="/Admin/News/EditNews"><span class="glyphicon glyphicon-plus paddingGlyph"></span>[[[Add a News]]]</a>
+    </div>
+</div>
+
+
+<div id="NotPublishedNewsResultDiv" class="col-xs-12 col-md-10 col-md-offset-1" style="max-height:400px;">
+
+    @foreach (var news in Model.NotPublishedNews)
+    {
+        @Html.Partial("~/Areas/Admin/Views/News/_News.cshtml", news)
+    }
+    @if (Model.NotPublishedNews == null || Model.NotPublishedNews.Count == 0)
+    {
+        <div class="col-xs-12 col-md-12">
+            <h3>[[[No news ...]]]</h3>
+        </div>
+
+    }
+</div>

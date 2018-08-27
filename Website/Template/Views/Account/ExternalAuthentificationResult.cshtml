@@ -1,0 +1,46 @@
+﻿@model Models.Class.ExternalAuthentification.ExternalAuthentificationResult
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
+    @{
+
+        Layout = null;
+
+        var success = Model.Success ? "true" : "false";
+        var returnUrl = Model.ReturnUrl == null ? "" : Model.ReturnUrl;
+        var error = Model.Error == null ? "" : Model.Error;
+        var media = Model.Media == null ? "" : Model.Media;
+        var imageSrc = Model.ImageSrc == null ? "" : Model.ImageSrc;
+        var isSignUp = Model.IsSignUp ? "true" : "false";
+        var language = Model.Language == null ? "" : Model.Language;
+        var firstName = Model.FirstName == null ? "" : Model.FirstName;
+        var redirection = Model.Redirection == null ? "" : Model.Redirection;
+        var lastName = Model.LastName == null ? "" : Model.LastName;
+        var isAlreadyLoggedIn = Model.IsAlreadyLoggedIn ? "true" : "false";
+    }
+
+
+
+
+    <script type="text/javascript" charset="utf-8">
+
+        if (@isAlreadyLoggedIn=='true' && window.opener)
+        {
+            window.opener.location.reload();
+        }
+        else if (window.opener && window.opener.externalAuthentificationCallback) {
+            window.opener.externalAuthentificationCallback('@success', '@returnUrl', '@error','@media','@isSignUp','@imageSrc','@language','@redirection','@firstName','@lastName','@isAlreadyLoggedIn');
+        }
+        window.close();
+    </script>
+
+
+</head>
+<body>
+
+</body>
+</html>

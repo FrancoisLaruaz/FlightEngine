@@ -1,0 +1,1099 @@
+@WebsiteColor1: rgba(45,191,183, 0.8);
+@WebsiteColor2: rgba(45,191,183, 1);
+@selectWidth: 100%;
+@bodyColor: white;
+
+.main-content {
+    margin: 30px 0 0px 0 !important;
+}
+
+
+.form-group.required .control-label:after {
+    content: "*";
+    color: red;
+}
+
+.center-txt {
+    text-align: center;
+}
+
+.copyright {
+    text-align-last: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: white
+}
+
+.bgColorWebsite {
+    background-color: @WebsiteColor1 !important;
+}
+
+.bgColorWebsite2 {
+    background-color: @WebsiteColor2 !important;
+}
+
+.ColorWebsite {
+    color: @WebsiteColor1 !important;
+}
+
+.ColorWebsite2 {
+    color: @WebsiteColor2 !important;
+}
+
+.DateTimeField:hover, .DateTimeField:focus, .bootstrap-datetimepicker-widget:hover, .bootstrap-datetimepicker-widget:focus {
+    cursor: pointer;
+}
+
+.bootstrap-datetimepicker-widget {
+    cursor: pointer !important;
+}
+
+.searchTexbox {
+    width: 93% !important;
+    height: 30px !important;
+    display: inline;
+    border-radius: 50px;
+}
+
+.pagination > li > a {
+    color: black !important;
+}
+
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    z-index: 2;
+    color: #fff !important;
+    cursor: default;
+    background-color: @WebsiteColor1 !important;
+    border-color: @WebsiteColor1 !important;
+}
+
+.applicationLink {
+    color: @WebsiteColor2 !important;
+}
+
+.btn-primary {
+    background-color: @WebsiteColor1 !important;
+    border-color: @WebsiteColor1 !important;
+}
+
+.website-btn:hover {
+    background: transparent;
+    color: @WebsiteColor2;
+    cursor: pointer;
+    margin: 10px 0 10px 0;
+    text-align: center;
+    padding: 8px;
+    opacity: 1;
+    text-decoration: none;
+    display: block;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 50px;
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    transform: translate(0, 0);
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    line-height: 22px;
+    transition: 0.2s ease;
+    box-shadow: none;
+    width: 100%;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 2.0rem;
+    padding: 15px 30px;
+    border: 3px @WebsiteColor2 solid;
+    box-shadow: 0 1px 4px rgba(0,0,0,.15)
+}
+
+
+.website-btn {
+    background: none repeat scroll 0 0 @WebsiteColor2;
+    color: #ffffff;
+    margin: 10px 0 10px 0;
+    text-align: center;
+    padding: 8px;
+    text-decoration: none;
+    display: block;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 50px;
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    transform: translate(0, 0);
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    border: 3px @WebsiteColor2 solid;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+    line-height: 22px;
+    cursor: pointer;
+    box-shadow: 0 2px 0 @WebsiteColor2;
+    width: 100%;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 2.0rem;
+    padding: 15px 30px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.15)
+}
+
+.pac-container {
+    z-index: 3000 !important;
+}
+
+.icon {
+    width: 150px;
+    display: block;
+    margin: 25px auto 25px;
+    border-radius: 50%;
+    stroke: #50E38E;
+    -webkit-animation: bounceIcon .17s ease-in-out;
+    animation: bounceIcon .17s ease-in-out;
+    -webkit-animation-delay: .5s;
+    animation-delay: .5s;
+}
+
+.circle {
+    stroke-dasharray: 190;
+    stroke-dashoffset: 190;
+    stroke-width: 9;
+    stroke: #50E38E;
+    fill: none;
+    -webkit-animation: drawCircle .5s linear;
+    animation: drawCircle .5s linear;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+.check {
+    stroke-width: 7;
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+    -webkit-animation: drawCheckmark .5s cubic-bezier(.89,.09,.91,.67);
+    animation: drawCheckmark .5s cubic-bezier(.89,.09,.91,.67) forwards;
+    -webkit-animation-delay: .5s;
+    animation-delay: .5s;
+}
+
+@keyframes drawCircle {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes drawCheckmark {
+    100% {
+        opacity: 1;
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes bounceIcon {
+    0% {
+        transform: none;
+    }
+
+    50% {
+        transform: scale3D(.9, .9, 1);
+    }
+
+    100% {
+        transform: none;
+    }
+}
+
+
+
+
+.sweet-alert p {
+    font-size: 19px !important;
+}
+
+.sweet-alert {
+    padding-top: 20px !important;
+    padding-bottom: 35px !important;
+}
+
+
+.arrow-down-white {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 35px solid transparent;
+    border-right: 35px solid transparent;
+    border-top: 30px solid @bodyColor;
+    left: 50%;
+    margin-left: -35px;
+    margin-top: -11px;
+    z-index: 2;
+    color: @bodyColor;
+}
+
+
+
+.includeFAIcon {
+    float: right;
+    margin-right: 8px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+}
+
+
+
+html {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+body {
+    font-size: 1.55rem;
+    line-height: 2.2rem;
+    color: #414042;
+    margin-right: 0px !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: @bodyColor;
+}
+
+
+html,
+body,
+div,
+span,
+a,
+li,
+section,
+ul,
+td,
+p,
+h1,
+h2,
+h3,
+h4,
+tr,
+th {
+    font-family: 'Lato', sans-serif;
+}
+
+bold {
+    font-family: 'Lato-Bold', sans-serif;
+    font-weight: Bold;
+}
+
+p {
+    font-family: inherit;
+    color: #414042;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+}
+
+
+
+#wrapper {
+    width: 100%;
+    background-color: #ffffff;
+}
+
+
+.vertical-alignment-helper {
+    display: table;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events: none;
+}
+/* MODAL */
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width: inherit;
+    max-width: inherit; /* For Bootstrap 4 - to avoid the modal window stretching full width */
+    height: inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events: all;
+}
+
+.divCloseModal {
+    position: relative;
+    height: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.closeLoginModal {
+    position: absolute;
+    right: 14px;
+}
+
+
+.SmallModalResponsive {
+    width: 400px;
+}
+
+
+@media (max-width: 480px) {
+    .SmallModalResponsive {
+        vertical-align: inherit;
+        margin-top: 10px;
+    }
+}
+
+
+@media (min-width: 600px) {
+    .SmallModalResponsive {
+        width: 500px;
+    }
+}
+
+
+.modal {
+    text-align: center;
+}
+
+.modal-dialog {
+    text-align: left;
+}
+
+body {
+    padding-right: 0 !important;
+}
+/* END MODAL 
+*/
+/*This is for .NET validation errors since sometimes they show in black*/
+.field-validation-error, .validation-summary-errors, .text-danger {
+    color: #E61616;
+    font-size: 15px;
+    text-align: left;
+}
+
+.floatRight {
+    float: right;
+}
+
+.circular {
+    border-radius: 50%;
+}
+
+.relativePos {
+    position: relative;
+}
+
+.fix-at-top {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0px;
+    z-index: 5;
+}
+
+.paddingGlyph {
+    padding-right: 12px;
+    padding-left: -20px;
+    margin-left: -20px;
+}
+
+
+
+.greyBG {
+    background-color: #F2F2F2 !important;
+}
+
+a {
+    cursor: pointer;
+}
+
+.noMarginNoPaddingHorizontal {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.noMarginHorizontal {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+
+.pageTitle {
+    color: black;
+    font-size: 43px
+}
+
+
+
+.noMarginNoPaddingVertical {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+
+.blackButton:hover {
+    border-color: black;
+    background-color: black;
+    color: #fff;
+    width: 100px;
+}
+
+.blackButton {
+    background-color: black;
+    border-color: black;
+    color: #fff;
+    width: 100px;
+    cursor:pointer;
+}
+
+.AdminTitle {
+    text-align: center;
+    border-top: solid 5px @WebsiteColor1;
+    height: 25px;
+}
+
+.back-to-top {
+    display: none !important;
+}
+
+@media (min-width: 992px) {
+
+    .back-to-top {
+        display: inherit;
+    }
+}
+
+.back-to-top {
+    z-index: 999;
+    cursor: pointer;
+    position: fixed;
+    height: 50px;
+    width: 50px;
+    border: 0;
+    border-radius: 50%;
+    bottom: 50px;
+    right: 50px;
+    text-align: right;
+    padding-top: 13px;
+    background: grey !important;
+    display: none;
+}
+
+.LoginLink {
+    padding-left: 0px !important;
+    text-align: right;
+    border-right: 1px solid @WebsiteColor1;
+}
+
+.spinner > .bouncer {
+    width: 50px;
+    height: 50px;
+    background-color: @WebsiteColor1;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.note-editor {
+    display: none;
+}
+
+.summernote {
+    display: none;
+}
+
+.SexyField-icons {
+    position: absolute;
+    top: 0.5em;
+    right: 1em;
+    color: grey;
+    font-size: 1.3em;
+}
+
+.SexyField-iconsSmall {
+    position: absolute;
+    top: 0.5em;
+    right: 1em;
+    color: grey;
+    font-size: 1.1em;
+}
+
+
+
+.websiteFormGroupShort {
+    min-height: 70px;
+}
+
+.websiteFormGroup {
+    min-height: 82px;
+}
+
+.websiteFormGroupLong {
+    min-height: 111px;
+}
+
+
+.websiteFormGroupExtraLong {
+    min-height: 122px;
+}
+
+/* select starting stylings ------------------------------*/
+.select {
+    position: relative;
+    width: @selectWidth;
+}
+
+.select-text {
+    position: relative;
+    font-family: inherit;
+    background-color: transparent;
+    width: @selectWidth;
+    padding: 7px 10px 7px 0;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #757575;
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+}
+
+.select-text::-ms-expand {
+    display: none;
+}
+/* Remove focus */
+.select-text:focus {
+    outline: none;
+    border-bottom: 2px solid @WebsiteColor1;
+}
+/* Use custom arrow */
+.select .select-text {
+    appearance: none;
+    -webkit-appearance: none
+}
+
+.select:after {
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    /* Styling the down arrow */
+    width: 0;
+    height: 0;
+    padding: 0;
+    content: '';
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid @WebsiteColor1;
+    pointer-events: none;
+}
+/* LABEL ======================================= */
+.select-label {
+    color: @WebsiteColor1;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    top: 10px;
+    transition: 0.2s ease all;
+    font-size: 1.5rem;
+}
+/* active state */
+.select-text:focus ~ .select-label, .select-text:valid ~ .select-label {
+    color: @WebsiteColor1;
+    top: -17px;
+    transition: 0.5s ease all;
+}
+/* BOTTOM BARS ================================= */
+.select-bar {
+    position: relative;
+    display: block;
+    width: @selectWidth;
+}
+
+.select-bar:before, .select-bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: @WebsiteColor1;
+    transition: 0.2s ease all;
+}
+
+.select-bar:before {
+    left: 50%;
+}
+
+.select-bar:after {
+    right: 50%;
+}
+/* active state */
+.select-text:focus ~ .select-bar:before, .select-text:focus ~ .select-bar:after {
+    width: 50%;
+}
+/* HIGHLIGHTER ================================== */
+.select-highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+/* endsexy select */
+/* form starting stylings ------------------------------- */
+.sexyTBgroup {
+    position: relative;
+}
+
+.sexyTB {
+    padding: 7px 30px 7px 0;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #757575;
+    background-color: transparent;
+}
+
+.sexyTB:focus {
+    outline: none;
+}
+/* LABEL ======================================= */
+.labelSexyTb {
+    color: #999;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 12px;
+    padding-left: 8px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+    font-size: 1.7rem;
+}
+/* active state */
+.sexyTB:focus ~ .labelSexyTb, .sexyTB:not(.empty) ~ .labelSexyTb {
+    top: -16px;
+    font-size: 1.5rem;
+    color: @WebsiteColor1;
+}
+/* BOTTOM BARS ================================= */
+.bar {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding-bottom: 2px;
+}
+
+.bar:before, .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 2px;
+    position: absolute;
+    background: @WebsiteColor1;
+    transition: 0.5s ease all;
+    -moz-transition: 0.5s ease all;
+    -webkit-transition: 0.5s ease all;
+}
+
+.bar:before {
+    left: 50%;
+}
+
+.bar:after {
+    right: 50%;
+}
+/* active state */
+.sexyTB:focus ~ .bar:before, .sexyTB:focus ~ .bar:after {
+    width: 50%;
+}
+/* HIGHLIGHTER ================================== */
+.highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+/* active state */
+.sexyTB:focus ~ .highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+    from {
+        background: @WebsiteColor1;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes inputHighlighter {
+    from {
+        background: @WebsiteColor1;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes inputHighlighter {
+    from {
+        background: @WebsiteColor1;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+.styled-checkbox {
+    position: absolute;
+    opacity: 0;
+    background-color: transparent;
+}
+
+.styled-checkbox + label {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+}
+
+.styled-checkbox + label:before {
+    content: '';
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-bottom;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border-radius: 50%;
+    border: 4px solid @WebsiteColor1
+}
+
+.styled-checkbox:hover + label:before {
+    background-color: transparent;
+}
+
+.styled-checkbox:checked + label:before {
+    background: @WebsiteColor1
+}
+
+.styled-checkbox:disabled + label {
+    color: #b8b8b8;
+    cursor: auto
+}
+
+.styled-checkbox:disabled + label:before {
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.styled-checkbox:checked + label:after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 11px;
+    background: white;
+    width: 3px;
+    height: 3px;
+    box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+    transform: rotate(45deg)
+}
+
+
+input.specialHide {
+    height: 1px;
+    width: 1px;
+    position: absolute;
+    opacity: 0;
+}
+
+.element-icon {
+    padding-right: 10px;
+}
+
+.element-col {
+    text-align: center;
+    padding: 10px 30px;
+}
+
+.element-card {
+    text-align: left;
+    font-size: 22px;
+    background: white;
+    /*cursor: pointer;*/
+    /*width: 50%;*/
+    overflow: auto;
+    margin: auto;
+    padding: 15px 0 15px 15px;
+    border-radius: 4px;
+    top: 0;
+    position: relative;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    -webkit-box-shadow: 1px 1px 1px 1px #888888;
+    box-shadow: 1px 1px 1px #888888;
+}
+
+.element-card:hover {
+    background: #bbbdc0;
+    top: -3px;
+}
+
+.element-icon-div {
+    display: inline;
+}
+
+.dangerRed {
+    color: #E61616;
+}
+
+a {
+    -webkit-transition: color .5s ease-in-out;
+    -moz-transition: color .5s ease-in-out;
+    -o-transition: color .5s ease-in-out;
+    -ms-transition: color .5s ease-in-out;
+    transition: color .5s ease-in-out;
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+
+.bodyMainclass .li_hover .dropdown-toggle {
+    color: #555 !important;
+}
+
+.bodyMainclass .dropdown-menu a:hover {
+    color: @WebsiteColor1 !important;
+}
+
+.bodyMainclass .navbar-default .navbar-nav > li > a:hover {
+  
+}
+
+.bodyMainclass .navbar-nav li:hover .dropdown-menu {
+    color: @WebsiteColor1 !important;
+}
+
+.modal-backdrop {
+    z-index: 450 !important;
+}
+
+.IndicationTxt {
+    font-size: 17px;
+    text-align: center;
+}
+
+.nodisplay {
+    display: none;
+}
+
+.fade.in {
+    padding-left: 17px !important;
+}
+
+
+.modal-backdrop.fade.in {
+    background: rgba(0,0,0,0.9);
+    opacity: 1;
+}
+
+
+
+.paddingHorizontalOnlyFullScreen
+{
+    padding-left:0px;
+    padding-right:0px;
+}
+
+@media (min-width: 992px) {
+
+    .paddingHorizontalOnlyFullScreen {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+
+
+
+.inputHint {
+    color: grey;
+    padding: 7px 0;
+}
+
+.close{
+    opacity:0.5;
+}
+
+.close:hover {
+    opacity: 1;
+}
+
+
+.SexyTextArea {
+    background: none repeat scroll 0 0 #f7f8fc;
+    border: 1px solid #ecf0f1;
+    border-radius: 0;
+    color: #555555;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 300;
+    line-height: 1.4em;
+    margin-bottom: 0px;
+    padding: 1rem 1.5rem;
+    transition: all 0.2s ease 0s;
+    width: 100%;
+}
+
+.labelTextArea {
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: @WebsiteColor2;
+}
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 28px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.sliderMessage {
+    color: white;
+    font-size: 14px;
+}
+
+.sliderON {
+    margin-left: 14px;
+}
+
+.sliderOFF {
+    margin-left: 32px;
+}
+
+
+.toggleSwitch:checked + .slider {
+    background-color: @WebsiteColor2;
+}
+
+.toggleSwitch:focus + .slider {
+    box-shadow: 0 0 1px @WebsiteColor2;
+}
+
+.toggleSwitch:checked + .slider:before {
+    -webkit-transform: translateX(42px);
+    -ms-transform: translateX(42px);
+    transform: translateX(42px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 28px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+.mainDivContent {
+    margin: auto;
+    max-width: 550px;
+    display: table;
+    text-align:left;
+}
+
+.divMaxLengthWrap {
+    text-align: center;
+    max-width: 200000px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+
+
+.alignLeft
+{
+    text-align:left;
+}
+
+.btn-maxWidth
+{
+    margin:auto !important;
+    max-width:280px;
+}
+
+.centerIfMobile {
+    text-align: center;
+}
+
+@media (min-width: 992px) {
+    .centerIfMobile {
+        text-align: left;
+    }
+}

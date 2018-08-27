@@ -1,0 +1,27 @@
+﻿@using Microsoft.Owin.Security
+
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+}
+@Html.Partial("_OrContinueWith")
+<div class="col-md-10 col-xs-12 loginPart col-md-offset-1 col-xs-offset-0" >
+    
+    <form id="ExternalSignUpForm" action="@Url.Action("ExternalLogIn", "Account")" method="POST" target="ExternalLogInPopUp" onsubmit="invokeExternalAuthentification('ExternalLogInPopUp');">
+        @Html.AntiForgeryToken()
+
+
+        @foreach (AuthenticationDescription p in loginProviders)
+            {
+            <div class="col-md-6 col-xs-12 div--@p.AuthenticationType.ToLower()" style="text-align:right;" >
+                <button id="LogInButton_@p.AuthenticationType" type="submit" onclick="ExternalLogInFormOnBegin('@p.AuthenticationType')" class="loginBtn loginBtn--@p.AuthenticationType.ToLower() LogInBtn_js" name="provider" value="@p.AuthenticationType" title="[[[Log In using your ]]]@p.Caption [[[account]]]"><span id="LogInSpan_@p.AuthenticationType">@p.AuthenticationType</span></button>
+            </div>
+        }
+
+
+    </form>
+    <div class="col-md-12 col-xs-12">
+        <span id="GeneralExternalLogInError" class="text-danger resultExternalAuthentification" style="min-height:20px;"></span>
+    </div>
+
+</div>
+

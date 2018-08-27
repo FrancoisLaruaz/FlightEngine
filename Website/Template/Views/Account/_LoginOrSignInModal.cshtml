@@ -1,0 +1,40 @@
+﻿
+
+
+<link href="~/Content/Views/Shared/_LoginModal.less?@ContentFileHelpers.AssemlyVersion" rel="stylesheet">
+
+<div class="modal fade" id="loginOrSignInModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog SmallModalResponsive vertical-align-center" role="document">
+            <div class="modal-content">
+                <div id="loginOrSignInModalBody" class="modal-body">
+                    <div class="divCloseModal" style="padding-top:10px;">
+                        <button id="closeLoginModal" type="button" class="close closeLoginModal" style="color:black" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div id="LoginForm" style="display:none">
+                        <div class="authTitle">[[[Log In]]]</div>
+                        @Html.Action("_LoginForm", "Account")
+                    </div>
+                    <div id="SignUpForm" style="display:none">
+                        <div class="authTitle">[[[Sign Up]]]</div>
+                        @Html.Action("_SignUpForm", "Account")
+                    </div>
+                    <div id="ForgotPassword" style="display: none;">
+                        <div class="authTitle">[[[Forgot Password]]]</div>
+                        @Html.Action("_ForgotPasswordForm", "Account")
+                    </div>
+                </div>
+                <div id="SignUpProcessPages" style="display: none;" class="SignUpProcessPages_js">
+                    @Html.Partial("~/Views/Account/SignUp/_SignUpProcessPages.cshtml")
+                </div>
+                <div id="SignUpWelcomePage" style="display: none;" class="SignUpProcessPages_js">
+                    @Html.Partial("~/Views/Account/SignUp/_SignUpWelcome.cshtml")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Html.ScriptImportContent("~/Scripts/Views/Account/ExternalAuthentification.js")
+@Html.ScriptImportContent("~/Scripts/Views/Account/SignUp/_SignUp.js")

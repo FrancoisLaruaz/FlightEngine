@@ -1,0 +1,148 @@
+.iconListNav
+{
+    margin-right:8px;
+}
+
+
+.divMyProfile {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+.MyProfilePanel-header {
+    color: #484848;
+    font-size: 18px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 40px;
+    border-bottom: 1px solid #dce0e0;
+    font-weight: bold;
+    background-color: #DEE3DE;
+}
+
+.MyProfilePanel-Body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top:25px;
+    margin-bottom:25px;
+}
+
+@media (min-width: 992px) {
+
+    .MyProfilePanel-Body {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+}
+
+
+.MyProfilePanel {
+    border-radius: 0;
+    border: 1px solid #dce0e0;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#MyProfileMainDiv {
+    padding-top: 30px;
+    padding-right: 0px;
+    padding-left: 30px;
+}
+
+#divDeleteProfile {
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 10px;
+}
+
+#PictureDiv {
+    width: 250px;
+    height: 250px;
+    border: 5px #f2f2f2 solid;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom:40px;
+}
+
+@media (min-width: 992px) {
+
+    #PictureDiv {
+        width: 250px;
+        height: 250px;
+        border: 5px #f2f2f2 solid;
+        background-position: center;
+        background-size: cover;
+        border-radius: 50%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}
+
+
+.divButtonMyProfilePhoto
+{
+    height:125px;
+}
+
+@media (min-width: 992px) {
+
+    .divButtonMyProfilePhotoHaut {
+        margin-top:30px;
+    }
+}
+
+#divBtnWebcam {
+    display: none;
+    margin-top: 25px;
+    height: 80px;
+}
+
+
+@media (max-width: 992px) {
+
+    .ulAlignLeft {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+.navVerticalList {
+    list-style: none;
+}
+
+.navVerticalItem[aria-selected="true"] {
+    text-decoration: none;
+    color: #484848;
+    font-weight: bold;
+}
+
+
+.navVerticalItem:hover:not(.navActive), .navVerticalItem:focus:not(.navActive) {
+    text-decoration: none;
+    color: #bbb;
+}
+
+.navVerticalItem {
+    display: block;
+    padding: 8px 0;
+    font-size: 17px;
+    color: #767676;
+    text-decoration: none;
+}
+
+
+.navActive, .navActive:hover, navActive:focus {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: default;
+}

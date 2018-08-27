@@ -1,0 +1,85 @@
+﻿@model Models.Class.BaseModelPager
+
+<style>
+    #inner-page ul li:before {
+        content: none;
+    }
+</style>
+@if (Model.Count > 0)
+{
+    @Html.HiddenFor(m => m.StartAt)
+    @Html.HiddenFor(m => m.PageSize)
+    @Html.HiddenFor(m => m.Count)
+
+    long totalNumberOfPages = Model.Count % Model.PageSize == 0 ? Model.Count / Model.PageSize : Model.Count / Model.PageSize + 1;
+    int currentPageNO = (Model.StartAt + Model.PageSize) / Model.PageSize;
+    int numberOfPagesToShow = 9;
+
+    <!--  Pagination Starts -->
+    <ul class="pagination" id="Pagination" style="display:none">
+        <!-- first button -->
+        <li>
+            <a href="#" onclick="GotoAndPost(event, 0)">&lt;&lt;</a>
+        </li>
+
+        <!-- previous button -->
+        @if (currentPageNO > 1)
+        {
+            <li>
+                <a href="#" onclick="GotoAndPost(event, @(Model.StartAt - Model.PageSize))">&lt;</a>
+            </li>
+        }
+
+        <!-- page button -->
+        @if (totalNumberOfPages <= numberOfPagesToShow || currentPageNO <= numberOfPagesToShow / 2)
+        {
+            long show = totalNumberOfPages <= numberOfPagesToShow ? totalNumberOfPages : numberOfPagesToShow;
+
+            for (int i = 1; i <= show; i++)
+            {
+                <li class="@(currentPageNO == i ? "active" : "")">
+                    <a href="#" onclick="GotoAndPost(event, @(Model.PageSize * (i - 1)))">@i.ToString()</a>
+                </li>
+            }
+        }
+        else
+        {
+            for (int i = currentPageNO - numberOfPagesToShow / 2 + 1; i <= currentPageNO + numberOfPagesToShow / 2 && i <= totalNumberOfPages; i++)
+            {
+                <li class="@(currentPageNO == i ? "active" : "")">
+                    <a href="#" onclick="GotoAndPost(event, @(Model.PageSize * (i - 1)))">@i.ToString()</a>
+                </li>
+            }
+        }
+
+        <!-- next button -->
+        @if (currentPageNO < totalNumberOfPages)
+        {
+            <li>
+                <a href="#" onclick="GotoAndPost(event, @(Model.StartAt + Model.PageSize))">&gt;</a>
+            </li>
+        }
+
+        <!-- last button -->
+        <li>
+            <a href="#" onclick="GotoAndPost(event, @(Model.PageSize * (totalNumberOfPages - 1)))">&gt;&gt;</a>
+        </li>
+    </ul>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#Pagination').show();
+        });
+
+   
+
+        function GotoAndPost(event, page) {
+            event.preventDefault();
+            $('#StartAt').val(page);
+            RefreshData(false);
+        }
+
+    </script>
+}
+

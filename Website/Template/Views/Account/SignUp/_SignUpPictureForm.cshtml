@@ -1,0 +1,69 @@
+﻿
+@model Models.ViewModels.Account.SignUpPictureViewModel
+@using (Ajax.BeginForm("_SignUpPictureForm", "Account", new { }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "SignUpPictureSuccess", OnFailure = "SignUpPictureFailure" }, new { @id = "SignUpPictureForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="col-xs-12 col-md-10 col-md-offset-1 area-container">
+        <div style="position: relative;">
+            <span class="ColorWebsite modalGoBackBtns" onclick="hideAndShowGuidePg('newUserPicturePg', 'newUserEmailPg')" style="position: absolute; top: 5px; left: 5px; cursor: pointer;">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i> [[[back]]]
+            </span>
+        </div>
+        <div class="center-txt wrapIndicator">
+            <div class="indicator-dots filled-dots"></div>
+            <div class="indicator-dots filled-dots"></div>
+            <div class="indicator-dots"></div>
+        </div>
+
+        <div class="center-txt modal-headers grey-txt">[[[Please smile]]]</div>
+
+
+
+        <div class="center-txt  signUpProcessText">
+            [[[It's now time to update your picture !]]]
+        </div>
+
+        <div class="col-xs-12 col-md-10 col-md-offset-1" style="margin-top:15px;">
+            @Html.HiddenFor(m => m.PictureSrc, new { id = "PictureSrc" })
+            <div class="wrapPicPrev">
+                <label id="CameraPictureUserPreview" class="circular PicturePreview" for="Pic" style="background-image:  url(@Model.PicturePreviewSrc)">
+                    
+                </label>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12" style="text-align:center;margin-top:15px;">
+            <div id="CameraPictureUser" style="width:90%;margin-left:5%;margin-right:5%"></div>
+            <div id="CameraNotFound" style="width:100%;display:none" class="img-rounded">
+                @Html.Partial("~/Views/Shared/_CameraNotFound.cshtml")
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1" style="text-align:center;margin-top:-60px">
+            <input type="button" value=" [[[Shoot !]]]" class="btn blackButton webcamBtn" id="SHootWebcam" style="display:none" />
+        </div>
+
+
+
+        <div class="center-txt col-xs-12 col-md-12" style="margin-bottom:10px; margin-top:0px;font-size:14px;">
+            <span style="font-size:15px;">[[[Don't like your haircut today ?]]]</span>[[[ You can upload a picture by clicking on the picture preview or directly drop a file.]]]
+        </div>
+
+        <div class="center-txt col-xs-12 col-md-12" style="margin-bottom:0px !important;padding-bottom:0px !important;">
+            <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                <input type="submit" value="[[[Continue]]]" class="btn website-btn" id="PictureUserWelcomeBtn" />
+            </div>
+            <div style="padding: 5px 0;cursor: pointer;" class="ColorWebsite col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                <div id="SkipPicture">[[[Skip for now]]]</div>
+            </div>
+        </div>
+
+
+
+    </div>
+}
+<script>
+    $(document).ready(function () {        
+        SetSignUpPictureForm();
+    });
+</script>
+

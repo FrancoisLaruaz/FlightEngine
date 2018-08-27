@@ -1,0 +1,31 @@
+﻿@model Models.ViewModels.Admin.Email.EmailAuditViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_PageTitle")
+
+
+<div class="main-content">
+    <div class="col-md-12 no-gutter">
+        <div class="row">
+            <div class="col-xs-12 col-md-4 col-md-offset-4">
+                <input id="SearchBox" type="text" class="form-control searchTexbox" />
+                <a role="button" style="margin-left:5px;" aria-haspopup="true" aria-expanded="false" title="Refresh audits" id="SearchIcon" onclick="RefreshData(true)"><span class="glyphicon glyphicon-search"></span></a>
+            </div>
+        </div>
+        <div id="targetContainer" style="padding-top:20px">
+
+        </div>
+
+    </div>
+</div>
+
+
+
+@section scripts {
+    @Html.ScriptImportContent("~/Areas/Admin/Scripts/Views/EmailAudits/Index.js")
+}
+
+

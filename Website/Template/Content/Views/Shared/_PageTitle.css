@@ -1,0 +1,38 @@
+#feature_image {
+    /*
+    * background: url('../../../Ressources/Files/Images/Banner.jpg') no-repeat center top;
+    */
+    display: table;
+    width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+.page-intro {
+    font-size: 4rem;
+    color: #fff;
+    padding: 18px 0;
+}
+
+    .page-intro h2 {
+        font-size: 4rem;
+        color: #fff;
+        margin: 4px 0 4px 0;
+    }
+
+    .page-intro .line-2 h2 {
+        color: #fff;
+        font-size: 2.5rem;
+    }
+
+    .page-intro .page-title-contents {
+        color: #fff;
+        font-size: 1.8rem;
+        font-style: italic;
+        line-height: 2.4rem;
+        margin-bottom: 0;
+        padding: 12px 0 0 12px;
+    }

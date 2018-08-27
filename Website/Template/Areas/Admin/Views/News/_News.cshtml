@@ -1,0 +1,54 @@
+﻿@model Models.Class.News.NewsItem
+
+
+
+
+<div class="col-xs-12 col-md-12 noMarginNoPaddingHorizontal" id="elementWrap_@Model.Id">
+    <div class="col-xs-12 col-md-12 element-col noMarginNoPaddingHorizontal">
+        <div class="element-card col-xs-12 col-md-12" data-news_id="@Model.Id" style="cursor: pointer;">
+            <div class="col-xs-12 col-md-2">
+                @if (Model.TypeId != CommonsConst.NewsType.MailOnly)
+                {
+                    <i class="fa fa-newspaper-o element-icon" aria-hidden="true"></i>
+                }
+                @if (Model.TypeId != CommonsConst.NewsType.PublishOnly)
+                {
+                    <i class="fa fa-envelope-open-o element-icon" aria-hidden="true"></i>
+                }
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <span style="font-size:16px"><strong>@Model.Title</strong></span>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <span style="font-size:14px">@Commons.FormaterHelper.GetFormatStringForDateDisplay(Model.PublishDate)</span>
+            </div>
+            <div class="col-xs-12 col-md-1">
+                <span style="font-size:14px" title="[[[Email(s) sent]]]"><strong>@Model.MailSentNumber</strong></span>
+            </div>
+            <div class="col-xs-12 col-md-1">
+                @if (Model.Active)
+                {
+                    <span title="[[[Active]]]" class="glyphicon glyphicon-ok" style="color:green"></span>
+                }
+                else
+                {
+                    <span title="[[[Disabled]]]" class="glyphicon glyphicon-remove" style="color:red"></span>
+                }
+            </div>
+            <div class="col-xs-12 col-md-1">
+                @if (Model.PublishDate > DateTime.Now)
+                {
+                    <span title="[[[Delete]]]" data-news_id="@Model.Id" class="delFuturenewsBtn glyphicon glyphicon-trash pointercursor dangerRed pull-right">
+                    </span>
+                }
+                else
+                {
+                    <span title="[[[Delete]]]" data-news_id="@Model.Id" class="delPastnewsBtn glyphicon glyphicon-trash pointercursor dangerRed pull-right">
+                    </span>
+                }
+            </div>
+
+        </div>
+    </div>
+
+</div>

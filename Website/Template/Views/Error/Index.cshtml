@@ -1,0 +1,27 @@
+﻿@{
+
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (!Request.IsAjaxRequest())
+{
+    @Html.Partial("_PageTitle")
+}
+<div class="col-xs-12 col-md-10 col-md-offset-1">
+
+    <div class="main-content" style="text-align:center;padding-bottom:40px;">
+        <h2>[[[Oups... An error has occured]]] :(</h2>
+        @{
+            if (!String.IsNullOrEmpty(ViewBag.ErrorType) && !Commons.Utils.IsProductionWebsite())
+            {
+                <h5>@ViewBag.ErrorType</h5>
+            }
+        }
+    </div>
+</div>
+
+@section scripts {
+    @Html.ScriptImportContent("~/Scripts/General/StopSpinner.js")
+}
+
+

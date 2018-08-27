@@ -1,0 +1,32 @@
+﻿@model Models.ViewModels.Home.HomeViewModel
+
+@Html.CssImportContent("~/Content/Views/Home/_VideoHomePage.css")
+
+<div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+
+    <div class="nodisplay">
+        @Html.CheckBoxFor(m => m.PromptLogin)
+        @Html.CheckBoxFor(m => m.SignUp)
+    </div>
+    <input id="hidden_RedirectTo" type="hidden" value="@Model.RedirectTo" />
+
+    @if (!User.Identity.IsAuthenticated)
+            {
+        <div class="col-md-4 col-md-offset-4 col-xs-12">
+            <input type="button" value="[[[Start now]]]" class="btn-maxWidth btn website-btn" id="StartNowHomePage" />
+        </div>
+    }
+</div>
+
+
+
+
+
+
+@section scripts {
+    @Html.ScriptImportContent("~/Scripts/Views/Home/Index.js")
+    @Html.ScriptImportContent("~/Scripts/Views/Home/_VideoHomePage.js")
+}
+
+
+

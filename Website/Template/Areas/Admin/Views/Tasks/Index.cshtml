@@ -1,0 +1,133 @@
+﻿@model Models.ViewModels.Admin.Tasks.SchedulerStatusViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_PageTitle")
+
+
+<div class="main-content">
+    <div class="col-md-12 no-gutter">
+        <div class="row websiteFormGroup">
+            @Html.LabelFor(model => model.IsSchedulerActive, new { @class = "col-md-2 col-sm-2 col-xs-12 control-label col-md-offset-1 col-sm-offset-1", @style = "text-align:right" })
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                @Html.TextBoxFor(model => model.IsSchedulerActive, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="col-md-1 col-sm-1 col-xs-12">
+                @if (Model.IsSchedulerActive)
+                {
+                    <span class="glyphicon glyphicon-ok" style="color:green;vertical-align:central;"></span>
+                }
+                else
+                {
+                    <span class="glyphicon glyphicon-remove" style="color:red;vertical-align:central;"></span>
+                }
+            </div>
+
+            @Html.LabelFor(model => model.ScheduledTasksProblemsNumber, new { @class = "col-md-2 col-sm-2 col-xs-12 control-label col-md-1-offset col-sm-1-offset", @style = "text-align:right" })
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                @Html.TextBoxFor(model => model.ScheduledTasksProblemsNumber, new { @class = "form-control", @readonly = "readonly", @style = "text-align:right" })
+            </div>
+            <div class="col-md-1 col-sm-1 col-xs-12">
+                @if (Model.ScheduledTasksProblemsNumber == 0)
+                {
+                    <span class="glyphicon glyphicon-ok" style="color:green;vertical-align:central;"></span>
+                }
+                else
+                {
+                    <span class="glyphicon glyphicon-remove" style="color:red;vertical-align:central;"></span>
+                }
+            </div>
+        </div>
+        <div class="row websiteFormGroup">
+            @Html.LabelFor(model => model.ScheduledTasksNumberInDatabase, new { @class = "col-md-2 col-sm-2 col-xs-12 control-label col-md-offset-1 col-sm-offset-1", @style = "text-align:right" })
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                @Html.TextBoxFor(model => model.ScheduledTasksNumberInDatabase, new { @class = "form-control", @readonly = "readonly", @style = "text-align:right" })
+            </div>
+
+            @Html.LabelFor(model => model.ScheduledTasksNumberInScheduler, new { @class = "col-md-3 col-sm-3 col-xs-12 control-label col-md-1-offset col-sm-1-offset", @style = "text-align:right" })
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                @Html.TextBoxFor(model => model.ScheduledTasksNumberInScheduler, new { @class = "form-control", @readonly = "readonly", @style = "text-align:right" })
+            </div>
+            <div class="col-md-1 col-sm-1 col-xs-12">
+                @if (Model.ScheduledTasksNumberInScheduler == Model.ScheduledTasksNumberInDatabase)
+                {
+                    <span class="glyphicon glyphicon-ok" style="color:green;vertical-align:central;"></span>
+                }
+                else
+                {
+                    <span class="glyphicon glyphicon-remove" style="color:red;vertical-align:central;"></span>
+                }
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12" style="margin-top:40px">
+
+
+            <div class="table-responsive">
+                <h3 style="text-align:center;margin-bottom:30px;">[[[Recurring Tasks Schedules]]]</h3>
+
+                @if (Model.RecurringTaskList != null && Model.RecurringTaskList.Count > 0)
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>[[[Group Name]]]</th>
+                                <th>[[[Periodicity]]]</th>
+                                <th>[[[Schedule Time]]]</th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var item in Model.RecurringTaskList)
+                        {
+
+                            <tr>
+                                <td>@item.GroupName</td>
+                                <td>@item.Periodicity</td>
+                                <td>@item.ScheduleInfo</td>
+                            </tr>
+                        }
+
+                    </table>
+                }
+                else
+                {
+                    <div class="col-xs-12 col-md-12">
+                        <h3>[[[No result]]]</h3>
+                    </div>
+                }
+            </div>
+
+
+        </div>
+
+        <div style="margin-top:30px;text-align:center;" class="col-xs-12 col-md-12">
+            <h3>[[[Recurring Tasks Logs]]]</h3>
+        </div>
+
+        <div class="row" style="margin-top:40px">
+            <div class="col-xs-12 col-md-4 col-md-offset-4" style="margin-top:30px">
+                <input id="SearchBox" type="text" class="form-control searchTexbox" />
+                <a style="margin-left:5px;" role="button" aria-haspopup="true" aria-expanded="false" title="Refresh logs" id="SearchIcon" onclick="RefreshData(true)"><span class="glyphicon glyphicon-search"></span></a>
+            </div>
+        </div>
+        <div id="targetContainer" style="padding-top:15px">
+
+        </div>
+
+
+        <div class="col-md-2 col-md-offset-5 col-xs-12" style="margin-top:30px;margin-bottom:20px;">
+            <input type="submit" value="[[[Reset tasks]]]" class="btn website-btn" id="ResetTasks" />
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+@section scripts {
+    @Html.ScriptImportContent("~/Areas/Admin/Scripts/Views/Tasks/Index.js")
+}
+

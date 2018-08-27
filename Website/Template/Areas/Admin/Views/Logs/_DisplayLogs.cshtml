@@ -1,0 +1,85 @@
+﻿@model Models.ViewModels.Admin.Logs.DisplayLogsViewModel
+
+
+
+
+<div class="table-responsive">
+    <div class="pull-right">
+        <p style="font-weight:bold">@Model.Count [[[row(s) found]]]</p>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>User</th>
+                <th>Logger</th>
+                <th>Message</th>
+                <th>Exception</th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model.LogsList)
+        {
+
+            if (@item.Logger == "*** JAVASCRIPT ***")
+            {
+                <tr style="color:blue">
+                    <td>@item.Id</td>
+                    <td>@Commons.FormaterHelper.GetFormatStringForDateDisplay(item.Date)</td>
+                    <td>@item.UserLogin</td>
+                    <td>@item.Logger</td>
+                    <td>@Html.Raw(@item.Message)</td>
+                    <td>@item.Exception</td>
+                </tr>
+            }
+            else if (@item.Logger == "System.Web.HttpApplication")
+            {
+                <tr style="color:red">
+                    <td>@item.Id</td>
+                    <td>@Commons.FormaterHelper.GetFormatStringForDateDisplay(item.Date)</td>
+                    <td>@item.UserLogin</td>
+                    <td>@item.Logger</td>
+                    <td>@Html.Raw(@item.Message)</td>
+                    <td>@item.Exception</td>
+                </tr>
+            }
+            else if(@item.Logger == "*** EVENT ***")
+            {
+                <tr style="color:green">
+                    <td>@item.Id</td>
+                    <td>@Commons.FormaterHelper.GetFormatStringForDateDisplay(item.Date)</td>
+                    <td>@item.UserLogin</td>
+                    <td>@item.Logger</td>
+                    <td>@Html.Raw(@item.Message)</td>
+                    <td>@item.Exception</td>
+                </tr>
+            }
+           else
+            {
+                <tr style="color:saddlebrown">
+                    <td>@item.Id</td>
+                    <td>@Commons.FormaterHelper.GetFormatStringForDateDisplay(item.Date)</td>
+                    <td>@item.UserLogin</td>
+                    <td>@item.Logger</td>
+                    <td>@Html.Raw(@item.Message)</td>
+                    <td>@item.Exception</td>
+                </tr>
+            }
+        }
+
+    </table>
+</div>
+
+@using (Html.BeginForm("_DisplayLogs", "Logs", FormMethod.Post, new { id = "_pager" }))
+{
+    @Html.Partial("_Pager")
+    @Html.HiddenFor(m => m.Pattern)
+}
+
+<script>
+    $(document).ready(function () {
+        HideSpinner();
+    });
+
+</script>

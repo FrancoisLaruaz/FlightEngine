@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3576bea743a544eb981a5e29a2b01b46" Name="Diagram1">
+        <EntityTypeShape EntityType="TemplateModel.Log4Net" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.AspNetRole" Width="1.5" PointX="3.75" PointY="10.875" />
+        <EntityTypeShape EntityType="TemplateModel.AspNetUserClaim" Width="1.5" PointX="8.25" PointY="13.875" />
+        <EntityTypeShape EntityType="TemplateModel.AspNetUserLogin" Width="1.5" PointX="8.25" PointY="11.375" />
+        <EntityTypeShape EntityType="TemplateModel.AspNetUser" Width="1.5" PointX="6" PointY="9.625" />
+        <EntityTypeShape EntityType="TemplateModel.Category" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="TemplateModel.CategoryType" Width="1.5" PointX="3.75" PointY="3.125" />
+        <EntityTypeShape EntityType="TemplateModel.Country" Width="1.5" PointX="3.75" PointY="6.125" />
+        <EntityTypeShape EntityType="TemplateModel.EmailAudit" Width="1.5" PointX="13.5" PointY="5.5" />
+        <EntityTypeShape EntityType="TemplateModel.EmailTypeLanguage" Width="1.5" PointX="11.25" PointY="2" />
+        <EntityTypeShape EntityType="TemplateModel.News" Width="1.5" PointX="10.5" PointY="5.25" />
+        <EntityTypeShape EntityType="TemplateModel.Province" Width="1.5" PointX="6" PointY="6" />
+        <EntityTypeShape EntityType="TemplateModel.ScheduledTask" Width="1.5" PointX="15.75" PointY="5.375" />
+        <EntityTypeShape EntityType="TemplateModel.SocialMediaConnection" Width="1.5" PointX="0.75" PointY="6.625" />
+        <EntityTypeShape EntityType="TemplateModel.sysdiagram" Width="1.5" PointX="0.75" PointY="9.625" />
+        <EntityTypeShape EntityType="TemplateModel.User" Width="1.5" PointX="8.25" PointY="3.875" />
+        <AssociationConnector Association="TemplateModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" />
+        <AssociationConnector Association="TemplateModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="TemplateModel.FK_User_AspNetUser" />
+        <AssociationConnector Association="TemplateModel.FK_Category_CategoryTypeId" />
+        <AssociationConnector Association="TemplateModel.FK_EmailTypeLanguage_EMailTypeId" />
+        <AssociationConnector Association="TemplateModel.FK_News_Type" />
+        <AssociationConnector Association="TemplateModel.FK_News_TypeUserMailingId" />
+        <AssociationConnector Association="TemplateModel.FK_ScheduledTask_EmailType" />
+        <AssociationConnector Association="TemplateModel.FK_User_Gender" />
+        <AssociationConnector Association="TemplateModel.FK_User_Language" />
+        <AssociationConnector Association="TemplateModel.FK_Province_Country" />
+        <AssociationConnector Association="TemplateModel.FK_User_Country" />
+        <AssociationConnector Association="TemplateModel.FK_EmailAudit_EMailTypeLanguageId" />
+        <AssociationConnector Association="TemplateModel.FK_EmailAudit_ScheduledTaskId" />
+        <AssociationConnector Association="TemplateModel.FK_EmailAudit_UserId" />
+        <AssociationConnector Association="TemplateModel.FK_News_LastModificationUserId" />
+        <AssociationConnector Association="TemplateModel.FK_ScheduledTask_News" />
+        <AssociationConnector Association="TemplateModel.FK_User_Province" />
+        <AssociationConnector Association="TemplateModel.FK_ScheduledTask_User" />
+        <AssociationConnector Association="TemplateModel.AspNetUserRoles" />
+        <AssociationConnector Association="TemplateModel.FK_EmailTypeLanguage_Language" />
+        <EntityTypeShape EntityType="TemplateModel.TaskLog" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TemplateModel.ValidTopLevelDomain" Width="1.5" PointX="10.375" PointY="10.75" />
+        <EntityTypeShape EntityType="TemplateModel.SearchResult" Width="1.5" PointX="12.75" PointY="13.25" />
+        <EntityTypeShape EntityType="TemplateModel.UserFollow" Width="1.5" PointX="10.5" PointY="16.5" />
+        <AssociationConnector Association="TemplateModel.FK_UserFollow_FollowedUserId" />
+        <AssociationConnector Association="TemplateModel.FK_UserFollow_User" />
+        <AssociationConnector Association="TemplateModel.FK_SearchResult_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,61 @@
+﻿@model  Models.Class.Search.SearchItem
+@{
+    Layout = null;
+    var wrapClass = "divWrapSearchItemVisible";
+    var nameClass = "nameSearchItemVisible";
+    var imageClass = "";
+    if (Model.Id > CommonsConst.SearchParameters.MaxDisplayedItems)
+    {
+        wrapClass = "divWrapSearchItemNotVisible";
+        nameClass = "";
+    }
+
+    if (Model.SearchItemType == CommonsConst.SearchItemType.User)
+    {
+        imageClass = "roundedDiv searchImageRounded";
+    }
+
+}
+
+<div class="col-xs-12 col-md-12 searchItemSuggestion_js divWrapSearchItem @wrapClass" data-searchid="@Model.SearchId" data-id="@Model.Id" title="@Model.Description" data-redirecturl="@Model.Url">
+    <div class="col-xs-12  col-md-2 imageSearchItemDiv centerIfMobile">
+        <div style="background-image: url('@Model.ImageSrc')" class="imageSearchItem @imageClass">
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-10 noMarginNoPaddingHorizontal">
+        <div class="nameSearchItemDiv col-xs-12 col-md-12 centerIfMobile">
+            <span class="nameSearchItem @nameClass">@Model.Name</span>
+            <div class="followSearchSpan">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (CommonsConst.SearchItemType.User == Model.SearchItemType)
+                    {
+                        if (Model.LoggedUserId != Model.ItemId)
+                        {
+                            if (!Model.ItemFollowed)
+                            {
+                                <span class="FForangeButton FollowUnfollowBtn  FollowUnfollowBtnUser_js" data-userid="@Model.ItemId">
+                                    [[[Follow]]] <i class="fa fa-user-plus followBtnIcon"></i>
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="FFgreenButton  FollowUnfollowBtn  FollowUnfollowBtnUser_js" data-userid="@Model.ItemId">
+                                    [[[Following]]] <i class="fa fa-user-plus followBtnIcon"></i>
+                                </span>
+                            }
+                        }
+                    }
+                }
+            </div>
+
+        </div>
+        <div class="typeSearchItemDiv col-xs-12 col-md-12 centerIfMobile">
+            <span class="typeSearchItem">@Model.ShortDescription</span>
+            @if (Model.IsPrivate)
+            {
+                <span class="pull-right privateSearchItem" title="[[[Private]]]"><i class="fa fa-lock" aria-hidden="true"></i></span>
+            }
+        </div>
+    </div>
+</div><!-- .stage -->

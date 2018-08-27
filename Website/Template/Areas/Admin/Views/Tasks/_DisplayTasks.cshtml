@@ -1,0 +1,61 @@
+﻿@model Models.ViewModels.Admin.Tasks.DisplayTasksViewModel
+
+
+
+
+<div class="table-responsive">
+    <div class="pull-right">
+        <p style="font-weight:bold">@Model.Count [[[row(s) found]]]</p>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>[[[Id]]]</th>
+                <th>[[[Start Date]]]</th>
+                <th>[[[End Date]]]</th>
+                <th>[[[Group Name]]]</th>
+                <th>[[[Result]]]</th>
+                <th>[[[Comment]]]</th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model.TaskList)
+        {
+
+
+            <tr>
+                <td>@item.Id</td>
+                <td>@Commons.FormaterHelper.GetFormatStringForDateDisplay(@item.StartDate.ToLocalTime())</td>
+                <td>@Commons.FormaterHelper.GetFormatStringForDateDisplay(@item.EndDate==null? @item.EndDate: @item.EndDate.Value.ToLocalTime())</td>
+                <td><span title="@item.CallbackId">@item.GroupName</span></td>
+                @if (item.Result == null)
+                {
+                    <td style="color:blue">[[[Work in progress ...]]]</td>
+                }
+                else if (item.Result.Value)
+                {
+                    <td style="color:green">@item.Result</td>
+                }
+                else
+                {
+                    <td style="color:red">@item.Result</td>
+                }
+                <td> @Html.Raw(@item.Comment)</td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@using (Html.BeginForm("_DisplayTasks", "Tasks", FormMethod.Post, new { id = "_pager" }))
+{
+    @Html.Partial("_Pager")
+    @Html.HiddenFor(m => m.Pattern)
+}
+
+<script>
+    $(document).ready(function () {
+        HideSpinner();
+    });
+
+</script>

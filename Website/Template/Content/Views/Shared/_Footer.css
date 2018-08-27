@@ -1,0 +1,65 @@
+.footerLink
+{
+    color:white !important;
+    font-size:16px;
+}
+
+#MainFooter {
+    margin-top: 30px;
+    min-height: 20vh;
+    background-color: #555;
+}
+
+#divCopyRight {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.divFooterLink {
+    margin-bottom:6px;
+    margin-top:6px;
+}
+.socialIconLink {
+    cursor: pointer;
+    font-size: 1.5em;
+    margin-left:10px;
+    margin-right:10px;
+    color:white !important;
+}
+
+
+.socialIconLink:hover {
+
+    color: black !important;
+}
+
+
+.linkFooter {
+    text-align:center;
+}
+
+@media (min-width: 992px) {
+
+    .linkFooter {
+        text-align: left;
+    }
+}
+
+.mainContainerFooter {
+    margin-top: 35px;
+    margin-bottom: 10px;
+}
+
+#divSocialLink {
+    text-align: center;
+    padding-bottom:10px;
+}
+
+@media (min-width: 992px) {
+
+    #divSocialLink {
+        text-align: left;
+        padding-bottom:0px;
+        padding-top:80px;
+    }
+}

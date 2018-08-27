@@ -1,0 +1,30 @@
+﻿@using i18n
+
+<div class="hero-video-container">
+    <div class="hero-inner">
+        
+    <video id="homepageHeroVideo" preload="auto" loop="loop" autoplay="autoplay" muted>
+        <source src="~/Ressources/Files/Video/Homepage.mp4"  />
+        <div class="video-fallback-cover"></div>
+    </video>
+     
+   
+    
+
+        <div class="home-mobile-cover"></div>
+
+        <div class="hero-middle-container">
+            <div class="hero-middle-container-inner">
+                <h1>[[[Title1]]]</h1>
+                <h2>[[[Hello world. How are you ?]]]</h2>
+                <span id="playHomePageButton" class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="videoPlayerOverlay" class="video-player-overlay">
+    <!-- 1672 x 916 -->
+    <iframe id="videoplayer" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="auto" src="https://www.youtube.com/embed/nkhpGC10OVw?showinfo=0&amp;controls=0&amp;autohide=1&amp;modestbranding=0&amp;rel=0&amp;wmode=transparent&amp;cc_load_policy=0&amp;hl=en&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fmywebsite&amp;widgetid=1&amp;autoplay=0"></iframe>
+    <span id="videoPlayerClose" class="glyphicon glyphicon-remove-circle"></span>
+</div>

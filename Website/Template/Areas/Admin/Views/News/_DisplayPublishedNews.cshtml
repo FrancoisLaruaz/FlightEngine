@@ -1,0 +1,33 @@
+﻿@model Models.ViewModels.Admin.News.DisplayPublishedNewsViewModel
+
+
+
+
+<div class="table-responsive noMarginNoPaddingHorizontal col-xs-12 col-md-12">
+    <div class="pull-right">
+        <p style="font-weight:bold"><span id="numPastRowCount">@Model.Count</span> [[[row(s) found]]]</p>
+    </div>
+    @foreach (var news in Model.NewsList)
+    {
+        @Html.Partial("~/Areas/Admin/Views/News/_News.cshtml", news)
+    }
+    @if (Model.NewsList == null || Model.NewsList.Count == 0)
+    {
+        <div class="col-xs-12 col-md-12 noMarginNoPaddingHorizontal">
+            <h3>[[[No news ...]]]</h3>
+        </div>
+    }
+</div>
+
+@using (Html.BeginForm("_DisplayPublishedNews", "News", FormMethod.Post, new { id = "_pager" }))
+{
+    @Html.Partial("_Pager")
+    @Html.HiddenFor(m => m.Pattern)
+}
+
+<script>
+    $(document).ready(function () {
+        HideSpinner();
+    });
+
+</script>

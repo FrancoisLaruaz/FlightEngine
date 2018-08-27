@@ -1,0 +1,28 @@
+.SignUpmodalGoBackBtns {
+    position: absolute;
+    top: -30px;
+    left: 30px;
+    cursor: pointer;
+}
+
+#divSubmitButtonLogin
+{
+    margin-left:15px;
+    margin-right:15px !important;
+}
+
+
+
+.captcha {
+    text-align: center;
+    margin-left: -25px;
+    margin-top: 8px;
+}
+
+@media (min-width: 600px) {
+    .captcha {
+        text-align: center;
+        margin-left: 100px;
+        margin-top: 8px;
+    }
+}

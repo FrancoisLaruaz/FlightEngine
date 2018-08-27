@@ -1,0 +1,50 @@
+﻿@model Models.ViewModels.Account.MyProfileAddressViewModel
+
+
+<div class="row divMyProfile">
+    <div class="MyProfilePanel col-xs-12 col-md-12 noMarginNoPaddingHorizontal">
+        <div class="MyProfilePanel-header noMarginHorizontal col-xs-12 col-md-12">
+            [[[Address]]]
+        </div>
+        <div class="col-xs-12 col-md-10 col-md-offset-1 MyProfilePanel-Body">
+            @using (Ajax.BeginForm("_MyProfileAddress", "Account", new { }, new AjaxOptions() { HttpMethod = "POST", OnBegin = "handleMyProfileAddressBegin", OnSuccess = "MyProfileAddressSuccess", OnFailure = "MyProfileAddressFailure" }, new { @id = "MyProfileAddressForm" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.UserId)
+                <div class="col-md-10 col-xs-12 col-md-offset-">
+                    <div id="ErrorMyProfileAddressForm" class="text-danger"></div>
+                </div>
+                <div class="sexyTBgroup col-md-10 col-xs-12 col-md-offset-1 websiteFormGroup">
+                    @Html.TextBoxFor(model => model.Adress1, new { @class = "sexyTB" })
+                    <label class="labelSexyTb">@Html.DisplayNameFor(m => m.Adress1)</label>
+                    <i class="fa fa-map-marker SexyField-icons" aria-hidden="true"></i>
+                    @Html.ValidationMessageFor(m => m.Adress1)
+                </div>
+                <div class="col-md-10 col-xs-12 col-md-offset-1 websiteFormGroup">
+                    <div class="select">
+                        @Html.DropDownListFor(model => model.CountryId, new SelectList(Model.CountryList, "Id", "Name"), CommonsConst.Const.DefaultSelect, new { @class = "select-text" })
+                        <span class="select-label">@Html.DisplayNameFor(m => m.CountryId)</span>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.CountryId)
+                </div>
+                <div class="col-md-10 col-xs-12 col-md-offset-1 websiteFormGroup">
+                    <div class="select">
+                        @Html.DropDownListFor(model => model.ProvinceId, new SelectList(Model.ProvinceList, "Id", "Name"), CommonsConst.Const.DefaultSelect, new { @class = "select-text" })
+                        <span class="select-label">@Html.DisplayNameFor(m => m.ProvinceId)</span>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.ProvinceId)
+                </div>
+                <div class="col-md-10 col-xs-12 col-md-offset-1" style="margin-top:25px;">
+                    <div class="col-md-6 col-xs-12 col-md-offset-3">
+                        <input type="submit" value="[[[Save]]]" class="btn website-btn" />
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+@Html.ScriptImportContent("~/Scripts/Views/Account/MyProfile/_MyProfileAddress.js")
+

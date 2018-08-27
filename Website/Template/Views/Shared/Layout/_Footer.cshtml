@@ -1,0 +1,34 @@
+﻿@Html.CssImportContent("~/Content/Views/Shared/_Footer.css")
+
+<footer id="MainFooter" class="panel-footer" >
+    <span class="arrow-down-white"></span>
+    <div class="container mainContainerFooter" >
+        <div class="row">
+            <div class="col-md-4 col-xs-12">
+                <div class="col-xs-12 col-md-12" id="divSocialLink" >
+                    <a href="https://www.facebook.com/ " target="_blank"><span class="fa fa-facebook socialIconLink showSpinnerBeforeRedirect_js"></span></a>
+                    <a href="https://twitter.com/" target="_blank"><span class="fa fa-twitter socialIconLink showSpinnerBeforeRedirect_js"></span></a>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="col-xs-12 col-md-12" style="text-align:center">
+                    @Html.Partial("~/Views/Shared/Layout/_LanguageSelector.cshtml")
+                </div>
+                <div class="col-xs-12 col-md-12" id="divCopyRight">
+                    <p class="small-paragraph copyright">Copyright 2017 Zaural Ltd.</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12 linkFooter" >
+                <div class="col-xs-12 col-md-6 col-md-offset-3 divFooterLink">
+                    <a class="footerLink showSpinnerBeforeRedirect_js" href="/contactUs">[[[Contact Us]]]</a>
+                </div>
+                <div class="col-xs-12 col-md-6 col-md-offset-3 divFooterLink">
+                    <a class="footerLink showSpinnerBeforeRedirect_js" href="/TermsAndConditions">[[[Terms & Conditions]]]</a>
+                </div>
+                <div class="col-xs-12 col-md-6 col-md-offset-3 divFooterLink">
+                    <a class="footerLink showSpinnerBeforeRedirect_js" href="/PrivacyPolicy">[[[Privacy]]]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

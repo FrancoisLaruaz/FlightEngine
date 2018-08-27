@@ -1,0 +1,32 @@
+﻿@Html.CssImportContent("~/Content/Views/Account/_SignUpProcess.css")
+
+
+<div id="newUserWelcomePg" class="row" data-note="welcome to website modal page" >
+
+    <div class="col-md-12 col-xs-12">
+
+        <div class="paras modal-headers white-txt welcomeTo">
+            [[[Welcome to our platform]]]
+        </div>
+
+
+
+        <div class="paras center-txt white-txt plsTxt">
+            [[[You are almost there !]]]
+        </div>
+
+        <div class="paras center-txt white-txt plsTxt">
+            [[[Please confirm a few more details to set up your account.]]]
+        </div>
+
+        <div class="btw-space-modal"></div>
+
+        <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+            <input type="submit" value=" [[[Get Started]]]" class="btn website-btn" id="SignUpWelcomeBtn" />
+        </div>
+
+    </div>
+
+</div>
+
+@Html.ScriptImportContent("~/Scripts/Views/Account/SignUp/_SignUpWelcome.js")

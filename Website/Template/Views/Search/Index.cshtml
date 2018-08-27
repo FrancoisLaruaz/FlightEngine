@@ -1,0 +1,75 @@
+﻿@model Models.ViewModels.Search.SearchIndexViewModel
+
+
+@Html.CssImportContent("~/Content/Views/Search/Index.css")
+@Html.CssImportContent("~/Content/Views/Shared/FollowUserBtn.css")
+@Html.CssImportContent("~/Content/Views/Shared/SquaredCheckBox.css")
+
+
+
+@Html.Partial("_PageTitle")
+
+<div class="container-fluid noMarginNoPaddingHorizontal" id="MainContainer">
+    <div class="col-xs-12 col-md-10 col-md-offset-1" id="divSearchBoxWrap">
+
+        <div id="divSearchBox" class="col-xs-12 col-md-9 col-md-offset-3 col-xs-offset-0 row">
+            <div class="col-xs-10 col-md-7">
+                @Html.TextBoxFor(m => m.Pattern, new { id = "searchTbx", @class = "form-control", @placeholder = "[[[Search ...]]]" })
+                <i class="fa fa-search" id="searchIcon"></i>
+            </div>
+            <div class="col-xs-12 col-md-5 centerIfMobile" id="divSearchResultCount">
+                <span id="searchResultCount"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-10 col-md-offset-1 col-xs-offset-0 row">
+        <div class="col-xs-12 col-md-3 col-xs-offset-0 row" id="searchFiltersDiv">
+            <div class="col-xs-12 col-md-12" style="text-align:center">
+                <h3>[[[Filters]]]</h3>
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <label class="check-container control-label pull-right">
+                    <span class="labelSquaredCheckBox">[[[Users]]]</span>
+                    @if (Model.ShowUsers)
+                    {
+                        <input type="checkbox" class="filterCheckbox_js" id="ShowUsers" data-type="users" value="true" checked='checked' />
+                    }
+                    else
+                    {
+                        <input type="checkbox" class="filterCheckbox_js" id="ShowUsers" data-type="users" value="false" />
+                    }
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="col-xs-12 col-md-12 divSearchFilterLedtSide">
+                <label class="check-container control-label pull-right">
+                    <span class="labelSquaredCheckBox">[[[Pages]]]</span>
+                    @if (Model.ShowPages)
+                    {
+                        <input type="checkbox" class="filterCheckbox_js" id="ShowPages" data-type="pages" value="true" checked='checked' />
+                    }
+                    else
+                    {
+                        <input type="checkbox" class="filterCheckbox_js" id="ShowPages" data-type="pages" value="false" />
+                    }
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-9" id="searchResultsDiv">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section scripts {
+    @Html.ScriptImportContent("~/Scripts/Views/Shared/FollowUserBtn.js")
+    @Html.ScriptImportContent("~/Scripts/Views/Search/Index.js")
+
+}
+
+

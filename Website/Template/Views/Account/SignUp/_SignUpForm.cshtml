@@ -1,0 +1,107 @@
+﻿@model Models.ViewModels.Account.SignUpViewModel
+
+
+@Html.CssImportContent("~/Content/Views/Account/_SignUp.css")
+
+
+
+@if (HttpContext.Current.User.Identity.IsAuthenticated)
+{
+    <h1>[[[To create a new account, please log out first.]]]</h1>
+}
+else
+{
+    <div class="area-container row" id="SignUpChoice" style="margin-top:30px;margin-bottom:20px;">
+        <div class="col-md-10 col-xs-12 col-md-offset-1 col-xs-offset-0">
+            <input type="submit" class="btn website-btn PasswordButton" value="[[[Sign Up With Email]]]"  id="SignUpWithEmail" />
+        </div>
+        @Html.Partial("~/Views/Account/_ExternalSignUp.cshtml")
+
+        <div class="center-txt col-md-10 col-xs-12 col-md-offset-1" style="margin-top:25px;margin-bottom:20px;">
+            @Html.Partial("~/Views/Account/SignUp/_SignUpFormLinks.cshtml")
+        </div>
+    </div>
+    <div class="area-container row" id="SignUpFormDiv" style="display:none;margin-bottom:20px;">
+        <div style="position: relative;top:-20px;">
+            <span class="SignUpmodalGoBackBtns ColorWebsite" id="GoBackToSignUpChoiceBtn">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i> [[[back]]]
+            </span>
+        </div>
+        @using (Ajax.BeginForm("_SignUpForm", "Account", new { }, new AjaxOptions() { HttpMethod = "POST", OnBegin = "handleSignUpBegin", OnSuccess = "SignUpSuccess", OnFailure = "SignUpFailure" }, new { @id = "SignUpForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row" style="">
+
+                <div class="col-xs-12 col-md-12">
+                    <div class="col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-1" style="margin-bottom:16px !important;margin-top:10px !important;">
+                        <span id="RedirectToEmailSignUpError" class="text-danger resultExternalAuthentification"></span>
+                    </div>
+                    <div class="sexyTBgroup col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-1 websiteFormGroup">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "sexyTB", @id = "EmailSignUp" })
+                        <label class="labelSexyTb">@Html.DisplayNameFor(m => m.Email)</label>
+                        <i class="fa fa-envelope SexyField-iconsSmall" aria-hidden="true"></i>
+                        @Html.ValidationMessageFor(m => m.Email)
+                        <div id="ErrorSignUpForm" class="text-danger"></div>
+                    </div>
+                    <div class="sexyTBgroup col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-1 websiteFormGroup">
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "sexyTB" })
+                        <label class="labelSexyTb">@Html.DisplayNameFor(m => m.FirstName)</label>
+                        <i class="fa fa-user SexyField-icons" aria-hidden="true"></i>
+                        @Html.ValidationMessageFor(m => m.FirstName)
+                    </div>
+
+                    <div class="sexyTBgroup col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-1 websiteFormGroup">
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "sexyTB" })
+                        <label class="labelSexyTb">@Html.DisplayNameFor(m => m.LastName)</label>
+                        <i class="fa fa-user SexyField-icons" aria-hidden="true"></i>
+                        @Html.ValidationMessageFor(m => m.LastName)
+                    </div>
+
+                    <div class="sexyTBgroup col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-1 websiteFormGroupShort">
+                        @Html.PasswordFor(model => model.Password, new { @class = "sexyTB PasswordToCheck", @id = "PasswordToCheck" })
+                        <label class="labelSexyTb">@Html.DisplayNameFor(m => m.Password)</label>
+                        <i class="fa fa-lock SexyField-icons" aria-hidden="true"></i>
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+
+
+                    <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+                        @Html.Partial("_PasswordPolicy")
+                    </div>
+
+                    <input type="hidden" id="HiddenPasswordSetSignUpForm" value="false" />
+                    <input type="hidden" id="HiddenCaptchaSetSignUpForm" value="false" />
+                    <div class="col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-1">
+
+                        @Html.CheckBoxFor(m => m.ReceiveNews, new { @class = "styled-checkbox" })
+
+                        <label for="ReceiveNews" class="LabelStyled-checkbox" style="font-size:13px !important;font-weight:normal !important;">[[[Receive our special offers, opportunities, and updates.]]]</label>
+                    </div>
+
+                    <div class="sexyTBgroup col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-1 iAgreeTxt">
+                        [[[By clicking Sign Up, I agree to our ]]]<a href="TermsAndConditions" class="applicationLink" target="_blank">Terms of Service</a>[[[ and ]]]<a class="anti-old-a applicationLink" href="PrivacyPolicy" target="_blank">[[[Privacy Policy]]]</a>.
+                    </div>
+
+                    <div class="col-md-10 col-xs-10 col-xs-offset-1 col-md-offset-1 captcha">
+                        <div class="g-recaptcha" data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["CaptchaPublicKey"]" data-callback="correctCaptcha"></div>
+                    </div>
+
+                    <div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">
+                        <input type="submit" disabled value="[[[Sign Up]]]" class="btn website-btn PasswordButton"  id="SubmitButtonSignUp" />
+                    </div>
+
+                    <div class="col-xs-12 col-md-12" id="div_SignUpFormLinks" style="display:none">
+                        <div style="margin-top:12px">
+                            <div class="col-sm-12 col-xs-12">
+                                @Html.Partial("~/Views/Account/SignUp/_SignUpFormLinks.cshtml")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        }
+    </div>
+}
+@Html.ScriptImportContent("~/Scripts/Views/Account/SignUp/_SignUp.js")

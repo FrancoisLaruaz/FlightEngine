@@ -1,0 +1,46 @@
+﻿@using i18n
+
+
+@{
+    var currentLanguage = Context.GetPrincipalAppLanguageForRequest();
+}
+
+
+@Html.CssImportContent("~/Content/Views/Shared/_LanguageSelector.css")
+
+<div id="LanguageSelectorWrapper" class="col-xs-12 col-md-6 col-md-offset-3">
+    <select id="LanguageSelector" class="form-control" >
+        @{
+            KeyValuePair<string, i18n.LanguageTag>[] langs = LanguageHelpers.GetAppLanguages().OrderBy(x => x.Key).ToArray();
+            int cellcnt = langs.Length + 1;
+            for (int i = 1; i < cellcnt; i++)
+            {
+                string langtag;
+                string title;
+                string nativelangname;
+                i18n.LanguageTag lt = langs[i - 1].Value;
+                title = langtag = lt.ToString();
+                nativelangname = lt.NativeNameTitleCase;
+
+                var selected = (Context.GetPrincipalAppLanguageForRequest().GetLanguage() == lt.Language) ? "selected" : string.Empty;
+
+                var actionUrl = Url.Action(
+                    actionName: "SetLanguage",
+                    controllerName: "Home",
+                    routeValues: new { langtag = @langtag, returnUrl = Request.Url, @area = "" });
+
+                <option style="text-align:center" value="@actionUrl" @selected>@nativelangname</option>
+            }
+        }
+    </select>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('#LanguageSelector').change(function () {
+            window.location.href = $(this).find(':selected').val();
+        });
+
+    })
+</script>

@@ -1,0 +1,468 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2018-01-08 20:05-08:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: i18n.POTGenerator\n"
+
+#: Scripts\General\HighchartsHelper.js:55
+msgid "' + element[0] + '"
+msgstr ""
+
+#: Controllers\AccountController.cs:254
+msgid "[Your account is currently lockout."
+msgstr ""
+
+#: ..\Models\ViewModel\Account\LoginViewModel.cs:13
+#: ..\Models\ViewModel\Account\SignUpViewModel.cs:23
+msgid "A valid email is required."
+msgstr ""
+
+#: ..\Models\ViewModel\Admin\News\NewsEditViewModel.cs:46
+msgid "Active"
+msgstr ""
+
+#: Views\Admin\News.cshtml:10
+msgid "Add a News"
+msgstr ""
+
+#: Views\Shared\Layout\_Header.cshtml:27
+msgid "Admin"
+msgstr ""
+
+#: Views\Shared\Layout\_Header.cshtml:48
+msgid "Admin Panel"
+msgstr ""
+
+#: Views\Account\_SignUpFormLinks.cshtml:2
+msgid "Already have an account?"
+msgstr ""
+
+#: Scripts\General\ToastrHelper.js:24
+msgid "An unexpected error occured."
+msgstr ""
+
+#: Scripts\General\SweetAlertHelper.js:15
+msgid "Are you sure you want to perform this action ?"
+msgstr ""
+
+#: Views\Account\_PasswordPolicy.cshtml:37
+msgid "at least eight characters"
+msgstr ""
+
+#: Views\Account\_PasswordPolicy.cshtml:21
+msgid "at least one lower case letter"
+msgstr ""
+
+#: Views\Account\_PasswordPolicy.cshtml:29
+msgid "at least one number"
+msgstr ""
+
+#: Views\Account\_PasswordPolicy.cshtml:13
+msgid "at least one upper case letter"
+msgstr ""
+
+#: Views\Admin\EMailAudits\_DisplayEmailAudits.cshtml:20
+msgid "Attachments"
+msgstr ""
+
+#: Views\Account\_SignUpForm.cshtml:51
+msgid "By clicking Sign Up, I agree to our <a  href=\"Account/TermsAndConditions\" target=\"_blank\">Terms of Service</a> and <a class=\"anti-old-a\" href=\"Account/PrivacyPolicy\" target=\"_blank\">Privacy Policy</a>."
+msgstr ""
+
+#: Views\Admin\EMailAudits\_DisplayEmailAudits.cshtml:21
+msgid "CC"
+msgstr ""
+
+#: Views\Shared\Layout\_Header.cshtml:54
+msgid "Change Password"
+msgstr ""
+
+#: Views\Admin\Tasks\_DisplayTasks.cshtml:18
+msgid "Comment"
+msgstr ""
+
+#: Scripts\General\SweetAlertHelper.js:17
+msgid "Confirmation needed"
+msgstr ""
+
+#: Views\Account\_SignUpForm.cshtml:57
+#: Scripts\Views\Account\_SignUp.js:47
+msgid "Create"
+msgstr ""
+
+#: Scripts\Views\Account\_SignUp.js:16
+msgid "Creation ..."
+msgstr ""
+
+#: Views\Admin\EMailAudits\_DisplayEmailAudits.cshtml:14
+msgid "Date"
+msgstr ""
+
+#: ..\Models\ViewModel\Admin\News\NewsEditViewModel.cs:34
+msgid "Description"
+msgstr ""
+
+#: ..\Models\ViewModel\Account\LoginViewModel.cs:15
+#: ..\Models\ViewModel\Account\SignUpViewModel.cs:25
+msgid "Email"
+msgstr ""
+
+#: Views\Shared\Layout\_Header.cshtml:30
+msgid "Email Audits"
+msgstr ""
+
+#: Views\Admin\Tasks\_DisplayTasks.cshtml:15
+msgid "End Date"
+msgstr ""
+
+#: Controllers\ErrorController.cs:16
+#: Controllers\ErrorController.cs:23
+msgid "Error"
+msgstr ""
+
+#: Controllers\AccountController.cs:175
+msgid "Error while creating the user."
+msgstr ""
+
+#: Scripts\General\FileDropHelper.js:173
+#: Scripts\General\FileDropHelper.js:178
+msgid "Error while uploading the document."
+msgstr ""
+
+#: Scripts\General\FileDropHelper.js:113
+#: Scripts\General\FileDropHelper.js:118
+msgid "Error while uploading the picture."
+msgstr ""
+
+#: ..\Models\ViewModel\Account\SignUpViewModel.cs:19
+msgid "First Name"
+msgstr ""
+
+#: Views\Account\_LoginFormLinks.cshtml:6
+msgid "Forgot your password?"
+msgstr ""
+
+#: Views\Admin\EMailAudits\_DisplayEmailAudits.cshtml:16
+msgid "From"
+msgstr ""
+
+#: Views\Account\_SignUpPictureForm.cshtml:43
+#: Views\Account\_SignUpProcessPages.cshtml:43
+#: Views\Account\_SignUpWelcome.cshtml:25
+msgid "Get Started"
+msgstr ""
+
+#: Views\Admin\News\EditNews.cshtml:21
+msgid "Go back to the list"
+msgstr ""
+
+#: Views\Home\_VideoHomePage.cshtml:19
+msgid "Hello world. How are you ?"
+msgstr ""
+
+#: Views\Admin\EMailAudits\_DisplayEmailAudits.cshtml:13
+#: Views\Admin\Tasks\_DisplayTasks.cshtml:13
+msgid "Id"
+msgstr ""
+
+#: Scripts\General\WebcamHelper.js:66
+msgid "Internal camera plugin error"
+msgstr ""
+
+#: Controllers\AccountController.cs:257
+#: Controllers\AccountController.cs:267
+#: Controllers\AccountController.cs:271
+msgid "Invalid login attempt."
+msgstr ""
+
+#: Views\Account\_SignUpPictureForm.cshtml:15
+#: Views\Account\_SignUpProcessPages.cshtml:15
+msgid "It's now time tu update your website profile picture !"
+msgstr ""
+
+#: Views\Admin\EMailAudits\_DisplayEmailAudits.cshtml:19
+msgid "Language"
+msgstr ""
+
+#: ..\Models\ViewModel\Account\SignUpViewModel.cs:14
+msgid "Last Name"
+msgstr ""
+
+#: Views\Account\_LoginForm.cshtml:46
+#: Views\Account\_SignUpFormLinks.cshtml:2
+#: Scripts\Views\Account\_Login.js:71
+msgid "Log In"
+msgstr ""
+
+#: Views\Shared\Layout\_Header.cshtml:55
+msgid "Log Off"
+msgstr ""
+
+#: Scripts\Views\Account\_Login.js:32
+msgid "Logging In ..."
+msgstr ""
+
+#: Controllers\AccountController.cs:324
+msgid "Login"
+msgstr ""
+
+#: Views\Shared\Layout\_Header.cshtml:29
+msgid "Logs"
+msgstr ""
+
+#: Views\Shared\Layout\_Header.cshtml:19
+msgid "Menu"
+msgstr ""
+
+#: Views\Shared\Layout\_Header.cshtml:31
+msgid "News"
+msgstr ""
+
+#: Controllers\AdminController.cs:34
+msgid "News Letter"
+msgstr ""
+
+#: Controllers\AdminController.cs:59
+msgid "News Letter Creation"
+msgstr ""
+
+#: Controllers\AdminController.cs:55
+msgid "News Letter Edit"
+msgstr ""
+
+#: Scripts\General\SweetAlertHelper.js:25
+msgid "No"
+msgstr ""
+
+#: Views\Error\Index.cshtml:7
+msgid "Oups...An error has occured"
+msgstr ""
+
+#: ..\Models\ViewModel\Account\LoginViewModel.cs:20
+#: ..\Models\ViewModel\Account\SignUpViewModel.cs:30
+msgid "Password"
+msgstr ""
+
+#: Views\Account\_PasswordPolicy.cshtml:5
+msgid "Password Strength :"
+msgstr ""
+
+#: Views\Admin\Tasks.cshtml:30
+msgid "Periodicity"
+msgstr ""
+
+#: Controllers\AccountController.cs:186
+msgid "Please complete the form."
+msgstr ""
+
+#: Controllers\AccountController.cs:181
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: Views\Account\_SignUpPictureForm.cshtml:9
+#: Views\Account\_SignUpProcessPages.cshtml:9
+msgid "Please smile"
+msgstr ""
+
+#: Controllers\AccountController.cs:369
+msgid "Privacy Policy"
+msgstr ""
+
+#: ..\Models\ViewModel\Admin\News\NewsEditViewModel.cs:26
+msgid "Publish Date"
+msgstr ""
+
+#: Views\Admin\Tasks.cshtml:25
+msgid "Recurring Scheduled Tasks"
+msgstr ""
+
+#: Controllers\AdminController.cs:178
+#: Views\Shared\Layout\_Header.cshtml:32
+msgid "Recurring Tasks"
+msgstr ""
+
+#: ..\Models\ViewModel\Account\LoginViewModel.cs:23
+msgid "Remember me ?"
+msgstr ""
+
+#: Views\Admin\Tasks\_DisplayTasks.cshtml:17
+msgid "Result"
+msgstr ""
+
+#: Views\Admin\EMailAudits\_DisplayEmailAudits.cshtml:8
+#: Views\Admin\Logs\_DisplayLogs.cshtml:8
+#: Views\Admin\Tasks\_DisplayTasks.cshtml:8
+msgid "row(s) found"
+msgstr ""
+
+#: Views\Admin\News\EditNews.cshtml:93
+msgid "Save"
+msgstr ""
+
+#: Views\Admin\Tasks.cshtml:31
+msgid "Schedule Time"
+msgstr ""
+
+#: Scripts\Views\Shared\_Header.js:56
+msgid "See you soon !"
+msgstr ""
+
+#: Views\Admin\News\EditNews.cshtml:47
+msgid "Select a Type"
+msgstr ""
+
+#: Views\Admin\News\EditNews.cshtml:66
+msgid "Select a User Mailing Type"
+msgstr ""
+
+#: Views\Account\_SignUpPictureForm.cshtml:27
+#: Views\Account\_SignUpProcessPages.cshtml:27
+msgid "Shoot !"
+msgstr ""
+
+#: Views\Account\_LoginFormLinks.cshtml:3
+msgid "Sign Up now"
+msgstr ""
+
+#: Views\Shared\_CameraNotFound.cshtml:2
+msgid "Sorry, no webcam has been found ..."
+msgstr ""
+
+#: Views\Admin\Tasks\_DisplayTasks.cshtml:14
+msgid "Start Date"
+msgstr ""
+
+#: Views\Home\Index.cshtml:7
+msgid "Start now for free"
+msgstr ""
+
+#: ..\Models\ViewModel\Admin\News\NewsEditViewModel.cs:38
+msgid "Subject"
+msgstr ""
+
+#: Controllers\AccountController.cs:350
+msgid "Terms And Conditions"
+msgstr ""
+
+#: Scripts\General\ToastrHelper.js:8
+msgid "The action has been successfully performed."
+msgstr ""
+
+#: ..\Models\ViewModel\Admin\News\NewsEditViewModel.cs:33
+msgid "The Description is required."
+msgstr ""
+
+#: Scripts\General\FileDropHelper.js:166
+msgid "The document has been successfully uploaded."
+msgstr ""
+
+#: Controllers\UploadController.cs:205
+msgid "The document must be a picture or a pdf."
+msgstr ""
+
+#: ..\Models\ViewModel\Account\SignUpViewModel.cs:18
+msgid "The First Name is required."
+msgstr ""
+
+#: Controllers\UploadController.cs:200
+msgid "The image must be smaller than 1 MB."
+msgstr ""
+
+#: ..\Models\ViewModel\Account\SignUpViewModel.cs:13
+msgid "The Last Name is required."
+msgstr ""
+
+#: ..\Models\ViewModel\Account\LoginViewModel.cs:18
+#: ..\Models\ViewModel\Account\SignUpViewModel.cs:28
+msgid "The Password field is required."
+msgstr ""
+
+#: ..\Models\ViewModel\Admin\News\NewsEditViewModel.cs:25
+msgid "The PublishDate is required."
+msgstr ""
+
+#: ..\Models\ViewModel\Admin\News\NewsEditViewModel.cs:29
+msgid "The Title is required."
+msgstr ""
+
+#: ..\Models\ViewModel\Admin\News\NewsEditViewModel.cs:41
+msgid "The Type is required."
+msgstr ""
+
+#: Controllers\AccountController.cs:171
+msgid "This email address is already used."
+msgstr ""
+
+#: Controllers\AccountController.cs:262
+msgid "This user is not registered. Please sign-up."
+msgstr ""
+
+#: ..\Models\ViewModel\Admin\News\NewsEditViewModel.cs:30
+msgid "Title"
+msgstr ""
+
+#: Views\Home\_VideoHomePage.cshtml:18
+msgid "Title1"
+msgstr ""
+
+#: Views\Admin\EMailAudits\_DisplayEmailAudits.cshtml:17
+msgid "To"
+msgstr ""
+
+#: Views\Account\_SignUpForm.cshtml:5
+msgid "To create a new account, please log out first."
+msgstr ""
+
+#: ..\Models\ViewModel\Admin\News\NewsEditViewModel.cs:42
+#: Views\Admin\EMailAudits\_DisplayEmailAudits.cshtml:15
+#: Views\Admin\Tasks\_DisplayTasks.cshtml:16
+msgid "Type"
+msgstr ""
+
+#: ..\Models\ViewModel\Admin\News\NewsEditViewModel.cs:49
+msgid "Type User Mailing"
+msgstr ""
+
+#: Views\Admin\EMailAudits\_DisplayEmailAudits.cshtml:18
+msgid "User"
+msgstr ""
+
+#: Views\Account\_SignUpWelcome.cshtml:19
+msgid "We have just sent you an email. Please confirm your account by clicking on the link in this mail."
+msgstr ""
+
+#: Scripts\General\WebcamHelper.js:62
+msgid "Web camera is not available"
+msgstr ""
+
+#: Views\Account\_SignUpWelcome.cshtml:9
+msgid "Welcome to our platform"
+msgstr ""
+
+#: Views\Admin\Tasks\_DisplayTasks.cshtml:33
+msgid "Work in progress ..."
+msgstr ""
+
+#: Scripts\General\SweetAlertHelper.js:26
+msgid "Yes"
+msgstr ""
+
+#: Views\Account\_SignUpWelcome.cshtml:15
+msgid "You are almost there !"
+msgstr ""
+
+#: Controllers\AccountController.cs:193
+msgid "You are already logged in."
+msgstr ""
+
+#: Views\Account\_LoginForm.cshtml:6
+msgid "You are already signed in"
+msgstr ""
+
+#: Views\Shared\Layout\_BrowserBanner.cshtml:3
+msgid "You are currently using an out dated browser. In order to fully enjoy all the possibilities of our website, please upgrade your browser (Google Chrome, Firefox or Safari). Thanks!"
+msgstr ""
+

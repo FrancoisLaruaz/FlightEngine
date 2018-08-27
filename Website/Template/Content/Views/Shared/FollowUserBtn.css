@@ -1,0 +1,40 @@
+
+.FollowUnfollowBtn {
+    display: inherit;
+    width: 145px;
+    height: 34px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 5px;
+    padding-top: 5px;
+    cursor: pointer;
+    font-size: 1.7rem;
+}
+
+
+.followBtnIcon {
+    margin-left: 15px;
+}
+
+
+.FFgreenButton:hover {
+    border-color: rgba(45,191,183, 0.8);
+    background-color: rgba(45,191,183, 1);
+}
+
+.FFgreenButton {
+    background-color: rgba(45,191,183, 0.8);
+    border-color: rgba(45,191,183, 0.8);
+}
+
+.FForangeButton:hover {
+    background-color: rgba(243,111,35, 0.8);
+    border-color: rgba(243,111,35, 1);
+}
+
+
+.FForangeButton {
+    background-color: rgba(243,111,35, 1);
+    border-color: rgba(243,111,35, 1);
+}

@@ -1,0 +1,39 @@
+﻿@model  Models.ViewModels.Search.SearchIndexResultTypeViewModel
+
+@{
+    Layout = null;
+}
+@if (Model != null && Model.Items != null && Model.Items.Count > 0)
+{
+    <div class="col-xs-12 col-md-12 SearchTypePanel" data-type="@Model.Title.Replace("]]]","").Replace(" ","").Replace("[[[","").ToLower()" id="SearchPanel_@Model.Title.Replace("]]]","").Replace(" ","").Replace("[[[","").ToLower()">
+        <div class="SearchTypePanel-header noMarginHorizontal col-xs-12 col-md-12">
+            <i class="fa fa-@Model.Icon searchTypeIcon" aria-hidden="true"></i> @Model.Title
+        </div>
+        <div class="SearchTypePanel-Body col-xs-12 col-md-12 noMarginHorizontal">
+
+
+            <input type="hidden" class="HiddenDisplayedSearchItemCount" value="@Model.Items.Count" />
+            <input type="hidden" class="HiddenSearchResultsCount" value="@Model.Items.Count" />
+
+            @foreach (var item in Model.Items)
+                {
+                @Html.Partial("_IndexSearchResultItem", item)
+            }
+            @if (Model.Items.Count > CommonsConst.SearchParameters.MaxDisplayedItems)
+                {
+                <div class="col-xs-12 col-md-12 divViewMoreSearchResultsLink">
+                    <a class="viewMoreSearchResultsLink">[[[Show more results]]]</a>
+                </div>
+            }
+
+
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            SetSearchResultsDiv('@Model.Title.Replace("]]]", "").Replace(" ", "").Replace("[[[", "").ToLower()');
+        });
+    </script>
+}
+

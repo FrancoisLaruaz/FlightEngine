@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{494B3AB0-86D7-4BA1-B5A9-D5A9ABF632EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Service</RootNamespace>
+    <AssemblyName>Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz, Version=2.6.1.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.2.6.1\lib\net40\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Service\Admin\FileUploadService.cs" />
+    <Compile Include="Service\Admin\Interface\IUserRolesService.cs" />
+    <Compile Include="Service\Admin\Interface\ITaskLogService.cs" />
+    <Compile Include="Service\Admin\Interface\IFileUploadService.cs" />
+    <Compile Include="Service\Admin\Interface\IScheduledTaskService.cs" />
+    <Compile Include="Service\Admin\Interface\INewsService.cs" />
+    <Compile Include="Service\Admin\Interface\ILogService.cs" />
+    <Compile Include="Service\Admin\ScheduledTaskService.cs" />
+    <Compile Include="Service\Admin\TaskLogService.cs" />
+    <Compile Include="Service\User\Interface\IEMailService.cs" />
+    <Compile Include="Service\User\Interface\ICategoryService.cs" />
+    <Compile Include="Service\User\Interface\IASPNetUsersService.cs" />
+    <Compile Include="Service\User\Interface\ISearchService.cs" />
+    <Compile Include="Service\User\Interface\ISocialMediaConnectionService.cs" />
+    <Compile Include="Service\User\Interface\IProvinceService.cs" />
+    <Compile Include="Service\User\Interface\ICountryService.cs" />
+    <Compile Include="Service\User\Interface\IUserService.cs" />
+    <Compile Include="Service\User\ASPNetUsersService.cs" />
+    <Compile Include="Service\User\SearchService.cs" />
+    <Compile Include="Service\User\SocialMediaConnectionService.cs" />
+    <Compile Include="Task\OneShot\SendNews.cs" />
+    <Compile Include="Task\Recurring\DeleteUploadedFiles.cs" />
+    <Compile Include="Task\Base\RecurringJobBase.cs" />
+    <Compile Include="Task\Base\JobBase.cs" />
+    <Compile Include="Task\Recurring\DeleteLogs.cs" />
+    <Compile Include="Task\OneShot\SendEMailToUser.cs" />
+    <Compile Include="Service\User\ProvinceService.cs" />
+    <Compile Include="Service\User\CountryService.cs" />
+    <Compile Include="Service\User\EMailService.cs" />
+    <Compile Include="Service\User\CategoryService.cs" />
+    <Compile Include="Service\Admin\UserRolesService.cs" />
+    <Compile Include="Service\Admin\NewsService.cs" />
+    <Compile Include="Service\User\UserService.cs" />
+    <Compile Include="Service\Admin\LogService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Commons\Commons.csproj">
+      <Project>{78fb161b-939b-44b6-90ff-d8c764ac100a}</Project>
+      <Name>Commons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEntities\DataEntities.csproj">
+      <Project>{8b6f55a2-e803-42ef-8e59-bea600904c76}</Project>
+      <Name>DataEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{a4f9419f-48b6-42f0-ab2e-38409733e1d4}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

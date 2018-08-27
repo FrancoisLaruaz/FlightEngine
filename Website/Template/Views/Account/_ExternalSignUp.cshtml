@@ -1,0 +1,28 @@
+﻿@using Microsoft.Owin.Security
+
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+}
+
+
+@Html.Partial("_OrContinueWith")
+<div class="col-md-12 col-xs-12" style="padding-left:0px;padding-right:0px;">
+    
+    <form id="ExternalSignUpForm" action="@Url.Action("ExternalSignUp", "Account")" method="POST" target="ExternalSignUpPopUp" onsubmit="invokeExternalAuthentification('ExternalSignUpPopUp');">
+        @Html.AntiForgeryToken()
+        <div id="socialLoginList" class="col-md-10 col-xs-12 col-md-offset-1 col-xs-offset-0" style="padding-left:-5px;text-align:right;">
+
+            @foreach (AuthenticationDescription p in loginProviders)
+            {
+                <button id="SignUpButton_@p.AuthenticationType" type="submit" onclick="ExternalSignUpFormOnBegin('@p.AuthenticationType')" class="loginBtn loginBtn--@p.AuthenticationType.ToLower() SignUpBtn_js" name="provider" value="@p.AuthenticationType" title="[[[Sign up using your ]]]@p.Caption [[[account]]]"><span id="SignUpSpan_@p.AuthenticationType">@p.AuthenticationType</span></button>
+                <span id="SignUpV2Result_@p.AuthenticationType" class="text-danger resultExternalAuthentification" style="min-height:25px;"></span>
+            }
+
+        </div>
+    </form>
+    <div style="padding-top:8px;padding-bottom:8px;" class="col-md-10 col-xs-12 col-md-offset-1 col-xs-offset-0">
+        <span id="GeneralExternalSignUpError" class="text-danger resultExternalAuthentification" style="min-height:20px;"></span>
+    </div>
+</div>
+
+

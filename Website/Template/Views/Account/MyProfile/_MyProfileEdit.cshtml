@@ -1,0 +1,91 @@
+﻿@model Models.ViewModels.Account.MyProfileEditViewModel
+
+
+
+<div class="row divMyProfile">
+    <div class="MyProfilePanel col-xs-12 col-md-12 noMarginNoPaddingHorizontal">
+        <div class="MyProfilePanel-header noMarginHorizontal col-xs-12 col-md-12">
+            [[[Profile]]]
+        </div>
+        <div class="col-xs-12 col-xs-offset-0 col-md-10 col-md-offset-1 MyProfilePanel-Body">
+            @using (Ajax.BeginForm("_MyProfileEdit", "Account", new { }, new AjaxOptions() { HttpMethod = "POST", OnBegin = "handleMyProfileEditBegin", OnSuccess = "MyProfileEditSuccess", OnFailure = "MyProfileEditFailure" }, new { @id = "MyProfileEditForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.UserId)
+        <div class="col-md-10 col-xs-12 col-md-offset-0">
+            <div id="ErrorMyProfileEditForm" class="text-danger"></div>
+        </div>
+
+
+        <div class="sexyTBgroup col-md-10 col-xs-12 col-md-offset-1 websiteFormGroup">
+            @Html.TextBoxFor(model => model.LastName, new { @class = "sexyTB", @id = "MyProfileFirstName" })
+            <label class="labelSexyTb">@Html.DisplayNameFor(m => m.LastName)</label>
+            <i class="fa fa-user SexyField-icons" aria-hidden="true"></i>
+            @Html.ValidationMessageFor(m => m.LastName)
+        </div>
+
+        <div class="sexyTBgroup col-md-10 col-xs-12 col-md-offset-1 websiteFormGroup">
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "sexyTB", @id = "MyProfileLastName" })
+            <label class="labelSexyTb">@Html.DisplayNameFor(m => m.FirstName)</label>
+            <i class="fa fa-user SexyField-icons" aria-hidden="true"></i>
+            @Html.ValidationMessageFor(m => m.FirstName)
+        </div>
+
+        <div class="sexyTBgroup col-md-10 col-xs-12 col-md-offset-1 websiteFormGroupExtraLong">
+            @Html.TextBoxFor(model => model.UserName, new { @class = "sexyTB", @id = "MyProfileUserName", @Readonly = "Readonly" })
+            <label class="labelSexyTb">@Html.DisplayNameFor(m => m.UserName)</label>
+            <i class="fa fa-envelope  SexyField-icons" aria-hidden="true"></i>
+            @Html.ValidationMessageFor(m => m.UserName)
+            <div class="inputHint">
+                [[[This is the email you need to use to log in the platform. It can not be changed.]]]
+            </div>
+        </div>
+        <div class="col-md-10 col-xs-12 col-md-offset-1 websiteFormGroup">
+            <div class="select">
+                @Html.DropDownListFor(model => model.GenderId, new SelectList(Model.GenderList, "Id", "Name"), CommonsConst.Const.DefaultSelect, new { @class = "select-text" })
+                <span class="select-label">@Html.DisplayNameFor(m => m.GenderId)</span>
+            </div>
+            @Html.ValidationMessageFor(m => m.GenderId)
+        </div>
+        <div class="col-md-10 col-xs-12 col-md-offset-1 websiteFormGroupLong">
+            <div class="select">
+                @Html.DropDownListFor(model => model.LanguageId, new SelectList(Model.LanguageList, "Id", "Name"), CommonsConst.Const.DefaultSelect, new { @class = "select-text" })
+                <span class="select-label">@Html.DisplayNameFor(m => m.LanguageId)</span>
+            </div>
+            @Html.ValidationMessageFor(m => m.LanguageId)
+            <div class="inputHint">
+                [[[Select the language for your mails and the website.]]]
+            </div>
+        </div>
+        <div class="col-md-10 col-xs-12 col-md-offset-1 websiteFormGroup" style="padding-bottom:25px;">
+            <div class="col-md-12 col-xs-12 noMarginNoPaddingHorizontal">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-12 col-xs-12 noMarginNoPaddingHorizontal" style="margin-bottom:6px;">
+                @Html.TextAreaFor(m => Model.Description, new { @class = "SexyTextArea", @rows = "7" })
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
+            <div class="inputHint">
+                [[[Give a good description of yourself to let the world knows about yourr passions and skills.]]]
+            </div>
+        </div>
+        <div class="col-md-10 col-xs-12 col-md-offset-1">
+            @Html.CheckBoxFor(m => m.ReceiveNews, new { @class = "styled-checkbox", @id = "MyProfileReceiveNews" })
+            <label for="MyProfileReceiveNews" class="LabelStyled-checkbox" style="font-weight:normal !important;">[[[Receive our special offers, opportunities, and updates.]]]</label>
+        </div>
+        <div class="col-md-10 col-xs-12 col-md-offset-1" style="margin-top:25px;">
+            <div class="col-md-6 col-xs-12 col-md-offset-3">
+                <input type="submit" value="[[[Save]]]" class="btn website-btn" />
+            </div>
+            <div class="col-md-10 col-xs-12 col-md-offset-1" id="divDeleteProfile">
+                <a id="DeleteProfile" data-userid="@Model.UserId" class="applicationLink">[[[Delete my profile]]]</a>
+            </div>
+        </div>
+}
+
+        </div>
+    </div>
+</div>
+
+@Html.ScriptImportContent("~/Scripts/Views/Account/MyProfile/_MyProfileEdit.js")
+

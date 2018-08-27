@@ -1,0 +1,70 @@
+﻿@model Models.ViewModels.Account.LoginViewModel
+
+
+@if (HttpContext.Current.User.Identity.IsAuthenticated)
+{
+    <h1>[[[You are already signed in]]]</h1>
+}
+else
+{
+    <div class="row" style="margin-top:30px;margin-bottom:20px;">
+
+        <div class="col-xs-12 col-md-12">
+            @using (Ajax.BeginForm("_LoginForm", "Account", new { }, new AjaxOptions() { HttpMethod = "POST", OnBegin = "handleLoginBegin", OnSuccess = "LoginSuccess", OnFailure = "LoginFailure" }, new { @id = "LoginModalForm" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.URLRedirect)
+
+
+                <div class="sexyTBgroup col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-1 websiteFormGroup">
+                    @Html.TextBoxFor(model => model.Email, new { @class = "sexyTB" })
+                    <label class="labelSexyTb">@Html.DisplayNameFor(m => m.Email)</label>
+                    <i class="fa fa-envelope SexyField-iconsSmall" aria-hidden="true"></i>
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+
+                <div class="sexyTBgroup col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-1 websiteFormGroup">
+                    @Html.PasswordFor(model => model.Password, new { @class = "sexyTB" })
+                    <label class="labelSexyTb">@Html.DisplayNameFor(m => m.Password)</label>
+                    <i class="fa fa-lock SexyField-icons" aria-hidden="true"></i>
+                    @Html.ValidationMessageFor(m => m.Password)
+                    <div id="ErrorLoginForm" class="text-danger"></div>
+                </div>
+
+                <div class="col-md-10 col-md-offset-1 col-xs-offset-0 col-xs-12">
+                    <div class="col-md-12 col-xs-12">
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "styled-checkbox" })
+                        <label for="RememberMe" class="LabelStyled-checkbox" style="font-weight:normal;font-size:1.55rem;">@Html.DisplayNameFor(m => m.RememberMe)</label>
+                        @Html.ValidationMessageFor(m => m.RememberMe)
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-1">
+                    <div class="col-md-12 col-xs-12">
+                        <input type="submit" value="[[[Log In]]]" class="btn website-btn" id="SubmitButtonLogin" />
+                    </div>
+                    
+                </div>
+            }
+
+
+            @Html.Partial("~/Views/Account/_ExternalLogIn.cshtml")
+
+
+
+            <div class="col-xs-12 col-md-12">
+                <div style="margin-top:12px;">
+                    <div class="col-sm-12 col-xs-12">
+                        @Html.Partial("_LoginFormLinks")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@Html.ScriptImportContent("~/Scripts/Views/Account/_Login.js")
+

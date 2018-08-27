@@ -1,0 +1,61 @@
+﻿.fd-zone {
+    position: relative;
+    overflow: hidden;
+    /* The following are not required but create a pretty box: */
+    margin: auto;
+    padding: 18px;
+    text-align: center;
+    background-color: white;
+    vertical-align: middle;
+    border: dashed 2px black;
+    opacity: 1;
+}
+
+
+.drop-active {
+    position: relative;
+    overflow: hidden;
+    /* The following are not required but create a pretty box: */
+    width: 100%;
+    margin: auto;
+    padding: 18px;
+    text-align: center;
+    background-color: lightblue;
+    vertical-align: middle;
+    border: dashed 2px black;
+    opacity: 0.5;
+}
+
+.fd-zone:hover {
+    position: relative;
+    overflow: hidden;
+    /* The following are not required but create a pretty box: */
+    margin: auto;
+    padding: 18px;
+    text-align: center;
+    background-color: lightblue;
+    vertical-align: middle;
+    border: dashed 2px black;
+    opacity: 0.5;
+}
+
+
+
+
+
+
+
+/* Hides <input type="file"> while simulating "Browse" button: */
+.fd-file {
+    opacity: 0;
+    font-size: 118px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    filter: alpha(opacity=0);
+    font-family: sans-serif;
+}

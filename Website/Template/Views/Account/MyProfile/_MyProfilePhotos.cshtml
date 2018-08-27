@@ -1,0 +1,82 @@
+﻿@model Models.ViewModels.Account.MyProfilePhotosViewModel
+
+
+<div class="row divMyProfile">
+    <div class="MyProfilePanel col-xs-12 col-md-12 noMarginNoPaddingHorizontal">
+        <div class="MyProfilePanel-header noMarginHorizontal col-xs-12 col-md-12">
+            [[[Photos]]]
+        </div>
+        <div class="col-xs-12 col-md-12 MyProfilePanel-Body">
+            <div class="col-xs-12 col-xs-offset-0 col-md-6" style="text-align:center;">
+                <div style="background-image: url('@Model.PictureDecryptSrc')" id="PictureDiv">
+                </div>
+            </div>
+            <div class="col-xs-12 col-xs-offset-0 col-md-6">
+                <input id="HiddenPic" name="Pic" type="file" accept="image/bmp, image/jpeg, image/png, image/gif" style="display:none;" />
+                <div class="col-xs-12 col-md-10 col-md-offset-1 divButtonMyProfilePhoto divButtonMyProfilePhotoHaut">
+                    <input type="submit" value="[[[Upload a file]]]" class="btn website-btn" id="UserUploadFileBtn" />
+                </div>
+                <div class="col-xs-12 col-md-10 col-md-offset-1 divButtonMyProfilePhoto">
+                    <input type="submit" value="[[[Use my webcam]]]" class="btn website-btn" id="UserWebcamBtn" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="WebcamModal" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog SmallModalResponsive vertical-align-center" role="document">
+            <div class="modal-content">
+                <div class="modal-body" style="margin-bottom:35px;">
+                    <div style="padding-top:10px;">
+                        <button type="button" id="CloseModalPhotoX" class="close" style="color:black" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-10 col-md-offset-1 showWithWebCamPicture" style="margin-top:15px;display:none;">
+
+                            <div class="wrapPicPrev">
+                                <label id="MyProfileCameraPictureUserPreview" class="circular PicturePreview" for="Pic" style="background-image:  url(@CommonsConst.Const.DefaultImageUser.Replace("~",""))">
+
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-12" style="text-align:center;margin-top:15px;">
+                            <div id="MyProfileCameraPictureUser" style="width:90%;margin-left:5%;margin-right:5%"></div>
+                            <div id="CameraNotFound" style="width:100%;display:none" class="img-rounded">
+                                @Html.Partial("~/Views/Shared/_CameraNotFound.cshtml")
+                                <div class="col-xs-12 col-md-12" style="margin-top:25px;">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <input type="submit" value="[[[Close]]]" onclick="$('#CloseModalPhotoX').click()" class="btn website-btn" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2" style="text-align:center;margin-top:-60px">
+                            <input type="button" value=" [[[Shoot !]]]" class="btn blackButton webcamBtn" id="SHootWebcam" style="display:none" />
+                        </div>
+                        <div id="divBtnWebcam" class="col-md-12 showWithWebCamPicture col-xs-12" style="height:80px;">
+                            @using (Ajax.BeginForm("_MyProfilePhotos", "Account", new { }, new AjaxOptions() { HttpMethod = "POST", OnBegin = "handleMyProfilePhotosBegin", OnSuccess = "MyProfilePhotosSuccess", OnFailure = "MyProfilePhotosFailure" }, new { @id = "MyProfilePhotosForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(m => m.PictureSrc, new { id = "MyProfilePictureSrc" })
+                                @Html.HiddenFor(m => m.UserId, new { id = "MyProfilePictureUserId" })
+                                <div class="col-md-12 col-xs-12">
+                                    <div id="ErrorMyProfilePhotosForm" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
+                                    <input type="submit" value="[[[Save]]]" class="btn website-btn" id="SaveWebcamBtn" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.ScriptImportContent("~/Scripts/Views/Account/MyProfile/_MyProfilePhotos.js")
+

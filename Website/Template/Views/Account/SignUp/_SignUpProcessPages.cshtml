@@ -1,0 +1,90 @@
+﻿@Html.CssImportContent("~/Content/Views/Account/_SignUpProcess.css")
+
+
+<div id="newUserEmailPg" style="" class="row reversiblePgs PaddingSignUpProcess" data-note="welcome to website">
+
+    <div class="col-xs-12 col-md-10 col-md-offset-1 area-container">
+
+        <div class="center-txt wrapIndicator">
+            <div class="indicator-dots filled-dots"></div>
+            <div class="indicator-dots"></div>
+            <div class="indicator-dots"></div>
+        </div>
+
+        <div class="center-txt modal-headers grey-txt">[[[Check your email]]]</div>
+
+
+
+        <div class="center-txt signUpProcessText" style="padding: 10px 0;">
+            [[[Tap the link in the email we sent you.]]]
+        </div>
+        <div class="center-txt signUpProcessText" style="padding: 10px 0;">
+            [[[Confirming your email address will allow you to enjoy all the possibilities of our platform.]]]
+        </div>
+
+        <div style="text-align:center;padding-bottom:25px;" class="col-xs-12 col-md-12">
+            <i class="fa fa-envelope fa-5 ModalWarningSignUpFA" aria-hidden="true"></i>
+        </div>
+
+
+
+
+        <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+            <input type="submit" value=" [[[Continue]]]" class="btn website-btn" id="EmailUserWelcomeBtn" />
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="newUserPicturePg" style="display:none" class="row PaddingSignUpProcess" data-note="welcome to website">
+
+</div>
+
+
+<div id="newUserConfirmationPg" style="display:none" class="row reversiblePgs" data-note="welcome to website">
+
+    <div class="col-xs-12 col-md-10 col-md-offset-1 area-container">
+        <div style="position: relative;">
+            <span class="ColorWebsite modalGoBackBtns" onclick="DisplaySignUpPictureForm('newUserConfirmationPg');" style="position: absolute; top: 5px; left: 5px; cursor: pointer;">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i> [[[back]]]
+            </span>
+        </div>
+
+        <div class="center-txt wrapIndicator">
+            <div class="indicator-dots filled-dots"></div>
+            <div class="indicator-dots filled-dots"></div>
+            <div class="indicator-dots filled-dots"></div>
+        </div>
+        <div class="center-txt modal-headers white-txt" style="margin-bottom:25px;margin-top:25px;">[[[Welcome aboard !]]]</div>
+
+
+        @Html.Partial("_ConfirmationCheck")
+        <div class="btw-space-modal"></div>
+
+
+
+
+        <div class="center-txt col-xs-12 col-md-12" style="margin-top:50px;">
+            <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                <input type="submit" value="[[[Set profile]]]" class="btn website-btn" id="CompleteProfileBtn" />
+            </div>
+            <div style="padding: 10px 0;cursor: pointer;" class="ColorWebsite">
+                <div id="ContinueBrowsing">[[[Continue browsing]]]</div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+</div>
+
+
+@Html.ScriptImportContent("~/Scripts/Views/Account/SignUp/_SignUpPictureForm.js")
+@Html.ScriptImportContent("~/Scripts/Views/Account/SignUp/_SignUpProcess.js")
+

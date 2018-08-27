@@ -1,0 +1,35 @@
+﻿@model Models.Class.UserRoles.UserRoleItem
+
+
+@{
+    Layout = null;
+}
+
+@Html.HiddenFor(m => m.UseridentityId)
+
+<div class="row col-xs-12 col-md-12 noMarginNoPaddingVertical">
+    <div class="input-group-btn col-xs-12 col-md-4 noMarginNoPaddingVertical">
+        @if (Model.UserNotInRoleList != null && Model.UserNotInRoleList.Count > 0)
+        {
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height:100%">
+                [[[Add]]]
+                <span class="caret"></span>
+            </button>
+            <ul data-userid="@Model.UseridentityId" class="dropdown-menu dropdown-menu-right role-list" aria-labelledby="dropdownMenu1">
+                @foreach (var role in Model.UserNotInRoleList)
+                {
+                    <li data-roleid="@role.RoleId">
+                        <a class="addUserRoleButton" onclick="AddUserRole('@role.RoleId','@Model.UseridentityId');">@role.RoleName</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+
+    <div data-userid="@Model.UseridentityId" class="col-xs-12 col-md-8 noMarginNoPaddingVertical pull-right">
+        @foreach (var role in Model.UserRolesList)
+        {
+            <button type="button" data-roleid="@role.RoleId" class="btn btn-primary deleteUserRoleButton" onclick="DeleteUserRole('@role.RoleId','@Model.UseridentityId');">@role.RoleName <span class="glyphicon glyphicon-remove" style="margin-left:8px;"></span></button>
+        }
+    </div>
+</div>
