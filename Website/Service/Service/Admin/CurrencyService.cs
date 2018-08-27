@@ -63,6 +63,11 @@ namespace Service.Admin
                         result = false;
                         Commons.Logger.GenerateError(e2, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,"Currency Loop, Id = "+currency.Id);
                     }
+
+                    if(result)
+                    {
+                        result= _currencyRepo.ExecuteStoredProcedure("[dbo].[UpdatePricesWithCurrenciesRates]");
+                    }
                 }
 
             }

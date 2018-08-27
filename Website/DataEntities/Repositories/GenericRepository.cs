@@ -165,11 +165,16 @@ namespace DataEntities.Repositories
         }
 
 
-        public virtual bool ExecuteStoredProcedure(string ProcedureName, List<Tuple<string, object>> Parameters)
+        public virtual bool ExecuteStoredProcedure(string ProcedureName, List<Tuple<string, object>> Parameters=null)
         {
             bool result = true;
             try
             {
+                if(Parameters==null)
+                {
+                    Parameters = new List<Tuple<string, object>>();
+                }
+
                 result = _context.ExecuteStoredProcedure(ProcedureName, Parameters);
             }
             catch (Exception e)

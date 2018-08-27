@@ -51,8 +51,10 @@ namespace Commons
             catch (Exception e)
             {
                 result = -1;
-                if(!e.Message.Contains("403"))
+                if (!e.Message.Contains("403"))
+                {
                     Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "CurrencyCode = " + CurrencyCode);
+                }
             }
             return result;
 
