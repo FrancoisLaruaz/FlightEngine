@@ -19,8 +19,8 @@ namespace Data.Model
         {
             this.Flights = new HashSet<Flight>();
             this.Flights1 = new HashSet<Flight>();
-            this.SearchTrips = new HashSet<SearchTrip>();
-            this.SearchTrips1 = new HashSet<SearchTrip>();
+            this.SearchTripWishes = new HashSet<SearchTripWish>();
+            this.SearchTripWishes1 = new HashSet<SearchTripWish>();
         }
     
         public int Id { get; set; }
@@ -37,8 +37,8 @@ namespace Data.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Flight> Flights1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SearchTrip> SearchTrips { get; set; }
+        public virtual ICollection<SearchTripWish> SearchTripWishes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SearchTrip> SearchTrips1 { get; set; }
+        public virtual ICollection<SearchTripWish> SearchTripWishes1 { get; set; }
     }
 }

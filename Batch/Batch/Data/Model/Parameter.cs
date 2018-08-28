@@ -7,18 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataEntities.Model
+namespace Data.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Currency
+    public partial class Parameter
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Code { get; set; }
-        public string Symbol { get; set; }
-        public decimal EuroConversationRate { get; set; }
-        public System.DateTime LastModificationDate { get; set; }
+        public int WebScrappingSearches { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace DataEntities.Repositories
         IEnumerable<T> Edit(IEnumerable<T> entityList);
         TemplateEntities Context();
 
-        bool ExecuteStoredProcedure(string ProcedureName, List<Tuple<string, object>> Parameters = null));
+        bool ExecuteStoredProcedure(string ProcedureName, List<Tuple<string, object>> Parameters = null);
 
         void setLazyLoading(bool LazyLoadingEnabled);
         T Get(int id);

@@ -29,6 +29,7 @@ def SearchEdreams(proxy,searchTripProviderId,origin,destination,maxStopNumber,fr
 			url=url+";direct=true"
 		
 		browser=getGoogleChromeDriver(proxy)
+		print("url = " +url)
 		browser.get(url)
 		result=waitForWebdriver(searchTripProviderId,browser,".od-resultpage-highlight-title",".dialog_error")
 		

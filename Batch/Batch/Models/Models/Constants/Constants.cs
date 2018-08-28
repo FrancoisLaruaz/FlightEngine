@@ -6,13 +6,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using FlightsEngine.Models;
-using Transavia.Api.FlightOffers.Client;
-using Transavia.Api.FlightOffers.Client.Model;
-using System.Web.Script.Serialization;
 using System.Net;
 
-namespace FlightsEngine.Utils
+namespace FlightsEngine.Models.Constants
 {
     public static class Constants
     {

@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.8.5.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.8.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -67,6 +73,7 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -104,17 +111,8 @@
     <Compile Include="FlightsBot\PythonHelper.cs" />
     <Compile Include="FlightsBot\Test.cs" />
     <Compile Include="FlightsBot\Kayak.cs" />
-    <Compile Include="Models\AirFranceKLM\RequestBody.cs" />
-    <Compile Include="Models\AirHob\RequestBody.cs" />
-    <Compile Include="Models\ProxyItem.cs" />
-    <Compile Include="Models\ScrappingSearch.cs" />
-    <Compile Include="Models\PythonExecutionResult.cs" />
-    <Compile Include="Models\AirlineSearch.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Constants.cs" />
-    <Compile Include="Utils\Logger.cs" />
-    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -128,6 +126,14 @@
     <ProjectReference Include="..\FlightsServices\FlightsServices.csproj">
       <Project>{49016fe9-51bc-4745-b3bb-eeaf6e7931ee}</Project>
       <Name>FlightsServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{3517761e-6785-4c98-a8d0-63ac4af6be68}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{c0e9d5d8-259c-406a-b80d-a7d9abc7a925}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

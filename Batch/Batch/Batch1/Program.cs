@@ -16,12 +16,12 @@ namespace Batch1
             {
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " *  START BATCH *");
                 log4net.Config.XmlConfigurator.Configure();
-                int? SearchTripId = null;
+                int? SearchTripWishesId = null;
                 if(args!=null && args.Length>0)
                 {
-                    SearchTripId = Convert.ToInt32(args[0]);
+                    SearchTripWishesId = Convert.ToInt32(args[0]);
                 }
-                bool result=FlightsEngine.Program.SearchFlights(SearchTripId,ConfigurationManager.AppSettings["MainPythonScriptPath"], ConfigurationManager.AppSettings["PythonPath"]);
+                bool result=FlightsEngine.Program.SearchFlights(SearchTripWishesId.Value, ConfigurationManager.AppSettings["MainPythonScriptPath"], ConfigurationManager.AppSettings["PythonPath"]);
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " *  END BATCH *");
                 if (result)
                 {

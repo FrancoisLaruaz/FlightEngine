@@ -21,20 +21,12 @@ namespace Data.Model
         }
     
         public int Id { get; set; }
-        public System.DateTime CreationDate { get; set; }
-        public Nullable<int> FromAirportId { get; set; }
-        public Nullable<int> ToAirportId { get; set; }
         public System.DateTime FromDate { get; set; }
         public Nullable<System.DateTime> ToDate { get; set; }
-        public Nullable<int> FromCityId { get; set; }
-        public Nullable<int> ToCityId { get; set; }
-        public bool DirectFlightsOnly { get; set; }
+        public int SearchTripWishesId { get; set; }
     
-        public virtual Airport Airport { get; set; }
-        public virtual Airport Airport1 { get; set; }
-        public virtual City City { get; set; }
-        public virtual City City1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SearchTripProvider> SearchTripProviders { get; set; }
+        public virtual SearchTripWish SearchTripWish { get; set; }
     }
 }

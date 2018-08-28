@@ -1,4 +1,4 @@
-﻿using FlightsEngine.Utils;
+﻿using FlightsEngine.Models.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace FlightsEngine.Models.AirFranceKLM
         {
             cabinClass = "ECONOMY";
             discountCode = "";
-            currency = Constants.DefaultCurrency;
+            currency = FlightsEngine.Models.Constants.Constants.DefaultCurrency;
             passengerCount = new passengerCount();
             passengerCount.ADULT = 1;
             minimumAccuracy = "";

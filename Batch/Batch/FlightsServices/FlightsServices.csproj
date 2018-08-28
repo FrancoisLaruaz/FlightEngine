@@ -59,11 +59,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Interface\ISearchTripWishesService.cs" />
+    <Compile Include="Service\SearchTripWishesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{5ca2f962-bca5-43ac-a9ca-ad0978e37706}</Project>
       <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{3517761e-6785-4c98-a8d0-63ac4af6be68}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{c0e9d5d8-259c-406a-b80d-a7d9abc7a925}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

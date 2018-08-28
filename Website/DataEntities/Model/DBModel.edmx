@@ -110,6 +110,7 @@
           <Property Name="Code" Type="varchar" MaxLength="255" />
           <Property Name="Symbol" Type="nvarchar" MaxLength="10" />
           <Property Name="EuroConversationRate" Type="decimal" Precision="38" Scale="19" Nullable="false" />
+          <Property Name="LastModificationDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="EmailAudit">
           <Key>
@@ -1851,6 +1852,7 @@
           <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Symbol" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="EuroConversationRate" Type="Decimal" Nullable="false" Precision="38" Scale="19" />
+          <Property Name="LastModificationDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2212,6 +2214,7 @@
           <EntitySetMapping Name="Currencies">
             <EntityTypeMapping TypeName="TemplateModel.Currency">
               <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="LastModificationDate" ColumnName="LastModificationDate" />
                 <ScalarProperty Name="EuroConversationRate" ColumnName="EuroConversationRate" />
                 <ScalarProperty Name="Symbol" ColumnName="Symbol" />
                 <ScalarProperty Name="Code" ColumnName="Code" />

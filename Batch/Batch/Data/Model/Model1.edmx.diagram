@@ -7,14 +7,14 @@
       <Diagram DiagramId="c6351524c71c45b097cea6d9486bf9c3" Name="Diagram1">
         <EntityTypeShape EntityType="TemplateModel.Address" Width="1.5" PointX="7.5" PointY="23.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.Airline" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TemplateModel.Airport" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.Airport" Width="1.5" PointX="4.875" PointY="15.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.AspNetRole" Width="1.5" PointX="8.25" PointY="29.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.AspNetUserClaim" Width="1.5" PointX="12.75" PointY="34.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.AspNetUserLogin" Width="1.5" PointX="12.75" PointY="37" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.AspNetUser" Width="1.5" PointX="10.5" PointY="28.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.Category" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.CategoryType" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TemplateModel.City" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.City" Width="1.5" PointX="0.5" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.Country" Width="1.5" PointX="0.75" PointY="18.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.Currency" Width="1.5" PointX="12.75" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.EmailAudit" Width="1.5" PointX="15" PointY="23.75" IsExpanded="true" />
@@ -29,7 +29,7 @@
         <EntityTypeShape EntityType="TemplateModel.Province" Width="1.5" PointX="3" PointY="22.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.ScheduledTask" Width="1.5" PointX="20.25" PointY="23.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.SearchResult" Width="1.5" PointX="15" PointY="31.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TemplateModel.SearchTrip" Width="1.5" PointX="10.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TemplateModel.SearchTrip" Width="1.5" PointX="9.75" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.SearchTripProvider" Width="1.5" PointX="12.75" PointY="16.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.SocialMediaConnection" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TemplateModel.SubProvince" Width="1.5" PointX="5.25" PointY="26.875" IsExpanded="true" />
@@ -47,8 +47,6 @@
         <AssociationConnector Association="TemplateModel.FK_Airport_City" ManuallyRouted="false" />
         <AssociationConnector Association="TemplateModel.FK_Flight_FromAirport" ManuallyRouted="false" />
         <AssociationConnector Association="TemplateModel.FK_Flight_ToAirport" ManuallyRouted="false" />
-        <AssociationConnector Association="TemplateModel.FK_SearchTrip_FromAirport" ManuallyRouted="false" />
-        <AssociationConnector Association="TemplateModel.FK_SearchTrip_ToAirport" ManuallyRouted="false" />
         <AssociationConnector Association="TemplateModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" ManuallyRouted="false" />
         <AssociationConnector Association="TemplateModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="TemplateModel.FK_User_AspNetUser" ManuallyRouted="false" />
@@ -63,8 +61,6 @@
         <AssociationConnector Association="TemplateModel.FK_User_Gender" ManuallyRouted="false" />
         <AssociationConnector Association="TemplateModel.FK_User_Language" ManuallyRouted="false" />
         <AssociationConnector Association="TemplateModel.FK_City_Country" ManuallyRouted="false" />
-        <AssociationConnector Association="TemplateModel.FK_SearchTrip_FromCityId" ManuallyRouted="false" />
-        <AssociationConnector Association="TemplateModel.FK_SearchTrip_ToCityId" ManuallyRouted="false" />
         <AssociationConnector Association="TemplateModel.FK_Province_Country" ManuallyRouted="false" />
         <AssociationConnector Association="TemplateModel.FK_Trip_Currency" ManuallyRouted="false" />
         <AssociationConnector Association="TemplateModel.FK_EmailAudit_EMailTypeLanguageId" ManuallyRouted="false" />
@@ -86,6 +82,15 @@
         <AssociationConnector Association="TemplateModel.FK_UserFollow_User" ManuallyRouted="false" />
         <AssociationConnector Association="TemplateModel.AspNetUserRoles" ManuallyRouted="false" />
         <AssociationConnector Association="TemplateModel.ProviderCountry" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TemplateModel.Parameter" Width="1.5" PointX="7.375" PointY="7.75" />
+        <EntityTypeShape EntityType="TemplateModel.SearchTripWish" Width="1.5" PointX="18" PointY="16.25" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_FromAirport" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_ToAirport" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_FromCityId" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_ToCityId" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_Currency" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTrip_SearchTripWishesId" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_CreationUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

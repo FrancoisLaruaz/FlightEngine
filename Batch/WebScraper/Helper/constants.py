@@ -6,5 +6,5 @@
 #connection_string ='Driver={SQL Server Native Client 11.0};Server=.;Database=Template;Trusted_Connection=Yes;'
 connection_string ='Driver={SQL Server Native Client 11.0};Server=.;Database=Template;Trusted_Connection=Yes;'
 hideBrowser="NO"
-timeout=80
+timeout=50
 printValues="YES"

@@ -13,6 +13,7 @@ using System.Web.Script.Serialization;
 using System.Net;
 using FlightsEngine.Models.AirFranceKLM;
 using FlightsEngine.Utils;
+using FlightsEngine.Models.Constants;
 
 namespace FlightsEngine.FlighsAPI
 {

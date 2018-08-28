@@ -51,6 +51,7 @@ namespace Service.Admin
                             if (rate > 0)
                             {
                                 currency.EuroConversationRate = rate;
+                                currency.LastModificationDate = DateTime.UtcNow;
                                 _currencyRepo.Edit(currency);
                                 result = result & _currencyRepo.Save();
                             }

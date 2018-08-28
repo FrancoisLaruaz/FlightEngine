@@ -61,6 +61,8 @@ namespace Data.Model
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserFollow> UserFollows { get; set; }
         public virtual DbSet<ValidTopLevelDomain> ValidTopLevelDomains { get; set; }
+        public virtual DbSet<Parameter> Parameters { get; set; }
+        public virtual DbSet<SearchTripWish> SearchTripWishes { get; set; }
     
         public virtual int DeleteNewsById(Nullable<int> newsId)
         {
@@ -319,6 +321,11 @@ namespace Data.Model
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual int UpdatePricesWithCurrenciesRates()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdatePricesWithCurrenciesRates");
         }
     }
 }

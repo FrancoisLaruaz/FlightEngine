@@ -13,6 +13,7 @@ namespace FlightsEngine.Models
 
         }
 
+        public int SearchTripId { get; set; }
 
         public string FromAirportCode { get; set; }
 
@@ -38,7 +39,8 @@ namespace FlightsEngine.Models
             string error = " FILTER : ";
             try
             {
-                error = error + " FromAirportCode =  " + FromAirportCode ?? "[NULL]";
+                error = error + "SearchTripId =  " + SearchTripId;
+                error = error + " | FromAirportCode =  " + FromAirportCode ?? "[NULL]";
                 error = error + " | ToAirportCode =  " + ToAirportCode ?? "[NULL]";
                 error = error + " | Return =  " + BabiesNumber;
                 error = error + " | FromDate =  " + (FromDate.HasValue ? FromDate.ToString() : "[NULL]");
@@ -50,7 +52,7 @@ namespace FlightsEngine.Models
             }
             catch (Exception ex)
             {
-                FlightsEngine.Utils.Logger.GenerateInfo("Error while creating the string of the filter : "+ex.Message);
+                
             }
             return error;
         }
