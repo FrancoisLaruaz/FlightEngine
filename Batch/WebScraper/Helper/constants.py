@@ -8,3 +8,4 @@ connection_string ='Driver={SQL Server Native Client 11.0};Server=.;Database=Tem
 hideBrowser="NO"
 timeout=50
 printValues="YES"
+profileToUse="C:\\Users\\franc\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1"

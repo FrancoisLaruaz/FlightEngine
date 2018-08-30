@@ -11,12 +11,12 @@ namespace FlightsEngine.Models
     {
         public SearchTripWishesItem()
         {
-            ProviderToSearch = new List<Provider>();
+            ProvidersToSearch = new List<Provider>();
         }
 
         public SearchTripWish _SearchTripWishes { get; set; }
 
-        public List<Provider> ProviderToSearch { get; set; }
+        public List<Provider> ProvidersToSearch { get; set; }
 
     }
 }

@@ -1,5 +1,4 @@
-﻿using FlightsEngine.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +12,7 @@ namespace FlightsEngine.Models.AirHob
         {
             ClassType = "Economy";
             OriginDestination = new OriginDestination();
-            Currency = Constants.DefaultCurrency;
+            Currency = FlightsEngine.Models.Constants.Constants.DefaultCurrency;
         }
 
         public string TripType { get; set; }

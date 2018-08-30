@@ -12,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 
-def SearchKayak(proxy,searchTripProviderId,origin,destination,direct,fromDate,toDate):
+def SearchKayak(proxy,searchTripProviderId,origin,destination,maxStopNumber,fromDate,toDate):
 	result="KO|"
 	try:
 		conditionalPrint("** Begin Kayak **")
@@ -23,6 +23,8 @@ def SearchKayak(proxy,searchTripProviderId,origin,destination,direct,fromDate,to
 		conditionalPrint("** End Kayak **")
 	except Exception:
 		result="KO|"+''.join(traceback.format_exc())	
-		LogError(traceback,"proxy = "+proxy+" and searchTripProviderId = "+searchTripProviderId+" and origin = "+origin+" and destination = "+destination+" and fromDate = "+fromDate+" and toDate = "+toDate+" and direct = "+direct)
+		LogError(traceback,"proxy = "+proxy+" and searchTripProviderId = "+searchTripProviderId+" and origin = "+origin+" and destination = "+destination+" and fromDate = "+fromDate+" and toDate = "+toDate+" and maxStopNumber = "+maxStopNumber)
+		if browser!=None:
+			browser.quit()
 	return	
 

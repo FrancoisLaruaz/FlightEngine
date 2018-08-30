@@ -55,7 +55,7 @@ namespace FlightsServices
 
                     if(addProvider)
                     {
-                        result.ProviderToSearch.Add(provider);
+                        result.ProvidersToSearch.Add(provider);
                     }
                 }
 

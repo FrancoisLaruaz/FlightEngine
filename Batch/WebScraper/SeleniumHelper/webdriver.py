@@ -15,6 +15,7 @@ import time
 from selenium.common.exceptions import NoSuchElementException
 from Helper.constants import *
 from Helper.utils import *
+from fake_useragent import UserAgent
 
 def getFirefoxDriver(host,port):
 	try:
@@ -78,12 +79,29 @@ def waitForWebdriver(searchTripProviderId,browser,css_selectorOK,css_selectorKO=
 	
 def getGoogleChromeDriver(fullproxy):
 	try:
-		proxy=fullproxy.split(' ')[0]
-		conditionalPrint("proxy used : "+proxy)
+		capabilities = webdriver.DesiredCapabilities.CHROME
+		if fullproxy!="":
+			proxy=fullproxy.split(' ')[0]
+			conditionalPrint("proxy used : "+proxy)
+			prox = Proxy()
+			prox.proxy_type = ProxyType.MANUAL
+			prox.http_proxy = proxy
+			prox.socks_proxy = proxy
+			prox.ssl_proxy =proxy
+			prox.add_to_capabilities(capabilities)
+		
 		WINDOW_SIZE = "1920,1080"
 		option = webdriver.ChromeOptions()
 		option.add_argument("--incognito")
-		#option.add_argument("--disable-gpu")
+		option.add_argument("start-maximized")
+		option.add_argument("disable-infobars")
+		#option.add_argument("--disable-extensions")
+		#option.add_argument(r'user-data-dir=C:\\Users\\franc\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1')
+		#option.add_argument('--profile-directory=Profile 1')
+		ua = UserAgent()
+		userAgent = ua.random
+		option.add_argument(f'user-agent={userAgent}')
+		option.add_argument("--disable-gpu")
 		#option.add_argument("--disable-infobars")
 		#option.add_argument("--disable-notifications")
 		#option.add_argument("--disable-extensions")
@@ -91,16 +109,10 @@ def getGoogleChromeDriver(fullproxy):
 			option.add_argument("--headless")  
 			option.add_argument("--window-size=%s" % WINDOW_SIZE)		
 
-		prox = Proxy()
-		prox.proxy_type = ProxyType.MANUAL
-		prox.http_proxy = proxy
-		prox.socks_proxy = proxy
-		prox.ssl_proxy =proxy
-
-		capabilities = webdriver.DesiredCapabilities.CHROME
-		prox.add_to_capabilities(capabilities)
+		
 		browser = webdriver.Chrome(executable_path="C:\\webdrivers\\chromedriver.exe", chrome_options=option,desired_capabilities=capabilities)
 		#browser.set_window_position(-10000, 0)
+
 		return browser
 	except Exception:
 		LogError(traceback,"fullproxy = "+fullproxy)

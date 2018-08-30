@@ -28,6 +28,7 @@ namespace FlightsEngine
 
                 var context = new TemplateEntities1();
                 SearchTripWishesService _searchTripWishesService = new SearchTripWishesService(context);
+                SearchTripProviderService _searchTripProviderService = new SearchTripProviderService(context);
 
                 List<ProxyItem> Proxies = ProxyHelper.GetProxies();
 
@@ -58,31 +59,45 @@ namespace FlightsEngine
                             filter.AdultsNumber = 1;
                             filter.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
 
-                            if (Proxies != null && Proxies.Count > 0)
+
+                            foreach (var provider in SearchTripWishesItem.ProvidersToSearch)
                             {
-                                string Proxy = ProxyHelper.GetBestProxy(Proxies);
-                                if (Proxy == null)
+                                if (!provider.HasAPI)
                                 {
-                                    Proxies = ProxyHelper.GetProxies();
-                                    Proxy = ProxyHelper.GetBestProxy(Proxies);
+                                    if (Proxies != null && Proxies.Count > 0)
+                                    {
+                                        string Proxy = ProxyHelper.GetBestProxy(Proxies);
+                                        if (Proxy == null)
+                                        {
+                                            Proxies = ProxyHelper.GetProxies();
+                                            Proxy = ProxyHelper.GetBestProxy(Proxies);
+                                        }
+
+
+
+                                        ScrappingSearch scrappingSearch = new ScrappingSearch();
+                                        scrappingSearch.Proxy = Proxy;
+                                        scrappingSearch.PythonPath = PythonPath;
+                                        scrappingSearch.MainPythonScriptPath = MainPythonScriptPath;
+                                        int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, Proxy);
+                                        if (SearchTripProviderId > 0)
+                                        {
+                                            scrappingSearch.SearchTripProviderId = SearchTripProviderId;
+                                            scrappingSearch.Provider = provider.Name;
+                                            scrappingSearch.ProxiesList = Proxies;
+
+                                            var ScrappingResult = FlighsBot.PythonHelper.SearchViaScrapping(filter, scrappingSearch);
+                                            Proxies = ScrappingResult.ProxiesList;
+                                            _searchTripProviderService.SetSearchTripProviderAsEnded(SearchTripProviderId, ScrappingResult.Success, ScrappingResult.LastProxy,ScrappingResult.AttemptsNumber);
+                                            result = result && ScrappingResult.Success;
+                                        }
+                                        else
+                                        {
+                                            result = false;
+                                        }
+                                    }
                                 }
-
-
-
-                                ScrappingSearch scrappingSearch = new ScrappingSearch();
-                                scrappingSearch.Proxy = Proxy;
-                                scrappingSearch.PythonPath = PythonPath;
-                                scrappingSearch.MainPythonScriptPath = MainPythonScriptPath;
-                                scrappingSearch.SearchTripProviderId = 1;
-                                scrappingSearch.Provider = "Edreams";
-                                scrappingSearch.ProxiesList = Proxies;
-
-                                var ScrappingResult = FlighsBot.PythonHelper.SearchViaScrapping(filter, scrappingSearch);
-                                Proxies = ScrappingResult.ProxiesList;
-
-                                result = result && ScrappingResult.Success;
                             }
-
                             
                             //  Task.Factory.StartNew(() => FlighsBot.PythonHelper.Run(filter, scrappingSearch));
                             // Console.WriteLine("Pythonresult = "+ Pythonresult.Success+" and Error = "+ (Pythonresult.Error??""));

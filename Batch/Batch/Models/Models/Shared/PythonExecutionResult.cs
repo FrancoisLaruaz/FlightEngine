@@ -18,9 +18,13 @@ namespace FlightsEngine.Models
 
         public int FoundTripsNumber { get; set; }
 
+        public int AttemptsNumber { get; set; }
+
         public string Error { get; set; }
 
         public bool Success { get; set; }
+
+        public string LastProxy { get; set; }
 
 
     }

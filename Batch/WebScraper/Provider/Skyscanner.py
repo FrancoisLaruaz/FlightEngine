@@ -12,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 
-def SearchSkyscanner(proxy,searchTripProviderId,origin,destination,direct,fromDate,toDate):
+def SearchSkyscanner(proxy,searchTripProviderId,origin,destination,maxStopNumber,fromDate,toDate):
 	result="KO|"
 	try:
 		conditionalPrint("** Begin Skyscanner **")
@@ -44,6 +44,7 @@ def SearchSkyscanner(proxy,searchTripProviderId,origin,destination,direct,fromDa
 	except Exception:
 		result="KO|"+''.join(traceback.format_exc())	
 		LogError(traceback,"proxy = "+proxy+" and searchTripProviderId = "+searchTripProviderId+" and origin = "+origin+" and destination = "+destination+" and fromDate = "+fromDate+" and toDate = "+toDate+" and maxStopNumber = "+maxStopNumber)
-		browser.quit()
+		if browser!=None:
+			browser.quit()
 	return result
 

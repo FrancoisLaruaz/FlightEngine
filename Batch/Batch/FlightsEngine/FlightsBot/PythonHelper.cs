@@ -9,6 +9,7 @@ using System.IO;
 using FlightsEngine.Models;
 using System.Collections.Generic;
 using FlightsEngine.Utils;
+using FlightsEngine.Models.Constants;
 
 namespace FlightsEngine.FlighsBot
 {
@@ -22,13 +23,13 @@ namespace FlightsEngine.FlighsBot
             try
             {
                 int nbMaxAttempts = 3;
-                int nbAttempts = 0;
                 bool continueProcess = true;
 
                 while (continueProcess)
                 {
-                    nbAttempts = nbAttempts + 1;
-                    Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " **  START SearchViaScrapping ** : " + nbAttempts);
+                    result.LastProxy = scrappingSearch.Proxy;
+                    result.AttemptsNumber = result.AttemptsNumber + 1;
+                    Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " **  START SearchViaScrapping ** : " + result.AttemptsNumber);
                     result =Run(filter, scrappingSearch);
 
                     ProxyItem proxyItemToModify = scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy);
@@ -39,7 +40,7 @@ namespace FlightsEngine.FlighsBot
                         scrappingSearch.Proxy = ProxyHelper.GetBestProxy(scrappingSearch.ProxiesList);
                     }
 
-                    continueProcess = !result.Success && nbAttempts < nbMaxAttempts;
+                    continueProcess = !result.Success && result.AttemptsNumber < nbMaxAttempts;
                 }
                 result.ProxiesList = scrappingSearch.ProxiesList;
             }

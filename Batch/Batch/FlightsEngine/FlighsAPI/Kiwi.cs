@@ -58,7 +58,7 @@ namespace FlightsEngine.FlighsAPI
                 if (filters.ToDate != null)
                     queryString["dateTo"] = filters.ToDate.Value.ToString("dd'/'MM'/'yyyy");
                 queryString["partner"] = Key;
-                queryString["curr"] = FlightsEngine.Utils.Constants.DefaultCurrency;
+                queryString["curr"] = FlightsEngine.Models.Constants.Constants.DefaultCurrency;
                 queryString["adults"] = filters.AdultsNumber.ToString();
                 queryString["children"] = filters.ChildrenNumber.ToString();
                 /*

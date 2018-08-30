@@ -326,6 +326,7 @@
           <Property Name="Proxy" Type="varchar" MaxLength="256" />
           <Property Name="SearchSuccess" Type="bit" Nullable="false" />
           <Property Name="EndSearchDate" Type="datetime" />
+          <Property Name="AttemptsNumber" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SearchTripWishes">
           <Key>
@@ -1774,6 +1775,7 @@
           <NavigationProperty Name="Provider" Relationship="Self.FK_SearchTripProvider_Provider" FromRole="SearchTripProvider" ToRole="Provider" />
           <NavigationProperty Name="SearchTrip" Relationship="Self.FK_SearchTripProvider_SearchTrip" FromRole="SearchTripProvider" ToRole="SearchTrip" />
           <NavigationProperty Name="Trips" Relationship="Self.FK_Trip_SearchTripProvider" FromRole="SearchTripProvider" ToRole="Trip" />
+          <Property Name="AttemptsNumber" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="SocialMediaConnection">
           <Key>
@@ -3154,6 +3156,7 @@
           <EntitySetMapping Name="SearchTripProviders">
             <EntityTypeMapping TypeName="TemplateModel.SearchTripProvider">
               <MappingFragment StoreEntitySet="SearchTripProvider">
+                <ScalarProperty Name="AttemptsNumber" ColumnName="AttemptsNumber" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />

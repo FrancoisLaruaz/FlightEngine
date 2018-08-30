@@ -24,18 +24,19 @@ def SearchEdreams(proxy,searchTripProviderId,origin,destination,maxStopNumber,fr
 	try:
 		print ("** Begin Edreams **")
 
-		url="https://www.edreams.com/travel/#results/type=R;dep="+GetDateForUrl(fromDate)+";from="+origin+";to="+destination+";ret="+GetDateForUrl(toDate)+";collectionmethod=false;airlinescodes=false;internalSearch=true"
+		url="https://www.edreams.com/travel/#results/type=R;dep="+GetDateForUrl(fromDate)+";from="+origin+";to="+destination+";ret="+GetDateForUrl(toDate)+";collectionmethod=false;airlinescodes=false;internalSearch=true?hello"
 		if maxStopNumber=="0":
 			url=url+";direct=true"
-		
+
 		browser=getGoogleChromeDriver(proxy)
+	
 		print("url = " +url)
 		browser.get(url)
 		result=waitForWebdriver(searchTripProviderId,browser,".od-resultpage-highlight-title",".dialog_error")
 		
 		if result=="OK":	
 			if checkExistsByXpath(browser,"//div[@class='od-ui-dialog dialog dialog_error dialog-undefined od-center-dialogs']") :
-				SetTripProviderAsSuccess(searchTripProviderId)
+				#SetTripProviderAsSuccess(searchTripProviderId)
 				result="OK"
 				conditionalPrint ("** End Edreams : no resuld founds **\n")
 				browser.quit()
@@ -56,7 +57,8 @@ def SearchEdreams(proxy,searchTripProviderId,origin,destination,maxStopNumber,fr
 	except Exception:
 		result="KO|"+''.join(traceback.format_exc())	
 		LogError(traceback,"proxy = "+proxy+" and searchTripProviderId = "+searchTripProviderId+" and origin = "+origin+" and destination = "+destination+" and fromDate = "+fromDate+" and toDate = "+toDate+" and maxStopNumber = "+maxStopNumber)
-		browser.quit()
+		if browser!=None:
+			browser.quit()
 	return result
 
 def GetDateForUrl(date):
