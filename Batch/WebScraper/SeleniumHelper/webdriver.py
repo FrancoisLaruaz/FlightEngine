@@ -21,49 +21,28 @@ from fake_useragent import UserAgent
 def getOperaDriver(fullproxy):
 	# https://stackoverflow.com/questions/24719270/selenium-webdriver-and-opera-driver
 	try:
-		path='C:\\webdrivers\\geckodriver.exe'
-		fp = webdriver.FirefoxProfile()
+		ExecutablePath='C:\\webdrivers\\operadriver.exe'
+		BinaryPath='C:\\webdrivers\\operadriver.exe'
 		if fullproxy!="":
 			fullproxy=fullproxy.split(' ')[0]
 			host=fullproxy.split(':')[0]
 			port=fullproxy.split(':')[1]
-			#https://stackoverflow.com/questions/17082425/running-selenium-webdriver-with-a-proxy-in-python
-			firefox_capabilities = DesiredCapabilities.FIREFOX
-			firefox_capabilities['marionette'] = True
-			webdriver.DesiredCapabilities.FIREFOX['proxy']={
-				"httpProxy":fullproxy,
-				"ftpProxy":fullproxy,
-				"sslProxy":fullproxy,
-				"noProxy":None,
-				"proxyType":"MANUAL",
-				"autodetect":False
-			}		
-			prox = Proxy()
-			prox.proxy_type = ProxyType.MANUAL
-			prox.http_proxy = fullproxy
-			prox.socks_proxy = fullproxy
-			prox.ssl_proxy =fullproxy	
-			#prox.add_to_capabilities(firefox_capabilities)
-			fp.set_preference("network.proxy.type", 1)
-			fp.set_preference("network.proxy.http",host)
-			fp.set_preference("network.proxy.http_port",int(port))
-			fp.set_preference("network.proxy.https",host)
-			fp.set_preference("network.proxy.https_port",int(port))
-			fp.set_preference("network.proxy.ssl",host)
-			fp.set_preference("network.proxy.ssl_port",int(port))  
-			fp.set_preference("network.proxy.ftp",host)
-			fp.set_preference("network.proxy.ftp_port",int(port))   
-			fp.set_preference("network.proxy.socks",host)
-			fp.set_preference("network.proxy.socks_port",int(port))   
-			#fp.set_preference("general.useragent.override","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A")
-			fp.update_preferences()
-		driver = webdriver.Firefox(executable_path=path)
+		options = webdriver.ChromeOptions()
+		options.add_argument("start-maximized"); 
+		options.add_argument("disable-infobars"); 
+		options.add_argument("--disable-extensions");
+		options.add_argument("--disable-gpu"); 
+		options.add_argument("--disable-dev-shm-usage"); 
+		options.add_argument("--no-sandbox"); 
+		options.binary_location = BinaryPath
+
+		driver = webdriver.Opera(options=options,executable_path=ExecutablePath)
 
 
 		return driver
 	except Exception:
-		LogError(traceback,"host = "+host+" and port = "+port)
-	return getGoogleChromeDriver(host+":"+port)
+		LogError(traceback,"fullproxy = "+fullproxy)
+	return None
 
 def getFirefoxDriver(fullproxy):
 	try:
@@ -108,8 +87,8 @@ def getFirefoxDriver(fullproxy):
 
 		return driver
 	except Exception:
-		LogError(traceback,"host = "+host+" and port = "+port)
-	return getGoogleChromeDriver(host+":"+port)
+		LogError(traceback,"fullproxy = "+fullproxy)
+	return getGoogleChromeDriver(fullproxy)
 	
 def waitForWebdriver(searchTripProviderId,browser,css_selectorOK,css_selectorKO=""):
 	result="KO|"

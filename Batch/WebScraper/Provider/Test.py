@@ -27,10 +27,11 @@ def SearchTest(proxy,searchTripProviderId,origin,destination,maxStopNumber,fromD
 		idElementTocheck='mydiv'
 		url="https://www.edreams.com"		
 		url="file:///D:/DEV/FlightEngine/Batch/WebScraper/Test/test.html"
-		driver=getFirefoxDriver("")
-		driver.get(url)
-		result=waitForWebdriver(searchTripProviderId,driver,"#"+idElementTocheck,".dialog_error")
-		FakeMouseMove(driver,idElementTocheck)	
+		driver=getOperaDriver("")
+		if driver != None:
+			driver.get(url)
+			result=waitForWebdriver(searchTripProviderId,driver,"#"+idElementTocheck,".dialog_error")
+			#FakeMouseMove(driver,idElementTocheck)	
 		conditionalPrint ("** End Test **\n")
 		os.system("pause")
 	except Exception:
