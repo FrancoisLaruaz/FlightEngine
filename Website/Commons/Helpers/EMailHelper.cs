@@ -11,6 +11,7 @@ using Commons;
 using Commons.Encrypt;
 
 using Models.Class.Email;
+using System.ComponentModel;
 
 namespace Commons
 {
@@ -93,6 +94,7 @@ namespace Commons
                         UseDefaultCredentials = false,
                         Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
                     };
+                    smtp.SendCompleted += new SendCompletedEventHandler(SendCompletedCallback);
                     string PathHeaderOnServer = Email.BasePathFile + "\\_HeaderMail.html";
                     string PathFooterOnServer = Email.BasePathFile + "\\_FooterMail.html";
                     string PathEndMailOnServer = Email.BasePathFile + "\\"+Email.EndMailTemplate+".html";
@@ -150,7 +152,8 @@ namespace Commons
                                 CCUsersNumber++;
                             }
                         }
-                        smtp.Send(message);
+                        smtp.SendAsync(message, message);
+      
                     }
                     result = true;
                 }
@@ -164,6 +167,27 @@ namespace Commons
             return EMailResult;
         }
 
+        private static void SendCompletedCallback(object sender, AsyncCompletedEventArgs e)
+        {
+            try
+            {
+                MailMessage msg = (MailMessage)e.UserState;
+                string recipient = msg.To.ToString();
+                if (e.Cancelled)
+                {
+                    Logger.GenerateInfo("Mail CANCELLED : Subject = '" + (msg.Subject ?? "") + "' and recipient = '" + recipient + "'" + (e.Error != null ? " and error = " + e.Error.ToString() : ""));
+                }
+                else if (e.Error != null)
+                {
+                    Logger.GenerateInfo("Mail Error : Subject = '" + (msg.Subject ?? "") + "' and recipient = '" + recipient + "' and error = " + e.Error.ToString());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.GenerateError(ex, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,"sender =" + sender.ToString());
+            }
+        }
 
     }
 }

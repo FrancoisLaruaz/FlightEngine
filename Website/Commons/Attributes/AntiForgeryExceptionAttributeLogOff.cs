@@ -8,7 +8,7 @@ using System.Web.Routing;
 
 namespace Commons.Attributes
 {
-    public class AntiForgeryExceptionAttributeExternalAuthentification : FilterAttribute, IExceptionFilter
+    public class AntiForgeryExceptionAttributeLogOff : FilterAttribute, IExceptionFilter
     {
         public void OnException(ExceptionContext filterContext)
         {
@@ -19,34 +19,28 @@ namespace Commons.Attributes
                 {
                     var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
                     // Use your own logging service to log the results
-                    string parameters = "";
-                    if (request != null)
+                    string parameters = "IP = " + filterContext.RequestContext.HttpContext.Request.UserHostAddress;
+                    foreach (var key in request.Form.AllKeys)
                     {
-                        parameters = "IP = " + filterContext.RequestContext.HttpContext.Request.UserHostAddress;
-                        foreach (var key in request.Form.AllKeys)
+                        var value = request.Form[key];
+                        if (key.ToLower().Contains("password"))
                         {
-                            var value = request.Form[key];
-                            if (key.ToLower().Contains("password"))
-                            {
-                                value = EncryptHelper.EncryptToString(value);
-                            }
-                            if (!String.IsNullOrWhiteSpace(parameters))
-                            {
-                                parameters = parameters + " & ";
-                            }
-                            parameters = parameters + key + " = " + value;
+                            value = EncryptHelper.EncryptToString(value);
                         }
-                        Logger.GenerateInfo("HttpAntiForgery Token missing for external authentification : parameters => " + parameters);
+                        if (!String.IsNullOrWhiteSpace(parameters))
+                        {
+                            parameters = parameters + " & ";
+                        }
+                        parameters = parameters + key + " = " + value;
                     }
-
 
                     filterContext.ExceptionHandled = true;
 
                     filterContext.Result = new RedirectToRouteResult(
                             new RouteValueDictionary
                             {
-                                        { "controller", "Account" },
-                                        { "action", "ExternalAuthentificationError" }
+                                        { "controller", "Home" },
+                                        { "action", "Index" }
                             });
                 }
 

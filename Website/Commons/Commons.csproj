@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AntiForgeryExceptionAttribute.cs" />
+    <Compile Include="Attributes\AntiForgeryExceptionAttributeLogOff.cs" />
     <Compile Include="Attributes\AntiForgeryExceptionAttributeExternalAuthentification.cs" />
     <Compile Include="Helpers\CurrencyHelper.cs" />
     <Compile Include="Helpers\GeoLocalizationHelper.cs" />

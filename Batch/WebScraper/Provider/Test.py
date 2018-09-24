@@ -18,19 +18,32 @@ import scipy.interpolate as si
 def SearchTest(proxy,searchTripProviderId,origin,destination,maxStopNumber,fromDate,toDate):
 	result="KO|"
 	try:
+
+		#  https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list.txt
 		conditionalPrint("** Begin Test **")
 		url="https://codepen.io/falldowngoboone/pen/PwzPYv"
-		url="https://www.edreams.com/travel/#results/type=R;dep="+GetDateForUrl(fromDate)+";from="+origin+";to="+destination+";ret="+GetDateForUrl(toDate)+";collectionmethod=false;airlinescodes=false;internalSearch=true?hello"
+		url="https://www.edreams.com/travel/#results/type=R;dep="+GetDateForUrl(fromDate)+";from="+origin+";to="+destination+";ret="+GetDateForUrl(toDate)+";collectionmethod=false;airlinescodes=false;internalSearch=true"
 		if maxStopNumber=="0":
 			url=url+";direct=true"
 		print("url = " +url)
-		idElementTocheck='mydiv'
-		url="https://www.edreams.com"		
+		#url="https://www.edreams.com/#results/type=R;dep=2018-09-22;from=YVR;to=LON;ret=2018-10-19;collectionmethod=false;airlinescodes=false;internalSearch=true"
+		#url="https://staging.frontfundr.com/Experiment/CheckIP"
+		idElementTocheck='drawer'
+		#url="https://www.edreams.com"		
+		#url="file:///D:/DEV/FlightEngine/Batch/WebScraper/Test/test.html"
+		#url="ttps://intoli.com/blog/javascript-injection/test-page.html"
+		#url="https://codepen.io/falldowngoboone/pen/PwzPYv"
 		url="file:///D:/DEV/FlightEngine/Batch/WebScraper/Test/test.html"
-		driver=getOperaDriver("")
+		driver=getWebDriver("")
 		if driver != None:
 			driver.get(url)
-			result=waitForWebdriver(searchTripProviderId,driver,"#"+idElementTocheck,".dialog_error")
+			injected_javascript = (
+
+				
+			)
+			#driver.execute_async_script(injected_javascript)
+			#driver.execute_script(open("D:\\DEV\\FlightEngine\\Batch\\WebScraper\\SeleniumHelper\\Extension\\myscript.js").read())
+			#result=waitForWebdriver(searchTripProviderId,driver,".test",".dialog_error")
 			#FakeMouseMove(driver,idElementTocheck)	
 		conditionalPrint ("** End Test **\n")
 		os.system("pause")

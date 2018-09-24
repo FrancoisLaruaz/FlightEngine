@@ -28,7 +28,7 @@ def SearchEdreams(proxy,searchTripProviderId,origin,destination,maxStopNumber,fr
 		if maxStopNumber=="0":
 			url=url+";direct=true"
 
-		browser=getGoogleChromeDriver(proxy)
+		browser=getWebDriver(proxy)
 	
 		print("url = " +url)
 		browser.get(url)

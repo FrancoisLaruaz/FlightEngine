@@ -12,11 +12,89 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from datetime import datetime, timezone
 import time
+import json
 from selenium.common.exceptions import NoSuchElementException
 from Helper.constants import *
 from Helper.utils import *
 from fake_useragent import UserAgent
+from selenium.webdriver.firefox.options import Options
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.firefox.firefox_profile import AddonFormatError
+from selenium.webdriver.common.alert import Alert
+from selenium import webdriver
+from selenium.webdriver.remote.webdriver import WebDriver
+from random import randint
+from time import sleep
 
+
+def getWebDriver(fullproxy):
+	# distil network : https://www.blackhatworld.com/seo/python-scraping-distil-protected-sites.988967/
+	return getFirefoxDriver(fullproxy)
+	#return getGoogleChromeDriver(fullproxy)
+
+def getEdgeDriver(fullproxy):
+	try:
+		ExecutablePath='C:\\webdrivers\\MicrosoftWebDriver.exe'
+		BinaryPath='C:\\webdrivers\\MicrosoftWebDriver.exe'
+
+		#create capabilities
+		capabilities = DesiredCapabilities.EDGE
+		driver = webdriver.Edge(executable_path=ExecutablePath, capabilities=capabilities)
+		return driver
+	except Exception:
+		LogError(traceback,"")
+	return None	
+	
+def getPhantomJSDriver(fullproxy):
+	try:
+		ExecutablePath='C:\\webdrivers\\phantomjs.exe'
+		BinaryPath='C:\\webdrivers\\phantomjs.exe'
+		driver = webdriver.PhantomJS(executable_path=ExecutablePath)
+		return driver
+	except Exception:
+		LogError(traceback,"fullproxy = "+fullproxy)
+	return None		
+
+def getIEDriver(fullproxy):
+	try:
+		ExecutablePath='C:\\webdrivers\\IEDriverServer.exe'
+		BinaryPath='C:\\webdrivers\\IEDriverServer.exe'
+
+		#create capabilities
+		capabilities = DesiredCapabilities.INTERNETEXPLORER
+		#capabilities.pop("ignoreZoomSetting", True);
+		#delete platform and version keys
+		capabilities.pop("platform", "WIN8")
+		capabilities.pop("version", "11")
+		capabilities.pop("browserName", "internet explorer")
+		capabilities.pop("ie.usePerProcessProxy", True)
+		capabilities.pop("usePerProcessProxy", True)
+		capabilities.pop("INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS", True)
+		capabilities.pop("InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS", True)
+		#capabilities.pop("nativeEvents", False)
+		#capabilities.pop("ignoreProtectedModeSettings", True)
+		capabilities.pop("ie.setProxyByServer", True)
+		capabilities.pop("setProxyByServer", True)
+		#capabilities.setCapability(InternetExplorerDriver.IE_USE_PRE_PROCESS_PROXY,true);
+		if fullproxy!="":
+			proxy=fullproxy.split(' ')[0]
+			conditionalPrint("proxy used : "+proxy)
+			prox = Proxy()
+			prox.proxy_type = ProxyType.MANUAL
+			prox.http_proxy = proxy
+			prox.socks_proxy = proxy
+			prox.ssl_proxy =proxy
+			prox.noProxy =None
+			prox.autodetect =None
+			#prox["class"] ="org.openqa.selenium.Proxy"
+			prox.add_to_capabilities(capabilities)
+		driver = webdriver.Ie(executable_path=ExecutablePath, capabilities=capabilities)
+
+
+		return driver
+	except Exception:
+		LogError(traceback,"fullproxy = "+fullproxy)
+	return None
 
 def getOperaDriver(fullproxy):
 	# https://stackoverflow.com/questions/24719270/selenium-webdriver-and-opera-driver
@@ -44,51 +122,64 @@ def getOperaDriver(fullproxy):
 		LogError(traceback,"fullproxy = "+fullproxy)
 	return None
 
+# Patch in support for WebExtensions in Firefox.
+# See: https://intoli.com/blog/firefox-extensions-with-selenium/
+# https://stackoverflow.com/questions/51439377/selenium-webdriver-firefox-headless-inject-javascript-to-modify-browser-propert
+class FirefoxProfileWithWebExtensionSupport(webdriver.FirefoxProfile):
+    def _addon_details(self, addon_path):
+        try:
+            return super()._addon_details(addon_path)
+        except AddonFormatError:
+            try:
+                with open(os.path.join(addon_path, "manifest.json"), "r") as f:
+                    manifest = json.load(f)
+                    return {
+                        "id": manifest["applications"]["gecko"]["id"],
+                        "version": manifest["version"],
+                        "name": manifest["name"],
+                        "unpack": False,
+                    }
+            except Exception:
+                LogError(traceback,"")
+	
 def getFirefoxDriver(fullproxy):
 	try:
 		path='C:\\webdrivers\\geckodriver.exe'
-		fp = webdriver.FirefoxProfile()
+		capabilities = DesiredCapabilities.FIREFOX
+		capabilities['marionette'] = True
+		#capabilities['CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR'] = org.openqa.selenium.UnexpectedAlertBehaviour.ACCEPT
+		opts = Options()
+		#opts.set_headless()
+		#assert opts.headless
+		
+		profile = webdriver.FirefoxProfile()
+		profile.set_preference("general.useragent.override", UserAgent().random)
+		profile.set_preference("browser.cache.disk.enable", False)
+		profile.set_preference("browser.cache.memory.enable", False)
+		profile.set_preference("browser.cache.offline.enable", False)
+		profile.set_preference("network.http.use-cache", False)
+		profile.update_preferences()
+		
 		if fullproxy!="":
-			fullproxy=fullproxy.split(' ')[0]
-			host=fullproxy.split(':')[0]
-			port=fullproxy.split(':')[1]
-			#https://stackoverflow.com/questions/17082425/running-selenium-webdriver-with-a-proxy-in-python
-			firefox_capabilities = DesiredCapabilities.FIREFOX
-			firefox_capabilities['marionette'] = True
-			webdriver.DesiredCapabilities.FIREFOX['proxy']={
-				"httpProxy":fullproxy,
-				"ftpProxy":fullproxy,
-				"sslProxy":fullproxy,
-				"noProxy":None,
-				"proxyType":"MANUAL",
-				"autodetect":False
-			}		
+			proxy=fullproxy.split(' ')[0]
+			host=proxy.split(':')[0]
+			port=proxy.split(':')[1]
+			conditionalPrint("proxy used : "+proxy)
 			prox = Proxy()
+			socksVersion=5
+			proxy=fullproxy.split(' ')[0]
 			prox.proxy_type = ProxyType.MANUAL
-			prox.http_proxy = fullproxy
-			prox.socks_proxy = fullproxy
-			prox.ssl_proxy =fullproxy	
-			#prox.add_to_capabilities(firefox_capabilities)
-			fp.set_preference("network.proxy.type", 1)
-			fp.set_preference("network.proxy.http",host)
-			fp.set_preference("network.proxy.http_port",int(port))
-			fp.set_preference("network.proxy.https",host)
-			fp.set_preference("network.proxy.https_port",int(port))
-			fp.set_preference("network.proxy.ssl",host)
-			fp.set_preference("network.proxy.ssl_port",int(port))  
-			fp.set_preference("network.proxy.ftp",host)
-			fp.set_preference("network.proxy.ftp_port",int(port))   
-			fp.set_preference("network.proxy.socks",host)
-			fp.set_preference("network.proxy.socks_port",int(port))   
-			#fp.set_preference("general.useragent.override","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A")
-			fp.update_preferences()
-		driver = webdriver.Firefox(executable_path=path)
+			prox.http_proxy = proxy
+			prox.ftp_proxy = proxy
+			prox.ssl_proxy =proxy
+			prox.add_to_capabilities(capabilities)
+		driver = webdriver.Firefox(executable_path=path, capabilities=capabilities, firefox_options = opts)
 
 
 		return driver
 	except Exception:
 		LogError(traceback,"fullproxy = "+fullproxy)
-	return getGoogleChromeDriver(fullproxy)
+	return None
 	
 def waitForWebdriver(searchTripProviderId,browser,css_selectorOK,css_selectorKO=""):
 	result="KO|"
@@ -106,6 +197,18 @@ def waitForWebdriver(searchTripProviderId,browser,css_selectorOK,css_selectorKO=
 		result="KO|waitForWebdriver"
 		LogError(traceback,"searchTripProviderId ="+searchTripProviderId+" and css_selectorOK = "+css_selectorOK+" and css_selectorKO = "+css_selectorKO)
 	return result			
+
+def send(driver, cmd, params={}):
+  resource = "/session/%s/chromium/send_command_and_get_result" % driver.session_id
+  url = driver.command_executor._url + resource
+  body = json.dumps({'cmd': cmd, 'params': params})
+  response = driver.command_executor._request('POST', url, body)
+  if response['status']:
+    raise Exception(response.get('value'))
+  return response.get('value')
+
+def add_script(driver, script):
+  send(driver, "Page.addScriptToEvaluateOnNewDocument", {"source": script})
 	
 def getGoogleChromeDriver(fullproxy):
 	try:
@@ -140,10 +243,69 @@ def getGoogleChromeDriver(fullproxy):
 			option.add_argument("--headless")  
 			option.add_argument("--window-size=%s" % WINDOW_SIZE)		
 
-		
+		WebDriver.add_script = add_script
 		browser = webdriver.Chrome(executable_path="C:\\webdrivers\\chromedriver.exe", chrome_options=option,desired_capabilities=capabilities)
 		#browser.set_window_position(-10000, 0)
+		browser.add_script("""
+		  if (window.self === window.top) { // if main document
+			console.log('add script before START');
 
+
+	
+				// Pass the Webdriver test
+				Object.defineProperty(navigator, "webdriver", {
+				  get: () => false,
+				});
+
+				// hairline: store the existing descriptor
+				const elementDescriptor=Object.getOwnPropertyDescriptor(HTMLElement.prototype, "offsetHeight");
+
+				// redefine the property with a patched descriptor
+				Object.defineProperty(HTMLDivElement.prototype, "offsetHeight", {
+					...elementDescriptor,
+				  get: function() {
+					if (this.id === "modernizr") {
+					  return 1;
+					}
+					return elementDescriptor.get.apply(this);
+				  },
+				});
+
+				["height", "width"].forEach(property => {
+				  // store the existing descriptor
+				  const imageDescriptor=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, property);
+
+				  // redefine the property with a patched descriptor
+				  Object.defineProperty(HTMLImageElement.prototype, property, {
+					...imageDescriptor,
+					get: function() {
+					  // return an arbitrary non-zero dimension if the image failed to load
+					  if (this.complete && this.naturalHeight == 0) {
+						return 24;
+					  }
+					  // otherwise, return the actual dimension
+					  return imageDescriptor.get.apply(this);
+					},
+				  });
+				});
+
+				//document.getElementById("injected-time").innerHTML = navigator.webdriver;
+
+				const getParameter=WebGLRenderingContext.getParameter;
+				WebGLRenderingContext.prototype.getParameter=function(parameter) {
+				  // UNMASKED_VENDOR_WEBGL WebGLRenderingContext.prototype.VENDOR
+				  if (parameter === 37445) {
+					return "Intel Open Source Technology Center";
+				  }
+				  // UNMASKED_RENDERER_WEBGL WebGLRenderingContext.prototype.RENDERER
+				  if (parameter === 37446) { 
+					return "Mesa DRI Intel(R) Ivybridge Mobile";
+				  }
+				  return getParameter(parameter);
+				};
+				console.log('add script before END');
+		  }
+		  """)
 		return browser
 	except Exception:
 		LogError(traceback,"fullproxy = "+fullproxy)

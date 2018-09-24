@@ -17,7 +17,7 @@ def SearchKayak(proxy,searchTripProviderId,origin,destination,maxStopNumber,from
 	try:
 		conditionalPrint("** Begin Kayak **")
 		url="https://ca.edreams.com/travel/#results/type=R;dep=2018-12-19;from=YVR;to=DUB;ret=2019-01-06;collectionmethod=false;airlinescodes=false;internalSearch=true"
-		browser=getGoogleChromeDriver(proxy)
+		browser=getWebDriver(proxy)
 		browser.get(url)
 		result="OK"
 		conditionalPrint("** End Kayak **")

@@ -23,7 +23,7 @@ namespace Commons
             try
             {
                 result = string.Join("<br>", IdentityResult.Errors
-                   .Select(e => "• [[[" + (e) + "]]]"));
+                   .Select(e => (e).Contains("[[[") ? "• " + (e) : ("• [[[" + (e) + "]]]")));
             }
             catch (Exception e)
             {
@@ -38,7 +38,7 @@ namespace Commons
             {
                 result = string.Join("<br>", modelState.Values
                    .SelectMany(v => v.Errors)
-                   .Select(e => "• [[[" + (e.ErrorMessage ?? e.Exception.Message) + "]]]"));
+                   .Select(e => (e.ErrorMessage ?? e.Exception.Message).Contains("[[[") ? "• " + (e.ErrorMessage ?? e.Exception.Message) : ("• [[[" + (e.ErrorMessage ?? e.Exception.Message) + "]]]")));
             }
             catch (Exception e)
             {

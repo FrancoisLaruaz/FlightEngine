@@ -101,7 +101,7 @@ namespace Template
                 "~/Content/General/bootstrap-social.css"
                 ));
 
-                bundles.Add(new StyleBundle("~/bundles/Style").Include(
+                bundles.Add(new LessBundle("~/bundles/Style").Include(
                     "~/Content/General/animate.css",
                     "~/Content/General/_Spinner.css",
                     "~/Content/General/Carousel.css",
@@ -117,10 +117,10 @@ namespace Template
                    "~/Content/General/googleMap.css",
                     "~/Content/General/jtsage-datebox.min.css",
                     "~/Content/General/jtsage-syntax.css",
-                    "~/Content/Views/Account/_PasswordPolicy.css"
-                ));
+                    "~/Content/Views/Account/_PasswordPolicy.css",
+                    "~/Content/General/main.less"
+                ).Include("~/Content/font-awesome.min.css", new CssRewriteUrlTransform())); 
 
-                bundles.Add(new LessBundle("~/bundles/less").Include("~/Content/General/main.less"));
             }
             catch (Exception e)
             {

@@ -17,7 +17,7 @@ def SearchSkyscanner(proxy,searchTripProviderId,origin,destination,maxStopNumber
 	try:
 		conditionalPrint("** Begin Skyscanner **")
 		url="https://www.skyscanner.com/transport/vols/yvra/las/180831/180907/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=1&preferdirects=true&outboundaltsenabled=false&inboundaltsenabled=false&ref=home#results"
-		browser=getGoogleChromeDriver(proxy)
+		browser=getWebDriver(proxy)
 		browser.get(url)
 		result=waitForWebdriver(searchTripProviderId,browser,".od-resultpage-highlight-title",".dialog_error")
 

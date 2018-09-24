@@ -1347,7 +1347,7 @@ namespace Website.Controllers
 
         #region Login / Logoff
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken, AntiForgeryExceptionAttributeLogOff]
         public ActionResult LogOff()
         {
             try

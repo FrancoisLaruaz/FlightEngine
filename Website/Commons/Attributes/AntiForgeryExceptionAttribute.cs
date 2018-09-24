@@ -17,20 +17,24 @@ namespace Commons.Attributes
                 if (!filterContext.ExceptionHandled && filterContext.Exception is HttpAntiForgeryException)
                 {
                     var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
-                    // Use your own logging service to log the results
-                    string parameters = "IP = " + filterContext.RequestContext.HttpContext.Request.UserHostAddress;
-                    foreach (var key in request.Form.AllKeys)
+                    string parameters = "";
+                    if (request != null)
                     {
-                        var value = request.Form[key];
-                        if (key.ToLower().Contains("password"))
+                        // Use your own logging service to log the results
+                        parameters = "IP = " + filterContext.RequestContext.HttpContext.Request.UserHostAddress;
+                        foreach (var key in request.Form.AllKeys)
                         {
-                            value = EncryptHelper.EncryptToString(value);
+                            var value = request.Form[key];
+                            if (key.ToLower().Contains("password"))
+                            {
+                                value = EncryptHelper.EncryptToString(value);
+                            }
+                            if (!String.IsNullOrWhiteSpace(parameters))
+                            {
+                                parameters = parameters + " & ";
+                            }
+                            parameters = parameters + key + " = " + value;
                         }
-                        if (!String.IsNullOrWhiteSpace(parameters))
-                        {
-                            parameters = parameters + " & ";
-                        }
-                        parameters = parameters + key + " = " + value;
                     }
                     Logger.GenerateInfo("HttpAntiForgery Token missing : parameters => " + parameters);
 

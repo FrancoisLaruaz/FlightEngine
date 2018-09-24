@@ -2,7 +2,7 @@
 
 #Mian program :
 # How to execute it : 
-# work : C:\Users\franc\AppData\Local\Programs\Python\Python37-32\python.exe D:\DEV\FlightEngine\Batch\WebScraper\Main.py "189.177.217.109:8080 MX-N +" "1" "Test" "RNS" "TYO" "2" "10/10/2018" "18/10/2018"
+# work : C:\Users\franc\AppData\Local\Programs\Python\Python37-32\python.exe D:\DEV\FlightEngine\Batch\WebScraper\Main.py "95.79.114.13:50533 RU-H-S + " "1" "Test" "RNS" "TYO" "2" "10/10/2018" "18/10/2018"
 # perso : C:\Users\franc\AppData\Local\Programs\Python\Python37\python.exe C:\DEV\Batch1\WebScraper\Main.py "41.86.46.56:80 SC-N-S + " "1" "Skyscanner" "YVR" "TYO" "2" "09/10/2018" "20/10/2018"
 # staging : C:\Users\FrancoisL\AppData\Local\Programs\Python\Python37-32\python.exe C:\Users\FrancoisL\Documents\Test\Batch1\WebScraper\Main.py "185.124.116.237:21231 PL-H-S +" "1" "Edreams" "RNS" "TYO" "2" "10/10/2018" "18/10/2018"
 # Packages to install (in C:\Users\franc\AppData\Local\Programs\Python\Python37-32) : 
@@ -41,7 +41,6 @@ from SeleniumHelper.webdriver import *
 
 try:
 
-	# https://stackoverflow.com/questions/39422453/human-like-mouse-movements-via-selenium
 	print("\n*** Start Web Scraper *** : " +datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]+"\n")
 	if len(sys.argv) < 7 or  len(sys.argv) > 9:
 		print("Arguments missing")

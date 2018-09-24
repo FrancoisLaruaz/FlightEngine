@@ -8,7 +8,7 @@
   color: #777; }
 
 .searchBarIcon:hover {
-  color: rgba(45,191,183, 0.8); }
+  color: #f36f23; }
 
 .bigscreenSearchBar {
   display: none; }
@@ -40,16 +40,16 @@
   color: #777 !important; }
 
 .searchbar.clicked .btn-extended {
-  margin-left: -250px;
-  width: 200px;
+  margin-left: -192px;
+  width: 140px;
   padding: 4px 15px;
   opacity: 1;
   border-radius: 40px; }
 
 @media (min-width: 478px) {
   .searchbar.clicked .btn-extended {
-    margin-left: -160px;
-    width: 170px;
+    margin-left: -180px;
+    width: 190px;
     padding: 4px 15px;
     opacity: 1;
     border-radius: 40px; } }

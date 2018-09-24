@@ -5,24 +5,48 @@
                 <title> Outer Frame - Merchant Page</title>
 
 
-                <script>
-				
-					window.document.getElementById('webdriver').innerHTML=navigator.webdriver;
-					window.document.getElementById('webdriver2').innerHTML=window.document.documentElement.getAttribute("webdriver");
-                </script>
+			<script src="edreamns_script.js"></script>
 </head>
 <body>
 
                 <div>This is the outer page</div>
                 <div id="mydiv"></div>
-				<span id="webdriver"></span>
-				<span id="webdriver2"></span>
-				
-				 <script>
-				
-					window.document.getElementById('webdriver').innerHTML=navigator.webdriver;
-					window.document.getElementById('webdriver2').innerHTML=window.document.documentElement.getAttribute("webdriver");
-                </script>
+				<div>
+				webdriver :<span id="webdriver"></span>
+				</div>
+				<div>
+				getAttribute("webdriver") :<span id="webdriver2"></span>
+				</div>
+				<div>
+				appName : <span id="webdriver3"></span>
+				</div>
+				<div>
+				userAgent : <span id="webdriver7"></span>
+				</div>
+				<div>
+				chrome : <span id="webdriver4"></span>
+				</div>
+				<div>
+				product : <span id="webdriver5"></span>
+				</div>
+				<div>
+				productSub : <span id="webdriver6"></span>
+				</div>
+		        <script>
+					console.log('while 1')
+					setTimeout(function(){ GetValues(); }, 100);
+					function GetValues()
+					{
+						console.log('while 2')
+						window.document.getElementById('webdriver').innerHTML=navigator.webdriver;
+						window.document.getElementById('webdriver3').innerHTML=navigator.appName;
+						window.document.getElementById('webdriver4').innerHTML=window.chrome;
+						window.document.getElementById('webdriver7').innerHTML=window.userAgent;
+						window.document.getElementById('webdriver5').innerHTML=window.navigator.product;
+						window.document.getElementById('webdriver5').innerHTML=window.navigator.productSub;
+						window.document.getElementById('webdriver2').innerHTML=window.document.documentElement.getAttribute("webdriver");
+					}
+                </script>		
 </body>
 </html>
 
