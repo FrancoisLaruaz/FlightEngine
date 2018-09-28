@@ -3,24 +3,32 @@
 
 try  ; Attempts to execute code.
 {
+
 	if A_Args.Length() < 3
 	{
-		ExitApp
+		URL := "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true"
+		SearchId := "126"
+		BrowserExe := "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe"
 	}
-
-
+	else
+	{
+		URL := A_Args[1]
+		SearchId := A_Args[2]
+		BrowserExe := A_Args[3]
+	}
 	SetTitleMatchMode, 2
-	URL := A_Args[1]
 	Title := "Edreams"
-	SearchId := A_Args[2]
 	WaitBetweenClick :=300
 	PathToSaveFile := "D:\Html"
-	BrowserExe := A_Args[3]
+	SetWorkingDir "D:\Html\Logs"
+	
+	FileAppend % "Error on line n"
+        ,log_%SearchId%.txt
 
 	Run %BrowserExe% -new-window %URL%
-	WinWaitActive, "Your travel agency: Book cheap flights - eDreams International"
+	WinWaitActive, eDreams
 	WinMaximize
-	Sleep,10000
+	Sleep,22000
 	MouseClick, right, 200, 300
 	Sleep,%WaitBetweenClick%
 	MouseClick, left, 252, 352
@@ -36,11 +44,14 @@ try  ; Attempts to execute code.
 	Send search_%SearchId%
 	Sleep,100
 	SendInput {enter}
-	Sleep,%WaitBetweenClick%
+	Sleep,1000
 }
 catch e  ; Handles the first error/exception raised by the block above.
 {
-    MsgBox, An exception was thrown!`nSpecifically: %e%
+	FormatTime, now,, yyyy/M/d HH:mm
+	FileAppend % "Error on line " e.Line " & File = " e.File " & What = " e.What " & Extra = " e.Extra " & Message = " e.Message "`n"
+        ,log_%SearchId%.txt
 }	
 WinClose
+ExitApp 
 return

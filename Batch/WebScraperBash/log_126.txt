@@ -1,0 +1,2 @@
+Error on line 23 & File = D:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.ahk & What = SetWorkingDir & Extra =  & Message = 1
+Error on line 23 & File = D:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.ahk & What = SetWorkingDir & Extra =  & Message = 1
