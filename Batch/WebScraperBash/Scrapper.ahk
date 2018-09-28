@@ -1,9 +1,18 @@
 ﻿
+; "C:\Program Files\AutoHotkey\AutoHotkey.exe" /ErrorStdOut  "D:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.ahk" "https://www.frontfundr.com/","126"
+
+
+if A_Args.Length() < 2
+{
+    ExitApp
+}
+
+
 SetTitleMatchMode, 2
-URL := "https://www.frontfundr.com/"
+URL := A_Args[1]
 Title := FrontFundr
-SearchId := 125
-WaitBetweenClick :=200
+SearchId := A_Args[2]
+WaitBetweenClick :=300
 PathToSaveFile := "D:\Html"
 
 Run "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe" -new-window %URL%
