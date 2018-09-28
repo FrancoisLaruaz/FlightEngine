@@ -18,28 +18,40 @@ namespace FlightsEngine.FlighsBot
 {
     public static class ScrappingHelper
     {
-        public static bool Run()
+        public static bool Run(string proxy=null)
         {
             bool result = false;
             try
             {
-                // https://stackoverflow.com/questions/5320231/scraping-a-webpage-with-c-sharp-and-htmlagility
+                
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " ***  START ScrappingHelper ***");
                 string url = "https://www.edreams.com/";
                 url = "https://www.edreams.com/travel/?locale=en&mktportal=google-brand#results/type=R;dep=2018-12-19;from=AMS;to=YMQ;ret=2018-12-30;direct=true;collectionmethod=false;airlinescodes=false;internalSearch=true";
-             //   HtmlAgilityPack.HtmlDocument doc = new HtmlWeb().Load(url);
-             //   var rows = doc.DocumentNode.SelectNodes("//table[@class='data']/tr");
+                url = "http://github.com/";
+                url = "https://www.edreams.com";
+                //   HtmlAgilityPack.HtmlDocument doc = new HtmlWeb().Load(url);
+                //   var rows = doc.DocumentNode.SelectNodes("//table[@class='data']/tr");
 
-                LoadHtmlWithBrowser(url);
+                  LoadHtmlWithHtmlAgilityBrowser(url);
+                LoadHtmlWithSimpleBrowser(url, proxy);
+
+                // https://superuser.com/questions/362152/native-alternative-to-wget-in-windows-powershell
+                // http://sebsauvage.net/streisand.me/perturbateur/index.php?20121011_225102_Firefox__ndash__Proxy_via_script_batch
+                // https://stackoverflow.com/questions/843340/firefox-proxy-settings-via-command-line
+
+                // C:\Users\franc\AppData\Local\Mozilla\Firefox
+                // xdotool-for-windows-master
 
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " ***  END ScrappingHelper ***");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, null);
             }
             return result;
         }
+
+        #region SimpleBrowser
 
         static bool LastRequestFailed(Browser browser)
         {
@@ -53,7 +65,7 @@ namespace FlightsEngine.FlighsBot
 
         static void OnBrowserMessageLogged(Browser browser, string log)
         {
-            FlightsEngine.Utils.Logger.GenerateError(null, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, " log : " + log);
+            Console.WriteLine(" -> " + log);
         }
 
         static void OnBrowserRequestLogged(Browser req, HttpRequestLog log)
@@ -62,7 +74,7 @@ namespace FlightsEngine.FlighsBot
             Console.WriteLine(" <- Response status code: " + log.ResponseCode);
         }
 
-        private static void LoadHtmlWithSimpleBrowser(String url,string proxy=null)
+        private static void LoadHtmlWithSimpleBrowser(String url, string proxy = null)
         {
             // https://github.com/SimpleBrowserDotNet/SimpleBrowser
             // https://stackoverflow.com/questions/6563901/clicking-button-automatically-using-htmlagilitypack
@@ -75,18 +87,21 @@ namespace FlightsEngine.FlighsBot
 
                 // we'll fake the user agent for websites that alter their content for unrecognised browsers
                 browser.UserAgent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.10 (KHTML, like Gecko) Chrome/8.0.552.224 Safari/534.10";
-                browser.Cookies= new CookieContainer();
+                browser.Cookies = new CookieContainer();
                 if (!String.IsNullOrWhiteSpace(proxy))
                 {
-                    browser.SetProxy(proxy.Split(':')[0], Convert.ToInt32(proxy.Split(':')[1]));
+                    proxy = proxy.Split(' ')[0];
+                    string host = proxy.Split(':')[0];
+                    int port = Convert.ToInt32(proxy.Split(':')[1]);
+                    browser.SetProxy(host, port);
                 }
-                // browse to GitHub
-                browser.Navigate("http://github.com/");
+
+                browser.Navigate(url);
                 if (LastRequestFailed(browser)) return; // always check the last request in case the page failed to load
 
                 // click the login link and click it
                 browser.Log("First we need to log in, so browse to the login page, fill in the login details and submit the form.");
-                var loginLink = browser.Find("a", FindBy.Text, "Login");
+                var loginLink = browser.Find("a", FindBy.Text, "Sign in");
                 if (!loginLink.Exists)
                     browser.Log("Can't find the login link! Perhaps the site is down for maintenance?");
                 else
@@ -95,8 +110,8 @@ namespace FlightsEngine.FlighsBot
                     if (LastRequestFailed(browser)) return;
 
                     // fill in the form and click the login button - the fields are easy to locate because they have ID attributes
-                    browser.Find("login_field").Value = "youremail@domain.com";
-                    browser.Find("password").Value = "yourpassword";
+                    browser.Find("login_field").Value = "francois.laruaz@gmail.com";
+                    browser.Find("password").Value = "Chimbonda53";
                     browser.Find(ElementType.Button, "name", "commit").Click();
                     if (LastRequestFailed(browser)) return;
 
@@ -119,20 +134,42 @@ namespace FlightsEngine.FlighsBot
                         }
                     }
                 }
+                WriteIntoLogFile("Logs.html", browser.Text);
             }
             catch (Exception ex)
             {
                 browser.Log(ex.Message, LogMessageType.Error);
                 browser.Log(ex.StackTrace, LogMessageType.StackTrace);
+                FlightsEngine.Utils.Logger.GenerateError(ex, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, " url = " + url + " and proxy = " + (proxy ?? ""));
             }
             finally
             {
-             //   var path = WriteFile("log-" + DateTime.UtcNow.Ticks + ".html", browser.RenderHtmlLogFile("SimpleBrowser Sample - Request Log"));
-             //   Process.Start(path);
+                //   var path = WriteFile("log-" + DateTime.UtcNow.Ticks + ".html", browser.RenderHtmlLogFile("SimpleBrowser Sample - Request Log"));
+                //   Process.Start(path);
             }
         }
 
-        private static void LoadHtmlWithBrowser(String url)
+        static string WriteIntoLogFile(string filename, string text)
+        {
+            try
+            {
+                string repo = AppDomain.CurrentDomain.BaseDirectory;
+                var dir = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"));
+                if (!dir.Exists) dir.Create();
+                var path = Path.Combine(dir.FullName, filename);
+                File.WriteAllText(path, text);
+                return path;
+            }
+            catch (Exception ex)
+            {
+                FlightsEngine.Utils.Logger.GenerateError(ex, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, " filename = " + filename );
+            }
+            return null;
+        }
+        #endregion
+        #region HtmlAgility
+        //https://stackoverflow.com/questions/5320231/scraping-a-webpage-with-c-sharp-and-htmlagility
+        private static void LoadHtmlWithHtmlAgilityBrowser(String url)
         {
             WebBrowser webBrowser1 = new WebBrowser();
             webBrowser1.ScriptErrorsSuppressed = true;
@@ -176,6 +213,6 @@ namespace FlightsEngine.FlighsBot
             }
             Thread.Sleep(20000);
         }
-
+        #endregion
     }
 }

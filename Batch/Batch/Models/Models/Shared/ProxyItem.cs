@@ -23,5 +23,43 @@ namespace FlightsEngine.Models
         public int Failure { get; set; }
 
 
+        public string Port
+        {
+            get
+            {
+                try
+                {
+                    if(!String.IsNullOrWhiteSpace(Proxy))
+                    {
+                        return Proxy.Split(':')[1];
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("ProxyItem , Port ERROR : " + e.ToString());
+                }
+                return null;
+            }
+        }
+
+        public string Host
+        {
+            get
+            {
+                try
+                {
+                    if (!String.IsNullOrWhiteSpace(Proxy))
+                    {
+                        return Proxy.Split(':')[0];
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("ProxyItem , Host ERROR : " + e.ToString());
+                }
+                return null;
+            }
+        }
+
     }
 }
