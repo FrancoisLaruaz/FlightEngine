@@ -1,5 +1,6 @@
 ﻿
 ; "C:\Program Files\AutoHotkey\AutoHotkey.exe" /ErrorStdOut  "D:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.ahk" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe"
+; "C:\Program Files\AutoHotkey\AutoHotkey.exe" /ErrorStdOut  "C:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.ahk" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Program Files\Mozilla Firefox\firefox.exe"
 
 try  ; Attempts to execute code.
 {
@@ -8,7 +9,8 @@ try  ; Attempts to execute code.
 	{
 		URL := "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true"
 		SearchId := "126"
-		BrowserExe := "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe"
+		;BrowserExe := "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe"
+		BrowserExe := "C:\Program Files\Mozilla Firefox\firefox.exe"
 	}
 	else
 	{
@@ -20,10 +22,8 @@ try  ; Attempts to execute code.
 	Title := "Edreams"
 	WaitBetweenClick :=300
 	PathToSaveFile := "D:\Html"
-	SetWorkingDir "D:\Html\Logs"
+	SetWorkingDir, D:\Html\Logs
 	
-	FileAppend % "Error on line n"
-        ,log_%SearchId%.txt
 
 	Run %BrowserExe% -new-window %URL%
 	WinWaitActive, eDreams
@@ -48,8 +48,10 @@ try  ; Attempts to execute code.
 }
 catch e  ; Handles the first error/exception raised by the block above.
 {
-	FormatTime, now,, yyyy/M/d HH:mm
-	FileAppend % "Error on line " e.Line " & File = " e.File " & What = " e.What " & Extra = " e.Extra " & Message = " e.Message "`n"
+	FormatTime, now,, yyyy/M/d HH:mm:ss
+	FileAppend %now%
+        ,log_%SearchId%.txt
+	FileAppend % " : Error on line " e.Line " & File = " e.File " & What = " e.What " & Extra = " e.Extra " & Message = " e.Message "`n"
         ,log_%SearchId%.txt
 }	
 WinClose
