@@ -76,3 +76,4 @@ goto :FIN
 REM // Lance Firefox - Les guillemets avant la variable sont indispensables car dans le cas contraire la console reste ouverte
 start "" %chemin_firefox% "https://staging.frontfundr.com/experiment/checkip"
 pause
+
