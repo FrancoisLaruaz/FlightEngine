@@ -94,14 +94,11 @@ namespace Template
         {
             try
             {
-                bundles.Add(new StyleBundle("~/bundles/Bootstrap").Include(
-                "~/Content/bootstrap.min.css",
-                "~/Content/General/bootstrap-slider.css",
-                "~/Content/General/bootstrap-datepicker.css",
-                "~/Content/General/bootstrap-social.css"
-                ));
 
-                bundles.Add(new LessBundle("~/bundles/Style").Include(
+                bundles.Add(new LessBundle("~/bundles/Style").Include("~/Content/bootstrap.min.css", new CssRewriteUrlTransform()).Include(
+                     "~/Content/General/bootstrap-slider.css",
+                    "~/Content/General/bootstrap-datepicker.css",
+                    "~/Content/General/bootstrap-social.css",
                     "~/Content/General/animate.css",
                     "~/Content/General/_Spinner.css",
                     "~/Content/General/Carousel.css",
@@ -119,7 +116,7 @@ namespace Template
                     "~/Content/General/jtsage-syntax.css",
                     "~/Content/Views/Account/_PasswordPolicy.css",
                     "~/Content/General/main.less"
-                ).Include("~/Content/font-awesome.min.css", new CssRewriteUrlTransform())); 
+                )); 
 
             }
             catch (Exception e)

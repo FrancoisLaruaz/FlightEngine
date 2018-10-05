@@ -38,6 +38,7 @@ namespace Identity
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
         {
+            this.UserValidator = new UserValidator<ApplicationUser>(this) { AllowOnlyAlphanumericUserNames = false };
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
