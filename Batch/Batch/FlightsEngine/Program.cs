@@ -20,7 +20,7 @@ namespace FlightsEngine
 
 
 
-        public static  bool SearchFlights(int SearchTripWishesId, string MainPythonScriptPath,string PythonPath)
+        public static  bool SearchFlights(int SearchTripWishesId, string ScrappingFolder, string FirefoxExeFolder)
         {
             bool result = false;
             try
@@ -77,8 +77,8 @@ namespace FlightsEngine
 
                                         ScrappingSearch scrappingSearch = new ScrappingSearch();
                                         scrappingSearch.Proxy = Proxy;
-                                        scrappingSearch.PythonPath = PythonPath;
-                                        scrappingSearch.MainPythonScriptPath = MainPythonScriptPath;
+                                        scrappingSearch.FirefoxExeFolder = FirefoxExeFolder;
+                                        scrappingSearch.ScrappingFolder = ScrappingFolder;
                                         int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, Proxy);
                                         if (SearchTripProviderId > 0)
                                         {
@@ -86,7 +86,7 @@ namespace FlightsEngine
                                             scrappingSearch.Provider = provider.Name;
                                             scrappingSearch.ProxiesList = Proxies;
 
-                                            var ScrappingResult = FlighsBot.PythonHelper.SearchViaScrapping(filter, scrappingSearch);
+                                            var ScrappingResult = FlighsBot.ScrappingHelper.SearchViaScrapping(filter, scrappingSearch);
                                             Proxies = ScrappingResult.ProxiesList;
                                             _searchTripProviderService.SetSearchTripProviderAsEnded(SearchTripProviderId, ScrappingResult.Success, ScrappingResult.LastProxy,ScrappingResult.AttemptsNumber);
                                             result = result && ScrappingResult.Success;
@@ -123,7 +123,7 @@ namespace FlightsEngine
             catch(Exception e)
             {
                 result = false;
-                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SearchTripWishesId = "+  SearchTripWishesId.ToString()+ " and MainPythonScriptPath = "+ MainPythonScriptPath+ " and PythonPath = "+ PythonPath);
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SearchTripWishesId = "+  SearchTripWishesId.ToString()+ " and ScrappingFolder = " + ScrappingFolder + " and FirefoxExeFolder = " + FirefoxExeFolder);
             }
             return result;
         }

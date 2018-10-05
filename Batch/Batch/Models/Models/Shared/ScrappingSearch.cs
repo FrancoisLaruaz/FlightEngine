@@ -19,9 +19,13 @@ namespace FlightsEngine.Models
 
         public string Provider { get; set; }
 
-        public string MainPythonScriptPath { get; set; }
+        public string ScrappingFolder { get; set; }
 
-        public string PythonPath { get; set; }
+        public string ScrappingPreparationScript { get { return ScrappingFolder + "\\PrepareScrapping.cmd"; } }
+
+        public string ScrappingExeScript { get { return ScrappingFolder + "\\Scrapper.exe"; } }
+
+        public string FirefoxExeFolder { get; set; }
 
 
         public int SearchTripProviderId { get; set; }

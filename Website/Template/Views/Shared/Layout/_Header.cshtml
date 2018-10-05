@@ -8,12 +8,15 @@
     @Html.Hidden("CentralGoToUrl")
     <nav class="navbar navbar-default navigation navBarBottomBorder navBarBackgroundColor" id="homeNavDefault">
         @Html.Partial("~/Views/Shared/Layout/_BrowserBanner.cshtml")
+        <noscript>
+            <h4 style="text-align:center;color:#2dbfb7;margin-top:4px;z-index:99;">[[[To use this website you must enable javascript in your browser settings.]]]</h4>
+        </noscript>
         <div class="container-fluid" id="headerContainer">
             <div class="navbar-header" style="padding-left:40px;">
                 <div class="mobileSearchBar">
                     @Html.Partial("~/Views/Search/_SearchBar.cshtml")
                 </div>
-                <button type="button" class="navbar-toggle collapsed burger" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" >
+                <button type="button" class="navbar-toggle collapsed burger" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>

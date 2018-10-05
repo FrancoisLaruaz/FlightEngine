@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlightsEngine.Models
 {
-    public class PythonExecutionResult
+    public class ScrappingExecutionResult
     {
-        public PythonExecutionResult()
+        public ScrappingExecutionResult()
         {
 
             ProxiesList = new List<ProxyItem>();
@@ -16,7 +16,6 @@ namespace FlightsEngine.Models
 
         public List<ProxyItem> ProxiesList { get; set; }
 
-        public int FoundTripsNumber { get; set; }
 
         public int AttemptsNumber { get; set; }
 

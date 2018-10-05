@@ -23,8 +23,8 @@ namespace Batch1
                 {
                     SearchTripWishesId = Convert.ToInt32(args[0]);
                 }
-                //  bool result=FlightsEngine.Program.SearchFlights(SearchTripWishesId.Value, ConfigurationManager.AppSettings["MainPythonScriptPath"], ConfigurationManager.AppSettings["PythonPath"]);
-                bool result = FlightsEngine.FlighsBot.ScrappingHelper.Run();
+                 bool result=FlightsEngine.Program.SearchFlights(SearchTripWishesId.Value, ConfigurationManager.AppSettings["ScrappingFolder"], ConfigurationManager.AppSettings["FirefoxExeFolder"]);
+               // bool result = FlightsEngine.FlighsBot.ScrappingHelper.Run();
 
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " *  END BATCH *");
                 if (result)

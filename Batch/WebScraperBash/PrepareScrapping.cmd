@@ -67,6 +67,6 @@ rem "C:\Program Files\AutoHotkey\AutoHotkey.exe" /ErrorStdOut  "D:\DEV\FlightEng
 rem %AutoHotKeyFile% %Url% %SearchId% %BrowserExe% %Provider%
 
 
-echo %date%-%time% *** END *** 
-pause
+echo %date%-%time% *** END ***
+echo OK
 
