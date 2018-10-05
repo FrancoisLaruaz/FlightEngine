@@ -1,6 +1,7 @@
 ﻿
 ; "C:\Program Files\AutoHotkey\AutoHotkey.exe" /ErrorStdOut  "D:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.ahk" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe" "eDreams"
 ; "C:\Program Files\AutoHotkey\AutoHotkey.exe" /ErrorStdOut  "C:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.ahk" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Program Files\Mozilla Firefox\firefox.exe" "eDreams"
+; "D:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.exe" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe" "eDreams"
 
 try  ; Attempts to execute code.
 {
@@ -63,10 +64,12 @@ try  ; Attempts to execute code.
 		SendInput {enter}
 		Sleep,%LongWaitBetweenClick%
 	}
-	else
-		{
-			MsgBox, "does not"
-		}
+	else{
+		SetWorkingDir, D:\Html
+		FileAppend % "INCORRECT PROXY"
+			,stopsearch_%SearchId%.txt
+	}
+
 }
 catch e  ; Handles the first error/exception raised by the block above.
 {
@@ -76,5 +79,10 @@ catch e  ; Handles the first error/exception raised by the block above.
         ,log_%SearchId%.txt
 	FileAppend % " : Error on line " e.Line " & File = " e.File " & What = " e.What " & Extra = " e.Extra " & Message = " e.Message "`n"
         ,log_%SearchId%.txt
+	SetWorkingDir, D:\Html
+	FileAppend % "ERROR"
+			,stopsearch_%SearchId%.txt		
 }
+WinClose
+ExitApp
 return
