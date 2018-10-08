@@ -20,7 +20,8 @@ namespace FlightsEngine.FlighsBot
         // https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list.txt
 
 
-        public static List<string> CountriesToAvoid = new List<string>() { "CA", "US", "FR", "JP" ,"GB" ,"SE" ,"NO", "NE"};
+        //  public static List<string> CountriesToAvoid = new List<string>() { "CA", "US", "FR", "JP" ,"GB" ,"SE" ,"NO", "NE"};
+        public static List<string> CountriesToAvoid = new List<string>() {  };
         public static List<ProxyItem>  GetProxies()
         {
             List<ProxyItem> result = new List<ProxyItem>();

@@ -1,18 +1,20 @@
 ﻿
 ; "C:\Program Files\AutoHotkey\AutoHotkey.exe" /ErrorStdOut  "D:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.ahk" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe" "eDreams"
 ; "C:\Program Files\AutoHotkey\AutoHotkey.exe" /ErrorStdOut  "C:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.ahk" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Program Files\Mozilla Firefox\firefox.exe" "eDreams"
-; "D:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.exe" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe" "eDreams"
+
+; "D:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.exe" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe" "Edreams"
+; "C:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.exe" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "16" "C:\Program Files\Mozilla Firefox\firefox.exe" "Edreams"
 
 try  ; Attempts to execute code.
 {
 
 	if A_Args.Length() < 4
 	{
-		URL := "https://www.FrontFundr.com/"
+		URL := "https://www.kayak.com/flights/YVR-HNL/2019-03-01/2019-03-06?sort=bestflight_a"
 		SearchId := "126"
 		;BrowserExe := "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe"
 		BrowserExe := "C:\Program Files\Mozilla Firefox\firefox.exe"
-		Provider := Edreams
+		Provider := "Kayak"
 	}
 	else
 	{
@@ -21,11 +23,12 @@ try  ; Attempts to execute code.
 		BrowserExe := A_Args[3]
 		Provider := A_Args[4]
 	}
+
 	SetTitleMatchMode, 2
 
 	ShortWaitBetweenClick :=200
 	WaitBetweenClick :=1000
-	LongWaitBetweenClick :=4000
+	LongWaitBetweenClick :=6000
 
 	WindowsFound:="KO"
 
@@ -41,26 +44,38 @@ try  ; Attempts to execute code.
 	}
 	if(Provider="Edreams")
 	{
-		Sleep,8000
+		Sleep,18000
 		IfWinExist, eDreams
 		{
 			WindowsFound:="OK"
 		}			
 	
-		PageLoadTime :=30000
-	}		
+		PageLoadTime :=25000
+	}
+	
+	if(Provider="Kayak")
+	{
+		Sleep,17000
+		IfWinExist, to 
+		{
+			WindowsFound:="OK"
+		}			
+	
+		PageLoadTime :=6000
+		LongWaitBetweenClick :=3500
+	}	
 
 	if(WindowsFound = "OK")
 	{
 		Sleep,%PageLoadTime%
-		MouseClick, right, 600, 400
+		MouseClick, right, 900, 500
 		Sleep,%WaitBetweenClick%
-		MouseClick, left, 640,460
-		Sleep,%WaitBetweenClick%
-		MouseClick, left, 252, 80
+		MouseClick, left, 940,560
+		;Sleep,%WaitBetweenClick%
+		;MouseClick, left, 252, 80
 		Sleep,%WaitBetweenClick%
 		Send search_%SearchId%
-		Sleep,%ShortWaitBetweenClick%
+		Sleep,%WaitBetweenClick%
 		SendInput {enter}
 		Sleep,%LongWaitBetweenClick%
 	}

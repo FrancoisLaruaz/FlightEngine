@@ -24,6 +24,29 @@ namespace FlightsEngine.Models.Constants
 
     }
 
+    public static class Providers
+    {
+        public const int Edreams = 1;
+        public const int Kayak = 2;
+
+        public static string ToString(int value)
+        {
+            string result = "N/A";
+
+            if(value==Edreams)
+            {
+                result = "Edreams";
+            }
+            else if (value == Kayak)
+            {
+                result = "Kayak";
+            }
+
+            return result;
+        }
+
+    }
+
     public static class PythonError
     {
         public const string WebdriverTimeout = "waitForWebdriver";

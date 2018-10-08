@@ -1,7 +1,6 @@
 echo OFF
-REm  C:\DEV\FlightEngine\Batch\WebScraperBash\Main.cmd    "C:\DEV\FlightEngine\Batch\WebScraperBash" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Program Files\Mozilla Firefox\firefox.exe" "eDreams" "" ""
-REm  D:\DEV\FlightEngine\Batch\WebScraperBash\Main.cmd    "D:\DEV\FlightEngine\Batch\WebScraperBash" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe" "eDreams" "37.191.78.2" 52307
-REm  D:\DEV\FlightEngine\Batch\WebScraperBash\PrepareScrapping.cmd "D:\DEV\FlightEngine\Batch\WebScraperBash" "126" "83.166.99.11" 54457
+REm D:\DEV\FlightEngine\Batch\WebScraperBash\PrepareScrapping.cmd "D:\DEV\FlightEngine\Batch\WebScraperBash" "126" "83.166.99.11" 54457
+rem  C:\DEV\FlightEngine\Batch\WebScraperBash\PrepareScrapping.cmd "C:\DEV\FlightEngine\Batch\WebScraperBash" "14" "88.148.92.9" 8080 
 
 
 echo %date%-%time% *** START ***
@@ -30,7 +29,8 @@ if /I %ProxyPort% EQU "" (goto :END)
 
 REM BEGIN CHANGE PROXY
 rem https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list.txt
-cd /D "C:\Users\franc\AppData\Roaming\Mozilla\Firefox\Profiles"
+echo Begin change proxy
+cd /D "%AppData%\Mozilla\Firefox\Profiles"
 cd *.default
 set RepoPrefJs=%cd%
 set ffile=%RepoPrefJs%\prefs.js

@@ -17,6 +17,8 @@ namespace FlightsEngine.Models
 
         public string Proxy { get; set; }
 
+        public string Url { get; set; }
+
         public string Provider { get; set; }
 
         public string ScrappingFolder { get; set; }

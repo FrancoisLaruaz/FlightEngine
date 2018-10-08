@@ -8,6 +8,7 @@ using Data.Repositories;
 using FlightsEngine.FlighsAPI;
 using FlightsEngine.FlighsBot;
 using FlightsEngine.Models;
+using FlightsEngine.Models.Constants;
 using FlightsServices;
 
 namespace FlightsEngine
@@ -30,7 +31,7 @@ namespace FlightsEngine
                 SearchTripWishesService _searchTripWishesService = new SearchTripWishesService(context);
                 SearchTripProviderService _searchTripProviderService = new SearchTripProviderService(context);
 
-                List<ProxyItem> Proxies = ProxyHelper.GetProxies();
+                List<ProxyItem> Proxies = new List<ProxyItem>();
 
                 string lastSuccessfullProxy = null;
 
@@ -66,65 +67,79 @@ namespace FlightsEngine
                             {
                                 if (!provider.HasAPI)
                                 {
-                                    if (Proxies != null && Proxies.Count > 0)
+
+                                    string Proxy = lastSuccessfullProxy;
+                                    if (String.IsNullOrWhiteSpace(Proxy))
                                     {
-                                        string Proxy = lastSuccessfullProxy;
-                                        if (String.IsNullOrWhiteSpace(Proxy))
+                                        Proxies = ProxyHelper.GetProxies();
+                                        Proxy = ProxyHelper.GetBestProxy(Proxies);
+                                        if (Proxy == null)
                                         {
+                                            Proxies = ProxyHelper.GetProxies();
                                             Proxy = ProxyHelper.GetBestProxy(Proxies);
-                                            if (Proxy == null)
-                                            {
-                                                Proxies = ProxyHelper.GetProxies();
-                                                Proxy = ProxyHelper.GetBestProxy(Proxies);
-                                            }
                                         }
+                                    }
 
+                                    ScrappingSearch scrappingSearch = new ScrappingSearch();
+                                    if (provider.Id == Providers.Edreams)
+                                    {
+                                      //  scrappingSearch.Url = FlighsBot.ScrappingHelper.GetEdreamsUrl(filter);
+                                    }
+                                    else if (provider.Id == Providers.Kayak)
+                                    {
+                                        scrappingSearch.Url = FlighsBot.ScrappingHelper.GetKayakUrl(filter);
+                                    }
+                                    int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, Proxy);
+                                    if (!String.IsNullOrWhiteSpace(scrappingSearch.Url) && SearchTripProviderId>0)
+                                    {
 
-                                            ScrappingSearch scrappingSearch = new ScrappingSearch();
-                                            scrappingSearch.Proxy = Proxy;
-                                            scrappingSearch.FirefoxExeFolder = FirefoxExeFolder;
-                                            scrappingSearch.ScrappingFolder = ScrappingFolder;
-                                            int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, Proxy);
-                                            if (SearchTripProviderId > 0)
+                                        scrappingSearch.Proxy = Proxy;
+                                        scrappingSearch.FirefoxExeFolder = FirefoxExeFolder;
+                                        scrappingSearch.ScrappingFolder = ScrappingFolder;
+                                        if (SearchTripProviderId > 0)
+                                        {
+                                            scrappingSearch.SearchTripProviderId = SearchTripProviderId;
+                                            scrappingSearch.Provider = provider.Name;
+                                            scrappingSearch.ProxiesList = Proxies;
+
+                                            var ScrappingResult = FlighsBot.ScrappingHelper.SearchViaScrapping(scrappingSearch);
+                                            Proxies = ScrappingResult.ProxiesList;
+                                            _searchTripProviderService.SetSearchTripProviderAsEnded(SearchTripProviderId, ScrappingResult.Success, ScrappingResult.LastProxy, ScrappingResult.AttemptsNumber);
+                                            result = result && ScrappingResult.Success;
+                                            if (result)
                                             {
-                                                scrappingSearch.SearchTripProviderId = SearchTripProviderId;
-                                                scrappingSearch.Provider = provider.Name;
-                                                scrappingSearch.ProxiesList = Proxies;
-
-                                                var ScrappingResult = FlighsBot.ScrappingHelper.SearchViaScrapping(filter, scrappingSearch);
-                                                Proxies = ScrappingResult.ProxiesList;
-                                                _searchTripProviderService.SetSearchTripProviderAsEnded(SearchTripProviderId, ScrappingResult.Success, ScrappingResult.LastProxy, ScrappingResult.AttemptsNumber);
-                                                result = result && ScrappingResult.Success;
-                                                if (result)
-                                                {
-                                                    lastSuccessfullProxy = ScrappingResult.LastProxy;
-                                                }
-                                                else
-                                                {
-                                                    lastSuccessfullProxy = null;
-                                                }
+                                                lastSuccessfullProxy = ScrappingResult.LastProxy;
                                             }
                                             else
                                             {
-                                                result = false;
+                                                lastSuccessfullProxy = null;
                                             }
                                         }
+                                        else
+                                        {
+                                            result = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        FlightsEngine.Utils.Logger.GenerateInfo("No url fror SearchTripProviderId : " + SearchTripProviderId+" and provider = "+ provider.Name);
                                     }
                                 }
-
-                                //  Task.Factory.StartNew(() => FlighsBot.PythonHelper.Run(filter, scrappingSearch));
-                                // Console.WriteLine("Pythonresult = "+ Pythonresult.Success+" and Error = "+ (Pythonresult.Error??""));
-
-                                //   FlighsBot.Kayak.SearchFlights(filter);
-                                //   FlighsBot.Kayak.SearchFlights(filter);
-
-                                //   FlightsEngine.FlighsAPI.AirFranceKLM.SearchFlights(filter);
-                                //    FlightsEngine.FlighsAPI.AirHob.SearchFlights(filter);
-                                //   FlightsEngine.FlighsAPI.Kiwi.SearchFlights(filter);
-                                // FlightsEngine.FlighsAPI.RyanAir.SearchFlights(filter);
-                                //  FlightsEngine.FlighsAPI.Transavia.SearchFlights(filter);
-
                             }
+
+                            //  Task.Factory.StartNew(() => FlighsBot.PythonHelper.Run(filter, scrappingSearch));
+                            // Console.WriteLine("Pythonresult = "+ Pythonresult.Success+" and Error = "+ (Pythonresult.Error??""));
+
+                            //   FlighsBot.Kayak.SearchFlights(filter);
+                            //   FlighsBot.Kayak.SearchFlights(filter);
+
+                            //   FlightsEngine.FlighsAPI.AirFranceKLM.SearchFlights(filter);
+                            //    FlightsEngine.FlighsAPI.AirHob.SearchFlights(filter);
+                            //   FlightsEngine.FlighsAPI.Kiwi.SearchFlights(filter);
+                            // FlightsEngine.FlighsAPI.RyanAir.SearchFlights(filter);
+                            //  FlightsEngine.FlighsAPI.Transavia.SearchFlights(filter);
+
+                        }
                         catch (Exception e2)
                         {
                             result = false;
