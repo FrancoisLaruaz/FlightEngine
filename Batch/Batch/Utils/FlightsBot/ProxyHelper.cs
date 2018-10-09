@@ -1,19 +1,15 @@
-﻿using IronPython.Hosting;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.Scripting.Hosting;
 using System.Diagnostics;
 using System.IO;
 using FlightsEngine.Models;
 using System.Collections.Generic;
-using System.Data.Linq;
 using System.Data.Common;
 using System.Linq;
 using System.Net;
 
-namespace FlightsEngine.FlighsBot
+namespace FlightsEngine.Utils
 {
     public static class ProxyHelper
     {
@@ -64,7 +60,7 @@ namespace FlightsEngine.FlighsBot
                 if (Proxies.Count > 0)
                 {
                     int nbAttempts = Proxies.Sum(p => p.UseNumber);
-                    if (nbAttempts < 1000)
+                    if (nbAttempts <300)
                     {
 
 

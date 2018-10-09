@@ -27,7 +27,7 @@ try  ; Attempts to execute code.
 	SetTitleMatchMode, 2
 
 	ShortWaitBetweenClick :=200
-	WaitBetweenClick :=1000
+	WaitBetweenClick :=1600
 	LongWaitBetweenClick :=6000
 
 	WindowsFound:="KO"
@@ -44,7 +44,7 @@ try  ; Attempts to execute code.
 	}
 	if(Provider="Edreams")
 	{
-		Sleep,18000
+		Sleep,17000
 		IfWinExist, eDreams
 		{
 			WindowsFound:="OK"
@@ -55,14 +55,14 @@ try  ; Attempts to execute code.
 	
 	if(Provider="Kayak")
 	{
-		Sleep,17000
+		Sleep,18000
 		IfWinExist, to 
 		{
 			WindowsFound:="OK"
 		}			
 	
-		PageLoadTime :=6000
-		LongWaitBetweenClick :=3500
+		PageLoadTime :=15000
+		LongWaitBetweenClick :=5000
 	}	
 
 	if(WindowsFound = "OK")
@@ -75,7 +75,7 @@ try  ; Attempts to execute code.
 		;MouseClick, left, 252, 80
 		Sleep,%WaitBetweenClick%
 		Send search_%SearchId%
-		Sleep,%WaitBetweenClick%
+		Sleep,2200
 		SendInput {enter}
 		Sleep,%LongWaitBetweenClick%
 	}

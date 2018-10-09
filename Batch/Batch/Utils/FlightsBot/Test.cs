@@ -7,16 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using FlightsEngine.Models;
-using Transavia.Api.FlightOffers.Client;
-using Transavia.Api.FlightOffers.Client.Model;
-using System.Web.Script.Serialization;
 using System.Threading;
 using System.Net;
-using System.Windows.Forms;
 
 namespace FlightsEngine.FlighsBot
 {
-    public static class Kayak
+    public static class Test
     {
 
 

@@ -9,6 +9,7 @@ using FlightsEngine.FlighsAPI;
 using FlightsEngine.FlighsBot;
 using FlightsEngine.Models;
 using FlightsEngine.Models.Constants;
+using FlightsEngine.Utils;
 using FlightsServices;
 
 namespace FlightsEngine
@@ -30,8 +31,11 @@ namespace FlightsEngine
                 var context = new TemplateEntities1();
                 SearchTripWishesService _searchTripWishesService = new SearchTripWishesService(context);
                 SearchTripProviderService _searchTripProviderService = new SearchTripProviderService(context);
+                TripsService _tripService = new TripsService(context);
 
-                List<ProxyItem> Proxies = new List<ProxyItem>();
+                Task.Factory.StartNew(() => { _tripService.InsertTrips(428); });
+                /*
+                List<ProxyItem> Proxies =  ProxyHelper.GetProxies(); 
 
                 string lastSuccessfullProxy = null;
 
@@ -71,7 +75,6 @@ namespace FlightsEngine
                                     string Proxy = lastSuccessfullProxy;
                                     if (String.IsNullOrWhiteSpace(Proxy))
                                     {
-                                        Proxies = ProxyHelper.GetProxies();
                                         Proxy = ProxyHelper.GetBestProxy(Proxies);
                                         if (Proxy == null)
                                         {
@@ -87,7 +90,7 @@ namespace FlightsEngine
                                     }
                                     else if (provider.Id == Providers.Kayak)
                                     {
-                                        scrappingSearch.Url = FlighsBot.ScrappingHelper.GetKayakUrl(filter);
+                                        scrappingSearch.Url = ScrappingHelper.GetKayakUrl(filter);
                                     }
                                     int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, Proxy);
                                     if (!String.IsNullOrWhiteSpace(scrappingSearch.Url) && SearchTripProviderId>0)
@@ -102,7 +105,7 @@ namespace FlightsEngine
                                             scrappingSearch.Provider = provider.Name;
                                             scrappingSearch.ProxiesList = Proxies;
 
-                                            var ScrappingResult = FlighsBot.ScrappingHelper.SearchViaScrapping(scrappingSearch);
+                                            var ScrappingResult = ScrappingHelper.SearchViaScrapping(scrappingSearch);
                                             Proxies = ScrappingResult.ProxiesList;
                                             _searchTripProviderService.SetSearchTripProviderAsEnded(SearchTripProviderId, ScrappingResult.Success, ScrappingResult.LastProxy, ScrappingResult.AttemptsNumber);
                                             result = result && ScrappingResult.Success;
@@ -147,6 +150,7 @@ namespace FlightsEngine
                         }
                     }
                 }
+              */
             }
             catch (Exception e)
             {

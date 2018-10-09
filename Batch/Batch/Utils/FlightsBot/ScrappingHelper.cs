@@ -1,20 +1,50 @@
-﻿using IronPython.Hosting;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.Scripting.Hosting;
 using System.Diagnostics;
 using System.IO;
 using FlightsEngine.Models;
 using System.Collections.Generic;
 using FlightsEngine.Utils;
 using FlightsEngine.Models.Constants;
+using HtmlAgilityPack;
 
-namespace FlightsEngine.FlighsBot
+namespace FlightsEngine.Utils
 {
     public static class ScrappingHelper
     {
+
+        #region html parser
+        public static void GetKayakTripsFromHtml(string html,int SearchTripProviderId)
+        {
+            string url = null;
+            try
+            {
+                var doc = new HtmlDocument();
+                doc.LoadHtml(html);
+                var textNodes = doc.DocumentNode.SelectNodes("//*[contains(@class,'mainInfo')]");
+                if (textNodes != null)
+                {
+                    foreach (HtmlNode node in textNodes)
+                    {
+                        var strPrice = node.SelectSingleNode("//*[contains(@class,'price option-text')]").InnerHtml.Replace("\n","");
+                        var flightNodes = node.SelectNodes("//*[contains(@class,'Flights-Results-LegInfo Flights-Results-LegInfoSleek no-carry-on-column')]");
+                        foreach(HtmlNode flight in flightNodes)
+                        {
+
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SearchTripProviderId = " + SearchTripProviderId);
+            }
+        
+        }
+
+        #endregion
+
 
         #region url
         public static string GetEdreamsUrl(AirlineSearch filter)
