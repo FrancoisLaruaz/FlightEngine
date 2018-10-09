@@ -262,6 +262,7 @@
           <Property Name="ImageSrc" Type="varchar" MaxLength="255" />
           <Property Name="HasAPI" Type="bit" Nullable="false" />
           <Property Name="IsSearchEngine" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ProviderCountry">
           <Key>
@@ -327,6 +328,7 @@
           <Property Name="SearchSuccess" Type="bit" Nullable="false" />
           <Property Name="EndSearchDate" Type="datetime" />
           <Property Name="AttemptsNumber" Type="int" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="2000" />
         </EntityType>
         <EntityType Name="SearchTripWishes">
           <Key>
@@ -396,7 +398,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CurrencyId" Type="int" />
           <Property Name="Price" Type="decimal" Precision="25" Scale="2" Nullable="false" />
-          <Property Name="Url" Type="varchar" MaxLength="1000" />
           <Property Name="SearchTripProviderId" Type="int" Nullable="false" />
           <Property Name="EuroPrice" Type="decimal" Precision="25" Scale="2" />
         </EntityType>
@@ -1706,6 +1707,7 @@
           <Property Name="IsSearchEngine" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="SearchTripProviders" Relationship="Self.FK_SearchTripProvider_Provider" FromRole="Provider" ToRole="SearchTripProvider" />
           <NavigationProperty Name="Countries" Relationship="Self.ProviderCountry" FromRole="Provider" ToRole="Country" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -1776,6 +1778,7 @@
           <NavigationProperty Name="SearchTrip" Relationship="Self.FK_SearchTripProvider_SearchTrip" FromRole="SearchTripProvider" ToRole="SearchTrip" />
           <NavigationProperty Name="Trips" Relationship="Self.FK_Trip_SearchTripProvider" FromRole="SearchTripProvider" ToRole="Trip" />
           <Property Name="AttemptsNumber" Type="Int32" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SocialMediaConnection">
           <Key>
@@ -1825,7 +1828,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CurrencyId" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="25" Scale="2" Nullable="false" />
-          <Property Name="Url" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="SearchTripProviderId" Type="Int32" Nullable="false" />
           <Property Name="EuroPrice" Type="Decimal" Precision="25" Scale="2" />
           <NavigationProperty Name="Currency" Relationship="Self.FK_Trip_Currency" FromRole="Trip" ToRole="Currency" />
@@ -3097,6 +3099,7 @@
           <EntitySetMapping Name="Providers">
             <EntityTypeMapping TypeName="TemplateModel.Provider">
               <MappingFragment StoreEntitySet="Provider">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ImageSrc" ColumnName="ImageSrc" />
@@ -3156,6 +3159,7 @@
           <EntitySetMapping Name="SearchTripProviders">
             <EntityTypeMapping TypeName="TemplateModel.SearchTripProvider">
               <MappingFragment StoreEntitySet="SearchTripProvider">
+                <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="AttemptsNumber" ColumnName="AttemptsNumber" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
@@ -3216,7 +3220,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="SearchTripProviderId" ColumnName="SearchTripProviderId" />
                 <ScalarProperty Name="EuroPrice" ColumnName="EuroPrice" />
               </MappingFragment>

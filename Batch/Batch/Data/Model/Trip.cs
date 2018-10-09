@@ -23,7 +23,6 @@ namespace Data.Model
         public int Id { get; set; }
         public Nullable<int> CurrencyId { get; set; }
         public decimal Price { get; set; }
-        public string Url { get; set; }
         public int SearchTripProviderId { get; set; }
         public Nullable<decimal> EuroPrice { get; set; }
     

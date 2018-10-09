@@ -86,7 +86,7 @@ namespace FlightsEngine
                                     ScrappingSearch scrappingSearch = new ScrappingSearch();
                                     if (provider.Id == Providers.Edreams)
                                     {
-                                      //  scrappingSearch.Url = FlighsBot.ScrappingHelper.GetEdreamsUrl(filter);
+                                       scrappingSearch.Url = FlighsBot.ScrappingHelper.GetEdreamsUrl(filter);
                                     }
                                     else if (provider.Id == Providers.Kayak)
                                     {

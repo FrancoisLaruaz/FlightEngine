@@ -28,6 +28,7 @@ namespace Data.Model
         public bool SearchSuccess { get; set; }
         public Nullable<System.DateTime> EndSearchDate { get; set; }
         public int AttemptsNumber { get; set; }
+        public string Url { get; set; }
     
         public virtual Provider Provider { get; set; }
         public virtual SearchTrip SearchTrip { get; set; }

@@ -40,7 +40,7 @@ namespace FlightsServices
                 int FromCountryId = result._SearchTripWishes.FromAirport?.City?.CountryId ?? (result._SearchTripWishes.FromCity?.CountryId ?? 0);
                 int ToCountryId = result._SearchTripWishes.ToAirport?.City?.CountryId ?? (result._SearchTripWishes.ToCity?.CountryId ?? 0);
 
-                var Providers = _providerRepo.List().ToList();
+                var Providers = _providerRepo.FindAllBy(p => p.Active).ToList();
                 foreach(var provider in Providers)
                 {
                     bool addProvider = false;

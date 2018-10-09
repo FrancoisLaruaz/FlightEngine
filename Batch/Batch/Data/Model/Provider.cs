@@ -26,6 +26,7 @@ namespace Data.Model
         public string ImageSrc { get; set; }
         public bool HasAPI { get; set; }
         public bool IsSearchEngine { get; set; }
+        public bool Active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SearchTripProvider> SearchTripProviders { get; set; }
