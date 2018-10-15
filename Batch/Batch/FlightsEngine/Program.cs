@@ -33,8 +33,8 @@ namespace FlightsEngine
                 SearchTripProviderService _searchTripProviderService = new SearchTripProviderService(context);
                 TripsService _tripService = new TripsService(context);
 
-                Task.Factory.StartNew(() => { _tripService.InsertTrips(428); });
-                /*
+               Task.Factory.StartNew(() => { _tripService.InsertTrips(15); });
+             /*
                 List<ProxyItem> Proxies =  ProxyHelper.GetProxies(); 
 
                 string lastSuccessfullProxy = null;
@@ -86,13 +86,13 @@ namespace FlightsEngine
                                     ScrappingSearch scrappingSearch = new ScrappingSearch();
                                     if (provider.Id == Providers.Edreams)
                                     {
-                                       scrappingSearch.Url = FlighsBot.ScrappingHelper.GetEdreamsUrl(filter);
+                                       scrappingSearch.Url = ScrappingHelper.GetEdreamsUrl(filter);
                                     }
                                     else if (provider.Id == Providers.Kayak)
                                     {
                                         scrappingSearch.Url = ScrappingHelper.GetKayakUrl(filter);
                                     }
-                                    int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, Proxy);
+                                    int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, Proxy, scrappingSearch.Url);
                                     if (!String.IsNullOrWhiteSpace(scrappingSearch.Url) && SearchTripProviderId>0)
                                     {
 
@@ -150,7 +150,7 @@ namespace FlightsEngine
                         }
                     }
                 }
-              */
+           */
             }
             catch (Exception e)
             {

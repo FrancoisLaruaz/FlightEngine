@@ -13,7 +13,7 @@ namespace FlightsServices
     {
         int SetSearchTripProviderAsEnded(int SearchTripProviderId, bool Success, string LastProxy, int AttemptsNumber);
 
-        int InsertSearchTripProvider(int ProviderId,int SearchTripId,string Proxy);
+        int InsertSearchTripProvider(int ProviderId, int SearchTripId, string Proxy=null, string Url=null);
 
     }
 }

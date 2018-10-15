@@ -400,6 +400,7 @@
           <Property Name="Price" Type="decimal" Precision="25" Scale="2" Nullable="false" />
           <Property Name="SearchTripProviderId" Type="int" Nullable="false" />
           <Property Name="EuroPrice" Type="decimal" Precision="25" Scale="2" />
+          <Property Name="Url" Type="nvarchar" MaxLength="2000" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1833,6 +1834,7 @@
           <NavigationProperty Name="Currency" Relationship="Self.FK_Trip_Currency" FromRole="Trip" ToRole="Currency" />
           <NavigationProperty Name="Flights" Relationship="Self.FK_Flight_Trip" FromRole="Trip" ToRole="Flight" />
           <NavigationProperty Name="SearchTripProvider" Relationship="Self.FK_Trip_SearchTripProvider" FromRole="Trip" ToRole="SearchTripProvider" />
+          <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -3217,6 +3219,7 @@
           <EntitySetMapping Name="Trips">
             <EntityTypeMapping TypeName="TemplateModel.Trip">
               <MappingFragment StoreEntitySet="Trip">
+                <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
                 <ScalarProperty Name="Price" ColumnName="Price" />

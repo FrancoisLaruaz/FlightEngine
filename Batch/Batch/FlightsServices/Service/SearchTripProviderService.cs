@@ -51,7 +51,7 @@ namespace FlightsServices
             return result;
         }
 
-        public int InsertSearchTripProvider(int ProviderId, int SearchTripId, string Proxy)
+        public int InsertSearchTripProvider(int ProviderId, int SearchTripId, string Proxy=null,string Url=null)
         {
             int result = -1;
             try
@@ -62,6 +62,7 @@ namespace FlightsServices
                 item.Proxy = Proxy;
                 item.ProviderId = ProviderId;
                 item.SearchTripId = SearchTripId;
+                item.Url = Url;
                 _searchTripProviderRepo.Add(item);
                 if (_searchTripProviderRepo.Save())
                 {

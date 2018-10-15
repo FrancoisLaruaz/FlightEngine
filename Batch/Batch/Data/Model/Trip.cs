@@ -25,6 +25,7 @@ namespace Data.Model
         public decimal Price { get; set; }
         public int SearchTripProviderId { get; set; }
         public Nullable<decimal> EuroPrice { get; set; }
+        public string Url { get; set; }
     
         public virtual Currency Currency { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
