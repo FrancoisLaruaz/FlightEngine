@@ -393,7 +393,7 @@ namespace FlightsEngine.Utils
 
         #endregion
 
-        public static ScrappingExecutionResult SearchViaScrapping(ScrappingSearch scrappingSearch)
+        public static ScrappingExecutionResult SearchViaScrapping(ScrappingSearch scrappingSearch,int SearchTripProviderId)
         {
             ScrappingExecutionResult result = new ScrappingExecutionResult();
             try
@@ -406,7 +406,7 @@ namespace FlightsEngine.Utils
                 {
                     attemtNumber = attemtNumber + 1;
                     Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " **  START SearchViaScrapping ** : " + attemtNumber);
-                    result = Run(scrappingSearch);
+                    result = Run(scrappingSearch, SearchTripProviderId);
 
                     ProxyItem proxyItemToModify = scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy);
                     scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy).UseNumber = proxyItemToModify.UseNumber + 1;
@@ -437,7 +437,7 @@ namespace FlightsEngine.Utils
         }
 
 
-        public static ScrappingExecutionResult Run(ScrappingSearch scrappingSearch)
+        public static ScrappingExecutionResult Run(ScrappingSearch scrappingSearch,int SearchTripProviderId)
         {
             Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " ***  START Scrapping *** : " + (scrappingSearch?.Provider ?? "") + " | " + (scrappingSearch?.Proxy ?? ""));
             ScrappingExecutionResult result = new ScrappingExecutionResult();
@@ -448,7 +448,7 @@ namespace FlightsEngine.Utils
                 #region preparation and purge
                 //1) PREPARATION
                 // model =>   D:\DEV\FlightEngine\Batch\WebScraperBash\PrepareScrapping.cmd "D:\DEV\FlightEngine\Batch\WebScraperBash" "126" "83.166.99.11" 54457
-                string args = "\"" + scrappingSearch.ScrappingFolder + "\" \"" + scrappingSearch.SearchTripProviderId + "\"";
+                string args = "\"" + scrappingSearch.ScrappingFolder + "\" \"" + SearchTripProviderId + "\"";
 
                 if(!scrappingSearch.NewProxy)
                 {
@@ -498,7 +498,7 @@ namespace FlightsEngine.Utils
                     // 2 SCRAPPING 
                     // "D:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.exe" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe" "eDreams"
                     //  string url = "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true";
-                    args = "\"" + scrappingSearch.Url + "\" \"" + scrappingSearch.SearchTripProviderId + "\" \"" + scrappingSearch.FirefoxExeFolder + "\"  \"" + scrappingSearch.Provider + "\"";
+                    args = "\"" + scrappingSearch.Url + "\" \"" + SearchTripProviderId + "\" \"" + scrappingSearch.FirefoxExeFolder + "\"  \"" + scrappingSearch.Provider + "\"";
                     //  args= ""C:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.exe" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "16" "C:\Program Files\Mozilla Firefox\firefox.exe" "Edreams""
                     System.Diagnostics.ProcessStartInfo startInfoScrapping = new System.Diagnostics.ProcessStartInfo();
                     startInfoScrapping.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -521,9 +521,9 @@ namespace FlightsEngine.Utils
 
                     int i = 0;
 
-                    string HtmlFile = "D:\\Html\\search_" + scrappingSearch.SearchTripProviderId + ".html";
-                    string HtmlErrorFile = "D:\\Html\\search_" + scrappingSearch.SearchTripProviderId + ".xht";
-                    string StopSearchFile = "D:\\Html\\stopsearch_" + scrappingSearch.SearchTripProviderId + ".txt";
+                    string HtmlFile = "D:\\Html\\search_" + SearchTripProviderId + ".html";
+                    string HtmlErrorFile = "D:\\Html\\search_" + SearchTripProviderId + ".xht";
+                    string StopSearchFile = "D:\\Html\\stopsearch_" + SearchTripProviderId + ".txt";
                     success = false;
                     while (!File.Exists(HtmlFile) && !File.Exists(HtmlErrorFile) && !File.Exists(StopSearchFile) && i <= 75) //limit the time to whait to 30 sec
                     {

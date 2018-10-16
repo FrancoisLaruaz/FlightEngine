@@ -22,7 +22,7 @@ namespace FlightsEngine
 
 
 
-        public static bool SearchFlights(int SearchTripWishesId, string ScrappingFolder, string FirefoxExeFolder)
+        public static bool SearchFlights(int SearchTripWishesId, string ScrappingFolder, string FirefoxExeFolder,int? ProviderId=null)
         {
             bool result = false;
             try
@@ -33,13 +33,13 @@ namespace FlightsEngine
                 SearchTripProviderService _searchTripProviderService = new SearchTripProviderService(context);
                 TripsService _tripService = new TripsService(context);
 
-               
-             
-                List<ProxyItem> Proxies =  ProxyHelper.GetProxies(); 
+
+
+                List<ProxyItem> Proxies =null;
 
                 string lastSuccessfullProxy = null;
 
-                SearchTripWishesItem SearchTripWishesItem = _searchTripWishesService.GetSearchTripWishesById(SearchTripWishesId);
+                SearchTripWishesItem SearchTripWishesItem = _searchTripWishesService.GetSearchTripWishesById(SearchTripWishesId, ProviderId);
                 if (SearchTripWishesItem != null && SearchTripWishesItem._SearchTripWishes != null)
                 {
                     var SearchTripWishes = SearchTripWishesItem._SearchTripWishes;
@@ -51,7 +51,6 @@ namespace FlightsEngine
                         try
                         {
                             AirlineSearch filter = new AirlineSearch();
-                            filter.SearchTripId = searchTrip.Id;
                             if (SearchTripWishes.FromAirport != null)
                                 filter.FromAirportCode = SearchTripWishes.FromAirport.Code;
 
@@ -76,6 +75,11 @@ namespace FlightsEngine
                                     string Proxy = lastSuccessfullProxy;
                                     if (String.IsNullOrWhiteSpace(Proxy))
                                     {
+                                        if(Proxies==null)
+                                        {
+                                            Proxies= ProxyHelper.GetProxies();
+                                        }
+
                                         Proxy = ProxyHelper.GetBestProxy(Proxies);
                                         if (Proxy == null)
                                         {
@@ -104,11 +108,11 @@ namespace FlightsEngine
                                         scrappingSearch.NewProxy = newProxy ;
                                         if (SearchTripProviderId > 0)
                                         {
-                                            scrappingSearch.SearchTripProviderId = SearchTripProviderId;
+                                            filter.SearchTripProviderId = SearchTripProviderId;
                                             scrappingSearch.Provider = provider.Name;
                                             scrappingSearch.ProxiesList = Proxies;
 
-                                            var ScrappingResult = ScrappingHelper.SearchViaScrapping(scrappingSearch);
+                                            var ScrappingResult = ScrappingHelper.SearchViaScrapping(scrappingSearch, filter.SearchTripProviderId);
                                             Proxies = ScrappingResult.ProxiesList;
                                             _searchTripProviderService.SetSearchTripProviderAsEnded(SearchTripProviderId, ScrappingResult.Success, ScrappingResult.LastProxy, ScrappingResult.AttemptsNumber);
                                             result = result && ScrappingResult.Success;
@@ -132,6 +136,15 @@ namespace FlightsEngine
                                     else
                                     {
                                         FlightsEngine.Utils.Logger.GenerateInfo("No url for SearchTripProviderId : " + SearchTripProviderId+" and provider = "+ provider.Name);
+                                    }
+                                }
+                                else 
+                                {
+                                    int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id,null, null);
+                                    filter.SearchTripProviderId = SearchTripProviderId;
+                                    if (provider.Id == Providers.Kiwi)
+                                    {
+                                        Kiwi.SearchFlights(filter);
                                     }
                                 }
                             }

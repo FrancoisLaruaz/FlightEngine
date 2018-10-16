@@ -208,6 +208,13 @@ namespace CommonsConst
         public static string Google = "Google";
     }
 
+    public static class TimeFormat
+    {
+        public const string Month_Day_Year_Time_12h = "MMM dd, yyyy hh:mm tt"; //eg. Mar 10, 2018 11:00 AM
+        public const string Month_Day_Year = "MMM dd, yyyy"; //eg. Apr 04, 2018
+        public const string Month_Year = "MMM yyyy"; //eg. Apr 2018
+        public const string Day_Month_Time_24h = "dd MMM HH:mm"; //eg. `28 Mar 19:17`
+    }
 
     public static class ProductStatus
     {

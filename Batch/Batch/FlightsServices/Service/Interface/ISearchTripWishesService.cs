@@ -12,8 +12,7 @@ namespace FlightsServices
     public interface ISearchTripWishesService
     {
 
-
-        SearchTripWishesItem GetSearchTripWishesById(int SearchTripWishesId);
+        SearchTripWishesItem GetSearchTripWishesById(int SearchTripWishesId, int? ProviderId);
 
     }
 }

@@ -29,8 +29,15 @@ namespace FlightsServices
             _providerRepo = new GenericRepository<Provider>(context);
         }
 
+        public SearchTripWishesService()
+        {
+            var context = new TemplateEntities1();
+            _searchTripWishRepo = new GenericRepository<SearchTripWish>(context);
+            _providerRepo = new GenericRepository<Provider>(context);
+        }
 
-        public SearchTripWishesItem GetSearchTripWishesById(int SearchTripWishesId)
+
+        public SearchTripWishesItem GetSearchTripWishesById(int SearchTripWishesId,int? ProviderId)
         {
             SearchTripWishesItem result = new SearchTripWishesItem();
             try
@@ -40,24 +47,41 @@ namespace FlightsServices
                 int FromCountryId = result._SearchTripWishes.FromAirport?.City?.CountryId ?? (result._SearchTripWishes.FromCity?.CountryId ?? 0);
                 int ToCountryId = result._SearchTripWishes.ToAirport?.City?.CountryId ?? (result._SearchTripWishes.ToCity?.CountryId ?? 0);
 
-                var Providers = _providerRepo.FindAllBy(p => p.Active).ToList();
-                foreach(var provider in Providers)
+                bool APIOnly = false;
+                if(ProviderId<0)
                 {
-                    bool addProvider = false;
-                    if(provider.IsSearchEngine)
-                    {
-                        addProvider = true;
-                    }
-                    else if(FromCountryId>0 &&ToCountryId>0)
-                    {
-                        addProvider = provider.Countries.Where(c => c.Id == FromCountryId).Any() && provider.Countries.Where(c => c.Id == ToCountryId).Any();
-                    }
+                    APIOnly = true;
+                }
 
-                    if(addProvider)
+                // All or only API
+                if (ProviderId == null || ProviderId<0)
+                {
+
+                    var Providers = _providerRepo.FindAllBy(p => p.Active && (!APIOnly || p.HasAPI)).ToList();
+                    foreach (var provider in Providers)
                     {
-                        result.ProvidersToSearch.Add(provider);
+                        bool addProvider = false;
+                        if (provider.IsSearchEngine)
+                        {
+                            addProvider = true;
+                        }
+                        else if (FromCountryId > 0 && ToCountryId > 0)
+                        {
+                            addProvider = provider.Countries.Where(c => c.Id == FromCountryId).Any() && provider.Countries.Where(c => c.Id == ToCountryId).Any();
+                        }
+
+                        if (addProvider)
+                        {
+                            result.ProvidersToSearch.Add(provider);
+                        }
                     }
                 }
+                // Specific provider
+                else if(ProviderId>0)
+                {
+                    result.ProvidersToSearch.Add(_providerRepo.FindAllBy(p => p.Active && p.Id== ProviderId.Value).FirstOrDefault());
+                }
+
 
             }
             catch (Exception e)

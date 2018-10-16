@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Data;
+using CommonsConst;
 
 namespace Commons
 { 
@@ -19,7 +20,7 @@ namespace Commons
 
             if (date != null)
             {
-                result = date.Value.ToString("dd/MM/yyyy HH:mm:ss tt");
+                result = date.Value.ToString(TimeFormat.Month_Day_Year_Time_12h);
             }
             return result;
         }

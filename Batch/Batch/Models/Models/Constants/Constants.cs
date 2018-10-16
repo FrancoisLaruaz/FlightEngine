@@ -28,6 +28,7 @@ namespace FlightsEngine.Models.Constants
     {
         public const int Edreams = 1;
         public const int Kayak = 2;
+        public const int Kiwi = 3;
 
         public static string ToString(int value)
         {
@@ -40,6 +41,10 @@ namespace FlightsEngine.Models.Constants
             else if (value == Kayak)
             {
                 result = "Kayak";
+            }
+            else if (value == Kiwi)
+            {
+                result = "Kiwi";
             }
 
             return result;

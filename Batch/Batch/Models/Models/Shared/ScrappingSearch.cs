@@ -30,8 +30,6 @@ namespace FlightsEngine.Models
         public string FirefoxExeFolder { get; set; }
 
 
-        public int SearchTripProviderId { get; set; }
-
         public bool NewProxy { get; set; }
 
 

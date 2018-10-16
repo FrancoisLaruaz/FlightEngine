@@ -22,7 +22,13 @@ namespace Batch1
                 if (args != null && args.Length > 0)
                 {
                     SearchTripWishesId = Convert.ToInt32(args[0]);
-                    bool result = FlightsEngine.Program.SearchFlights(SearchTripWishesId.Value, ConfigurationManager.AppSettings["ScrappingFolder"], ConfigurationManager.AppSettings["FirefoxExeFolder"]);
+                    int? ProviderId = null;
+                    if (args.Length>1)
+                    {
+                        ProviderId= Convert.ToInt32(args[01]);
+                    }
+
+                    bool result = FlightsEngine.Program.SearchFlights(SearchTripWishesId.Value, ConfigurationManager.AppSettings["ScrappingFolder"], ConfigurationManager.AppSettings["FirefoxExeFolder"], ProviderId);
                     // bool result = FlightsEngine.FlighsBot.ScrappingHelper.Run();
 
                     Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " *  END BATCH *");

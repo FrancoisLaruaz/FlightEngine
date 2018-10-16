@@ -10,6 +10,7 @@ using FlightsEngine.Models;
 using Transavia.Api.FlightOffers.Client;
 using Transavia.Api.FlightOffers.Client.Model;
 using System.Web.Script.Serialization;
+using FlightsServices;
 
 namespace FlightsEngine.FlighsAPI
 {
@@ -39,9 +40,11 @@ namespace FlightsEngine.FlighsAPI
 
         static async Task MakeRequest(AirlineSearch filters)
         {
+            List<TripItem> Trips = new List<TripItem>();
             try
             {
 
+                
                 var client = new HttpClient();
                 var queryString = HttpUtility.ParseQueryString(string.Empty);
 
@@ -96,10 +99,29 @@ namespace FlightsEngine.FlighsAPI
                         JavaScriptSerializer srRequestResult = new JavaScriptSerializer();
                         dynamic jsondataRequestResult = srRequestResult.DeserializeObject(contents);
                         Console.WriteLine("response: " + response.ToString());
+                        if (jsondataRequestResult != null && FlightsEngine.Utils.Utils.IsPropertyExist(jsondataRequestResult, "data"))
+                        {
+                            dynamic flightsJson = jsondataRequestResult["data"];
+                            foreach(var flightJson in flightsJson)
+                            {
+                                try
+                                {
+                                    TripItem Trip = new TripItem();
+                                    Trips.Add(Trip);
+                                }
+                                catch(Exception ex2)
+                                {
+                                    FlightsEngine.Utils.Logger.GenerateError(ex2, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, filters.ToSpecialString());
+                                }
+                            }
+
+                            TripsService _tripService = new TripsService();
+                            _tripService.InsertTrips(Trips);
+                        }
                     }
                     else
                     {
-                        FlightsEngine.Utils.Logger.GenerateInfo("Kiwi Response unsucessfull :  :" + response.ReasonPhrase + " " + response.RequestMessage + " " + response.StatusCode + " and " + response.ToString() + " and " + filters.ToSpecialString());
+                        FlightsEngine.Utils.Logger.GenerateInfo("Kiwi Response unsucessfull :  " + response.ReasonPhrase + " " + response.RequestMessage + " " + response.StatusCode + " and " + response.ToString() + " and " + filters.ToSpecialString());
                     }
                 }
                 else

@@ -13,7 +13,7 @@ namespace FlightsEngine.Models
 
         }
 
-        public int SearchTripId { get; set; }
+        public int SearchTripProviderId { get; set; }
 
         public string FromAirportCode { get; set; }
 
@@ -39,7 +39,7 @@ namespace FlightsEngine.Models
             string error = " FILTER : ";
             try
             {
-                error = error + "SearchTripId =  " + SearchTripId;
+                error = error + "SearchTripProviderId =  " + SearchTripProviderId;
                 error = error + " | FromAirportCode =  " + FromAirportCode ?? "[NULL]";
                 error = error + " | ToAirportCode =  " + ToAirportCode ?? "[NULL]";
                 error = error + " | Return =  " + BabiesNumber;
