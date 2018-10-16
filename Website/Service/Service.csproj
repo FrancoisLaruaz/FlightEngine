@@ -63,6 +63,8 @@
     <Compile Include="Service\Admin\CurrencyService.cs" />
     <Compile Include="Service\Admin\ScheduledTaskService.cs" />
     <Compile Include="Service\Admin\TaskLogService.cs" />
+    <Compile Include="Service\User\AirlineService.cs" />
+    <Compile Include="Service\User\Interface\IAirlineService.cs" />
     <Compile Include="Service\User\Interface\IProductService.cs" />
     <Compile Include="Service\User\Interface\IUserFollowService.cs" />
     <Compile Include="Service\User\ProductService.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Service\User\SearchService.cs" />
     <Compile Include="Service\User\SocialMediaConnectionService.cs" />
     <Compile Include="Task\OneShot\SendNews.cs" />
+    <Compile Include="Task\Recurring\DownloadImages.cs" />
     <Compile Include="Task\Recurring\DeleteLogs.cs" />
     <Compile Include="Task\Recurring\DeleteUploadedFiles.cs" />
     <Compile Include="Task\Base\RecurringJobBase.cs" />

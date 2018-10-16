@@ -62,6 +62,35 @@
         <AssociationConnector Association="TemplateModel.FK_User_Address" />
         <AssociationConnector Association="TemplateModel.FK_SubProvince_Province" />
         <EntityTypeShape EntityType="TemplateModel.Currency" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="TemplateModel.Airline" Width="1.5" PointX="20.25" PointY="11.75" />
+        <EntityTypeShape EntityType="TemplateModel.Airport" Width="1.5" PointX="7" PointY="23.5" />
+        <EntityTypeShape EntityType="TemplateModel.City" Width="1.5" PointX="4.75" PointY="23.75" />
+        <EntityTypeShape EntityType="TemplateModel.Flight" Width="1.5" PointX="22.5" PointY="11.75" />
+        <EntityTypeShape EntityType="TemplateModel.Parameter" Width="1.5" PointX="12.375" PointY="10.75" />
+        <EntityTypeShape EntityType="TemplateModel.Provider" Width="1.5" PointX="4.75" PointY="15.125" />
+        <EntityTypeShape EntityType="TemplateModel.SearchTrip" Width="1.5" PointX="15.75" PointY="19.25" />
+        <EntityTypeShape EntityType="TemplateModel.SearchTripProvider" Width="1.5" PointX="18" PointY="16.625" />
+        <EntityTypeShape EntityType="TemplateModel.SearchTripWish" Width="1.5" PointX="13.5" PointY="17.5" />
+        <EntityTypeShape EntityType="TemplateModel.Trip" Width="1.5" PointX="20.25" PointY="15" />
+        <AssociationConnector Association="TemplateModel.FK_Flight_Airline" />
+        <AssociationConnector Association="TemplateModel.FK_Airport_City" />
+        <AssociationConnector Association="TemplateModel.FK_Flight_FromAirport" />
+        <AssociationConnector Association="TemplateModel.FK_Flight_ToAirport" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_FromAirport" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_ToAirport" />
+        <AssociationConnector Association="TemplateModel.FK_Flight_FlightTypeId" />
+        <AssociationConnector Association="TemplateModel.FK_City_Country" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_FromCityId" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_ToCityId" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_Currency" />
+        <AssociationConnector Association="TemplateModel.FK_Trip_Currency" />
+        <AssociationConnector Association="TemplateModel.FK_Flight_Trip" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripProvider_Provider" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTrip_SearchTripWishesId" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripProvider_SearchTrip" />
+        <AssociationConnector Association="TemplateModel.FK_Trip_SearchTripProvider" />
+        <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_CreationUser" />
+        <AssociationConnector Association="TemplateModel.ProviderCountry" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

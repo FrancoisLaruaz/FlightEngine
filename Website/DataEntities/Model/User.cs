@@ -24,6 +24,7 @@ namespace DataEntities.Model
             this.UserFollows1 = new HashSet<UserFollow>();
             this.SearchResults = new HashSet<SearchResult>();
             this.Products = new HashSet<Product>();
+            this.SearchTripWishes = new HashSet<SearchTripWish>();
         }
     
         public int Id { get; set; }
@@ -66,5 +67,7 @@ namespace DataEntities.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
         public virtual Address Address { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SearchTripWish> SearchTripWishes { get; set; }
     }
 }

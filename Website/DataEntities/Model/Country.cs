@@ -18,6 +18,8 @@ namespace DataEntities.Model
         public Country()
         {
             this.Provinces = new HashSet<Province>();
+            this.Cities = new HashSet<City>();
+            this.Providers = new HashSet<Provider>();
         }
     
         public int Id { get; set; }
@@ -26,5 +28,9 @@ namespace DataEntities.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Province> Provinces { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<City> Cities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Provider> Providers { get; set; }
     }
 }

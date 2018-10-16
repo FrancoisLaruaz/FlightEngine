@@ -12,25 +12,28 @@ namespace DataEntities.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Currency
+    public partial class City
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Currency()
+        public City()
         {
+            this.Airports = new HashSet<Airport>();
             this.SearchTripWishes = new HashSet<SearchTripWish>();
-            this.Trips = new HashSet<Trip>();
+            this.SearchTripWishes1 = new HashSet<SearchTripWish>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public string Symbol { get; set; }
-        public decimal EuroConversationRate { get; set; }
-        public System.DateTime LastModificationDate { get; set; }
+        public string Timezone { get; set; }
+        public int CountryId { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Airport> Airports { get; set; }
+        public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SearchTripWish> SearchTripWishes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Trip> Trips { get; set; }
+        public virtual ICollection<SearchTripWish> SearchTripWishes1 { get; set; }
     }
 }

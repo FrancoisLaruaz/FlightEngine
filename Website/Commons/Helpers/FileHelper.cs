@@ -96,19 +96,28 @@ namespace Commons
 
 
         /// <summary>
-        /// Save and ecrypt a given file from an url
+        /// Save  a given file from an url
         /// </summary>
         /// <param name="url"></param>
         /// <param name="Purpose"></param>
         /// <param name="Extension"></param>
         /// <returns></returns>
-        public static string SaveFileFromWeb(string url, string Purpose, string Extension)
+        public static string SaveFileFromWeb(string url, string Purpose, string Extension=null)
         {
             string result = null;
             try
             {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 WebClient myWebClient = new WebClient();
                 byte[] data = myWebClient.DownloadData(url);
+
+                if(Extension == null)
+                {
+                    Extension = Path.GetExtension(url);
+                }
 
                 string FileName = GetFileName(Purpose, Extension);
                 string DiskPath = GetStorageRoot(Const.BasePathUploadDecrypted) + "\\" + FileName;
@@ -117,6 +126,7 @@ namespace Commons
             }
             catch (Exception e)
             {
+                result = url;
                 Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "url = " + url + " and Purpose = " + Purpose);
             }
             return result;

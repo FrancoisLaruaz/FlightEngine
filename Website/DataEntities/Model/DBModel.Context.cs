@@ -53,6 +53,16 @@ namespace DataEntities.Model
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<SubProvince> SubProvinces { get; set; }
         public virtual DbSet<Currency> Currencies { get; set; }
+        public virtual DbSet<Airline> Airlines { get; set; }
+        public virtual DbSet<Airport> Airports { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Flight> Flights { get; set; }
+        public virtual DbSet<Parameter> Parameters { get; set; }
+        public virtual DbSet<Provider> Providers { get; set; }
+        public virtual DbSet<SearchTrip> SearchTrips { get; set; }
+        public virtual DbSet<SearchTripProvider> SearchTripProviders { get; set; }
+        public virtual DbSet<SearchTripWish> SearchTripWishes { get; set; }
+        public virtual DbSet<Trip> Trips { get; set; }
     
         public virtual int DeleteNewsById(Nullable<int> newsId)
         {
@@ -200,6 +210,122 @@ namespace DataEntities.Model
                 new ObjectParameter("ProductId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteProductById_WithTransaction", productIdParameter);
+        }
+    
+        public virtual int InsertInfo(string error_Message, string exception)
+        {
+            var error_MessageParameter = error_Message != null ?
+                new ObjectParameter("Error_Message", error_Message) :
+                new ObjectParameter("Error_Message", typeof(string));
+    
+            var exceptionParameter = exception != null ?
+                new ObjectParameter("Exception", exception) :
+                new ObjectParameter("Exception", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertInfo", error_MessageParameter, exceptionParameter);
+        }
+    
+        public virtual int InsertLog(string error_Message, string exception)
+        {
+            var error_MessageParameter = error_Message != null ?
+                new ObjectParameter("Error_Message", error_Message) :
+                new ObjectParameter("Error_Message", typeof(string));
+    
+            var exceptionParameter = exception != null ?
+                new ObjectParameter("Exception", exception) :
+                new ObjectParameter("Exception", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertLog", error_MessageParameter, exceptionParameter);
+        }
+    
+        public virtual int InsertTripWithTransaction(Nullable<int> searchTripProviderId, Nullable<decimal> price, string currencyCode, string url, string oneWayTrip_FromAirportCode, string oneWayTrip_ToAirportCode, string oneWayTrip_DepartureDate, string oneWayTrip_ArrivalDate, Nullable<int> oneWayTrip_Duration, string oneWayTrip_AirlineName, string oneWayTrip_AirlineLogoSrc, Nullable<int> oneWayTrip_Stops, string returnTrip_FromAirportCode, string returnTrip_ToAirportCode, string returnTrip_DepartureDate, string returnTrip_ArrivalDate, Nullable<int> returnTrip_Duration, string returnTrip_AirlineName, string returnTrip_AirlineLogoSrc, Nullable<int> returnTrip_Stops)
+        {
+            var searchTripProviderIdParameter = searchTripProviderId.HasValue ?
+                new ObjectParameter("SearchTripProviderId", searchTripProviderId) :
+                new ObjectParameter("SearchTripProviderId", typeof(int));
+    
+            var priceParameter = price.HasValue ?
+                new ObjectParameter("Price", price) :
+                new ObjectParameter("Price", typeof(decimal));
+    
+            var currencyCodeParameter = currencyCode != null ?
+                new ObjectParameter("CurrencyCode", currencyCode) :
+                new ObjectParameter("CurrencyCode", typeof(string));
+    
+            var urlParameter = url != null ?
+                new ObjectParameter("Url", url) :
+                new ObjectParameter("Url", typeof(string));
+    
+            var oneWayTrip_FromAirportCodeParameter = oneWayTrip_FromAirportCode != null ?
+                new ObjectParameter("OneWayTrip_FromAirportCode", oneWayTrip_FromAirportCode) :
+                new ObjectParameter("OneWayTrip_FromAirportCode", typeof(string));
+    
+            var oneWayTrip_ToAirportCodeParameter = oneWayTrip_ToAirportCode != null ?
+                new ObjectParameter("OneWayTrip_ToAirportCode", oneWayTrip_ToAirportCode) :
+                new ObjectParameter("OneWayTrip_ToAirportCode", typeof(string));
+    
+            var oneWayTrip_DepartureDateParameter = oneWayTrip_DepartureDate != null ?
+                new ObjectParameter("OneWayTrip_DepartureDate", oneWayTrip_DepartureDate) :
+                new ObjectParameter("OneWayTrip_DepartureDate", typeof(string));
+    
+            var oneWayTrip_ArrivalDateParameter = oneWayTrip_ArrivalDate != null ?
+                new ObjectParameter("OneWayTrip_ArrivalDate", oneWayTrip_ArrivalDate) :
+                new ObjectParameter("OneWayTrip_ArrivalDate", typeof(string));
+    
+            var oneWayTrip_DurationParameter = oneWayTrip_Duration.HasValue ?
+                new ObjectParameter("OneWayTrip_Duration", oneWayTrip_Duration) :
+                new ObjectParameter("OneWayTrip_Duration", typeof(int));
+    
+            var oneWayTrip_AirlineNameParameter = oneWayTrip_AirlineName != null ?
+                new ObjectParameter("OneWayTrip_AirlineName", oneWayTrip_AirlineName) :
+                new ObjectParameter("OneWayTrip_AirlineName", typeof(string));
+    
+            var oneWayTrip_AirlineLogoSrcParameter = oneWayTrip_AirlineLogoSrc != null ?
+                new ObjectParameter("OneWayTrip_AirlineLogoSrc", oneWayTrip_AirlineLogoSrc) :
+                new ObjectParameter("OneWayTrip_AirlineLogoSrc", typeof(string));
+    
+            var oneWayTrip_StopsParameter = oneWayTrip_Stops.HasValue ?
+                new ObjectParameter("OneWayTrip_Stops", oneWayTrip_Stops) :
+                new ObjectParameter("OneWayTrip_Stops", typeof(int));
+    
+            var returnTrip_FromAirportCodeParameter = returnTrip_FromAirportCode != null ?
+                new ObjectParameter("ReturnTrip_FromAirportCode", returnTrip_FromAirportCode) :
+                new ObjectParameter("ReturnTrip_FromAirportCode", typeof(string));
+    
+            var returnTrip_ToAirportCodeParameter = returnTrip_ToAirportCode != null ?
+                new ObjectParameter("ReturnTrip_ToAirportCode", returnTrip_ToAirportCode) :
+                new ObjectParameter("ReturnTrip_ToAirportCode", typeof(string));
+    
+            var returnTrip_DepartureDateParameter = returnTrip_DepartureDate != null ?
+                new ObjectParameter("ReturnTrip_DepartureDate", returnTrip_DepartureDate) :
+                new ObjectParameter("ReturnTrip_DepartureDate", typeof(string));
+    
+            var returnTrip_ArrivalDateParameter = returnTrip_ArrivalDate != null ?
+                new ObjectParameter("ReturnTrip_ArrivalDate", returnTrip_ArrivalDate) :
+                new ObjectParameter("ReturnTrip_ArrivalDate", typeof(string));
+    
+            var returnTrip_DurationParameter = returnTrip_Duration.HasValue ?
+                new ObjectParameter("ReturnTrip_Duration", returnTrip_Duration) :
+                new ObjectParameter("ReturnTrip_Duration", typeof(int));
+    
+            var returnTrip_AirlineNameParameter = returnTrip_AirlineName != null ?
+                new ObjectParameter("ReturnTrip_AirlineName", returnTrip_AirlineName) :
+                new ObjectParameter("ReturnTrip_AirlineName", typeof(string));
+    
+            var returnTrip_AirlineLogoSrcParameter = returnTrip_AirlineLogoSrc != null ?
+                new ObjectParameter("ReturnTrip_AirlineLogoSrc", returnTrip_AirlineLogoSrc) :
+                new ObjectParameter("ReturnTrip_AirlineLogoSrc", typeof(string));
+    
+            var returnTrip_StopsParameter = returnTrip_Stops.HasValue ?
+                new ObjectParameter("ReturnTrip_Stops", returnTrip_Stops) :
+                new ObjectParameter("ReturnTrip_Stops", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertTripWithTransaction", searchTripProviderIdParameter, priceParameter, currencyCodeParameter, urlParameter, oneWayTrip_FromAirportCodeParameter, oneWayTrip_ToAirportCodeParameter, oneWayTrip_DepartureDateParameter, oneWayTrip_ArrivalDateParameter, oneWayTrip_DurationParameter, oneWayTrip_AirlineNameParameter, oneWayTrip_AirlineLogoSrcParameter, oneWayTrip_StopsParameter, returnTrip_FromAirportCodeParameter, returnTrip_ToAirportCodeParameter, returnTrip_DepartureDateParameter, returnTrip_ArrivalDateParameter, returnTrip_DurationParameter, returnTrip_AirlineNameParameter, returnTrip_AirlineLogoSrcParameter, returnTrip_StopsParameter);
+        }
+    
+        public virtual int UpdatePricesWithCurrenciesRates()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdatePricesWithCurrenciesRates");
         }
     }
 }
