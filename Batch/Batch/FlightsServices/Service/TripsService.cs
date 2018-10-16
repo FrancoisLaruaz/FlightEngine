@@ -18,18 +18,22 @@ namespace FlightsServices
 
         private readonly IGenericRepository<SearchTripProvider> _searchTripProviderRepo;
         private readonly IGenericRepository<Trip> _tripRepo;
+        private readonly IGenericRepository<Flight> _flightRepo;
 
         public TripsService(IGenericRepository<SearchTripProvider> SearchTripProvider,
-            IGenericRepository<Trip> tripRepo)
+            IGenericRepository<Trip> tripRepo,
+            IGenericRepository<Flight> flightRepo)
         {
             _searchTripProviderRepo = SearchTripProvider;
             _tripRepo = tripRepo;
+            _flightRepo = flightRepo;
         }
 
         public TripsService(TemplateEntities1 context)
         {
             _searchTripProviderRepo = new GenericRepository<SearchTripProvider>(context);
             _tripRepo = new GenericRepository<Trip>(context);
+            _flightRepo = new GenericRepository<Flight>(context);
         }
 
         public TripsService()
@@ -37,6 +41,7 @@ namespace FlightsServices
             var context = new TemplateEntities1();
             _searchTripProviderRepo = new GenericRepository<SearchTripProvider>(context);
             _tripRepo = new GenericRepository<Trip>(context);
+            _flightRepo = new GenericRepository<Flight>(context);
         }
 
 
@@ -53,6 +58,13 @@ namespace FlightsServices
                     var TripsToDelete = SearchTripProvider.Trips.ToList();
                     foreach (var trip in TripsToDelete)
                     {
+                        var FlightsToDelete = trip.Flights.ToList();
+                        foreach (var flight in FlightsToDelete)
+                        {
+                            _flightRepo.Delete(flight);
+                            _flightRepo.Save();
+                        }
+
                         _tripRepo.Delete(trip);
                         _tripRepo.Save();
                     }
@@ -72,7 +84,7 @@ namespace FlightsServices
                             {
                                 if(InsertTrips(Result.Trips))
                                 {
-                                    //File.Delete(HtmlFile);
+                                    File.Delete(HtmlFile);
                                 }
                             }
                         }

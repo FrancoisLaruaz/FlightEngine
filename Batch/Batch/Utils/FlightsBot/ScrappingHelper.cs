@@ -33,7 +33,7 @@ namespace FlightsEngine.Utils
                         currencyCode = currencyCode + c;
                     }
                 }
-                if (!string.IsNullOrWhiteSpace(strPrice))
+                if (!string.IsNullOrWhiteSpace(strPrice) && !string.IsNullOrWhiteSpace(currencyCode))
                 {
                     result = new Tuple<string, decimal>(currencyCode, Convert.ToDecimal(strPrice));
                 }
@@ -45,6 +45,46 @@ namespace FlightsEngine.Utils
             return result;
         }
 
+        public static DateTime GetArrivalFlightDateFromHtml(string text, DateTime BaseDate)
+        {
+            DateTime result = BaseDate;
+            try
+            {
+                string strDay = "";
+
+                foreach (char c in text)
+                {
+                    if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' )
+                    {
+                        strDay = strDay + c;
+                    }
+                }
+                int Day = Convert.ToInt32(strDay);
+                int BaseDay = BaseDate.Day;
+                if(Day> BaseDay)
+                {
+                    result = new DateTime(BaseDate.Year,BaseDate.Month,Day);
+                }
+                else
+                {
+                    if(BaseDate.Month==12)
+                    {
+                        result = new DateTime(BaseDate.Year+1, 1, Day);
+                    }
+                    else
+                    {
+                        result = new DateTime(BaseDate.Year ,  BaseDate.Month+1, Day);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                result = BaseDate;
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "text = " + text + " and BaseDate = " + BaseDate);
+            }
+            return result;
+        }
 
         public static string GeFlightDateFromHtml(DateTime BaseDate, string text)
         {
@@ -138,6 +178,27 @@ namespace FlightsEngine.Utils
         }
 
 
+        public static bool IsKayakSuccessfullSearch(string file)
+        {
+            bool result = false;
+            try
+            {
+                if (File.Exists(file))
+                {
+                    string Html = File.ReadAllText(file);
+                    if(Html.Contains("Flights-Search-FlightInlineSearchForm"))
+                    {
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "file = " + file);
+            }
+            return result;
+        }
+
         #region html parser
         public static TripsFromHtmlResult GetKayakTripsFromHtml(string html, int SearchTripProviderId, string Url, DateTime OneWayDate, DateTime? ReturnDate)
         {
@@ -165,6 +226,12 @@ namespace FlightsEngine.Utils
                             Tuple<string, decimal> PriceAndCurrency = GetPriceWithCurrencyFromHtml(strPrice);
                             Trip.CurrencyCode = PriceAndCurrency.Item1;
                             Trip.Price = PriceAndCurrency.Item2;
+
+                            if(Trip.Price<0 || String.IsNullOrWhiteSpace(Trip.CurrencyCode))
+                            {
+                                Logger.GenerateInfo("Problem with the price ("+ Trip.Price + ") or the currency ("+ (Trip.CurrencyCode ??"N/A") + ") and "+ SearchTripProviderId+" and note html : "+node.InnerHtml);
+                            }
+
                             #endregion
                             //  var flightNodes = node.SelectNodes(".//div[contains(@class,'Flights-Results-LegInfo Flights-Results-LegInfoSleek')]");
                             var flightNodes = node.SelectNodes(".//div[contains(@class,'Flights-Results-FlightLegDetails')]");
@@ -233,7 +300,16 @@ namespace FlightsEngine.Utils
                                         BaseDate = ReturnDate.Value;
                                     }
 
-                                    departure = GeFlightDateFromHtml(BaseDate, departure);
+                                    if (flight.SelectSingleNode(".//div[contains(@class,'arrival-date-warning')]") != null)
+                                    {
+                                        string warningDate = flight.SelectSingleNode(".//div[contains(@class,'arrival-date-warning')]").InnerHtml;
+                                        departure = GeFlightDateFromHtml(GetArrivalFlightDateFromHtml(warningDate,BaseDate), departure);
+                                    }
+                                    else
+                                    {
+                                        departure = GeFlightDateFromHtml(BaseDate, departure);
+                                    }
+                                    
                                     arrival = GeFlightDateFromHtml(BaseDate, arrival);
                                 }
 
@@ -446,7 +522,19 @@ namespace FlightsEngine.Utils
                     }
                     if (File.Exists(HtmlFile))
                     {
-                        success = true;
+
+                        if (scrappingSearch.Provider == Providers.ToString(Providers.Kayak))
+                        {
+                            success = IsKayakSuccessfullSearch(HtmlFile);
+                        }
+                        else
+                        {
+                            success = true;
+                        }
+                        if(!success)
+                        {
+                            File.Delete(HtmlFile);
+                        }
                     }
 
                 }

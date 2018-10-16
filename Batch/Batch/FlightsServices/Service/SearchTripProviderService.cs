@@ -13,7 +13,7 @@ namespace FlightsServices
     public class SearchTripProviderService : ISearchTripProviderService
     {
 
-        private readonly IGenericRepository<SearchTripProvider> _searchTripProviderRepo;
+        private  IGenericRepository<SearchTripProvider> _searchTripProviderRepo;
 
 
         public SearchTripProviderService(IGenericRepository<SearchTripProvider> searchTripProviderRepo)
@@ -63,6 +63,11 @@ namespace FlightsServices
                 item.ProviderId = ProviderId;
                 item.SearchTripId = SearchTripId;
                 item.Url = Url;
+                if(_searchTripProviderRepo==null)
+                {
+                    var context = new TemplateEntities1();
+                    _searchTripProviderRepo = new GenericRepository<SearchTripProvider>(context);
+                }
                 _searchTripProviderRepo.Add(item);
                 if (_searchTripProviderRepo.Save())
                 {

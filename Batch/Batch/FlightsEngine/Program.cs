@@ -33,8 +33,8 @@ namespace FlightsEngine
                 SearchTripProviderService _searchTripProviderService = new SearchTripProviderService(context);
                 TripsService _tripService = new TripsService(context);
 
-               Task.Factory.StartNew(() => { _tripService.InsertTrips(15); });
-             /*
+               
+             
                 List<ProxyItem> Proxies =  ProxyHelper.GetProxies(); 
 
                 string lastSuccessfullProxy = null;
@@ -112,6 +112,7 @@ namespace FlightsEngine
                                             if (result)
                                             {
                                                 lastSuccessfullProxy = ScrappingResult.LastProxy;
+                                                Task.Factory.StartNew(() => { _tripService.InsertTrips(SearchTripProviderId); });
                                             }
                                             else
                                             {
@@ -125,7 +126,7 @@ namespace FlightsEngine
                                     }
                                     else
                                     {
-                                        FlightsEngine.Utils.Logger.GenerateInfo("No url fror SearchTripProviderId : " + SearchTripProviderId+" and provider = "+ provider.Name);
+                                        FlightsEngine.Utils.Logger.GenerateInfo("No url for SearchTripProviderId : " + SearchTripProviderId+" and provider = "+ provider.Name);
                                     }
                                 }
                             }
@@ -150,7 +151,7 @@ namespace FlightsEngine
                         }
                     }
                 }
-           */
+        
             }
             catch (Exception e)
             {
