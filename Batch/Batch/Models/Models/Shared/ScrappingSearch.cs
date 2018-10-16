@@ -32,6 +32,8 @@ namespace FlightsEngine.Models
 
         public int SearchTripProviderId { get; set; }
 
+        public bool NewProxy { get; set; }
+
 
     }
 }

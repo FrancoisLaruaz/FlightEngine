@@ -44,6 +44,7 @@ namespace FlightsEngine
                 {
                     var SearchTripWishes = SearchTripWishesItem._SearchTripWishes;
                     result = true;
+                    bool newProxy = true;
                     foreach (var searchTrip in SearchTripWishes.SearchTrips)
                     {
 
@@ -81,6 +82,7 @@ namespace FlightsEngine
                                             Proxies = ProxyHelper.GetProxies();
                                             Proxy = ProxyHelper.GetBestProxy(Proxies);
                                         }
+                                        newProxy = true;
                                     }
 
                                     ScrappingSearch scrappingSearch = new ScrappingSearch();
@@ -99,6 +101,7 @@ namespace FlightsEngine
                                         scrappingSearch.Proxy = Proxy;
                                         scrappingSearch.FirefoxExeFolder = FirefoxExeFolder;
                                         scrappingSearch.ScrappingFolder = ScrappingFolder;
+                                        scrappingSearch.NewProxy = newProxy ;
                                         if (SearchTripProviderId > 0)
                                         {
                                             scrappingSearch.SearchTripProviderId = SearchTripProviderId;
@@ -112,7 +115,9 @@ namespace FlightsEngine
                                             if (result)
                                             {
                                                 lastSuccessfullProxy = ScrappingResult.LastProxy;
-                                                Task.Factory.StartNew(() => { _tripService.InsertTrips(SearchTripProviderId); });
+                                                _tripService.InsertTrips(SearchTripProviderId);
+                                                newProxy = false;
+                                                //Task.Factory.StartNew(() => { _tripService.InsertTrips(SearchTripProviderId); });
                                             }
                                             else
                                             {

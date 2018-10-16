@@ -227,119 +227,117 @@ namespace FlightsEngine.Utils
                             Trip.CurrencyCode = PriceAndCurrency.Item1;
                             Trip.Price = PriceAndCurrency.Item2;
 
-                            if(Trip.Price<0 || String.IsNullOrWhiteSpace(Trip.CurrencyCode))
+                            if (Trip.Price > 0 && !String.IsNullOrWhiteSpace(Trip.CurrencyCode))
                             {
-                                Logger.GenerateInfo("Problem with the price ("+ Trip.Price + ") or the currency ("+ (Trip.CurrencyCode ??"N/A") + ") and "+ SearchTripProviderId+" and note html : "+node.InnerHtml);
-                            }
-
-                            #endregion
-                            //  var flightNodes = node.SelectNodes(".//div[contains(@class,'Flights-Results-LegInfo Flights-Results-LegInfoSleek')]");
-                            var flightNodes = node.SelectNodes(".//div[contains(@class,'Flights-Results-FlightLegDetails')]");
-                            bool IsReturnFlight = false;
-                            foreach (HtmlNode flight in flightNodes)
-                            {
-
-                                #region airlines logo and name
-                                HtmlNode airlinePicture = flight.SelectSingleNode(".//img[@src!='']");
-                                if (airlinePicture != null)
+                                #endregion
+                                //  var flightNodes = node.SelectNodes(".//div[contains(@class,'Flights-Results-LegInfo Flights-Results-LegInfoSleek')]");
+                                var flightNodes = node.SelectNodes(".//div[contains(@class,'Flights-Results-FlightLegDetails')]");
+                                bool IsReturnFlight = false;
+                                foreach (HtmlNode flight in flightNodes)
                                 {
-                                    string airlinePictureSrc = airlinePicture.Attributes.Where(i => i.Name == "src").FirstOrDefault().Value;
-                                    string airlineName = airlinePicture.Attributes.Where(i => i.Name == "alt").FirstOrDefault().Value.Replace("logo", "").Trim();
-                                    if (IsReturnFlight)
+
+                                    #region airlines logo and name
+                                    HtmlNode airlinePicture = flight.SelectSingleNode(".//img[@src!='']");
+                                    if (airlinePicture != null)
                                     {
-                                        Trip.ReturnTrip_AirlineLogoSrc = airlinePictureSrc;
-                                        Trip.ReturnTrip_AirlineName = airlineName;
+                                        string airlinePictureSrc = airlinePicture.Attributes.Where(i => i.Name == "src").FirstOrDefault().Value;
+                                        string airlineName = airlinePicture.Attributes.Where(i => i.Name == "alt").FirstOrDefault().Value.Replace("logo", "").Trim();
+                                        if (IsReturnFlight)
+                                        {
+                                            Trip.ReturnTrip_AirlineLogoSrc = airlinePictureSrc;
+                                            Trip.ReturnTrip_AirlineName = airlineName;
+                                        }
+                                        else
+                                        {
+                                            Trip.OneWayTrip_AirlineLogoSrc = airlinePictureSrc;
+                                            Trip.OneWayTrip_AirlineName = airlineName;
+                                        }
+                                    }
+                                    #endregion
+
+                                    #region stops 
+                                    int stopsNumber = 0;
+                                    if (flight.SelectSingleNode(".//div[contains(@class,'stops')]") != null)
+                                    {
+                                        string stopsHtml = flight.SelectSingleNode(".//div[contains(@class,'stops')]").SelectSingleNode(".//div[contains(@class,'top')]").InnerText;
+                                        stopsNumber = GeStopsNumberFromHtml(stopsHtml);
                                     }
                                     else
                                     {
-                                        Trip.OneWayTrip_AirlineLogoSrc = airlinePictureSrc;
-                                        Trip.OneWayTrip_AirlineName = airlineName;
+                                        stopsNumber = flight.SelectNodes(".//div[contains(@class,'segment-row')]").Count() - 1;
                                     }
-                                }
-                                #endregion
+                                    #endregion
 
-                                #region stops 
-                                int stopsNumber = 0;
-                                if (flight.SelectSingleNode(".//div[contains(@class,'stops')]") != null)
-                                {
-                                    string stopsHtml = flight.SelectSingleNode(".//div[contains(@class,'stops')]").SelectSingleNode(".//div[contains(@class,'top')]").InnerText;
-                                    stopsNumber = GeStopsNumberFromHtml(stopsHtml);
-                                }
-                                else
-                                {
-                                    stopsNumber=flight.SelectNodes(".//div[contains(@class,'segment-row')]").Count()-1;
-                                }
-                                #endregion
+                                    #region duration 
+                                    string durationHtml = "";
 
-                                #region duration 
-                                string durationHtml = "";
+                                    if (flight.SelectSingleNode(".//span[contains(@class,'duration')]") != null)
+                                    {
+                                        durationHtml = flight.SelectSingleNode(".//span[contains(@class,'duration')]").InnerText.Replace(" ", "");
+                                    }
+                                    else if (flight.SelectSingleNode(".//span[contains(@class,'segmentDuration')]") != null)
+                                    {
+                                        durationHtml = flight.SelectSingleNode(".//span[contains(@class,'segmentDuration')]").InnerText.Replace(" ", "");
+                                    }
+                                    int duration = GetDurationFromHtml(durationHtml);
+                                    #endregion
 
-                                if (flight.SelectSingleNode(".//span[contains(@class,'duration')]") != null)
-                                {
-                                    durationHtml = flight.SelectSingleNode(".//span[contains(@class,'duration')]").InnerText.Replace(" ", "");
-                                }
-                                else if (flight.SelectSingleNode(".//span[contains(@class,'segmentDuration')]") != null)
-                                {
-                                    durationHtml = flight.SelectSingleNode(".//span[contains(@class,'segmentDuration')]").InnerText.Replace(" ", "");
-                                }
-                                int duration = GetDurationFromHtml(durationHtml);
-                                #endregion
+                                    #region time 
+                                    string arrival = "";
+                                    string departure = "";
 
-                                #region time 
-                                string arrival = "";
-                                string departure = "";
+                                    if (flight.SelectSingleNode(".//div[contains(@class,'segmentTimes')]") != null)
+                                    {
+                                        departure = flight.SelectSingleNode(".//div[contains(@class,'segmentTimes')]").SelectNodes(".//span[contains(@class,'time')]")[0].InnerText;
+                                        arrival = flight.SelectNodes(".//div[contains(@class,'segmentTimes')]")[stopsNumber].SelectNodes(".//span[contains(@class,'time')]")[1].InnerText;
+                                        DateTime BaseDate = OneWayDate;
 
-                                if (flight.SelectSingleNode(".//div[contains(@class,'segmentTimes')]") != null)
-                                {
-                                    departure = flight.SelectSingleNode(".//div[contains(@class,'segmentTimes')]").SelectNodes(".//span[contains(@class,'time')]")[0].InnerText;
-                                    arrival = flight.SelectNodes(".//div[contains(@class,'segmentTimes')]")[stopsNumber].SelectNodes(".//span[contains(@class,'time')]")[1].InnerText;
-                                    DateTime BaseDate = OneWayDate;
+                                        if (IsReturnFlight)
+                                        {
+                                            BaseDate = ReturnDate.Value;
+                                        }
 
+                                        if (flight.SelectSingleNode(".//div[contains(@class,'arrival-date-warning')]") != null)
+                                        {
+                                            string warningDate = flight.SelectSingleNode(".//div[contains(@class,'arrival-date-warning')]").InnerHtml;
+                                            departure = GeFlightDateFromHtml(GetArrivalFlightDateFromHtml(warningDate, BaseDate), departure);
+                                        }
+                                        else
+                                        {
+                                            departure = GeFlightDateFromHtml(BaseDate, departure);
+                                        }
+
+                                        arrival = GeFlightDateFromHtml(BaseDate, arrival);
+                                    }
+
+
+                                    #endregion
+
+
+                                    #region airport codes
+                                    string airportCodes = flight.SelectSingleNode(".//span[contains(@class,'origin-destination')]").InnerText;
+                                    #endregion
                                     if (IsReturnFlight)
                                     {
-                                        BaseDate = ReturnDate.Value;
-                                    }
-
-                                    if (flight.SelectSingleNode(".//div[contains(@class,'arrival-date-warning')]") != null)
-                                    {
-                                        string warningDate = flight.SelectSingleNode(".//div[contains(@class,'arrival-date-warning')]").InnerHtml;
-                                        departure = GeFlightDateFromHtml(GetArrivalFlightDateFromHtml(warningDate,BaseDate), departure);
+                                        Trip.ReturnTrip_FromAirportCode = airportCodes.Split('-')[0].Trim();
+                                        Trip.ReturnTrip_ToAirportCode = airportCodes.Split('-')[1].Trim();
+                                        Trip.ReturnTrip_Stops = stopsNumber;
+                                        Trip.ReturnTrip_Duration = duration;
+                                        Trip.ReturnTrip_ArrivalDate = arrival;
+                                        Trip.ReturnTrip_DepartureDate = departure;
                                     }
                                     else
                                     {
-                                        departure = GeFlightDateFromHtml(BaseDate, departure);
+                                        Trip.OneWayTrip_FromAirportCode = airportCodes.Split('-')[0].Trim();
+                                        Trip.OneWayTrip_ToAirportCode = airportCodes.Split('-')[1].Trim();
+                                        Trip.OneWayTrip_Stops = stopsNumber;
+                                        Trip.OneWayTrip_Duration = duration;
+                                        Trip.OneWayTrip_ArrivalDate = arrival;
+                                        Trip.OneWayTrip_DepartureDate = departure;
                                     }
-                                    
-                                    arrival = GeFlightDateFromHtml(BaseDate, arrival);
+
+                                    IsReturnFlight = !IsReturnFlight;
                                 }
-
-
-                                #endregion
-
-
-                                #region airport codes
-                                string airportCodes = flight.SelectSingleNode(".//span[contains(@class,'origin-destination')]").InnerText;
-                                #endregion
-                                if (IsReturnFlight)
-                                {
-                                    Trip.ReturnTrip_FromAirportCode = airportCodes.Split('-')[0].Trim();
-                                    Trip.ReturnTrip_ToAirportCode = airportCodes.Split('-')[1].Trim();
-                                    Trip.ReturnTrip_Stops = stopsNumber;
-                                    Trip.ReturnTrip_Duration = duration;
-                                    Trip.ReturnTrip_ArrivalDate = arrival;
-                                    Trip.ReturnTrip_DepartureDate = departure;
-                                }
-                                else
-                                {
-                                    Trip.OneWayTrip_FromAirportCode = airportCodes.Split('-')[0].Trim();
-                                    Trip.OneWayTrip_ToAirportCode = airportCodes.Split('-')[1].Trim();
-                                    Trip.OneWayTrip_Stops = stopsNumber;
-                                    Trip.OneWayTrip_Duration = duration;
-                                    Trip.OneWayTrip_ArrivalDate = arrival;
-                                    Trip.OneWayTrip_DepartureDate = departure;
-                                }
-
-                                IsReturnFlight = !IsReturnFlight;
                             }
                             Trip.Url = Url;
                             Result.Trips.Add(Trip);
@@ -450,7 +448,18 @@ namespace FlightsEngine.Utils
                 #region preparation and purge
                 //1) PREPARATION
                 // model =>   D:\DEV\FlightEngine\Batch\WebScraperBash\PrepareScrapping.cmd "D:\DEV\FlightEngine\Batch\WebScraperBash" "126" "83.166.99.11" 54457
-                string args = "\"" + scrappingSearch.ScrappingFolder + "\" \"" + scrappingSearch.SearchTripProviderId + "\" \"" + scrappingSearch.Proxy.Split(':')[0] + "\" " + scrappingSearch.Proxy.Split(':')[1].Split(' ')[0];
+                string args = "\"" + scrappingSearch.ScrappingFolder + "\" \"" + scrappingSearch.SearchTripProviderId + "\"";
+
+                if(!scrappingSearch.NewProxy)
+                {
+                    args = args + " \"\" -1";
+
+                }
+                else
+                {
+                    args = args+" \"" + scrappingSearch.Proxy.Split(':')[0] + "\" " + scrappingSearch.Proxy.Split(':')[1].Split(' ')[0];
+                }
+
                 //   string args = "\"" + scrappingSearch.ScrappingFolder + "\" \"" + scrappingSearch.SearchTripProviderId + "\" \"\" \"\" ";
                 System.Diagnostics.ProcessStartInfo startInfoPreparation = new System.Diagnostics.ProcessStartInfo();
                 startInfoPreparation.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -485,6 +494,7 @@ namespace FlightsEngine.Utils
                 // Check if preparation is OK
                 if (success)
                 {
+                    Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " ***  END Pre[aration / Call AutoHotKey ***");
                     // 2 SCRAPPING 
                     // "D:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.exe" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe" "eDreams"
                     //  string url = "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true";
@@ -533,7 +543,7 @@ namespace FlightsEngine.Utils
                         }
                         if(!success)
                         {
-                            File.Delete(HtmlFile);
+                            Task.Factory.StartNew(() => { Thread.Sleep(500); File.Delete(HtmlFile); });
                         }
                     }
 

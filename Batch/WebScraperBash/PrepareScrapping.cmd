@@ -25,7 +25,7 @@ taskkill /IM firefox.exe
 taskkill /IM Scrapper.exe
 taskkill /IM AutoHotkey.exe
 
-if /I %ProxyPort% EQU "" (goto :END) 
+if /I %ProxyHost% EQU "" (goto :END) 
 
 REM BEGIN CHANGE PROXY
 rem https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list.txt
