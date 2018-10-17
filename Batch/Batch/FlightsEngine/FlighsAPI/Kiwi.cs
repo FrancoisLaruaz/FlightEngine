@@ -57,13 +57,31 @@ namespace FlightsEngine.FlighsAPI
                 if (!String.IsNullOrWhiteSpace(filters.ToAirportCode))
                     queryString["to"] = filters.ToAirportCode;
                 if (filters.FromDate != null)
-                    queryString["dateFrom"] = filters.FromDate.Value.ToString("dd'/'MM'/'yyyy");
+                {
+                    queryString["dateFrom"] = filters.FromDate.Value.AddDays(-30).ToString("dd'/'MM'/'yyyy");
+                    queryString["dateTo"] = filters.FromDate.Value.AddDays(300).ToString("dd'/'MM'/'yyyy");
+                }
                 if (filters.ToDate != null)
-                    queryString["dateTo"] = filters.ToDate.Value.ToString("dd'/'MM'/'yyyy");
+                {
+                    queryString["returnFrom"] = filters.FromDate.Value.AddDays(-30).ToString("dd'/'MM'/'yyyy");
+                    queryString["returnTo"] = filters.FromDate.Value.AddDays(300).ToString("dd'/'MM'/'yyyy");
+                    queryString["typeFlight"] = "round";
+                    queryString["daysInDestinationFrom"] = "5";
+                    queryString["daysInDestinationTo"] = "9";
+                }
+                else
+                {
+                    queryString["typeFlight"] = "oneway";
+                }
+
+
                 queryString["partner"] = Key;
+                queryString["maxstopovers"] = filters.MaxStopsNumber.ToString();
                 queryString["curr"] = FlightsEngine.Models.Constants.Constants.DefaultCurrency;
                 queryString["adults"] = filters.AdultsNumber.ToString();
                 queryString["children"] = filters.ChildrenNumber.ToString();
+                queryString["limit"] = "200";
+                queryString["sort"] = "price";
                 /*
                 queryString["DestinationDepartureDate"] = "{string}";
                 queryString["DestinationArrivalDate"] = "{string}";
