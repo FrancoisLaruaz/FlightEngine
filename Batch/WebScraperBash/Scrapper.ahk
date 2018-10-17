@@ -61,7 +61,7 @@ try  ; Attempts to execute code.
 			WindowsFound:="OK"
 		}			
 	
-		PageLoadTime :=15000
+		PageLoadTime :=17000
 		LongWaitBetweenClick :=5000
 	}	
 

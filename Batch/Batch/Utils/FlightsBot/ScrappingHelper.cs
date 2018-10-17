@@ -54,26 +54,26 @@ namespace FlightsEngine.Utils
 
                 foreach (char c in text)
                 {
-                    if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' )
+                    if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9')
                     {
                         strDay = strDay + c;
                     }
                 }
                 int Day = Convert.ToInt32(strDay);
                 int BaseDay = BaseDate.Day;
-                if(Day> BaseDay)
+                if (Day > BaseDay)
                 {
-                    result = new DateTime(BaseDate.Year,BaseDate.Month,Day);
+                    result = new DateTime(BaseDate.Year, BaseDate.Month, Day);
                 }
                 else
                 {
-                    if(BaseDate.Month==12)
+                    if (BaseDate.Month == 12)
                     {
-                        result = new DateTime(BaseDate.Year+1, 1, Day);
+                        result = new DateTime(BaseDate.Year + 1, 1, Day);
                     }
                     else
                     {
-                        result = new DateTime(BaseDate.Year ,  BaseDate.Month+1, Day);
+                        result = new DateTime(BaseDate.Year, BaseDate.Month + 1, Day);
                     }
                 }
 
@@ -103,7 +103,7 @@ namespace FlightsEngine.Utils
                 }
                 text = text.Replace("AM", "").Replace("PM", "");
                 int Duration = BaseDuration + GetDurationFromHtml(text + "M");
-                result = BaseDate.AddMinutes(Duration).ToString("dd/MM/yyyy hh:mm").Replace("-","/");
+                result = BaseDate.AddMinutes(Duration).ToString("dd/MM/yyyy hh:mm").Replace("-", "/");
 
             }
             catch (Exception e)
@@ -186,7 +186,7 @@ namespace FlightsEngine.Utils
                 if (File.Exists(file))
                 {
                     string Html = File.ReadAllText(file);
-                    if(Html.Contains("Flights-Search-FlightInlineSearchForm"))
+                    if (Html.Contains("Flights-Search-FlightInlineSearchForm"))
                     {
                         result = true;
                     }
@@ -316,9 +316,9 @@ namespace FlightsEngine.Utils
 
                                     #region airport codes
                                     string airportCodes = flight.SelectSingleNode(".//span[contains(@class,'origin-destination')]").InnerText;
-                                    if(airportCodes.Split('-').Length<2)
+                                    if (airportCodes.Split('-').Length < 2)
                                     {
-                                        Logger.GenerateInfo("Airport code error for SearchTripProviderId = "+ SearchTripProviderId+ "and  airportCodes = "+ airportCodes+" and node  = "+ flight.InnerHtml);
+                                        Logger.GenerateInfo("Airport code error for SearchTripProviderId = " + SearchTripProviderId + "and  airportCodes = " + airportCodes + " and node  = " + flight.InnerHtml);
                                     }
                                     #endregion
                                     if (IsReturnFlight)
@@ -347,6 +347,14 @@ namespace FlightsEngine.Utils
                                     Trip.Url = Url;
                                     Result.Trips.Add(Trip);
                                 }
+                                else
+                                {
+                                    Logger.GenerateInfo("OneWayTrip_FromAirportCode error : " + SearchTripProviderId + " and node = " + node.InnerHtml);
+                                }
+                            }
+                            else
+                            {
+                                Logger.GenerateInfo("Price or currency error : "+ SearchTripProviderId+" and node = "+ node.InnerHtml);
                             }
                         }
                         catch (Exception ex2)
@@ -400,7 +408,7 @@ namespace FlightsEngine.Utils
 
         #endregion
 
-        public static ScrappingExecutionResult SearchViaScrapping(ScrappingSearch scrappingSearch,int SearchTripProviderId)
+        public static ScrappingExecutionResult SearchViaScrapping(ScrappingSearch scrappingSearch, int SearchTripProviderId)
         {
             ScrappingExecutionResult result = new ScrappingExecutionResult();
             try
@@ -414,13 +422,23 @@ namespace FlightsEngine.Utils
                     attemtNumber = attemtNumber + 1;
                     Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " **  START SearchViaScrapping ** : " + attemtNumber);
                     result = Run(scrappingSearch, SearchTripProviderId);
-
+                    if (scrappingSearch.ProxiesList == null || scrappingSearch.ProxiesList.Count==0)
+                    {
+                        scrappingSearch.ProxiesList = ProxyHelper.GetProxies();
+                    }
                     ProxyItem proxyItemToModify = scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy);
-                    scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy).UseNumber = proxyItemToModify.UseNumber + 1;
+                    if (proxyItemToModify != null)
+                    {
+                        scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy).UseNumber = proxyItemToModify.UseNumber + 1;
+                        if (!result.Success)
+                        {
+                            scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy).Failure = proxyItemToModify.Failure + 1;
+                        }
+                    }
                     if (!result.Success)
                     {
-                        scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy).Failure = proxyItemToModify.Failure + 1;
                         scrappingSearch.Proxy = ProxyHelper.GetBestProxy(scrappingSearch.ProxiesList);
+                        scrappingSearch.NewProxy = true;
                     }
 
                     continueProcess = !result.Success && attemtNumber < nbMaxAttempts;
@@ -444,7 +462,7 @@ namespace FlightsEngine.Utils
         }
 
 
-        public static ScrappingExecutionResult Run(ScrappingSearch scrappingSearch,int SearchTripProviderId)
+        public static ScrappingExecutionResult Run(ScrappingSearch scrappingSearch, int SearchTripProviderId)
         {
             Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " ***  START Scrapping *** : " + (scrappingSearch?.Provider ?? "") + " | " + (scrappingSearch?.Proxy ?? ""));
             ScrappingExecutionResult result = new ScrappingExecutionResult();
@@ -457,14 +475,14 @@ namespace FlightsEngine.Utils
                 // model =>   D:\DEV\FlightEngine\Batch\WebScraperBash\PrepareScrapping.cmd "D:\DEV\FlightEngine\Batch\WebScraperBash" "126" "83.166.99.11" 54457
                 string args = "\"" + scrappingSearch.ScrappingFolder + "\" \"" + SearchTripProviderId + "\"";
 
-                if(!scrappingSearch.NewProxy || String.IsNullOrWhiteSpace(scrappingSearch.Proxy))
+                if (!scrappingSearch.NewProxy || String.IsNullOrWhiteSpace(scrappingSearch.Proxy))
                 {
                     args = args + " \"\" -1";
 
                 }
                 else
                 {
-                    args = args+" \"" + scrappingSearch.Proxy.Split(':')[0] + "\" " + scrappingSearch.Proxy.Split(':')[1].Split(' ')[0];
+                    args = args + " \"" + scrappingSearch.Proxy.Split(':')[0] + "\" " + scrappingSearch.Proxy.Split(':')[1].Split(' ')[0];
                 }
 
                 //   string args = "\"" + scrappingSearch.ScrappingFolder + "\" \"" + scrappingSearch.SearchTripProviderId + "\" \"\" \"\" ";
@@ -548,7 +566,7 @@ namespace FlightsEngine.Utils
                         {
                             success = true;
                         }
-                        if(!success)
+                        if (!success)
                         {
                             Task.Factory.StartNew(() => { Thread.Sleep(500); File.Delete(HtmlFile); });
                         }

@@ -116,7 +116,7 @@ namespace FlightsEngine
                                             Proxies = ScrappingResult.ProxiesList;
                                             _searchTripProviderService.SetSearchTripProviderAsEnded(SearchTripProviderId, ScrappingResult.Success, ScrappingResult.LastProxy, ScrappingResult.AttemptsNumber);
                                             result = result && ScrappingResult.Success;
-                                            if (result)
+                                            if (ScrappingResult.Success)
                                             {
                                                 lastSuccessfullProxy = ScrappingResult.LastProxy;
                                                 _tripService.InsertTrips(SearchTripProviderId);
