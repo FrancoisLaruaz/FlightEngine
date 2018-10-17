@@ -146,7 +146,12 @@ namespace FlightsServices
                                 Parameters.Add(new Tuple<string, object>("@ReturnTrip_Stops", Trip.ReturnTrip_Stops));
                             if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_ToAirportCode))
                                 Parameters.Add(new Tuple<string, object>("@ReturnTrip_ToAirportCode", Trip.ReturnTrip_ToAirportCode));
-                            result = result &  _tripRepo.ExecuteStoredProcedure("[dbo].[InsertTripWithTransaction]",Parameters);
+                            bool procedureExecution = _tripRepo.ExecuteStoredProcedure("[dbo].[InsertTripWithTransaction]", Parameters);
+                            result = result & procedureExecution;
+                            if(!procedureExecution)
+                            {
+                                Logger.GenerateInfo("InsertTrips : Error in procedure InsertTripWithTransaction for SearchTripProviderId = " + Trip.SearchTripProviderId+ " and Price = "+ Trip.Price+ " and OneWayTrip_ToAirportCode = "+ (Trip.OneWayTrip_ToAirportCode ?? "N/A")+ " and OneWayTrip_DepartureDate =" +( Trip.OneWayTrip_DepartureDate ?? "N/A")+ " and Trip.OneWayTrip_FromAirportCode = "+ (Trip.OneWayTrip_FromAirportCode ??"N/A")+" and airlinename = "+(Trip.OneWayTrip_AirlineName ?? "N/A"));
+                            }
                         }
                         catch(Exception ex)
                         {
