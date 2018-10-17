@@ -316,6 +316,10 @@ namespace FlightsEngine.Utils
 
                                     #region airport codes
                                     string airportCodes = flight.SelectSingleNode(".//span[contains(@class,'origin-destination')]").InnerText;
+                                    if(airportCodes.Split('-').Length<2)
+                                    {
+                                        Logger.GenerateInfo("Airport code error for SearchTripProviderId = "+ SearchTripProviderId+ "and  airportCodes = "+ airportCodes+" and node  = "+ flight.InnerHtml);
+                                    }
                                     #endregion
                                     if (IsReturnFlight)
                                     {
@@ -398,7 +402,7 @@ namespace FlightsEngine.Utils
             ScrappingExecutionResult result = new ScrappingExecutionResult();
             try
             {
-                int nbMaxAttempts = 30;
+                int nbMaxAttempts = 50;
                 bool continueProcess = true;
                 int attemtNumber = 0;
 
@@ -494,7 +498,7 @@ namespace FlightsEngine.Utils
                 // Check if preparation is OK
                 if (success)
                 {
-                    Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " ***  END Pre[aration / Call AutoHotKey ***");
+                    Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " ***  END Preparation / Call AutoHotKey ***");
                     // 2 SCRAPPING 
                     // "D:\DEV\FlightEngine\Batch\WebScraperBash\Scrapper.exe" "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true" "126" "C:\Users\franc\AppData\Local\Mozilla Firefox\firefox.exe" "eDreams"
                     //  string url = "https://www.edreams.com/#results/type=R;dep=2018-10-22;from=YVR;to=LON;ret=2018-11-19;collectionmethod=false;airlinescodes=false;internalSearch=true";
