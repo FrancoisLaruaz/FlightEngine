@@ -342,9 +342,12 @@ namespace FlightsEngine.Utils
 
                                     IsReturnFlight = !IsReturnFlight;
                                 }
+                                if (Trip.OneWayTrip_FromAirportCode != null)
+                                {
+                                    Trip.Url = Url;
+                                    Result.Trips.Add(Trip);
+                                }
                             }
-                            Trip.Url = Url;
-                            Result.Trips.Add(Trip);
                         }
                         catch (Exception ex2)
                         {
@@ -454,7 +457,7 @@ namespace FlightsEngine.Utils
                 // model =>   D:\DEV\FlightEngine\Batch\WebScraperBash\PrepareScrapping.cmd "D:\DEV\FlightEngine\Batch\WebScraperBash" "126" "83.166.99.11" 54457
                 string args = "\"" + scrappingSearch.ScrappingFolder + "\" \"" + SearchTripProviderId + "\"";
 
-                if(!scrappingSearch.NewProxy)
+                if(!scrappingSearch.NewProxy || String.IsNullOrWhiteSpace(scrappingSearch.Proxy))
                 {
                     args = args + " \"\" -1";
 

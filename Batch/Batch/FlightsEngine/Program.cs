@@ -106,7 +106,7 @@ namespace FlightsEngine
                                         scrappingSearch.FirefoxExeFolder = FirefoxExeFolder;
                                         scrappingSearch.ScrappingFolder = ScrappingFolder;
                                         scrappingSearch.NewProxy = newProxy ;
-                                        if (SearchTripProviderId > 0)
+                                        if (SearchTripProviderId > 0 && !String.IsNullOrWhiteSpace(Proxy))
                                         {
                                             filter.SearchTripProviderId = SearchTripProviderId;
                                             scrappingSearch.Provider = provider.Name;
