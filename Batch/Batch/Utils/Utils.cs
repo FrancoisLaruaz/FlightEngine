@@ -26,5 +26,25 @@ namespace FlightsEngine.Utils
             }
             return result;
         }
+
+        public static DateTime? GetDateFromunixTimeStamp(string unixTimeStamp)
+        {
+            try
+            {
+                if (!String.IsNullOrWhiteSpace(unixTimeStamp))
+                {
+                    double unixTime = Convert.ToDouble(unixTimeStamp);
+
+                    long timeInTicks = (long)unixTime;
+                    return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(timeInTicks);
+
+                }
+            }
+            catch (Exception e)
+            {
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "unixTimeStamp = " + unixTimeStamp);
+            }
+            return null;
+        }
     }
 }

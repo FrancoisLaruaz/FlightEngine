@@ -549,7 +549,7 @@ namespace FlightsEngine.Utils
                     string HtmlErrorFile = "D:\\Html\\search_" + SearchTripProviderId + ".xht";
                     string StopSearchFile = "D:\\Html\\stopsearch_" + SearchTripProviderId + ".txt";
                     success = false;
-                    while (!File.Exists(HtmlFile) && !File.Exists(HtmlErrorFile) && !File.Exists(StopSearchFile) && i <= 75) //limit the time to whait to 30 sec
+                    while (!File.Exists(HtmlFile) && !File.Exists(HtmlErrorFile) && !File.Exists(StopSearchFile) && i <= 20) //limit the time to whait to 30 sec
                     {
                         Thread.Sleep(500);
                         i++;

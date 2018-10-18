@@ -60,7 +60,7 @@ namespace FlightsEngine.Utils
                 if (Proxies.Count > 0)
                 {
                     int nbAttempts = Proxies.Sum(p => p.UseNumber);
-                    if (nbAttempts <300)
+                    if (nbAttempts <200)
                     {
 
 

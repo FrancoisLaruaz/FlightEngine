@@ -12,7 +12,7 @@ namespace FlightsEngine.Models.Constants
 {
     public static class Constants
     {
-        public const string DefaultCurrency ="USD";
+        public const string DefaultCurrency ="EUR";
 
     }
 
