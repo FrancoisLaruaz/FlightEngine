@@ -352,10 +352,6 @@ namespace FlightsEngine.Utils
                                     Logger.GenerateInfo("OneWayTrip_FromAirportCode error : " + SearchTripProviderId + " and node = " + node.InnerHtml);
                                 }
                             }
-                            else
-                            {
-                                Logger.GenerateInfo("Price or currency error : "+ SearchTripProviderId+" and node = "+ node.InnerHtml);
-                            }
                         }
                         catch (Exception ex2)
                         {
@@ -422,17 +418,20 @@ namespace FlightsEngine.Utils
                     attemtNumber = attemtNumber + 1;
                     Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " **  START SearchViaScrapping ** : " + attemtNumber);
                     result = Run(scrappingSearch, SearchTripProviderId);
-                    if (scrappingSearch.ProxiesList == null || scrappingSearch.ProxiesList.Count==0)
+                    if (scrappingSearch.ProxiesList == null || scrappingSearch.ProxiesList.Count == 0 || (!result.Success && ( attemtNumber == 10 || attemtNumber == 20 || attemtNumber == 30)))
                     {
                         scrappingSearch.ProxiesList = ProxyHelper.GetProxies();
                     }
-                    ProxyItem proxyItemToModify = scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy);
-                    if (proxyItemToModify != null)
+                    else
                     {
-                        scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy).UseNumber = proxyItemToModify.UseNumber + 1;
-                        if (!result.Success)
+                        ProxyItem proxyItemToModify = scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy);
+                        if (proxyItemToModify != null)
                         {
-                            scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy).Failure = proxyItemToModify.Failure + 1;
+                            scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy).UseNumber = proxyItemToModify.UseNumber + 1;
+                            if (!result.Success)
+                            {
+                                scrappingSearch.ProxiesList.Find(p => p.Proxy == scrappingSearch.Proxy).Failure = proxyItemToModify.Failure + 1;
+                            }
                         }
                     }
                     if (!result.Success)

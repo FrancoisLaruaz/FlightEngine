@@ -98,7 +98,6 @@ namespace FlightsEngine.FlighsAPI
                         var contents = await response.Content.ReadAsStringAsync();
                         JavaScriptSerializer srRequestResult = new JavaScriptSerializer();
                         dynamic jsondataRequestResult = srRequestResult.DeserializeObject(contents);
-                        Console.WriteLine("response: " + response.ToString());
                         if (jsondataRequestResult != null && FlightsEngine.Utils.Utils.IsPropertyExist(jsondataRequestResult, "data"))
                         {
                             dynamic flightsJson = jsondataRequestResult["data"];
