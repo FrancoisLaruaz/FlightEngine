@@ -24,6 +24,10 @@ namespace FlightsEngine.Models
 
         public string OneWayTrip_FromAirportCode { get; set; }
 
+        public string OneWayTrip_FlightNumber { get; set; }
+
+        public string OneWayTrip_StopInformation { get; set; }
+
         public string OneWayTrip_ToAirportCode { get; set; }
 
         public string OneWayTrip_DepartureDate { get; set; }
@@ -37,6 +41,10 @@ namespace FlightsEngine.Models
         public string OneWayTrip_AirlineLogoSrc { get; set; }
 
         public int OneWayTrip_Stops { get; set; }
+
+        public string ReturnTrip_FlightNumber { get; set; }
+
+        public string ReturnTrip_StopInformation { get; set; }
 
         public string ReturnTrip_FromAirportCode { get; set; }
 

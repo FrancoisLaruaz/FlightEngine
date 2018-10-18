@@ -11,6 +11,8 @@ using Transavia.Api.FlightOffers.Client;
 using Transavia.Api.FlightOffers.Client.Model;
 using System.Web.Script.Serialization;
 using FlightsServices;
+using FlightsEngine.Models.Constants;
+using FlightsEngine.Utils;
 
 namespace FlightsEngine.FlighsAPI
 {
@@ -44,7 +46,7 @@ namespace FlightsEngine.FlighsAPI
             try
             {
 
-                
+
                 var client = new HttpClient();
                 var queryString = HttpUtility.ParseQueryString(string.Empty);
 
@@ -119,14 +121,54 @@ namespace FlightsEngine.FlighsAPI
                         if (jsondataRequestResult != null && FlightsEngine.Utils.Utils.IsPropertyExist(jsondataRequestResult, "data"))
                         {
                             dynamic flightsJson = jsondataRequestResult["data"];
-                            foreach(var flightJson in flightsJson)
+                            foreach (var flightJson in flightsJson)
                             {
                                 try
                                 {
                                     TripItem Trip = new TripItem();
+
+                                    /*
+                                     * alter table dbo.Flight
+                                        add StopInformation varchar(1000) null
+                                     * 
+                                     * 1554425400
+                                     */
+
+                                    List<List<Object>> routes = flightJson["route"];
+                                    foreach(var route in routes)
+                                    {
+                                        Trip.OneWayTrip_Stops = Trip.OneWayTrip_Stops + 1;
+                                    }
+                                    Trip.OneWayTrip_Stops = Trip.OneWayTrip_Stops - 1;
+                                    if (filters.ToDate != null)
+                                    {
+                                        Trip.ReturnTrip_Stops = Trip.ReturnTrip_Stops - 1;
+                                    }
+
+                                    Trip.OneWayTrip_FromAirportCode = Convert.ToString(routes[0][0]);
+                                    Trip.OneWayTrip_ToAirportCode = filters.ToAirportCode;
+
+                                    if (filters.ToDate != null)
+                                    {
+                                        Trip.ReturnTrip_ToAirportCode = filters.FromAirportCode;
+                                        Trip.ReturnTrip_FromAirportCode = filters.ToAirportCode;
+                                    }
+                                    Trip.CurrencyCode = FlightsEngine.Models.Constants.Constants.DefaultCurrency;
+                                    Trip.Price = Convert.ToDecimal(flightJson["price"]);
+                                    string aTime = Convert.ToString(flightJson["aTimeUTC"]);
+                                    Trip.Url = Convert.ToString(flightJson["deep_link"]);
+
+                                    List<Object> transfers = flightJson["transfers"];
+                                    Trip.OneWayTrip_Stops = transfers.Count;
+
+                                    Trip.OneWayTrip_ArrivalDate = FlightsEngine.Utils.Utils.GetDateFromunixTimeStamp(aTime).Value.ToString(DateFormat.Trip).Replace("-", "/");
+                                    Trip.OneWayTrip_Duration = ScrappingHelper.GetDurationFromHtml(Convert.ToString(flightJson["fly_duration"]));
+                                    Trip.ReturnTrip_Duration = ScrappingHelper.GetDurationFromHtml(Convert.ToString(flightJson["return_duration"]));
+                                    string dTime = Convert.ToString(flightJson["dTimeUTC"]);
+                                    Trip.OneWayTrip_DepartureDate = FlightsEngine.Utils.Utils.GetDateFromunixTimeStamp(dTime).Value.ToString(DateFormat.Trip).Replace("-", "/");
                                     Trips.Add(Trip);
                                 }
-                                catch(Exception ex2)
+                                catch (Exception ex2)
                                 {
                                     FlightsEngine.Utils.Logger.GenerateError(ex2, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, filters.ToSpecialString());
                                 }

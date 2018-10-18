@@ -103,7 +103,7 @@ namespace FlightsEngine.Utils
                 }
                 text = text.Replace("AM", "").Replace("PM", "");
                 int Duration = BaseDuration + GetDurationFromHtml(text + "M");
-                result = BaseDate.AddMinutes(Duration).ToString("dd/MM/yyyy hh:mm").Replace("-", "/");
+                result = BaseDate.AddMinutes(Duration).ToString(DateFormat.Trip).Replace("-", "/");
 
             }
             catch (Exception e)
@@ -120,6 +120,7 @@ namespace FlightsEngine.Utils
             try
             {
                 text = text.ToUpper();
+                text = text.Replace(" ","");
                 int days = 0;
                 if (text.Contains('D'))
                 {

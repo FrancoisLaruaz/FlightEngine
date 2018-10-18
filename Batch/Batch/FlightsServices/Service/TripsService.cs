@@ -130,7 +130,11 @@ namespace FlightsServices
                             Parameters.Add(new Tuple<string, object>("@OneWayTrip_FromAirportCode", Trip.OneWayTrip_FromAirportCode));
                             Parameters.Add(new Tuple<string, object>("@OneWayTrip_Stops", Trip.OneWayTrip_Stops));
                             Parameters.Add(new Tuple<string, object>("@OneWayTrip_ToAirportCode", Trip.OneWayTrip_ToAirportCode));
-                            if(!string.IsNullOrWhiteSpace(Trip.ReturnTrip_AirlineLogoSrc))
+                            if (!string.IsNullOrWhiteSpace(Trip.OneWayTrip_StopInformation))
+                                Parameters.Add(new Tuple<string, object>("@OneWayTrip_StopInformation", Trip.OneWayTrip_StopInformation ?? ""));
+                            if (!string.IsNullOrWhiteSpace(Trip.OneWayTrip_FlightNumber))
+                                Parameters.Add(new Tuple<string, object>("@OneWayTrip_FlightNumber", Trip.OneWayTrip_FlightNumber??""));
+                            if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_AirlineLogoSrc))
                                 Parameters.Add(new Tuple<string, object>("@ReturnTrip_AirlineLogoSrc", Trip.ReturnTrip_AirlineLogoSrc));
                             if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_AirlineName))
                                 Parameters.Add(new Tuple<string, object>("@ReturnTrip_AirlineName", Trip.ReturnTrip_AirlineName));
@@ -138,6 +142,10 @@ namespace FlightsServices
                                 Parameters.Add(new Tuple<string, object>("@ReturnTrip_ArrivalDate", Trip.ReturnTrip_ArrivalDate));
                             if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_DepartureDate))
                                 Parameters.Add(new Tuple<string, object>("@ReturnTrip_DepartureDate", Trip.ReturnTrip_DepartureDate));
+                            if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_FlightNumber))
+                                Parameters.Add(new Tuple<string, object>("@ReturnTrip_FlightNumber", Trip.ReturnTrip_FlightNumber));
+                            if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_StopInformation))
+                                Parameters.Add(new Tuple<string, object>("@ReturnTrip_StopInformation", Trip.ReturnTrip_StopInformation));
                             if (Trip.ReturnTrip_Duration!=null)
                                 Parameters.Add(new Tuple<string, object>("@ReturnTrip_Duration", Trip.ReturnTrip_Duration));
                             if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_FromAirportCode))

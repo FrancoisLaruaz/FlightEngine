@@ -24,6 +24,11 @@ namespace FlightsEngine.Models.Constants
 
     }
 
+    public static class DateFormat
+    {
+        public const string Trip = "dd/MM/yyyy hh:mm";
+    }
+
     public static class Providers
     {
         public const int Edreams = 1;
