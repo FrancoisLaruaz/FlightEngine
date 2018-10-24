@@ -15,6 +15,7 @@ using Models.ViewModels.Admin.News;
 using Models.Class.Email;
 using DataEntities.Model;
 using Models.Class.News;
+using Service.Helpers;
 
 namespace Service.Admin
 {

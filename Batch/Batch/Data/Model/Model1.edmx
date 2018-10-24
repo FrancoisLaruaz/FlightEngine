@@ -183,6 +183,7 @@
           <Property Name="TripId" Type="int" Nullable="false" />
           <Property Name="FlightTypeId" Type="int" Nullable="false" />
           <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="StopInformation" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="Log4Net">
           <Key>
@@ -1623,6 +1624,7 @@
           <NavigationProperty Name="Airport1" Relationship="Self.FK_Flight_ToAirport" FromRole="Flight" ToRole="Airport" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Flight_FlightTypeId" FromRole="Flight" ToRole="Category" />
           <NavigationProperty Name="Trip" Relationship="Self.FK_Flight_Trip" FromRole="Flight" ToRole="Trip" />
+          <Property Name="StopInformation" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Log4Net">
           <Key>
@@ -3017,6 +3019,7 @@
           <EntitySetMapping Name="Flights">
             <EntityTypeMapping TypeName="TemplateModel.Flight">
               <MappingFragment StoreEntitySet="Flight">
+                <ScalarProperty Name="StopInformation" ColumnName="StopInformation" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FlightNumber" ColumnName="FlightNumber" />
                 <ScalarProperty Name="FromAirportId" ColumnName="FromAirportId" />

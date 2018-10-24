@@ -41,6 +41,8 @@ namespace Models.Class.Email
 
         public string BasePathFile { get; set; }
 
+        public string AuditGuidId { get; set; }
+
         public List<Tuple<string,string>> EmailContent { get; set; }
         public Email()
         {

@@ -14,16 +14,83 @@ namespace FlightsServices
     {
 
         private  IGenericRepository<SearchTripProvider> _searchTripProviderRepo;
+        private IGenericRepository<SearchTrip> _searchTripRepo;
 
 
-        public SearchTripProviderService(IGenericRepository<SearchTripProvider> searchTripProviderRepo)
+        public SearchTripProviderService(IGenericRepository<SearchTripProvider> searchTripProviderRepo,
+            IGenericRepository<SearchTrip> searchTripRepo)
         {
             _searchTripProviderRepo = searchTripProviderRepo;
+            _searchTripRepo = searchTripRepo;
         }
 
         public SearchTripProviderService(TemplateEntities1 context)
         {
             _searchTripProviderRepo = new GenericRepository<SearchTripProvider>(context);
+            _searchTripRepo = new GenericRepository<SearchTrip>(context);
+        }
+
+        public SearchTripProviderService()
+        {
+            var context = new TemplateEntities1();
+            _searchTripProviderRepo = new GenericRepository<SearchTripProvider>(context);
+            _searchTripRepo = new GenericRepository<SearchTrip>(context);
+        }
+
+        public int GetSearchTripProviderId(DateTime FromDate, DateTime? ToDate,int SearchTripWishesId,int ProviderId)
+        {
+            int result = -1;
+            try
+            {
+                FromDate = new DateTime(FromDate.Year, FromDate.Month, FromDate.Day);
+                if(ToDate!=null)
+                    ToDate = new DateTime(ToDate.Value.Year, ToDate.Value.Month, ToDate.Value.Day);
+
+                var SearchTrip = _searchTripRepo.FindAllBy(s => s.SearchTripWishesId== SearchTripWishesId && s.FromDate==FromDate && s.ToDate==s.ToDate).FirstOrDefault();
+                if(SearchTrip==null)
+                {
+                    SearchTrip = new SearchTrip();
+                    SearchTrip.SearchTripWishesId = SearchTripWishesId;
+                    SearchTrip.ToDate = ToDate;
+                    SearchTrip.FromDate = FromDate;
+                    _searchTripRepo.Add(SearchTrip);
+                   if(!_searchTripRepo.Save())
+                    {
+                        SearchTrip = null;
+                    }
+                }
+
+                if(SearchTrip!=null)
+                {
+                    DateTime CutOff = DateTime.UtcNow.AddHours(-1);
+                    var SearchTripProvider = _searchTripProviderRepo.FindAllBy(s => s.ProviderId==ProviderId && s.SearchTripId== SearchTrip.Id && s.CreationDate> CutOff).FirstOrDefault();
+                    if(SearchTripProvider==null)
+                    {
+                        SearchTripProvider = new SearchTripProvider();
+                        SearchTripProvider.AttemptsNumber = 1;
+                        SearchTripProvider.CreationDate = DateTime.UtcNow;
+                        SearchTripProvider.SearchTripId = SearchTrip.Id;
+                        SearchTripProvider.SearchSuccess = true;
+                        SearchTripProvider.EndSearchDate = DateTime.UtcNow;
+
+                        _searchTripProviderRepo.Add(SearchTripProvider);
+                        if(_searchTripProviderRepo.Save())
+                        {
+                            result= SearchTripProvider.Id;
+                        }
+                    }
+                    else
+                    {
+                        result = SearchTripProvider.Id;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result = -1;
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SearchTripWishesId = " + SearchTripWishesId + " and FromDate = " + FromDate.ToString()+ " and ToDate= "+(ToDate==null?"NULL":ToDate.Value.ToString()));
+            }
+            return result;
         }
 
         public int SetSearchTripProviderAsEnded(int SearchTripProviderId, bool Success,string LastProxy,int AttemptsNumber)

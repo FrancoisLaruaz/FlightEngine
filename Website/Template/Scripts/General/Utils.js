@@ -188,6 +188,35 @@ function ScrollToErrorOrFirstInput(formname) {
 
 }
 
+function CallFunction(functionName, args, CallNumber) {
+    var MaxCalls = 30;
+    var Wait = 250; // ms
+
+    if (typeof (CallNumber) === "undefined") {
+        CallNumber = 0;
+    }
+    if (CallNumber <= MaxCalls) {
+
+        if (typeof window[functionName] === "function") {
+            executeFunctionByName(functionName, window, args);
+        }
+        else {
+            setTimeout(function () { CallFunction(functionName, args, CallNumber + 1); }, Wait);
+        }
+    }
+}
+
+
+function executeFunctionByName(functionName, context, args) {
+    var namespaces = functionName.split(".");
+    var func = namespaces.pop();
+    for (var i = 0; i < namespaces.length; i++) {
+        context = context[namespaces[i]];
+    }
+    return context[func].apply(context, args);
+}
+
+
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

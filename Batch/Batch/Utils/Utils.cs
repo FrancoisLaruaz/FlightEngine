@@ -27,16 +27,27 @@ namespace FlightsEngine.Utils
             return result;
         }
 
+        public static DateTime UnixTimeStampToDateTime(string unixTimeStamp)
+        {
+            double unixTime = Convert.ToDouble(unixTimeStamp);
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTime);
+            return dtDateTime;
+        }
+
         public static DateTime? GetDateFromunixTimeStamp(string unixTimeStamp)
         {
             try
             {
+                // https://www.unixtimestamp.com/index.php
                 if (!String.IsNullOrWhiteSpace(unixTimeStamp))
                 {
                     double unixTime = Convert.ToDouble(unixTimeStamp);
-
-                    long timeInTicks = (long)unixTime;
-                    return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(timeInTicks);
+                    // Unix timestamp is seconds past epoch
+                    System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+                    dtDateTime = dtDateTime.AddSeconds(unixTime);
+                    return dtDateTime;
 
                 }
             }

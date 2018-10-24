@@ -15,18 +15,19 @@ using DataEntities.Repositories;
 using DataEntities.Model;
 using Models.Class.Email;
 using Models.ViewModels.Admin.Email;
+using Service.Helpers;
 
 namespace Service.UserArea
 {
-    public  class EMailService : IEMailService
+    public class EMailService : IEMailService
     {
 
-        private  string WebsiteURL = ConfigurationManager.AppSettings["Website"];
+        private string WebsiteURL = ConfigurationManager.AppSettings["Website"];
 
         private readonly IGenericRepository<ValidTopLevelDomain> _validTopLevelDomainRepo;
         private readonly IGenericRepository<DataEntities.Model.User> _userRepo;
         private readonly IGenericRepository<EmailTypeLanguage> _emailTypeLanguageRepo;
-        private  IGenericRepository<EmailAudit> _emailAuditRepo;
+        private IGenericRepository<EmailAudit> _emailAuditRepo;
 
         public EMailService(IGenericRepository<DataEntities.Model.User> userRepo,
             IGenericRepository<ValidTopLevelDomain> validTopLevelDomainRepo,
@@ -92,7 +93,7 @@ namespace Service.UserArea
         /// </summary>
         /// <param name="Email"></param>
         /// <returns></returns>
-        public  bool SendMail(Email Email)
+        public bool SendMail(Email Email)
         {
             bool result = false;
             try
@@ -100,7 +101,7 @@ namespace Service.UserArea
                 int LanguageId = CommonsConst.Languages.English;
                 string LangTag = CommonsConst.Languages.ToString(LanguageId);
 
-                if(String.IsNullOrWhiteSpace(Email.RootPathDefault))
+                if (String.IsNullOrWhiteSpace(Email.RootPathDefault))
                     Email.RootPathDefault = FileHelper.GetRootPathDefault() + @"\";
 
 
@@ -116,11 +117,11 @@ namespace Service.UserArea
 
                 if (User != null && User.Id > 0)
                 {
-                    LangTag = User.Language?.Code??CommonsConst.Const.DefaultCulture;
+                    LangTag = User.Language?.Code ?? CommonsConst.Const.DefaultCulture;
                     LanguageId = User.LanguageId;
                     if (String.IsNullOrWhiteSpace(Email.ToEmail))
                     {
-                        Email.ToEmail = User.AspNetUser.Email; 
+                        Email.ToEmail = User.AspNetUser.Email;
                     }
                     Email.EmailContent.Add(new Tuple<string, string>("#UserFirstName#", User.FirstName));
                     Email.EmailContent.Add(new Tuple<string, string>("#UserFullName#", User.LastName));
@@ -153,7 +154,7 @@ namespace Service.UserArea
 
                     Email.EMailTypeLanguageId = EMailTypeLanguage.Id;
                     Email.EMailTemplate = EMailTypeLanguage.TemplateName;
-                    Email.BasePathFile = Email.RootPathDefault+Const.BasePathTemplateEMails.Replace("~/", "\\");
+                    Email.BasePathFile = Email.RootPathDefault + Const.BasePathTemplateEMails.Replace("~/", "\\");
 
                     if (String.IsNullOrWhiteSpace(Email.Subject))
                         Email.Subject = EMailTypeLanguage.Subject;
@@ -166,7 +167,7 @@ namespace Service.UserArea
                         {
                             try
                             {
-                                string FileName = FileHelper.GetStorageRoot(file); 
+                                string FileName = FileHelper.GetStorageRoot(file);
                                 byte[] BitesTab = FileHelper.GetFileToDownLoad(FileName);
                                 if (BitesTab != null)
                                 {
@@ -180,6 +181,7 @@ namespace Service.UserArea
                             }
                         }
                     }
+                    Email.AuditGuidId = InsertEMailAudit(Email, Email.Attachments.Count, Email.CCList.Count);
                     Task.Factory.StartNew(() => SendMailAsync(Email));
                     result = true;
                 }
@@ -202,23 +204,19 @@ namespace Service.UserArea
         /// Function called in order to send an asynchronous mail
         /// </summary>
         /// <param name="EMail"></param>
-        public  void SendMailAsync(Email EMail)
+        public bool SendMailAsync(Email EMail)
         {
+            bool result = false;
             try
             {
-                Tuple<bool, int, int> ResultMail = EMailHelper.SendMail(EMail);
-                if (ResultMail != null)
-                {
-                    if (ResultMail.Item1)
-                    {
-                        InsertEMailAudit(EMail, ResultMail.Item2, ResultMail.Item3);
-                    }
-                }
+                result = EMailHelper.SendMail(EMail);
             }
             catch (Exception e)
             {
+                result = false;
                 Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "EMailTypeId = " + EMail.EMailTypeId + " and emailto =" + EMail.ToEmail);
             }
+            return result;
         }
 
         /// <summary>
@@ -227,13 +225,13 @@ namespace Service.UserArea
         /// <param name="UserName"></param>
         /// <param name="EMailTypeId"></param>
         /// <returns></returns>
-        public  bool SendEMailToUser(string UserName, int EMailTypeId)
+        public bool SendEMailToUser(string UserName, int EMailTypeId)
         {
             bool result = false;
             try
             {
 
-                DataEntities.Model.User UserMail = _userRepo.FindAllBy(u => u.AspNetUser.UserName.Trim().ToLower()== UserName.Trim().ToLower()).FirstOrDefault();
+                DataEntities.Model.User UserMail = _userRepo.FindAllBy(u => u.AspNetUser.UserName.Trim().ToLower() == UserName.Trim().ToLower()).FirstOrDefault();
                 if (UserMail != null)
                 {
                     int UserId = UserMail.Id;
@@ -248,14 +246,14 @@ namespace Service.UserArea
             return result;
         }
 
-       
+
         /// <summary>
         /// Send a mail to a user
         /// </summary>
         /// <param name="UserId"></param>
         /// <param name="EMailTypeId"></param>
         /// <returns></returns>
-        public  bool SendEMailToUser(int UserId, int EMailTypeId)
+        public bool SendEMailToUser(int UserId, int EMailTypeId)
         {
             bool result = false;
             try
@@ -266,7 +264,7 @@ namespace Service.UserArea
                     Email Email = new Email();
                     Email.UserId = UserId;
                     Email.EMailTypeId = EMailTypeId;
-                    Email.RootPathDefault = FileHelper.GetRootPathDefault()+ @"\";
+                    Email.RootPathDefault = FileHelper.GetRootPathDefault() + @"\";
                     List<Tuple<string, string>> EmailContent = new List<Tuple<string, string>>();
                     switch (EMailTypeId)
                     {
@@ -324,13 +322,11 @@ namespace Service.UserArea
         /// <param name="AttachmentNumber"></param>
         /// <param name="CCUsersNumber"></param>
         /// <returns></returns>
-        public  bool InsertEMailAudit(Email EMail, int AttachmentNumber, int CCUsersNumber)
+        public string InsertEMailAudit(Email EMail, int AttachmentNumber, int CCUsersNumber)
         {
-            bool result = false;
+            string AuditGuidId = Guid.NewGuid().ToString();
             try
             {
-                var context = new TemplateEntities();
-                _emailAuditRepo =new  GenericRepository<DataEntities.Model.EmailAudit>(context);
 
                 EmailAudit Audit = new EmailAudit();
                 Audit.UserId = EMail.UserId;
@@ -342,19 +338,45 @@ namespace Service.UserArea
                 Audit.CCUsersNumber = CCUsersNumber;
                 Audit.ScheduledTaskId = EMail.RelatedScheduledTaskId;
                 Audit.Comment = EMail.Comment;
+                Audit.GuidId = AuditGuidId;
                 _emailAuditRepo.Add(Audit);
-                result = _emailAuditRepo.Save();
+                if (_emailAuditRepo.Save())
+                {
+                    return AuditGuidId;
+                }
 
             }
             catch (Exception e)
             {
-                result = false;
                 Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "EMailTypeId = " + EMail.EMailTypeId + " and emailto =" + EMail.ToEmail);
+            }
+            return null;
+        }
+
+        public bool SetMailAsSent(string AuditGuidId)
+        {
+            bool result = false;
+            try
+            {
+                if (!String.IsNullOrWhiteSpace(AuditGuidId))
+                {
+                    var Audit = _emailAuditRepo.FindAllBy(e => e.GuidId == AuditGuidId).FirstOrDefault();
+                    if (Audit != null)
+                    {
+                        Audit.EmailSent = true;
+                        _emailAuditRepo.Edit(Audit);
+                        result = _emailAuditRepo.Save();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "AuditGuidId = " + (AuditGuidId ?? ""));
             }
             return result;
         }
 
-        public  DisplayEmailAuditViewModel GetDisplayEmailAuditViewModel(string Pattern, int StartAt, int PageSize)
+        public DisplayEmailAuditViewModel GetDisplayEmailAuditViewModel(string Pattern, int StartAt, int PageSize)
         {
             DisplayEmailAuditViewModel model = new DisplayEmailAuditViewModel();
             try
@@ -371,14 +393,14 @@ namespace Service.UserArea
                 {
                     var FullEmailAuditsList = _emailAuditRepo.List().ToList();
                     model.Count = FullEmailAuditsList.Count;
-                    EmailAudits= FullEmailAuditsList.Skip(StartAt).Take(PageSize).OrderByDescending(e => e.Id).ToList();
+                    EmailAudits = FullEmailAuditsList.Skip(StartAt).Take(PageSize).OrderByDescending(e => e.Id).ToList();
                 }
                 else
                 {
                     EmailAudits = _emailAuditRepo.List().ToList();
                 }
 
-                foreach( var audit in EmailAudits)
+                foreach (var audit in EmailAudits)
                 {
                     EMailAuditItem emailAuditItem = new EMailAuditItem();
                     emailAuditItem.Id = audit.Id;
@@ -395,7 +417,7 @@ namespace Service.UserArea
                     emailAuditItem.EMailFromDecrypt = audit.EMailFrom;
                     emailAuditItem.EMailToDecrypt = audit.EMailTo;
                     emailAuditItem.CCUsersNumber = audit.CCUsersNumber;
-                    emailAuditItem.AttachmentNumber = audit.AttachmentNumber??0;
+                    emailAuditItem.AttachmentNumber = audit.AttachmentNumber ?? 0;
                     emailAuditItem.NewsTitle = audit.ScheduledTask?.News?.Title;
                     emailAuditItem.Comment = audit.Comment;
                     emailAuditItem.EMailTypeName = audit.EmailTypeLanguage?.EmailType?.Name;

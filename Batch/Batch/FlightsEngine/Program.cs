@@ -43,6 +43,34 @@ namespace FlightsEngine
                 if (SearchTripWishesItem != null && SearchTripWishesItem._SearchTripWishes != null)
                 {
                     var SearchTripWishes = SearchTripWishesItem._SearchTripWishes;
+
+                    #region Kiwi
+                    if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.Kiwi))
+                    {
+                        KiwiAirlineSearch KiwiFilter = new KiwiAirlineSearch();
+                        KiwiFilter.SearchTripWishesId = SearchTripWishes.Id;
+                        if (SearchTripWishes.FromAirport != null)
+                            KiwiFilter.FromAirportCode = SearchTripWishes.FromAirport.Code;
+                        KiwiFilter.FromDateMax = SearchTripWishes.FromDateMax;
+                        KiwiFilter.FromDateMin = SearchTripWishes.FromDateMin;
+                        if (SearchTripWishes.ToAirport != null)
+                            KiwiFilter.ToAirportCode = SearchTripWishes.ToAirport.Code;
+                        if (SearchTripWishes.ToDateMin != null)
+                        {
+                            KiwiFilter.Return = true;
+                            KiwiFilter.ToDateMin = SearchTripWishes.ToDateMin;
+                            KiwiFilter.ToDateMax = SearchTripWishes.ToDateMax;
+                        }
+                        KiwiFilter.AdultsNumber = 1;
+                        KiwiFilter.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
+                        KiwiFilter.DurationMin = SearchTripWishes.DurationMin;
+                        KiwiFilter.DurationMax = SearchTripWishes.DurationMax;
+                        KiwiFilter.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
+                        Kiwi.SearchFlights(KiwiFilter);
+                    }
+
+                    #endregion kiwi
+
                     result = true;
                     bool newProxy = true;
                     foreach (var searchTrip in SearchTripWishes.SearchTrips)
@@ -140,11 +168,15 @@ namespace FlightsEngine
                                 }
                                 else 
                                 {
-                                    int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id,null, null);
-                                    filter.SearchTripProviderId = SearchTripProviderId;
+
                                     if (provider.Id == Providers.Kiwi)
                                     {
-                                        Kiwi.SearchFlights(filter);
+                                      //  Kiwi.SearchFlights(filter);
+                                    }
+                                    else
+                                    {
+                                        int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, null, null);
+                                        filter.SearchTripProviderId = SearchTripProviderId;
                                     }
                                 }
                             }

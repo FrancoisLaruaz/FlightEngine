@@ -157,6 +157,8 @@
           <Property Name="CCUsersNumber" Type="int" Nullable="false" />
           <Property Name="ScheduledTaskId" Type="int" />
           <Property Name="Comment" Type="nvarchar" MaxLength="2000" />
+          <Property Name="GuidId" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="EmailSent" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="EmailTypeLanguage">
           <Key>
@@ -1842,6 +1844,8 @@
           <NavigationProperty Name="EmailTypeLanguage" Relationship="TemplateModel.FK_EmailAudit_EMailTypeLanguageId" FromRole="EmailAudit" ToRole="EmailTypeLanguage" />
           <NavigationProperty Name="ScheduledTask" Relationship="TemplateModel.FK_EmailAudit_ScheduledTaskId" FromRole="EmailAudit" ToRole="ScheduledTask" />
           <NavigationProperty Name="User" Relationship="TemplateModel.FK_EmailAudit_UserId" FromRole="EmailAudit" ToRole="User" />
+          <Property Name="GuidId" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmailSent" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="EmailTypeLanguage">
           <Key>
@@ -2941,6 +2945,8 @@
           <EntitySetMapping Name="EmailAudits">
             <EntityTypeMapping TypeName="TemplateModel.EmailAudit">
               <MappingFragment StoreEntitySet="EmailAudit">
+                <ScalarProperty Name="EmailSent" ColumnName="EmailSent" />
+                <ScalarProperty Name="GuidId" ColumnName="GuidId" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="ScheduledTaskId" ColumnName="ScheduledTaskId" />
                 <ScalarProperty Name="CCUsersNumber" ColumnName="CCUsersNumber" />

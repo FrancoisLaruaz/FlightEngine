@@ -25,6 +25,7 @@ namespace Data.Model
         public int TripId { get; set; }
         public int FlightTypeId { get; set; }
         public int Duration { get; set; }
+        public string StopInformation { get; set; }
     
         public virtual Airline Airline { get; set; }
         public virtual Airport Airport { get; set; }

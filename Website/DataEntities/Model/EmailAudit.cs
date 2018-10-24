@@ -24,6 +24,8 @@ namespace DataEntities.Model
         public int CCUsersNumber { get; set; }
         public Nullable<int> ScheduledTaskId { get; set; }
         public string Comment { get; set; }
+        public string GuidId { get; set; }
+        public bool EmailSent { get; set; }
     
         public virtual EmailTypeLanguage EmailTypeLanguage { get; set; }
         public virtual ScheduledTask ScheduledTask { get; set; }

@@ -131,6 +131,9 @@ namespace Template
             {
                 RegisterCSSBundles(bundles);
                 RegisterJSBundles(bundles);
+
+                //this forces development mode to also minify and compress scripts bundle
+                BundleTable.EnableOptimizations = true;
             }
             catch (Exception e)
             {

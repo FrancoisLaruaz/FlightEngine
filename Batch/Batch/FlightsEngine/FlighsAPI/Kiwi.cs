@@ -13,6 +13,7 @@ using System.Web.Script.Serialization;
 using FlightsServices;
 using FlightsEngine.Models.Constants;
 using FlightsEngine.Utils;
+using Data.Model;
 
 namespace FlightsEngine.FlighsAPI
 {
@@ -21,7 +22,7 @@ namespace FlightsEngine.FlighsAPI
         public static string Key = "picky";
 
 
-        public static bool SearchFlights(AirlineSearch filter)
+        public static bool SearchFlights(KiwiAirlineSearch filter)
         {
             bool result = false;
             try
@@ -40,36 +41,35 @@ namespace FlightsEngine.FlighsAPI
 
 
 
-        static async Task MakeRequest(AirlineSearch filters)
+        static async Task MakeRequest(KiwiAirlineSearch filters)
         {
             List<TripItem> Trips = new List<TripItem>();
             try
             {
-
-
                 var client = new HttpClient();
                 var queryString = HttpUtility.ParseQueryString(string.Empty);
 
-
-                // exemple : https://api.skypicker.com/flights?flyFrom=CZ&to=porto&dateFrom=30/08/2018&dateTo=08/09/2018&partner=picky
+                var context = new TemplateEntities1();
+                SearchTripProviderService _searchTripProviderService = new SearchTripProviderService(context);
 
                 // Request parameters
                 if (!String.IsNullOrWhiteSpace(filters.FromAirportCode))
                     queryString["flyFrom"] = filters.FromAirportCode;
                 if (!String.IsNullOrWhiteSpace(filters.ToAirportCode))
                     queryString["to"] = filters.ToAirportCode;
-                if (filters.FromDate != null)
+
+                queryString["dateFrom"] = filters.FromDateMin.ToString("dd'/'MM'/'yyyy");
+                queryString["dateTo"] = filters.FromDateMax.ToString("dd'/'MM'/'yyyy");
+
+                if (filters.ToDateMin != null)
                 {
-                    queryString["dateFrom"] = filters.FromDate.Value.AddDays(-30).ToString("dd'/'MM'/'yyyy");
-                    queryString["dateTo"] = filters.FromDate.Value.AddDays(300).ToString("dd'/'MM'/'yyyy");
-                }
-                if (filters.ToDate != null)
-                {
-                    queryString["returnFrom"] = filters.FromDate.Value.AddDays(-30).ToString("dd'/'MM'/'yyyy");
-                    queryString["returnTo"] = filters.FromDate.Value.AddDays(300).ToString("dd'/'MM'/'yyyy");
+                    queryString["returnFrom"] = filters.ToDateMin.Value.ToString("dd'/'MM'/'yyyy");
+                    queryString["returnTo"] = filters.ToDateMax.Value.ToString("dd'/'MM'/'yyyy");
                     queryString["typeFlight"] = "round";
-                    queryString["daysInDestinationFrom"] = "5";
-                    queryString["daysInDestinationTo"] = "9";
+                    if(filters.DurationMin != null)
+                        queryString["daysInDestinationFrom"] = filters.DurationMin.ToString();
+                    if (filters.DurationMax != null)
+                        queryString["daysInDestinationTo"] = filters.DurationMax.ToString();
                 }
                 else
                 {
@@ -127,45 +127,86 @@ namespace FlightsEngine.FlighsAPI
                                 {
                                     TripItem Trip = new TripItem();
 
-                                    /*
-                                     * alter table dbo.Flight
-                                        add StopInformation varchar(1000) null
-                                     * 
-                                     * 1554425400
-                                     */
+                                    string lastCity = null;
+                                    string lastAirportCode = null;
+                                    string LastDepartureDate = null;
+                                    string LastArrivalDate = null;
+                                    string FlyFrom = Convert.ToString(flightJson["flyFrom"]);
+                                    string FlyTo = Convert.ToString(flightJson["flyTo"]);
 
-                                    List<List<Object>> routes = flightJson["route"];
-                                    foreach(var route in routes)
+                                    DateTime? ReturnTrip_DepartureDate = null;
+                                    DateTime? OneWayTrip_DepartureDate = null;
+
+                                    dynamic[] routes = flightJson["route"];
+                                    bool returnTrip = false;
+
+                                    foreach (var route in routes)
                                     {
-                                        Trip.OneWayTrip_Stops = Trip.OneWayTrip_Stops + 1;
+
+                                        string airlineCode = Convert.ToString(route["airline"]);
+
+                                        if (lastCity == null)
+                                        {
+                                            Trip.OneWayTrip_FromAirportCode = Convert.ToString(route["flyFrom"]);
+                                            OneWayTrip_DepartureDate = FlightsEngine.Utils.Utils.GetDateFromunixTimeStamp(Convert.ToString(route["dTime"]));
+                                            Trip.OneWayTrip_DepartureDate= OneWayTrip_DepartureDate.Value.ToString(DateFormat.Trip).Replace("-", "/");
+                                        }
+                                        else if (FlyTo == Convert.ToString(route["flyFrom"]))
+                                        {
+                                            returnTrip = true;
+                                            Trip.OneWayTrip_ToAirportCode = lastAirportCode;
+                                            Trip.OneWayTrip_ArrivalDate = LastArrivalDate;
+                                            ReturnTrip_DepartureDate = FlightsEngine.Utils.Utils.GetDateFromunixTimeStamp(Convert.ToString(route["dTime"]));
+                                            Trip.ReturnTrip_DepartureDate = ReturnTrip_DepartureDate.Value.ToString(DateFormat.Trip).Replace("-", "/");
+                                            Trip.ReturnTrip_FromAirportCode = Convert.ToString(route["flyFrom"]);
+                                        }
+                                        string flightNumber = Convert.ToString(route["flight_no"]);
+                                        if (returnTrip)
+                                        {
+                                            if (Trip.ReturnTrip_Stops == null)
+                                                Trip.ReturnTrip_Stops = 0;
+                                            Trip.ReturnTrip_AirlineName = airlineCode;
+                                            Trip.ReturnTrip_Stops = Trip.ReturnTrip_Stops + 1;
+                                            Trip.ReturnTrip_FlightNumber = Trip.ReturnTrip_FlightNumber == null ? flightNumber : Trip.ReturnTrip_FlightNumber + " - " + flightNumber;
+                                            if (Trip.ReturnTrip_Stops > 1)
+                                            {
+                                                Trip.ReturnTrip_StopInformation = Trip.ReturnTrip_StopInformation == null ? lastCity + " (" + lastAirportCode + ")" : Trip.ReturnTrip_StopInformation + " - " + lastCity + " (" + lastAirportCode + ")";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Trip.OneWayTrip_Stops = Trip.OneWayTrip_Stops + 1;
+                                            Trip.OneWayTrip_AirlineName = airlineCode;
+                                            Trip.OneWayTrip_FlightNumber = Trip.OneWayTrip_FlightNumber == null ? flightNumber : Trip.OneWayTrip_FlightNumber + " - " + flightNumber;
+                                            if (Trip.OneWayTrip_Stops > 1)
+                                            {
+                                                Trip.OneWayTrip_StopInformation = Trip.OneWayTrip_StopInformation == null ? lastCity + " (" + lastAirportCode + ")" : Trip.OneWayTrip_StopInformation + " - " + lastCity + " (" + lastAirportCode + ")";
+                                            }
+                                        }
+
+                                        lastCity = Convert.ToString(route["cityTo"]);
+                                        lastAirportCode = Convert.ToString(route["flyTo"]);
+                                        Trip.ReturnTrip_ToAirportCode = lastAirportCode;
+                                        LastDepartureDate = FlightsEngine.Utils.Utils.GetDateFromunixTimeStamp(Convert.ToString(route["dTime"])).ToString(DateFormat.Trip).Replace("-", "/");
+                                        LastArrivalDate = FlightsEngine.Utils.Utils.GetDateFromunixTimeStamp(Convert.ToString(route["aTime"])).ToString(DateFormat.Trip).Replace("-", "/");
+                                        Trip.ReturnTrip_ArrivalDate = LastArrivalDate;
                                     }
                                     Trip.OneWayTrip_Stops = Trip.OneWayTrip_Stops - 1;
-                                    if (filters.ToDate != null)
-                                    {
-                                        Trip.ReturnTrip_Stops = Trip.ReturnTrip_Stops - 1;
-                                    }
+                                    Trip.ReturnTrip_Stops = Trip.ReturnTrip_Stops - 1;
 
-                                    Trip.OneWayTrip_FromAirportCode = Convert.ToString(routes[0][0]);
-                                    Trip.OneWayTrip_ToAirportCode = filters.ToAirportCode;
 
-                                    if (filters.ToDate != null)
-                                    {
-                                        Trip.ReturnTrip_ToAirportCode = filters.FromAirportCode;
-                                        Trip.ReturnTrip_FromAirportCode = filters.ToAirportCode;
-                                    }
+                                    Trip.SearchTripProviderId = _searchTripProviderService.GetSearchTripProviderId(OneWayTrip_DepartureDate.Value, ReturnTrip_DepartureDate, filters.SearchTripWishesId,Providers.Kiwi);
                                     Trip.CurrencyCode = FlightsEngine.Models.Constants.Constants.DefaultCurrency;
                                     Trip.Price = Convert.ToDecimal(flightJson["price"]);
-                                    string aTime = Convert.ToString(flightJson["aTimeUTC"]);
+                                    Trip.Url = Convert.ToString(flightJson["deep_link"]);
+                                    Trip.OneWayTrip_Duration = ScrappingHelper.GetDurationFromHtml(Convert.ToString(flightJson["fly_duration"]));
+                                    if (FlightsEngine.Utils.Utils.IsPropertyExist(flightJson, "return_duration"))
+                                    {
+                                        Trip.ReturnTrip_Duration = ScrappingHelper.GetDurationFromHtml(Convert.ToString(flightJson["return_duration"]));
+                                    }
                                     Trip.Url = Convert.ToString(flightJson["deep_link"]);
 
-                                    List<Object> transfers = flightJson["transfers"];
-                                    Trip.OneWayTrip_Stops = transfers.Count;
 
-                                    Trip.OneWayTrip_ArrivalDate = FlightsEngine.Utils.Utils.GetDateFromunixTimeStamp(aTime).Value.ToString(DateFormat.Trip).Replace("-", "/");
-                                    Trip.OneWayTrip_Duration = ScrappingHelper.GetDurationFromHtml(Convert.ToString(flightJson["fly_duration"]));
-                                    Trip.ReturnTrip_Duration = ScrappingHelper.GetDurationFromHtml(Convert.ToString(flightJson["return_duration"]));
-                                    string dTime = Convert.ToString(flightJson["dTimeUTC"]);
-                                    Trip.OneWayTrip_DepartureDate = FlightsEngine.Utils.Utils.GetDateFromunixTimeStamp(dTime).Value.ToString(DateFormat.Trip).Replace("-", "/");
                                     Trips.Add(Trip);
                                 }
                                 catch (Exception ex2)
@@ -174,7 +215,7 @@ namespace FlightsEngine.FlighsAPI
                                 }
                             }
 
-                            TripsService _tripService = new TripsService();
+                            TripsService _tripService = new TripsService(context);
                             _tripService.InsertTrips(Trips);
                         }
                     }

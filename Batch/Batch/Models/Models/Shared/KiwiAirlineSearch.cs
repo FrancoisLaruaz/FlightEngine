@@ -6,22 +6,26 @@ using System.Threading.Tasks;
 
 namespace FlightsEngine.Models
 {
-    public class AirlineSearch
+    public class KiwiAirlineSearch
     {
-        public AirlineSearch()
+        public KiwiAirlineSearch()
         {
 
         }
 
-        public int SearchTripProviderId { get; set; }
+        public int SearchTripWishesId { get; set; }
 
         public string FromAirportCode { get; set; }
 
         public string ToAirportCode { get; set; }
 
-        public DateTime? FromDate { get; set; }
+        public DateTime FromDateMin { get; set; }
 
-        public DateTime? ToDate { get; set; }
+        public DateTime? ToDateMin { get; set; }
+
+        public DateTime? ToDateMax { get; set; }
+
+        public DateTime FromDateMax { get; set; }
 
         public int MaxStopsNumber { get; set; }
 
@@ -31,6 +35,10 @@ namespace FlightsEngine.Models
 
         public int BabiesNumber { get; set; }
 
+        public int? DurationMax { get; set; }
+
+        public int? DurationMin { get; set; }
+
 
         public bool Return { get; set; }
 
@@ -39,12 +47,16 @@ namespace FlightsEngine.Models
             string error = " FILTER : ";
             try
             {
-                error = error + "SearchTripProviderId =  " + SearchTripProviderId;
+                error = error + "SearchTripWishesId =  " + SearchTripWishesId ;
                 error = error + " | FromAirportCode =  " + FromAirportCode ?? "[NULL]";
                 error = error + " | ToAirportCode =  " + ToAirportCode ?? "[NULL]";
                 error = error + " | Return =  " + Return;
-                error = error + " | FromDate =  " + (FromDate.HasValue ? FromDate.ToString() : "[NULL]");
-                error = error + " | ToDate =  " + (ToDate.HasValue ? FromDate.ToString() : "[NULL]");
+                error = error + " | FromDateMin =  " +FromDateMin.ToString();
+                error = error + " | FromDateMax =  " +  FromDateMax.ToString();
+                error = error + " | ToDateMin =  " + (ToDateMin.HasValue ? ToDateMin.ToString() : "[NULL]");
+                error = error + " | ToDateMax =  " + (ToDateMax.HasValue ? ToDateMax.ToString() : "[NULL]");
+                error = error + " | DurationMin =  " + (DurationMin == null ? "[NULL]" : DurationMin.ToString());
+                error = error + " | DurationMax =  " + (DurationMax == null? "[NULL]": DurationMax.ToString());
                 error = error + " | MaxStopsNumber =  " + MaxStopsNumber;
                 error = error + " | AdultsNumber =  " + AdultsNumber;
                 error = error + " | ChildrenNumber =  " + ChildrenNumber;

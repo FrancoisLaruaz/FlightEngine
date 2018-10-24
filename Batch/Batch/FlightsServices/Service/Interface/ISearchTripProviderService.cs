@@ -11,6 +11,7 @@ namespace FlightsServices
 {
     public interface ISearchTripProviderService
     {
+        int GetSearchTripProviderId(DateTime FromDate, DateTime? ToDate, int SearchTripWishesId, int ProviderId);
         int SetSearchTripProviderAsEnded(int SearchTripProviderId, bool Success, string LastProxy, int AttemptsNumber);
 
         int InsertSearchTripProvider(int ProviderId, int SearchTripId, string Proxy=null, string Url=null);

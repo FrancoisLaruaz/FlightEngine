@@ -43,6 +43,7 @@
     <Compile Include="Models\Constants\Constants.cs" />
     <Compile Include="Models\Providers\AirFranceKLM\RequestBody.cs" />
     <Compile Include="Models\Providers\AirHob\RequestBody.cs" />
+    <Compile Include="Models\Shared\KiwiAirlineSearch.cs" />
     <Compile Include="Models\Shared\AirlineSearch.cs" />
     <Compile Include="Models\Shared\ProxyItem.cs" />
     <Compile Include="Models\Shared\TripsFromHtmlResult.cs" />

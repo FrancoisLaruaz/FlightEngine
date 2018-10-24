@@ -12,8 +12,9 @@ using Commons.Encrypt;
 
 using Models.Class.Email;
 using System.ComponentModel;
+using Service.UserArea;
 
-namespace Commons
+namespace Service.Helpers
 {
     public class EMailHelper
     {
@@ -63,12 +64,9 @@ namespace Commons
         /// </summary>
         /// <param name="Email"></param>
         /// <returns></returns>
-        public static Tuple<bool,int,int> SendMail(Email Email)
+        public static bool SendMail(Email Email)
         {
             bool result = false;
-            int NbSentAttachments = 0;
-            int CCUsersNumber = 0;
-            Tuple<bool, int,int> EMailResult = null;
             try
             {
                 MailAddress fromAddress = new MailAddress(Email.FromEmail, MailName);
@@ -135,7 +133,6 @@ namespace Commons
                                     try
                                     {
                                         message.Attachments.Add(file);
-                                        NbSentAttachments++;
                                     }
                                     catch (Exception e)
                                     {
@@ -149,10 +146,9 @@ namespace Commons
                             foreach (string CC in Email.CCList)
                             {
                                 message.CC.Add(CC);
-                                CCUsersNumber++;
                             }
                         }
-                        smtp.SendAsync(message, message);
+                        smtp.SendAsync(message, Email.AuditGuidId);
       
                     }
                     result = true;
@@ -163,23 +159,26 @@ namespace Commons
                 result = false;
                 Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "UserMail = " + Email.ToEmail + " and subject = " + Email.Subject + " and EMailTypeId = " + Email.EMailTypeId);
             }
-            EMailResult = new Tuple<bool, int,int>(result, NbSentAttachments, CCUsersNumber);
-            return EMailResult;
+            return result;
         }
 
         private static void SendCompletedCallback(object sender, AsyncCompletedEventArgs e)
         {
             try
             {
-                MailMessage msg = (MailMessage)e.UserState;
-                string recipient = msg.To.ToString();
+                string emailToken = (string)e.UserState;
+
                 if (e.Cancelled)
                 {
-                    Logger.GenerateInfo("Mail CANCELLED : Subject = '" + (msg.Subject ?? "") + "' and recipient = '" + recipient + "'" + (e.Error != null ? " and error = " + e.Error.ToString() : ""));
+                    Logger.GenerateInfo("SendSendGridEmail Mail CANCELLED : emailToken = '" + (emailToken ?? "") + "' " + (e.Error != null ? " and error = " + e.Error.ToString() : ""));
                 }
                 else if (e.Error != null)
                 {
-                    Logger.GenerateInfo("Mail Error : Subject = '" + (msg.Subject ?? "") + "' and recipient = '" + recipient + "' and error = " + e.Error.ToString());
+                    Logger.GenerateInfo("SendSendGridEmail Mail Error :  emailToken = '" + (emailToken ?? "") + "' and error = " + e.Error.ToString());
+                }
+                else
+                {
+                    SetEmailAsSent(emailToken);
                 }
 
             }
@@ -187,6 +186,22 @@ namespace Commons
             {
                 Logger.GenerateError(ex, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,"sender =" + sender.ToString());
             }
+        }
+
+        public static bool SetEmailAsSent(string GuidId)
+        {
+            bool result = false;
+            try
+            {
+                EMailService _emailService = new EMailService();
+                result = _emailService.SetMailAsSent(GuidId);
+            }
+            catch (Exception e)
+            {
+                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "GuidId =" + GuidId.ToString());
+            }
+
+            return result;
         }
 
     }
