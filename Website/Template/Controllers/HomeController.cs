@@ -74,8 +74,7 @@ namespace Website.Controllers
                 {
                     model.UserFirstName = UserSession.FirstName;
                     model.UserNameDecrypt = UserSession.UserName;
-                    model.PictureThumbnailSrc = FileHelper.GetDecryptedFilePath(UserSession.PictureThumbnailSrc, true, true);
-                    model.PictureThumbnailSrc = model.PictureThumbnailSrc.Replace("~", "");
+                    model.PictureThumbnailSrc = FileHelper.GetDecryptedFilePath(UserSession.PictureThumbnailSrc, true, true).Replace("~", "");
                 }
             }
             catch (Exception e)

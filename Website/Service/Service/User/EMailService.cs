@@ -104,7 +104,7 @@ namespace Service.UserArea
                 if (String.IsNullOrWhiteSpace(Email.RootPathDefault))
                     Email.RootPathDefault = FileHelper.GetRootPathDefault() + @"\";
 
-
+                Email.AuditGuidId = Guid.NewGuid().ToString();
                 if (Email.EmailContent == null)
                 {
                     Email.EmailContent = new List<Tuple<string, string>>();
@@ -130,6 +130,15 @@ namespace Service.UserArea
                 {
                     Email.EmailContent.Add(new Tuple<string, string>("#UserFirstName#", "user"));
                     Email.EmailContent.Add(new Tuple<string, string>("#UserFullName#", "user"));
+                }
+
+                if (!String.IsNullOrWhiteSpace(Email.AuditGuidId))
+                {
+                    Email.EmailContent.Add(new Tuple<string, string>("#WatcherUrl#", Utils.Website + "/Analytics/" + Email.AuditGuidId));
+                }
+                else
+                {
+                    Email.EmailContent.Add(new Tuple<string, string>("#WatcherUrl#", CommonsConst.DefaultImage.Empty));
                 }
                 Email.EmailContent.Add(new Tuple<string, string>("#WebSiteURL#", Utils.Website));
                 Email.LanguageId = LanguageId;
@@ -181,9 +190,10 @@ namespace Service.UserArea
                             }
                         }
                     }
-                    Email.AuditGuidId = InsertEMailAudit(Email, Email.Attachments.Count, Email.CCList.Count);
-                    Task.Factory.StartNew(() => SendMailAsync(Email));
-                    result = true;
+                    if (InsertEMailAudit(Email, Email.Attachments.Count, Email.CCList.Count))
+                    {
+                        Task.Factory.StartNew(() => SendMailAsync(Email));
+                    }
                 }
                 else
                 {
@@ -216,6 +226,44 @@ namespace Service.UserArea
                 result = false;
                 Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "EMailTypeId = " + EMail.EMailTypeId + " and emailto =" + EMail.ToEmail);
             }
+            return result;
+        }
+
+
+        public bool UpdateEmailWatcher(string EmailGuidId, int EmailWatcherStatusId)
+        {
+            bool result = false;
+
+            try
+            {
+                if (!String.IsNullOrWhiteSpace(EmailGuidId))
+                {
+                    var emailAudit = _emailAuditRepo.FindAllBy(e => e.GuidId == EmailGuidId).FirstOrDefault();
+                    if (emailAudit != null)
+                    {
+                        if (!(emailAudit.EmailWatcherStatusId == EmailWatcherStatus.LinkClicked && EmailWatcherStatusId == EmailWatcherStatus.EmailOpened))
+                        {
+                            emailAudit.EmailWatcherStatusId = EmailWatcherStatusId;
+                        }
+                        if ((EmailWatcherStatusId == EmailWatcherStatus.EmailOpened || EmailWatcherStatusId == EmailWatcherStatus.LinkClicked) && emailAudit.EmailOpenedDate == null)
+                        {
+                            emailAudit.EmailOpenedDate = DateTime.UtcNow;
+                        }
+                        if ((EmailWatcherStatusId == EmailWatcherStatus.LinkClicked) && emailAudit.EmailLinkClickedDate == null)
+                        {
+                            emailAudit.EmailLinkClickedDate = DateTime.UtcNow;
+                        }
+                        _emailAuditRepo.Edit(emailAudit);
+                        result = _emailAuditRepo.Save();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result = false;
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "EmailGuidId = " + EmailGuidId + " and EmailWatcherStatusId =" + EmailWatcherStatusId);
+            }
+
             return result;
         }
 
@@ -322,9 +370,9 @@ namespace Service.UserArea
         /// <param name="AttachmentNumber"></param>
         /// <param name="CCUsersNumber"></param>
         /// <returns></returns>
-        public string InsertEMailAudit(Email EMail, int AttachmentNumber, int CCUsersNumber)
+        public bool InsertEMailAudit(Email EMail, int AttachmentNumber, int CCUsersNumber)
         {
-            string AuditGuidId = Guid.NewGuid().ToString();
+
             try
             {
 
@@ -338,19 +386,16 @@ namespace Service.UserArea
                 Audit.CCUsersNumber = CCUsersNumber;
                 Audit.ScheduledTaskId = EMail.RelatedScheduledTaskId;
                 Audit.Comment = EMail.Comment;
-                Audit.GuidId = AuditGuidId;
+                Audit.GuidId = EMail.AuditGuidId;
+                Audit.EmailWatcherStatusId = EmailWatcherStatus.EmailNotOpened;
                 _emailAuditRepo.Add(Audit);
-                if (_emailAuditRepo.Save())
-                {
-                    return AuditGuidId;
-                }
-
+                return _emailAuditRepo.Save();
             }
             catch (Exception e)
             {
                 Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "EMailTypeId = " + EMail.EMailTypeId + " and emailto =" + EMail.ToEmail);
             }
-            return null;
+            return false;
         }
 
         public bool SetMailAsSent(string AuditGuidId)

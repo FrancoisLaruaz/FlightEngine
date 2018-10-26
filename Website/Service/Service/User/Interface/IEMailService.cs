@@ -18,6 +18,8 @@ namespace Service.UserArea.Interface
 {
     public interface IEMailService
     {
+
+        bool UpdateEmailWatcher(string EmailGuidId, int EmailWatcherStatusId);
         bool SetMailAsSent(string AuditGuidId);
         bool SendMail(Email Email);
 
@@ -34,7 +36,7 @@ namespace Service.UserArea.Interface
 
         EmailTypeLanguage GetEMailTypeLanguage(int EMailTypeId, int LanguageId);
 
-        string InsertEMailAudit(Email EMail, int AttachmentNumber, int CCUsersNumber);
+        bool InsertEMailAudit(Email EMail, int AttachmentNumber, int CCUsersNumber);
 
         DisplayEmailAuditViewModel GetDisplayEmailAuditViewModel(string Pattern, int StartAt, int PageSize);
     }

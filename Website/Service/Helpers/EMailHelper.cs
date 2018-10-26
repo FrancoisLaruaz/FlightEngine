@@ -13,6 +13,7 @@ using Commons.Encrypt;
 using Models.Class.Email;
 using System.ComponentModel;
 using Service.UserArea;
+using System.Threading.Tasks;
 
 namespace Service.Helpers
 {
@@ -76,7 +77,7 @@ namespace Service.Helpers
                 string fromPassword = EncryptHelper.DecryptString(PasswordMailAdress);
 
                 if (String.IsNullOrWhiteSpace(Email.EndMailTemplate))
-                    Email.EndMailTemplate = "_EndMail_"+CommonsConst.Languages.ToString(Email.LanguageId);
+                    Email.EndMailTemplate = "_EndMail_" + CommonsConst.Languages.ToString(Email.LanguageId);
 
                 if (!String.IsNullOrWhiteSpace(Email.EMailTemplate) && !String.IsNullOrWhiteSpace(Email.ToEmail))
                 {
@@ -93,16 +94,20 @@ namespace Service.Helpers
                         Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
                     };
                     smtp.SendCompleted += new SendCompletedEventHandler(SendCompletedCallback);
+
+
+
+
                     string PathHeaderOnServer = Email.BasePathFile + "\\_HeaderMail.html";
                     string PathFooterOnServer = Email.BasePathFile + "\\_FooterMail.html";
-                    string PathEndMailOnServer = Email.BasePathFile + "\\"+Email.EndMailTemplate+".html";
-                    string PathTemplateOnServer = Email.BasePathFile  + "\\" + TemplateName + ".html";
+                    string PathEndMailOnServer = Email.BasePathFile + "\\" + Email.EndMailTemplate + ".html";
+                    string PathTemplateOnServer = Email.BasePathFile + "\\" + TemplateName + ".html";
                     string headerTemplate = new StreamReader(PathHeaderOnServer).ReadToEnd();
                     string bodyTemplate = new StreamReader(PathTemplateOnServer).ReadToEnd();
                     string footerTemplate = new StreamReader(PathFooterOnServer).ReadToEnd();
                     string endMailTemplate = new StreamReader(PathEndMailOnServer).ReadToEnd();
-                    bodyTemplate = headerTemplate +  bodyTemplate + endMailTemplate + footerTemplate;
-                //    bodyTemplate=  new StreamReader(Email.BasePathFile + "/_Test.html").ReadToEnd();
+                    bodyTemplate = headerTemplate + bodyTemplate + endMailTemplate + footerTemplate;
+                    //    bodyTemplate=  new StreamReader(Email.BasePathFile + "/_Test.html").ReadToEnd();
                     foreach (var content in Email.EmailContent)
                     {
                         bodyTemplate = bodyTemplate.Replace(content.Item1, content.Item2);
@@ -117,40 +122,38 @@ namespace Service.Helpers
 
 
 
-                    using (var message = new MailMessage(fromAddress, toAddress)
+                    var message = new MailMessage(fromAddress, toAddress)
                     {
                         Subject = Email.Subject,
                         Body = bodyTemplate,
                         IsBodyHtml = true
-                    })
+                    };
+
+                    if (Email.AttachmentsMails != null)
                     {
-                        if (Email.AttachmentsMails != null)
+                        foreach (System.Net.Mail.Attachment file in Email.AttachmentsMails)
                         {
-                            foreach (System.Net.Mail.Attachment file in Email.AttachmentsMails)
+                            if (file != null)
                             {
-                                if (file!=null)
+                                try
                                 {
-                                    try
-                                    {
-                                        message.Attachments.Add(file);
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "file = " + file + " and UserMail = " + Email.ToEmail + " and subject = " + Email.Subject);
-                                    }
+                                    message.Attachments.Add(file);
+                                }
+                                catch (Exception e)
+                                {
+                                    Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "file = " + file + " and UserMail = " + Email.ToEmail + " and subject = " + Email.Subject);
                                 }
                             }
                         }
-                        if (Email.CCList != null)
-                        {
-                            foreach (string CC in Email.CCList)
-                            {
-                                message.CC.Add(CC);
-                            }
-                        }
-                        smtp.SendAsync(message, Email.AuditGuidId);
-      
                     }
+                    if (Email.CCList != null)
+                    {
+                        foreach (string CC in Email.CCList)
+                        {
+                            message.CC.Add(CC);
+                        }
+                    }
+                    smtp.SendAsync(message, Email.AuditGuidId);
                     result = true;
                 }
             }
@@ -170,11 +173,11 @@ namespace Service.Helpers
 
                 if (e.Cancelled)
                 {
-                    Logger.GenerateInfo("SendSendGridEmail Mail CANCELLED : emailToken = '" + (emailToken ?? "") + "' " + (e.Error != null ? " and error = " + e.Error.ToString() : ""));
+                    Logger.GenerateInfo("SendCompletedCallback Mail CANCELLED : emailToken = '" + (emailToken ?? "") + "' " + (e.Error != null ? " and error = " + e.Error.ToString() : ""));
                 }
                 else if (e.Error != null)
                 {
-                    Logger.GenerateInfo("SendSendGridEmail Mail Error :  emailToken = '" + (emailToken ?? "") + "' and error = " + e.Error.ToString());
+                    Logger.GenerateInfo("SendCompletedCallback Mail Error :  emailToken = '" + (emailToken ?? "") + "' and error = " + e.Error.ToString());
                 }
                 else
                 {
@@ -184,7 +187,7 @@ namespace Service.Helpers
             }
             catch (Exception ex)
             {
-                Logger.GenerateError(ex, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,"sender =" + sender.ToString());
+                Logger.GenerateError(ex, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "sender =" + sender.ToString());
             }
         }
 

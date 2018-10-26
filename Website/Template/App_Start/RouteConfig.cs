@@ -16,13 +16,24 @@ namespace Template
             new { hash = @"^[0-9a-zA-Z]+$" } // constraint
             );
 
+            #region email
+
+            routes.MapRoute(
+                name: "EmailWatcher",
+                url: "Analytics/{EmailAuditGuidId}",
+                defaults: new { controller = "Email", action = "EmailWatcher", EmailAuditGuidId = UrlParameter.Optional },
+                namespaces: new[] { "Website.Controllers" }
+                );
+
+            #endregion
+
             #region Browse  
 
 
 
 
 
-            #endregion 
+            #endregion
 
             #region Search
 

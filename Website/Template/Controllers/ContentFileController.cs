@@ -196,7 +196,7 @@ namespace Website.Controllers
                         {
                             string extension = "." + hash.Split('.')[hash.Split('.').Length - 1];
                             string originalUrl = tabUrl[0].Replace("*", "/").Replace("//", "~/").Replace("#", ".") + extension;
-                            if (System.IO.File.Exists(Server.MapPath(originalUrl)))
+                            if (FileHelper.FileExists(Server.MapPath(originalUrl)))
                             {
                                 string contentType = "";
                                 if (extension == ".js")

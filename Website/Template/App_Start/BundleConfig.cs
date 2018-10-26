@@ -95,7 +95,7 @@ namespace Template
             try
             {
 
-                bundles.Add(new LessBundle("~/bundles/Style").Include("~/Content/bootstrap.min.css", new CssRewriteUrlTransform()).Include(
+                bundles.Add(new LessBundle("~/bundles/Style").Include("~/Content/bootstrap.min.css", new CssRewriteUrlTransform()).Include("~/Content/font-awesome.min.css", new CssRewriteUrlTransform()).Include(
                      "~/Content/General/bootstrap-slider.css",
                     "~/Content/General/bootstrap-datepicker.css",
                     "~/Content/General/bootstrap-social.css",

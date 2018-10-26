@@ -26,6 +26,7 @@ namespace DataEntities.Model
             this.EmailTypeLanguages1 = new HashSet<EmailTypeLanguage>();
             this.Products = new HashSet<Product>();
             this.Flights = new HashSet<Flight>();
+            this.EmailAudits = new HashSet<EmailAudit>();
         }
     
         public int Id { get; set; }
@@ -57,5 +58,7 @@ namespace DataEntities.Model
         public virtual ICollection<Product> Products { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Flight> Flights { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmailAudit> EmailAudits { get; set; }
     }
 }

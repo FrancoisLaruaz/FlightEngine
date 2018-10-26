@@ -26,9 +26,13 @@ namespace DataEntities.Model
         public string Comment { get; set; }
         public string GuidId { get; set; }
         public bool EmailSent { get; set; }
+        public int EmailWatcherStatusId { get; set; }
+        public Nullable<System.DateTime> EmailOpenedDate { get; set; }
+        public Nullable<System.DateTime> EmailLinkClickedDate { get; set; }
     
         public virtual EmailTypeLanguage EmailTypeLanguage { get; set; }
         public virtual ScheduledTask ScheduledTask { get; set; }
         public virtual User User { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

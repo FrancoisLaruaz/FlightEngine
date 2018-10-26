@@ -11,6 +11,7 @@ using System.Net;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Web.Hosting;
+using RestSharp;
 
 namespace Commons
 {
@@ -47,6 +48,77 @@ namespace Commons
             {
                 result = false;
                 Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "FilePath = " + FilePath);
+            }
+            return result;
+        }
+
+
+        public static Stream GetStreamFromPath(string path)
+        {
+            try
+            {
+                if (!String.IsNullOrWhiteSpace(path))
+                {
+                    if (path.ToLower().Contains("http://") || path.ToLower().Contains("https://"))
+                    {
+                        return GetStreamFromUrl(path);
+                    }
+                    else
+                    {
+                        return File.OpenRead(GetStorageRoot(path));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,"path = " + path);
+            }
+            return null;
+        }
+
+        private static Stream GetStreamFromUrl(string url)
+        {
+            try
+            {
+                byte[] file = null;
+
+                using (var wc = new System.Net.WebClient())
+                    file = wc.DownloadData(url);
+
+                return new MemoryStream(file);
+            }
+            catch (Exception e)
+            {
+                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "url = " + url);
+            }
+            return null;
+        }
+
+        public static bool FileExists(string path)
+        {
+            bool result = false;
+            try
+            {
+                if (!String.IsNullOrWhiteSpace(path))
+                {
+                    if (path.ToLower().Contains("http://") || path.ToLower().Contains("https://"))
+                    {
+                        var client = new RestClient(path);
+                        var request = new RestRequest(Method.HEAD);
+                        request.Timeout = 5000;
+                        var response = client.Execute(request);
+                        result = response.StatusCode == HttpStatusCode.OK;
+                    }
+                    else
+                    {
+                        result = File.Exists(GetStorageRoot(path));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result = false;
+                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "path = " + path);
             }
             return result;
         }
@@ -236,10 +308,14 @@ namespace Commons
         {
             try
             {
-                if (!String.IsNullOrWhiteSpace(url))
+                if (!String.IsNullOrWhiteSpace(url)  && !(url.Contains("D:") || url.Contains("C:") || url.Contains("https://") || url.Contains("http://")))
                 {
                     string StorageRoot = GetRootPathDefault() + url.Replace("~/", "").Replace("/", @"\");
                     return StorageRoot;
+                }
+                else
+                {
+                    return url;
                 }
             }
             catch (Exception e)
@@ -370,8 +446,8 @@ namespace Commons
             {
                 if (!String.IsNullOrWhiteSpace(path))
                 {
-                    var localFilePath = path.Contains(":") ? path : GetStorageRoot(path);
-                    if (File.Exists(localFilePath))
+                    var localFilePath =GetStorageRoot(path);
+                    if (FileHelper.FileExists(localFilePath))
                     {
                         var FileBytes = File.ReadAllBytes(localFilePath);
                         // If the file is in the upload folder, it needs to be decrypted
@@ -446,8 +522,8 @@ namespace Commons
             {
                 if (!String.IsNullOrWhiteSpace(path))
                 {
-                    var localFilePath = path.Contains(":") ? path : GetStorageRoot(path);
-                    if (File.Exists(localFilePath))
+                    var localFilePath =  GetStorageRoot(path);
+                    if (FileHelper.FileExists(localFilePath))
                     {
                         // If the file is in the upload folder, it needs to be decrypted
                         if (path.Contains(CommonsConst.Const.BasePathUploadEncrypted))
@@ -516,59 +592,7 @@ namespace Commons
             return bytes;
         }
 
-        public static byte[] ConvertImageToBytesArray(Image x)
-        {
-            try
-            {
-                ImageConverter _imageConverter = new ImageConverter();
-                byte[] xByte = (byte[])_imageConverter.ConvertTo(x, typeof(byte[]));
-                return xByte;
-            }
-            catch (Exception e)
-            {
-                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.BaseType);
-            }
-            return null;
-        }
-
-        public static string CreateThumbnail(string pathFile, int width)
-        {
-            try
-            {
-                string decryptedPath = pathFile;
-                Image image = null;
-                if (pathFile.Contains(CommonsConst.Const.BasePathUploadEncrypted))
-                {
-                    decryptedPath = GetDecryptedFilePath(pathFile);
-                    image = GetImageFrom64Base(decryptedPath);
-                }
-                else
-                {
-                    image = Image.FromFile(FileHelper.GetStorageRoot(decryptedPath));
-                }
-
-                float ratio = image.Width / width;
-                int height = (int)((float)image.Height / ratio);
-                Image thumb = image.GetThumbnailImage(width, height, () => false, IntPtr.Zero);
-
-                if (thumb != null)
-                {
-                    string ext = ".png";
-                    string fileName = GetFileName("UserThumbnail", ext);
-                    var path = FileHelper.GetStorageRoot(Const.BasePathUploadDecrypted) + "/" + fileName;
-                    File.WriteAllBytes(path, ConvertImageToBytesArray(thumb));
-
-                    return Const.BasePathUploadDecrypted + "/" + fileName;
-                }
-
-
-            }
-            catch (Exception e)
-            {
-                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.BaseType);
-            }
-            return CommonsConst.DefaultImage.DefaultThumbnailUser;
-        }
+ 
 
 
         public static string UploadDecryptedFile(HttpPostedFileBase file, string filename)

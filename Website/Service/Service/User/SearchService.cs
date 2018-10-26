@@ -235,7 +235,7 @@ namespace Service.UserArea
                             searchItem.LoggedUserId = user == null ? 0 : user.Id;
                             searchItem.ImageSrc = item.PictureSrc ?? CommonsConst.DefaultImage.DefaultThumbnailUser;
                             searchItem.ItemFollowed = user == null ? false : user.UserFollows1.Where(f => f.FollowedUserId == item.Id).Any();
-                            if (!System.IO.File.Exists(HttpContext.Current.Server.MapPath(searchItem.ImageSrc)))
+                            if (!FileHelper.FileExists(HttpContext.Current.Server.MapPath(searchItem.ImageSrc)))
                             {
                                 searchItem.ImageSrc = CommonsConst.DefaultImage.DefaultThumbnailUser.Replace("~","");
                             }

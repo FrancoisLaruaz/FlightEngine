@@ -206,6 +206,7 @@
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TasksController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\BrowseController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -295,6 +296,7 @@
     <Content Include="Content\Views\Shared\SquaredCheckBox.css" />
     <Content Include="Content\Views\Shared\_CookieConsent.css" />
     <Content Include="Ressources\Files\Images\Background.jpg" />
+    <Content Include="Ressources\Files\Images\Email\collect.gif" />
     <Content Include="Ressources\Files\Images\Error\404.gif" />
     <Content Include="Ressources\Files\Images\HomePage\slider_homepage1.jpg" />
     <Content Include="Ressources\Files\Images\GoogleMap\close_marker.png" />

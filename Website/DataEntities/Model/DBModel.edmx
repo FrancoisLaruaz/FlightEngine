@@ -159,6 +159,9 @@
           <Property Name="Comment" Type="nvarchar" MaxLength="2000" />
           <Property Name="GuidId" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="EmailSent" Type="bit" Nullable="false" />
+          <Property Name="EmailWatcherStatusId" Type="int" Nullable="false" />
+          <Property Name="EmailOpenedDate" Type="datetime" />
+          <Property Name="EmailLinkClickedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="EmailTypeLanguage">
           <Key>
@@ -571,6 +574,18 @@
             </Principal>
             <Dependent Role="EmailAudit">
               <PropertyRef Name="EMailTypeLanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailAudit_EmailWatcherStatusId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="EmailAudit" Type="Self.EmailAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailAudit">
+              <PropertyRef Name="EmailWatcherStatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1234,6 +1249,10 @@
             <End Role="EmailTypeLanguage" EntitySet="EmailTypeLanguage" />
             <End Role="EmailAudit" EntitySet="EmailAudit" />
           </AssociationSet>
+          <AssociationSet Name="FK_EmailAudit_EmailWatcherStatusId" Association="Self.FK_EmailAudit_EmailWatcherStatusId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="EmailAudit" EntitySet="EmailAudit" />
+          </AssociationSet>
           <AssociationSet Name="FK_EmailAudit_ScheduledTaskId" Association="Self.FK_EmailAudit_ScheduledTaskId">
             <End Role="ScheduledTask" EntitySet="ScheduledTask" />
             <End Role="EmailAudit" EntitySet="EmailAudit" />
@@ -1733,6 +1752,10 @@
             <Parameter Name="ReturnTrip_Stops" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UpdatePricesWithCurrenciesRates" />
+          <AssociationSet Name="FK_EmailAudit_EmailWatcherStatusId" Association="TemplateModel.FK_EmailAudit_EmailWatcherStatusId">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="EmailAudit" EntitySet="EmailAudits" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -1807,6 +1830,7 @@
           <NavigationProperty Name="EmailTypeLanguages1" Relationship="TemplateModel.FK_EmailTypeLanguage_Language" FromRole="Category" ToRole="EmailTypeLanguage" />
           <NavigationProperty Name="Products" Relationship="TemplateModel.FK_Product_StatusId" FromRole="Category" ToRole="Product" />
           <NavigationProperty Name="Flights" Relationship="TemplateModel.FK_Flight_FlightTypeId" FromRole="Category" ToRole="Flight" />
+          <NavigationProperty Name="EmailAudits" Relationship="TemplateModel.FK_EmailAudit_EmailWatcherStatusId" FromRole="Category" ToRole="EmailAudit" />
         </EntityType>
         <EntityType Name="CategoryType">
           <Key>
@@ -1846,6 +1870,10 @@
           <NavigationProperty Name="User" Relationship="TemplateModel.FK_EmailAudit_UserId" FromRole="EmailAudit" ToRole="User" />
           <Property Name="GuidId" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="EmailSent" Type="Boolean" Nullable="false" />
+          <Property Name="EmailWatcherStatusId" Type="Int32" Nullable="false" />
+          <Property Name="EmailOpenedDate" Type="DateTime" Precision="3" />
+          <Property Name="EmailLinkClickedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Category" Relationship="TemplateModel.FK_EmailAudit_EmailWatcherStatusId" FromRole="EmailAudit" ToRole="Category" />
         </EntityType>
         <EntityType Name="EmailTypeLanguage">
           <Key>
@@ -2845,6 +2873,18 @@
           <End Type="TemplateModel.Country" Role="Country" Multiplicity="*" />
           <End Type="TemplateModel.Provider" Role="Provider" Multiplicity="*" />
         </Association>
+        <Association Name="FK_EmailAudit_EmailWatcherStatusId">
+          <End Type="TemplateModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="TemplateModel.EmailAudit" Role="EmailAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailAudit">
+              <PropertyRef Name="EmailWatcherStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2945,6 +2985,9 @@
           <EntitySetMapping Name="EmailAudits">
             <EntityTypeMapping TypeName="TemplateModel.EmailAudit">
               <MappingFragment StoreEntitySet="EmailAudit">
+                <ScalarProperty Name="EmailLinkClickedDate" ColumnName="EmailLinkClickedDate" />
+                <ScalarProperty Name="EmailOpenedDate" ColumnName="EmailOpenedDate" />
+                <ScalarProperty Name="EmailWatcherStatusId" ColumnName="EmailWatcherStatusId" />
                 <ScalarProperty Name="EmailSent" ColumnName="EmailSent" />
                 <ScalarProperty Name="GuidId" ColumnName="GuidId" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />

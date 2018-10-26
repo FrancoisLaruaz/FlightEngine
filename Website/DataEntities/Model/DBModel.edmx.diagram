@@ -91,6 +91,7 @@
         <AssociationConnector Association="TemplateModel.FK_Trip_SearchTripProvider" />
         <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_CreationUser" />
         <AssociationConnector Association="TemplateModel.ProviderCountry" />
+        <AssociationConnector Association="TemplateModel.FK_EmailAudit_EmailWatcherStatusId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,20 +18,21 @@ namespace Website.Controllers
 {
     public class ExperimentController : BaseController
     {
-
+        private IEMailService _emailService;
 
         public ExperimentController(
-            IUserService userService
+            IUserService userService,
+            IEMailService emailService
             ) : base(userService)
         {
-
+            _emailService = emailService;
         }
         public ActionResult Index()
         {
 
             try
             {
-
+                _emailService.SendEMailToUser("francois@frontfundr.com", CommonsConst.EmailTypes.UserWelcome);
 
             }
             catch (Exception e)

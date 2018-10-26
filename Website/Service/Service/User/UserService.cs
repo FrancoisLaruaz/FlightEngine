@@ -658,7 +658,7 @@ namespace Service.UserArea
                 var user = _userRepo.Get(UserId);
                 if (user != null)
                 {
-                    string PictureThumbnailSrc = FileHelper.CreateThumbnail(user.PictureSrc, 40);
+                    string PictureThumbnailSrc = ImageHelper.CreateThumbnail(user.PictureSrc, 40);
                     if (!String.IsNullOrWhiteSpace(PictureThumbnailSrc))
                     {
                         user.PictureThumbnailSrc = PictureThumbnailSrc;

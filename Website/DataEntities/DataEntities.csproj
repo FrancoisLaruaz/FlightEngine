@@ -58,6 +58,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Const\Const.cs" />
+    <Compile Include="Const\ConstantsHelper.cs" />
     <Compile Include="DataClass\TemplateEntities.cs" />
     <Compile Include="Logger\LoggerHelper.cs" />
     <Compile Include="Model\Address.cs">

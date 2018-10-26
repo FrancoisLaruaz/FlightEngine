@@ -29,6 +29,7 @@ namespace CommonsConst
         public const string BasePathTemplateEMails = BasePathRessources + "\\EMails";
         public const string BasePathImages = BasePathFiles + "/Images";
         public const string BasePathHomePage = BasePathImages + "/HomePage";
+        public const string BasePathUploadThumbnail = BasePathUploadDecrypted + "/Thumbnail";
 
         public const string Logo =BasePathImages + "/Logo.png";
 
@@ -113,7 +114,7 @@ namespace CommonsConst
         public const string Default = Const.BasePathImages + "/DefaultImage.jpg";
         public const string DefaultImageUser = Const.BasePathImages + "/DefaultUser.jpg";
         public const string DefaultThumbnailUser = Const.BasePathImages + "/DefaultThumbnailUser.jpg";
-
+        public const string Empty = Const.BasePathImages + "/Email/collect.gif";
     }
     public static class SearchItemType
     {
@@ -126,6 +127,31 @@ namespace CommonsConst
     {
         public static string NotAuthorized = "NotAuthorized";
         public static string UnknownError = "UnknownError";
+    }
+
+    public static class EmailWatcherStatus
+    {
+        public const int NotWatched = 10001;
+        public const int EmailNotOpened = 10002;
+        public const int LinkClicked = 10003;
+        public const int EmailOpened = 10004;
+
+        public static string ToString(int value)
+        {
+            switch (value)
+            {
+                case NotWatched:
+                    return "[[[Not Watched]]";
+                case EmailNotOpened:
+                    return "[[[Email Not Opened]]]";
+                case LinkClicked:
+                    return "[[[Link Clicked]]]";
+                case EmailOpened:
+                    return "[[[Email Opened]]]";
+                default:
+                    return "";
+            }
+        }
     }
 
 

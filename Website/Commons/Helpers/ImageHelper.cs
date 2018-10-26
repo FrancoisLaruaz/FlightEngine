@@ -12,6 +12,7 @@ using Ghostscript.NET;
 using Ghostscript.NET.Rasterizer;
 using Models.Class;
 using Models.Class.FileUpload;
+using CommonsConst;
 
 namespace Commons
 {
@@ -47,6 +48,61 @@ namespace Commons
             {
                 Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
             }
+        }
+
+
+        public static byte[] ConvertImageToBytesArray(Image x)
+        {
+            try
+            {
+                ImageConverter _imageConverter = new ImageConverter();
+                byte[] xByte = (byte[])_imageConverter.ConvertTo(x, typeof(byte[]));
+                return xByte;
+            }
+            catch (Exception e)
+            {
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.BaseType);
+            }
+            return null;
+        }
+
+        public static string CreateThumbnail(string pathFile, int width)
+        {
+            try
+            {
+                string decryptedPath = pathFile;
+                Image image = null;
+                if (pathFile.Contains(CommonsConst.Const.BasePathUploadEncrypted))
+                {
+                    decryptedPath = FileHelper.GetDecryptedFilePath(pathFile);
+                    image = FileHelper.GetImageFrom64Base(decryptedPath);
+                }
+                else
+                {
+                    image = System.Drawing.Image.FromStream(FileHelper.GetStreamFromPath(pathFile));
+                }
+
+                float ratio = image.Width / width;
+                int height = (int)((float)image.Height / ratio);
+                Image thumb = image.GetThumbnailImage(width, height, () => false, IntPtr.Zero);
+
+                if (thumb != null)
+                {
+                    string ext = ".png";
+                    string fileName = FileHelper.GetFileName("UserThumbnail", ext);
+                    var path = FileHelper.GetStorageRoot(Const.BasePathUploadThumbnail) + "/" + fileName;
+                    File.WriteAllBytes(path, ConvertImageToBytesArray(thumb));
+
+                    return Const.BasePathUploadDecrypted + "/" + fileName;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.BaseType);
+            }
+            return CommonsConst.DefaultImage.DefaultThumbnailUser;
         }
 
         public static byte[] GetThumbnailBytes(Stream file, int width)
