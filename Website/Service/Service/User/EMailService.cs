@@ -138,7 +138,7 @@ namespace Service.UserArea
                 }
                 else
                 {
-                    Email.EmailContent.Add(new Tuple<string, string>("#WatcherUrl#", CommonsConst.DefaultImage.Empty));
+                    Email.EmailContent.Add(new Tuple<string, string>("#WatcherUrl#", FileHelper.GetStorageRoot(DefaultImage.Empty)));
                 }
                 Email.EmailContent.Add(new Tuple<string, string>("#WebSiteURL#", Utils.Website));
                 Email.LanguageId = LanguageId;
@@ -239,7 +239,7 @@ namespace Service.UserArea
                 if (!String.IsNullOrWhiteSpace(EmailGuidId))
                 {
                     var emailAudit = _emailAuditRepo.FindAllBy(e => e.GuidId == EmailGuidId).FirstOrDefault();
-                    if (emailAudit != null)
+                    if (emailAudit != null && emailAudit.EmailWatcherStatusId != EmailWatcherStatusId)
                     {
                         if (!(emailAudit.EmailWatcherStatusId == EmailWatcherStatus.LinkClicked && EmailWatcherStatusId == EmailWatcherStatus.EmailOpened))
                         {
@@ -253,6 +253,7 @@ namespace Service.UserArea
                         {
                             emailAudit.EmailLinkClickedDate = DateTime.UtcNow;
                         }
+                        emailAudit.EmailSent = true;
                         _emailAuditRepo.Edit(emailAudit);
                         result = _emailAuditRepo.Save();
                     }
@@ -317,16 +318,16 @@ namespace Service.UserArea
                     switch (EMailTypeId)
                     {
                         case CommonsConst.EmailTypes.Forgotpassword:
-                            string ResetPasswordUrl = WebsiteURL + "/ResetPassword/" + UserMail.Id + "/" + Commons.HashHelpers.HashEncode(UserMail.ResetPasswordToken);
-                            EmailContent.Add(new Tuple<string, string>("#ResetPasswordUrl#", ResetPasswordUrl));
+                            string ResetPasswordUrl =  WebsiteURL + "/ResetPassword/" + UserMail.Id + "/" + Commons.HashHelpers.HashEncode(UserMail.ResetPasswordToken);
+                            EmailContent.Add(new Tuple<string, string>("#ResetPasswordUrl_watcher#", ResetPasswordUrl));
                             break;
                         case CommonsConst.EmailTypes.UserWelcome:
                             string ConfirmEmailUrl = WebsiteURL + "/ConfirmEmail?UserId=" + UserMail.Id + "&Token=" + Commons.HashHelpers.HashEncode(UserMail.EmailConfirmationToken);
-                            EmailContent.Add(new Tuple<string, string>("#ConfirmEmailUrl#", ConfirmEmailUrl));
+                            EmailContent.Add(new Tuple<string, string>("#ConfirmEmailUrl_watcher#", ConfirmEmailUrl));
                             break;
                         case CommonsConst.EmailTypes.ResetPassword:
                             string ChangePasswordUrl = WebsiteURL + "/MyProfile/password";
-                            EmailContent.Add(new Tuple<string, string>("#ChangePasswordUrl#", ChangePasswordUrl));
+                            EmailContent.Add(new Tuple<string, string>("#ChangePasswordUrl_watcher#", ChangePasswordUrl));
                             break;
                     }
                     Email.EmailContent = EmailContent;

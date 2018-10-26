@@ -326,8 +326,11 @@ namespace Service.Admin
                 GenericEmailContent.Add(new Tuple<string, string>("#UserFullName#", user.UserFullName));
                 GenericEmailContent.Add(new Tuple<string, string>("#RealUserEMail#", ""));
                 GenericEmailContent.Add(new Tuple<string, string>("#WebSiteURL#", Utils.Website));
+                GenericEmailContent.Add(new Tuple<string, string>("#WatcherUrl#", FileHelper.GetStorageRoot(DefaultImage.Empty)));
 
-                string BasePathFile = FileHelper.GetRootPathDefault() + @"\" + Const.BasePathTemplateEMails.Replace("~/", "\\");
+
+
+               string BasePathFile = FileHelper.GetRootPathDefault() + @"\" + Const.BasePathTemplateEMails.Replace("~/", "\\");
                 string PathHeaderOnServer = BasePathFile + "\\_HeaderMail.html";
                 string PathFooterOnServer = BasePathFile + "\\_FooterMail.html";
                 string PathEndMailOnServer = BasePathFile + "\\_EndMail_en.html";

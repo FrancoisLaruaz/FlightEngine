@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
@@ -22,6 +23,22 @@ namespace Website.Controllers
             _emailService = emailService;
         }
 
+        public ActionResult Redirect(string EmailAuditGuidId, string Url)
+        {
+            try
+            {
+                _emailService.UpdateEmailWatcher(EmailAuditGuidId, EmailWatcherStatus.LinkClicked);
+                if (String.IsNullOrWhiteSpace(Url))
+                {
+                    Url = ConfigurationManager.AppSettings["WebsiteURL"];
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "EmailAuditGuidId = " + (EmailAuditGuidId ?? "") + " and Url = " + (Url ?? ""));
+            }
+            return Redirect(Url);
+        }
 
         public FileResult EmailWatcher(string EmailAuditGuidId)
         {

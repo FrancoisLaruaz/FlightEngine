@@ -14,6 +14,7 @@ using Models.Class.Email;
 using System.ComponentModel;
 using Service.UserArea;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Service.Helpers
 {
@@ -58,6 +59,31 @@ namespace Service.Helpers
             return GenericEmailContent;
         }
 
+
+        /// <summary>
+        /// Add a watcher to a link in a mail
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="GuidId"></param>
+        /// <returns></returns>
+        public static string AddEmailWatcher(string url, string GuidId)
+        {
+            string UrlWatcher = url;
+            try
+            {
+
+                if (!String.IsNullOrWhiteSpace(GuidId))
+                {
+                    UrlWatcher = ConfigurationManager.AppSettings["WebsiteURL"] + "/Email/Redirect?EmailAuditGuidId=" + GuidId + "&Url=" + Uri.EscapeDataString(url);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "url = " + url + " and GuidId = " + GuidId);
+            }
+            return UrlWatcher;
+        }
 
 
         /// <summary>
@@ -110,8 +136,15 @@ namespace Service.Helpers
                     //    bodyTemplate=  new StreamReader(Email.BasePathFile + "/_Test.html").ReadToEnd();
                     foreach (var content in Email.EmailContent)
                     {
-                        bodyTemplate = bodyTemplate.Replace(content.Item1, content.Item2);
-                        Email.Subject = Email.Subject.Replace(content.Item1, content.Item2);
+                        string key = content.Item1;
+                        string value = content.Item2;
+
+                        if (key.Contains("_watcher"))
+                        {
+                            value = AddEmailWatcher(value, Email.AuditGuidId);
+                        }
+                        bodyTemplate = bodyTemplate.Replace(key, value);
+                        Email.Subject = Email.Subject.Replace(key, value);
                     }
                     List<Tuple<string, string>> GenericEmailContent = GetGenericEmailContent();
                     foreach (var content in GenericEmailContent)
