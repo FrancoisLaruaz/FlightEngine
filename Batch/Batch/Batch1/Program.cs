@@ -18,43 +18,42 @@ namespace Batch1
             {
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " *  START BATCH *");
                 log4net.Config.XmlConfigurator.Configure();
+
+     
+                int? ProviderId = null;
                 int? SearchTripWishesId = null;
-                if (args != null && args.Length > 0)
+                if (args.Length >= 1)
                 {
                     SearchTripWishesId = Convert.ToInt32(args[0]);
-                    int? ProviderId = null;
-                    if (args.Length>1)
-                    {
-                        ProviderId= Convert.ToInt32(args[01]);
-                    }
+                }
+                if (args.Length >= 2)
+                {
+                    ProviderId = Convert.ToInt32(args[1]);
+                }
 
-                    bool result = FlightsEngine.Program.SearchFlights(SearchTripWishesId.Value, ConfigurationManager.AppSettings["ScrappingFolder"], ConfigurationManager.AppSettings["FirefoxExeFolder"], ProviderId);
-                    // bool result = FlightsEngine.FlighsBot.ScrappingHelper.Run();
+                bool result = FlightsEngine.Program.SearchFlights(SearchTripWishesId, ConfigurationManager.AppSettings["ScrappingFolder"], ConfigurationManager.AppSettings["FirefoxExeFolder"], ProviderId);
+                // bool result = FlightsEngine.FlighsBot.ScrappingHelper.Run();
 
-                    Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " *  END BATCH *");
-                    if (result)
-                    {
-                        Console.WriteLine("OK");
-                    }
-                    else
-                    {
-                        Console.WriteLine("KO");
-                    }
+                Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " *  END BATCH *");
+                if (result)
+                {
+                    Console.WriteLine("OK");
                 }
                 else
                 {
-                    FlightsEngine.Utils.Logger.GenerateInfo("No SearchTripWishesId");
+                    Console.WriteLine("KO");
                 }
+
                 if (ConfigurationManager.AppSettings["ExitWhenFinished"] == "NO")
                 {
                     Console.WriteLine("Press Enter to exit.");
                     Console.ReadLine();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, string.Join(" , ", args));
-                Console.WriteLine("Error : "+e.ToString());
+                Console.WriteLine("Error : " + e.ToString());
                 Console.WriteLine("KO");
             }
         }

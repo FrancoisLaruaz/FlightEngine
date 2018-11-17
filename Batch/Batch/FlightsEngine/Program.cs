@@ -22,7 +22,7 @@ namespace FlightsEngine
 
 
 
-        public static bool SearchFlights(int SearchTripWishesId, string ScrappingFolder, string FirefoxExeFolder,int? ProviderId=null)
+        public static bool SearchFlights(int? SearchTripWishesId, string ScrappingFolder, string FirefoxExeFolder,int? ProviderId=null)
         {
             bool result = false;
             try
@@ -39,165 +39,168 @@ namespace FlightsEngine
 
                 string lastSuccessfullProxy = null;
 
-                SearchTripWishesItem SearchTripWishesItem = _searchTripWishesService.GetSearchTripWishesById(SearchTripWishesId, ProviderId);
-                if (SearchTripWishesItem != null && SearchTripWishesItem._SearchTripWishes != null)
+                List<SearchTripWishesItem> SearchTripWishesItems = _searchTripWishesService.GetSearchTripWishesById(SearchTripWishesId, ProviderId);
+                foreach (var SearchTripWishesItem in SearchTripWishesItems)
                 {
-                    var SearchTripWishes = SearchTripWishesItem._SearchTripWishes;
-
-                    #region Kiwi
-                    if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.Kiwi))
+                    if (SearchTripWishesItem != null && SearchTripWishesItem._SearchTripWishes != null)
                     {
-                        KiwiAirlineSearch KiwiFilter = new KiwiAirlineSearch();
-                        KiwiFilter.SearchTripWishesId = SearchTripWishes.Id;
-                        if (SearchTripWishes.FromAirport != null)
-                            KiwiFilter.FromAirportCode = SearchTripWishes.FromAirport.Code;
-                        KiwiFilter.FromDateMax = SearchTripWishes.FromDateMax;
-                        KiwiFilter.FromDateMin = SearchTripWishes.FromDateMin;
-                        if (SearchTripWishes.ToAirport != null)
-                            KiwiFilter.ToAirportCode = SearchTripWishes.ToAirport.Code;
-                        if (SearchTripWishes.ToDateMin != null)
+                        var SearchTripWishes = SearchTripWishesItem._SearchTripWishes;
+
+                        #region Kiwi
+                        if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.Kiwi))
                         {
-                            KiwiFilter.Return = true;
-                            KiwiFilter.ToDateMin = SearchTripWishes.ToDateMin;
-                            KiwiFilter.ToDateMax = SearchTripWishes.ToDateMax;
-                        }
-                        KiwiFilter.AdultsNumber = 1;
-                        KiwiFilter.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
-                        KiwiFilter.DurationMin = SearchTripWishes.DurationMin;
-                        KiwiFilter.DurationMax = SearchTripWishes.DurationMax;
-                        KiwiFilter.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
-                        Kiwi.SearchFlights(KiwiFilter);
-                    }
-
-                    #endregion kiwi
-
-                    result = true;
-                    bool newProxy = true;
-                    foreach (var searchTrip in SearchTripWishes.SearchTrips)
-                    {
-
-                        try
-                        {
-                            AirlineSearch filter = new AirlineSearch();
+                            KiwiAirlineSearch KiwiFilter = new KiwiAirlineSearch();
+                            KiwiFilter.SearchTripWishesId = SearchTripWishes.Id;
                             if (SearchTripWishes.FromAirport != null)
-                                filter.FromAirportCode = SearchTripWishes.FromAirport.Code;
-
-                            filter.FromDate = searchTrip.FromDate;
+                                KiwiFilter.FromAirportCode = SearchTripWishes.FromAirport.Code;
+                            KiwiFilter.FromDateMax = SearchTripWishes.FromDateMax;
+                            KiwiFilter.FromDateMin = SearchTripWishes.FromDateMin;
                             if (SearchTripWishes.ToAirport != null)
-                                filter.ToAirportCode = SearchTripWishes.ToAirport.Code;
-                            if (searchTrip.ToDate != null)
+                                KiwiFilter.ToAirportCode = SearchTripWishes.ToAirport.Code;
+                            if (SearchTripWishes.ToDateMin != null)
                             {
-                                filter.Return = true;
-                                filter.ToDate = searchTrip.ToDate.Value;
+                                KiwiFilter.Return = true;
+                                KiwiFilter.ToDateMin = SearchTripWishes.ToDateMin;
+                                KiwiFilter.ToDateMax = SearchTripWishes.ToDateMax;
                             }
-                            filter.AdultsNumber = 1;
-                            filter.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
+                            KiwiFilter.AdultsNumber = 1;
+                            KiwiFilter.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
+                            KiwiFilter.DurationMin = SearchTripWishes.DurationMin;
+                            KiwiFilter.DurationMax = SearchTripWishes.DurationMax;
+                            KiwiFilter.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
+                            Kiwi.SearchFlights(KiwiFilter);
+                        }
 
+                        #endregion kiwi
 
+                        result = true;
+                        bool newProxy = true;
+                        foreach (var searchTrip in SearchTripWishes.SearchTrips)
+                        {
 
-                            foreach (var provider in SearchTripWishesItem.ProvidersToSearch)
+                            try
                             {
-                                if (!provider.HasAPI)
+                                AirlineSearch filter = new AirlineSearch();
+                                if (SearchTripWishes.FromAirport != null)
+                                    filter.FromAirportCode = SearchTripWishes.FromAirport.Code;
+
+                                filter.FromDate = searchTrip.FromDate;
+                                if (SearchTripWishes.ToAirport != null)
+                                    filter.ToAirportCode = SearchTripWishes.ToAirport.Code;
+                                if (searchTrip.ToDate != null)
                                 {
+                                    filter.Return = true;
+                                    filter.ToDate = searchTrip.ToDate.Value;
+                                }
+                                filter.AdultsNumber = 1;
+                                filter.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
 
-                                    string Proxy = lastSuccessfullProxy;
-                                    if (String.IsNullOrWhiteSpace(Proxy))
+
+
+                                foreach (var provider in SearchTripWishesItem.ProvidersToSearch)
+                                {
+                                    if (!provider.HasAPI)
                                     {
-                                        if(Proxies==null)
+
+                                        string Proxy = lastSuccessfullProxy;
+                                        if (String.IsNullOrWhiteSpace(Proxy))
                                         {
-                                            Proxies= ProxyHelper.GetProxies();
-                                        }
-
-                                        Proxy = ProxyHelper.GetBestProxy(Proxies);
-                                        if (Proxy == null)
-                                        {
-                                            Proxies = ProxyHelper.GetProxies();
-                                            Proxy = ProxyHelper.GetBestProxy(Proxies);
-                                        }
-                                        newProxy = true;
-                                    }
-
-                                    ScrappingSearch scrappingSearch = new ScrappingSearch();
-                                    if (provider.Id == Providers.Edreams)
-                                    {
-                                       scrappingSearch.Url = ScrappingHelper.GetEdreamsUrl(filter);
-                                    }
-                                    else if (provider.Id == Providers.Kayak)
-                                    {
-                                        scrappingSearch.Url = ScrappingHelper.GetKayakUrl(filter);
-                                    }
-                                    int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, Proxy, scrappingSearch.Url);
-                                    if (!String.IsNullOrWhiteSpace(scrappingSearch.Url) && SearchTripProviderId>0)
-                                    {
-
-                                        scrappingSearch.Proxy = Proxy;
-                                        scrappingSearch.FirefoxExeFolder = FirefoxExeFolder;
-                                        scrappingSearch.ScrappingFolder = ScrappingFolder;
-                                        scrappingSearch.NewProxy = newProxy ;
-                                        if (SearchTripProviderId > 0 && !String.IsNullOrWhiteSpace(Proxy))
-                                        {
-                                            filter.SearchTripProviderId = SearchTripProviderId;
-                                            scrappingSearch.Provider = provider.Name;
-                                            scrappingSearch.ProxiesList = Proxies;
-
-                                            var ScrappingResult = ScrappingHelper.SearchViaScrapping(scrappingSearch, filter.SearchTripProviderId);
-                                            Proxies = ScrappingResult.ProxiesList;
-                                            _searchTripProviderService.SetSearchTripProviderAsEnded(SearchTripProviderId, ScrappingResult.Success, ScrappingResult.LastProxy, ScrappingResult.AttemptsNumber);
-                                            result = result && ScrappingResult.Success;
-                                            if (ScrappingResult.Success)
+                                            if (Proxies == null)
                                             {
-                                                lastSuccessfullProxy = ScrappingResult.LastProxy;
-                                                _tripService.InsertTrips(SearchTripProviderId);
-                                                newProxy = false;
-                                                //Task.Factory.StartNew(() => { _tripService.InsertTrips(SearchTripProviderId); });
+                                                Proxies = ProxyHelper.GetProxies();
+                                            }
+
+                                            Proxy = ProxyHelper.GetBestProxy(Proxies);
+                                            if (Proxy == null)
+                                            {
+                                                Proxies = ProxyHelper.GetProxies();
+                                                Proxy = ProxyHelper.GetBestProxy(Proxies);
+                                            }
+                                            newProxy = true;
+                                        }
+
+                                        ScrappingSearch scrappingSearch = new ScrappingSearch();
+                                        if (provider.Id == Providers.Edreams)
+                                        {
+                                            scrappingSearch.Url = ScrappingHelper.GetEdreamsUrl(filter);
+                                        }
+                                        else if (provider.Id == Providers.Kayak)
+                                        {
+                                            scrappingSearch.Url = ScrappingHelper.GetKayakUrl(filter);
+                                        }
+                                        int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, Proxy, scrappingSearch.Url);
+                                        if (!String.IsNullOrWhiteSpace(scrappingSearch.Url) && SearchTripProviderId > 0)
+                                        {
+
+                                            scrappingSearch.Proxy = Proxy;
+                                            scrappingSearch.FirefoxExeFolder = FirefoxExeFolder;
+                                            scrappingSearch.ScrappingFolder = ScrappingFolder;
+                                            scrappingSearch.NewProxy = newProxy;
+                                            if (SearchTripProviderId > 0 && !String.IsNullOrWhiteSpace(Proxy))
+                                            {
+                                                filter.SearchTripProviderId = SearchTripProviderId;
+                                                scrappingSearch.Provider = provider.Name;
+                                                scrappingSearch.ProxiesList = Proxies;
+
+                                                var ScrappingResult = ScrappingHelper.SearchViaScrapping(scrappingSearch, filter.SearchTripProviderId);
+                                                Proxies = ScrappingResult.ProxiesList;
+                                                _searchTripProviderService.SetSearchTripProviderAsEnded(SearchTripProviderId, ScrappingResult.Success, ScrappingResult.LastProxy, ScrappingResult.AttemptsNumber);
+                                                result = result && ScrappingResult.Success;
+                                                if (ScrappingResult.Success)
+                                                {
+                                                    lastSuccessfullProxy = ScrappingResult.LastProxy;
+                                                    _tripService.InsertTrips(SearchTripProviderId);
+                                                    newProxy = false;
+                                                    //Task.Factory.StartNew(() => { _tripService.InsertTrips(SearchTripProviderId); });
+                                                }
+                                                else
+                                                {
+                                                    lastSuccessfullProxy = null;
+                                                }
                                             }
                                             else
                                             {
-                                                lastSuccessfullProxy = null;
+                                                result = false;
                                             }
                                         }
                                         else
                                         {
-                                            result = false;
+                                            FlightsEngine.Utils.Logger.GenerateInfo("No url for SearchTripProviderId : " + SearchTripProviderId + " and provider = " + provider.Name);
                                         }
                                     }
                                     else
                                     {
-                                        FlightsEngine.Utils.Logger.GenerateInfo("No url for SearchTripProviderId : " + SearchTripProviderId+" and provider = "+ provider.Name);
-                                    }
-                                }
-                                else 
-                                {
 
-                                    if (provider.Id == Providers.Kiwi)
-                                    {
-                                      //  Kiwi.SearchFlights(filter);
-                                    }
-                                    else
-                                    {
-                                        int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, null, null);
-                                        filter.SearchTripProviderId = SearchTripProviderId;
+                                        if (provider.Id == Providers.Kiwi)
+                                        {
+                                            //  Kiwi.SearchFlights(filter);
+                                        }
+                                        else
+                                        {
+                                            int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, null, null);
+                                            filter.SearchTripProviderId = SearchTripProviderId;
+                                        }
                                     }
                                 }
+
+                                //  Task.Factory.StartNew(() => FlighsBot.PythonHelper.Run(filter, scrappingSearch));
+                                // Console.WriteLine("Pythonresult = "+ Pythonresult.Success+" and Error = "+ (Pythonresult.Error??""));
+
+                                //   FlighsBot.Kayak.SearchFlights(filter);
+                                //   FlighsBot.Kayak.SearchFlights(filter);
+
+                                //   FlightsEngine.FlighsAPI.AirFranceKLM.SearchFlights(filter);
+                                //    FlightsEngine.FlighsAPI.AirHob.SearchFlights(filter);
+                                //   FlightsEngine.FlighsAPI.Kiwi.SearchFlights(filter);
+                                // FlightsEngine.FlighsAPI.RyanAir.SearchFlights(filter);
+                                //  FlightsEngine.FlighsAPI.Transavia.SearchFlights(filter);
+
                             }
-
-                            //  Task.Factory.StartNew(() => FlighsBot.PythonHelper.Run(filter, scrappingSearch));
-                            // Console.WriteLine("Pythonresult = "+ Pythonresult.Success+" and Error = "+ (Pythonresult.Error??""));
-
-                            //   FlighsBot.Kayak.SearchFlights(filter);
-                            //   FlighsBot.Kayak.SearchFlights(filter);
-
-                            //   FlightsEngine.FlighsAPI.AirFranceKLM.SearchFlights(filter);
-                            //    FlightsEngine.FlighsAPI.AirHob.SearchFlights(filter);
-                            //   FlightsEngine.FlighsAPI.Kiwi.SearchFlights(filter);
-                            // FlightsEngine.FlighsAPI.RyanAir.SearchFlights(filter);
-                            //  FlightsEngine.FlighsAPI.Transavia.SearchFlights(filter);
-
-                        }
-                        catch (Exception e2)
-                        {
-                            result = false;
-                            FlightsEngine.Utils.Logger.GenerateError(e2, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "searchTrip.Id = " + searchTrip.Id);
+                            catch (Exception e2)
+                            {
+                                result = false;
+                                FlightsEngine.Utils.Logger.GenerateError(e2, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "searchTrip.Id = " + searchTrip.Id);
+                            }
                         }
                     }
                 }
@@ -206,7 +209,7 @@ namespace FlightsEngine
             catch (Exception e)
             {
                 result = false;
-                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SearchTripWishesId = " + SearchTripWishesId.ToString() + " and ScrappingFolder = " + ScrappingFolder + " and FirefoxExeFolder = " + FirefoxExeFolder);
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SearchTripWishesId = " + (SearchTripWishesId ??-1) + " and ScrappingFolder = " + ScrappingFolder + " and FirefoxExeFolder = " + FirefoxExeFolder);
             }
             return result;
         }

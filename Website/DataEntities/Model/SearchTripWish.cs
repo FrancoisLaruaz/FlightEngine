@@ -37,6 +37,8 @@ namespace DataEntities.Model
         public Nullable<int> WishedPriceCurrencyId { get; set; }
         public Nullable<decimal> WishedPrice { get; set; }
         public Nullable<decimal> EuroWishedPrice { get; set; }
+        public bool Active { get; set; }
+        public Nullable<float> Distance { get; set; }
     
         public virtual Airport Airport { get; set; }
         public virtual Airport Airport1 { get; set; }

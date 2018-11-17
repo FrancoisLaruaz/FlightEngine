@@ -159,6 +159,7 @@ namespace DataEntities.Repositories
             }
             catch (Exception e)
             {
+                result = false;
                 Logger.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, null);
             }
             return result;

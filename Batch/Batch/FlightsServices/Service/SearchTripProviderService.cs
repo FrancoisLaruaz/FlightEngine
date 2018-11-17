@@ -71,6 +71,7 @@ namespace FlightsServices
                         SearchTripProvider.CreationDate = DateTime.UtcNow;
                         SearchTripProvider.SearchTripId = SearchTrip.Id;
                         SearchTripProvider.SearchSuccess = true;
+                        SearchTripProvider.ProviderId = ProviderId;
                         SearchTripProvider.EndSearchDate = DateTime.UtcNow;
 
                         _searchTripProviderRepo.Add(SearchTripProvider);

@@ -37,56 +37,78 @@ namespace FlightsServices
         }
 
 
-        public SearchTripWishesItem GetSearchTripWishesById(int SearchTripWishesId,int? ProviderId)
+        public List<SearchTripWishesItem> GetSearchTripWishesById(int? SearchTripWishesId, int? ProviderId)
         {
-            SearchTripWishesItem result = new SearchTripWishesItem();
+            List<SearchTripWishesItem> result = new List<SearchTripWishesItem>();
             try
             {
-                result._SearchTripWishes = _searchTripWishRepo.Get(SearchTripWishesId);
+                List<SearchTripWish> SearchTripWishes = new List<SearchTripWish>();
+                if (SearchTripWishesId == null)
+                {
+                    SearchTripWishes = _searchTripWishRepo.FindAllBy(w => w.Active).ToList();
+                }
+                else
+                {
+                    var _SearchTripWishes = _searchTripWishRepo.Get(SearchTripWishesId.Value);
+                    if (_SearchTripWishes != null)
+                    {
+                        SearchTripWishes.Add(_SearchTripWishes);
+                    }
+                }
 
-                int FromCountryId = result._SearchTripWishes.FromAirport?.City?.CountryId ?? (result._SearchTripWishes.FromCity?.CountryId ?? 0);
-                int ToCountryId = result._SearchTripWishes.ToAirport?.City?.CountryId ?? (result._SearchTripWishes.ToCity?.CountryId ?? 0);
-
+                // All or only API
                 bool APIOnly = false;
-                if(ProviderId<0)
+                if (ProviderId < 0 || ProviderId==null)
                 {
                     APIOnly = true;
                 }
 
-                // All or only API
-                if (ProviderId == null || ProviderId<0)
+                var Providers = _providerRepo.FindAllBy(p => p.Active && (!APIOnly || p.HasAPI)).ToList();
+
+                foreach (var SearchTripWish in SearchTripWishes)
                 {
 
-                    var Providers = _providerRepo.FindAllBy(p => p.Active && (!APIOnly || p.HasAPI)).ToList();
-                    foreach (var provider in Providers)
-                    {
-                        bool addProvider = false;
-                        if (provider.IsSearchEngine)
-                        {
-                            addProvider = true;
-                        }
-                        else if (FromCountryId > 0 && ToCountryId > 0)
-                        {
-                            addProvider = provider.Countries.Where(c => c.Id == FromCountryId).Any() && provider.Countries.Where(c => c.Id == ToCountryId).Any();
-                        }
+                    SearchTripWishesItem item = new SearchTripWishesItem();
 
-                        if (addProvider)
+                    item._SearchTripWishes = SearchTripWish;
+
+                    int FromCountryId = item._SearchTripWishes.FromAirport?.City?.CountryId ?? (item._SearchTripWishes.FromCity?.CountryId ?? 0);
+                    int ToCountryId = item._SearchTripWishes.ToAirport?.City?.CountryId ?? (item._SearchTripWishes.ToCity?.CountryId ?? 0);
+
+
+                    // All or only API
+                    if (ProviderId == null || ProviderId < 0)
+                    {
+                        foreach (var provider in Providers)
                         {
-                            result.ProvidersToSearch.Add(provider);
+                            bool addProvider = false;
+                            if (provider.IsSearchEngine)
+                            {
+                                addProvider = true;
+                            }
+                            else if (FromCountryId > 0 && ToCountryId > 0)
+                            {
+                                addProvider = provider.Countries.Where(c => c.Id == FromCountryId).Any() && provider.Countries.Where(c => c.Id == ToCountryId).Any();
+                            }
+
+                            if (addProvider)
+                            {
+                                item.ProvidersToSearch.Add(provider);
+                            }
                         }
                     }
+                    // Specific provider
+                    else if (ProviderId > 0)
+                    {
+                        item.ProvidersToSearch.Add(_providerRepo.FindAllBy(p => p.Active && p.Id == ProviderId.Value).FirstOrDefault());
+                    }
+                    result.Add(item);
                 }
-                // Specific provider
-                else if(ProviderId>0)
-                {
-                    result.ProvidersToSearch.Add(_providerRepo.FindAllBy(p => p.Active && p.Id== ProviderId.Value).FirstOrDefault());
-                }
-
 
             }
             catch (Exception e)
             {
-                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SearchTripWishesId = " + SearchTripWishesId);
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SearchTripWishesId = " + (SearchTripWishesId ?? -1) + " and  ProviderId = " + (ProviderId ?? -1));
             }
             return result;
         }

@@ -141,7 +141,7 @@ namespace CommonsConst
             switch (value)
             {
                 case NotWatched:
-                    return "[[[Not Watched]]";
+                    return "[[[Not Watched]]]";
                 case EmailNotOpened:
                     return "[[[Email Not Opened]]]";
                 case LinkClicked:

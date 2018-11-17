@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using log4net;
+using System.Net;
+using System.IO;
 
 namespace Commons
 {
@@ -191,6 +193,37 @@ namespace Commons
             if (LoggeError && Utils.IsLocalhost() && (type != typeof(HttpApplication) || type == null) && type?.FullName!= "Commons.CurrencyHelper")
             {
                 throw Ex;
+            }
+        }
+
+        public static void GenerateWebError(WebException e, string Details = null, System.Type type = null)
+        {
+            try
+            {
+                string error = "WEB EXCEPTION";
+                if (e != null && e.Response != null)
+                {
+                    var response = ((HttpWebResponse)e.Response);
+
+                    var reader = new StreamReader(e.Response.GetResponseStream());
+                    error = "WEB EXCEPTION :  error type : " + e.Status;
+                    if (reader != null)
+                        error = error + " : " + reader.ReadToEnd();
+                    error = error + " and " + Details;
+                }
+
+                GenerateError(e,  type,error);
+            }
+            catch (WebException ex2)
+            {
+                if (ex2 == null)
+                {
+                    Logger.GenerateInfo("Error while creating a web Log.");
+                }
+                else
+                {
+                    Logger.GenerateInfo("Error while creating a web Log : " + ex2?.ToString());
+                }
             }
         }
 

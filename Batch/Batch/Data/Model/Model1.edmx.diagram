@@ -91,6 +91,7 @@
         <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_Currency" />
         <AssociationConnector Association="TemplateModel.FK_SearchTrip_SearchTripWishesId" />
         <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_CreationUser" />
+        <AssociationConnector Association="TemplateModel.FK_EmailAudit_EmailWatcherStatusId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

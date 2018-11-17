@@ -119,48 +119,55 @@ namespace FlightsServices
                     {
                         try
                         {
-                            List<Tuple<string, object>> Parameters = new List<Tuple<string, object>>();
-                            Parameters.Add(new Tuple<string, object>("@SearchTripProviderId", Trip.SearchTripProviderId));
-                            Parameters.Add(new Tuple<string, object>("@CurrencyCode", Trip.CurrencyCode));
-                            Parameters.Add(new Tuple<string, object>("@Price", Trip.Price));
-                            Parameters.Add(new Tuple<string, object>("@Url", Trip.Url));
-                            Parameters.Add(new Tuple<string, object>("@OneWayTrip_AirlineLogoSrc", Trip.OneWayTrip_AirlineLogoSrc));
-                            Parameters.Add(new Tuple<string, object>("@OneWayTrip_AirlineName", Trip.OneWayTrip_AirlineName));
-                            Parameters.Add(new Tuple<string, object>("@OneWayTrip_ArrivalDate", Trip.OneWayTrip_ArrivalDate));
-                            Parameters.Add(new Tuple<string, object>("@OneWayTrip_DepartureDate", Trip.OneWayTrip_DepartureDate));
-                            Parameters.Add(new Tuple<string, object>("@OneWayTrip_Duration", Trip.OneWayTrip_Duration));
-                            Parameters.Add(new Tuple<string, object>("@OneWayTrip_FromAirportCode", Trip.OneWayTrip_FromAirportCode));
-                            Parameters.Add(new Tuple<string, object>("@OneWayTrip_Stops", Trip.OneWayTrip_Stops));
-                            Parameters.Add(new Tuple<string, object>("@OneWayTrip_ToAirportCode", Trip.OneWayTrip_ToAirportCode));
-                            if (!string.IsNullOrWhiteSpace(Trip.OneWayTrip_StopInformation))
-                                Parameters.Add(new Tuple<string, object>("@OneWayTrip_StopInformation", Trip.OneWayTrip_StopInformation ?? ""));
-                            if (!string.IsNullOrWhiteSpace(Trip.OneWayTrip_FlightNumber))
-                                Parameters.Add(new Tuple<string, object>("@OneWayTrip_FlightNumber", Trip.OneWayTrip_FlightNumber??""));
-                            if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_AirlineLogoSrc))
-                                Parameters.Add(new Tuple<string, object>("@ReturnTrip_AirlineLogoSrc", Trip.ReturnTrip_AirlineLogoSrc));
-                            if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_AirlineName))
-                                Parameters.Add(new Tuple<string, object>("@ReturnTrip_AirlineName", Trip.ReturnTrip_AirlineName));
-                            if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_ArrivalDate))
-                                Parameters.Add(new Tuple<string, object>("@ReturnTrip_ArrivalDate", Trip.ReturnTrip_ArrivalDate));
-                            if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_DepartureDate))
-                                Parameters.Add(new Tuple<string, object>("@ReturnTrip_DepartureDate", Trip.ReturnTrip_DepartureDate));
-                            if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_FlightNumber))
-                                Parameters.Add(new Tuple<string, object>("@ReturnTrip_FlightNumber", Trip.ReturnTrip_FlightNumber));
-                            if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_StopInformation))
-                                Parameters.Add(new Tuple<string, object>("@ReturnTrip_StopInformation", Trip.ReturnTrip_StopInformation));
-                            if (Trip.ReturnTrip_Duration!=null)
-                                Parameters.Add(new Tuple<string, object>("@ReturnTrip_Duration", Trip.ReturnTrip_Duration));
-                            if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_FromAirportCode))
-                                Parameters.Add(new Tuple<string, object>("@ReturnTrip_FromAirportCode", Trip.ReturnTrip_FromAirportCode));
-                            if (Trip.ReturnTrip_Stops!=null)
-                                Parameters.Add(new Tuple<string, object>("@ReturnTrip_Stops", Trip.ReturnTrip_Stops));
-                            if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_ToAirportCode))
-                                Parameters.Add(new Tuple<string, object>("@ReturnTrip_ToAirportCode", Trip.ReturnTrip_ToAirportCode));
-                            bool procedureExecution = _tripRepo.ExecuteStoredProcedure("[dbo].[InsertTripWithTransaction]", Parameters);
-                            result = result & procedureExecution;
-                            if(!procedureExecution)
+                            if (!String.IsNullOrWhiteSpace(Trip.OneWayTrip_ToAirportCode))
                             {
-                                Logger.GenerateInfo("InsertTrips : Error in procedure InsertTripWithTransaction for SearchTripProviderId = " + Trip.SearchTripProviderId+ " and Price = "+ Trip.Price+ " and OneWayTrip_ToAirportCode = "+ (Trip.OneWayTrip_ToAirportCode ?? "N/A")+ " and OneWayTrip_DepartureDate =" +( Trip.OneWayTrip_DepartureDate ?? "N/A")+ " and Trip.OneWayTrip_FromAirportCode = "+ (Trip.OneWayTrip_FromAirportCode ??"N/A")+" and airlinename = "+(Trip.OneWayTrip_AirlineName ?? "N/A"));
+                                List<Tuple<string, object>> Parameters = new List<Tuple<string, object>>();
+                                Parameters.Add(new Tuple<string, object>("@SearchTripProviderId", Trip.SearchTripProviderId));
+                                Parameters.Add(new Tuple<string, object>("@CurrencyCode", Trip.CurrencyCode));
+                                Parameters.Add(new Tuple<string, object>("@Price", Trip.Price));
+                                Parameters.Add(new Tuple<string, object>("@Url", Trip.Url));
+                                Parameters.Add(new Tuple<string, object>("@OneWayTrip_AirlineLogoSrc", Trip.OneWayTrip_AirlineLogoSrc));
+                                Parameters.Add(new Tuple<string, object>("@OneWayTrip_AirlineName", Trip.OneWayTrip_AirlineName));
+                                Parameters.Add(new Tuple<string, object>("@OneWayTrip_ArrivalDate", Trip.OneWayTrip_ArrivalDate));
+                                Parameters.Add(new Tuple<string, object>("@OneWayTrip_DepartureDate", Trip.OneWayTrip_DepartureDate));
+                                Parameters.Add(new Tuple<string, object>("@OneWayTrip_Duration", Trip.OneWayTrip_Duration));
+                                Parameters.Add(new Tuple<string, object>("@OneWayTrip_FromAirportCode", Trip.OneWayTrip_FromAirportCode));
+                                Parameters.Add(new Tuple<string, object>("@OneWayTrip_Stops", Trip.OneWayTrip_Stops));
+                                Parameters.Add(new Tuple<string, object>("@OneWayTrip_ToAirportCode", Trip.OneWayTrip_ToAirportCode));
+                                if (!string.IsNullOrWhiteSpace(Trip.OneWayTrip_StopInformation))
+                                    Parameters.Add(new Tuple<string, object>("@OneWayTrip_StopInformation", Trip.OneWayTrip_StopInformation ?? ""));
+                                if (!string.IsNullOrWhiteSpace(Trip.OneWayTrip_FlightNumber))
+                                    Parameters.Add(new Tuple<string, object>("@OneWayTrip_FlightNumber", Trip.OneWayTrip_FlightNumber ?? ""));
+                                if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_AirlineLogoSrc))
+                                    Parameters.Add(new Tuple<string, object>("@ReturnTrip_AirlineLogoSrc", Trip.ReturnTrip_AirlineLogoSrc));
+                                if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_AirlineName))
+                                    Parameters.Add(new Tuple<string, object>("@ReturnTrip_AirlineName", Trip.ReturnTrip_AirlineName));
+                                if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_ArrivalDate))
+                                    Parameters.Add(new Tuple<string, object>("@ReturnTrip_ArrivalDate", Trip.ReturnTrip_ArrivalDate));
+                                if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_DepartureDate))
+                                    Parameters.Add(new Tuple<string, object>("@ReturnTrip_DepartureDate", Trip.ReturnTrip_DepartureDate));
+                                if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_FlightNumber))
+                                    Parameters.Add(new Tuple<string, object>("@ReturnTrip_FlightNumber", Trip.ReturnTrip_FlightNumber));
+                                if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_StopInformation))
+                                    Parameters.Add(new Tuple<string, object>("@ReturnTrip_StopInformation", Trip.ReturnTrip_StopInformation));
+                                if (Trip.ReturnTrip_Duration != null)
+                                    Parameters.Add(new Tuple<string, object>("@ReturnTrip_Duration", Trip.ReturnTrip_Duration));
+                                if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_FromAirportCode))
+                                    Parameters.Add(new Tuple<string, object>("@ReturnTrip_FromAirportCode", Trip.ReturnTrip_FromAirportCode));
+                                if (Trip.ReturnTrip_Stops != null)
+                                    Parameters.Add(new Tuple<string, object>("@ReturnTrip_Stops", Trip.ReturnTrip_Stops));
+                                if (!string.IsNullOrWhiteSpace(Trip.ReturnTrip_ToAirportCode))
+                                    Parameters.Add(new Tuple<string, object>("@ReturnTrip_ToAirportCode", Trip.ReturnTrip_ToAirportCode));
+                                bool procedureExecution = _tripRepo.ExecuteStoredProcedure("[dbo].[InsertTripWithTransaction]", Parameters);
+                                result = result & procedureExecution;
+                                if (!procedureExecution)
+                                {
+                                    Logger.GenerateInfo("InsertTrips : Error in procedure InsertTripWithTransaction for SearchTripProviderId = " + Trip.SearchTripProviderId + " and Price = " + Trip.Price + " and OneWayTrip_ToAirportCode = " + (Trip.OneWayTrip_ToAirportCode ?? "N/A") + " and OneWayTrip_DepartureDate =" + (Trip.OneWayTrip_DepartureDate ?? "N/A") + " and Trip.OneWayTrip_FromAirportCode = " + (Trip.OneWayTrip_FromAirportCode ?? "N/A") + " and airlinename = " + (Trip.OneWayTrip_AirlineName ?? "N/A"));
+                                }
+                            }
+                            else
+                            {
+                                Logger.GenerateInfo("InsertTrips : OneWayTrip_ToAirportCode NULL  for SearchTripProviderId = " + Trip.SearchTripProviderId );
                             }
                         }
                         catch(Exception ex)

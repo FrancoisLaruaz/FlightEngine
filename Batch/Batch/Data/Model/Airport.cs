@@ -26,10 +26,10 @@ namespace Data.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
         public int CityId { get; set; }
         public bool BusyAirport { get; set; }
+        public Nullable<float> Latitude { get; set; }
+        public Nullable<float> Longitude { get; set; }
     
         public virtual City City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

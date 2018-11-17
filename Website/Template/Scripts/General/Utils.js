@@ -206,6 +206,23 @@ function CallFunction(functionName, args, CallNumber) {
     }
 }
 
+function FixUrlWithCulture(url) {
+    var result = url;
+    var LanguageSelector = $('#LanguageSelector');
+    if (LanguageSelector.length > 0) {
+        var language = LanguageSelector.find(":selected").text();
+        if (HasValue(language)) {
+            var code = 'en';
+            if (language.toLowerCase().indexOf('fr') > -1) {
+                code = 'fr-CA';
+            }
+
+            result = url.replace('/', '/' + code + '/');
+        }
+    }
+    return url;
+}
+
 
 function executeFunctionByName(functionName, context, args) {
     var namespaces = functionName.split(".");

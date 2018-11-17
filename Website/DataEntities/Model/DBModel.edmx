@@ -37,8 +37,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Latitude" Type="nvarchar" MaxLength="32" />
-          <Property Name="Longitude" Type="nvarchar" MaxLength="32" />
+          <Property Name="Latitude" Type="real" />
+          <Property Name="Longitude" Type="real" />
           <Property Name="CityId" Type="int" Nullable="false" />
           <Property Name="BusyAirport" Type="bit" Nullable="false" />
         </EntityType>
@@ -188,6 +188,7 @@
           <Property Name="TripId" Type="int" Nullable="false" />
           <Property Name="FlightTypeId" Type="int" Nullable="false" />
           <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="StopInformation" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="Log4Net">
           <Key>
@@ -333,7 +334,7 @@
           <Property Name="SearchSuccess" Type="bit" Nullable="false" />
           <Property Name="EndSearchDate" Type="datetime" />
           <Property Name="AttemptsNumber" Type="int" Nullable="false" />
-          <Property Name="Url" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Url" Type="nvarchar" MaxLength="4000" />
         </EntityType>
         <EntityType Name="SearchTripWishes">
           <Key>
@@ -356,6 +357,8 @@
           <Property Name="WishedPriceCurrencyId" Type="int" />
           <Property Name="WishedPrice" Type="decimal" Precision="25" Scale="2" />
           <Property Name="EuroWishedPrice" Type="decimal" Precision="25" Scale="2" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Distance" Type="real" />
         </EntityType>
         <EntityType Name="SocialMediaConnection">
           <Key>
@@ -405,7 +408,8 @@
           <Property Name="Price" Type="decimal" Precision="25" Scale="2" Nullable="false" />
           <Property Name="SearchTripProviderId" Type="int" Nullable="false" />
           <Property Name="EuroPrice" Type="decimal" Precision="25" Scale="2" />
-          <Property Name="Url" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Url" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Attractiveness" Type="decimal" Precision="25" Scale="12" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1109,6 +1113,12 @@
           <Parameter Name="UserId" Type="int" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GetDistanceKM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="real">
+          <Parameter Name="Lat1" Type="real" Mode="In" />
+          <Parameter Name="Lat2" Type="real" Mode="In" />
+          <Parameter Name="Long1" Type="real" Mode="In" />
+          <Parameter Name="Long2" Type="real" Mode="In" />
+        </Function>
         <Function Name="InsertInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Error_Message" Type="varchar" Mode="In" />
           <Parameter Name="Exception" Type="varchar" Mode="In" />
@@ -1127,6 +1137,8 @@
           <Parameter Name="OneWayTrip_DepartureDate" Type="varchar" Mode="In" />
           <Parameter Name="OneWayTrip_ArrivalDate" Type="varchar" Mode="In" />
           <Parameter Name="OneWayTrip_Duration" Type="int" Mode="In" />
+          <Parameter Name="OneWayTrip_StopInformation" Type="varchar" Mode="In" />
+          <Parameter Name="OneWayTrip_FlightNumber" Type="varchar" Mode="In" />
           <Parameter Name="OneWayTrip_AirlineName" Type="varchar" Mode="In" />
           <Parameter Name="OneWayTrip_AirlineLogoSrc" Type="varchar" Mode="In" />
           <Parameter Name="OneWayTrip_Stops" Type="int" Mode="In" />
@@ -1138,6 +1150,8 @@
           <Parameter Name="ReturnTrip_AirlineName" Type="varchar" Mode="In" />
           <Parameter Name="ReturnTrip_AirlineLogoSrc" Type="varchar" Mode="In" />
           <Parameter Name="ReturnTrip_Stops" Type="int" Mode="In" />
+          <Parameter Name="ReturnTrip_StopInformation" Type="varchar" Mode="In" />
+          <Parameter Name="ReturnTrip_FlightNumber" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -1739,6 +1753,8 @@
             <Parameter Name="OneWayTrip_DepartureDate" Mode="In" Type="String" />
             <Parameter Name="OneWayTrip_ArrivalDate" Mode="In" Type="String" />
             <Parameter Name="OneWayTrip_Duration" Mode="In" Type="Int32" />
+            <Parameter Name="OneWayTrip_StopInformation" Mode="In" Type="String" />
+            <Parameter Name="OneWayTrip_FlightNumber" Mode="In" Type="String" />
             <Parameter Name="OneWayTrip_AirlineName" Mode="In" Type="String" />
             <Parameter Name="OneWayTrip_AirlineLogoSrc" Mode="In" Type="String" />
             <Parameter Name="OneWayTrip_Stops" Mode="In" Type="Int32" />
@@ -1750,12 +1766,17 @@
             <Parameter Name="ReturnTrip_AirlineName" Mode="In" Type="String" />
             <Parameter Name="ReturnTrip_AirlineLogoSrc" Mode="In" Type="String" />
             <Parameter Name="ReturnTrip_Stops" Mode="In" Type="Int32" />
+            <Parameter Name="ReturnTrip_StopInformation" Mode="In" Type="String" />
+            <Parameter Name="ReturnTrip_FlightNumber" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="UpdatePricesWithCurrenciesRates" />
           <AssociationSet Name="FK_EmailAudit_EmailWatcherStatusId" Association="TemplateModel.FK_EmailAudit_EmailWatcherStatusId">
             <End Role="Category" EntitySet="Categories" />
             <End Role="EmailAudit" EntitySet="EmailAudits" />
           </AssociationSet>
+          <FunctionImport Name="SetTripAttractiveness">
+            <Parameter Name="TripId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -2517,8 +2538,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Latitude" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Name="Longitude" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="CityId" Type="Int32" Nullable="false" />
           <Property Name="BusyAirport" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="City" Relationship="TemplateModel.FK_Airport_City" FromRole="Airport" ToRole="City" />
@@ -2526,6 +2545,8 @@
           <NavigationProperty Name="Flights1" Relationship="TemplateModel.FK_Flight_ToAirport" FromRole="Airport" ToRole="Flight" />
           <NavigationProperty Name="SearchTripWishes" Relationship="TemplateModel.FK_SearchTripWishes_FromAirport" FromRole="Airport" ToRole="SearchTripWish" />
           <NavigationProperty Name="SearchTripWishes1" Relationship="TemplateModel.FK_SearchTripWishes_ToAirport" FromRole="Airport" ToRole="SearchTripWish" />
+          <Property Name="Latitude" Type="Single" />
+          <Property Name="Longitude" Type="Single" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -2561,6 +2582,7 @@
           <NavigationProperty Name="Airport1" Relationship="TemplateModel.FK_Flight_ToAirport" FromRole="Flight" ToRole="Airport" />
           <NavigationProperty Name="Category" Relationship="TemplateModel.FK_Flight_FlightTypeId" FromRole="Flight" ToRole="Category" />
           <NavigationProperty Name="Trip" Relationship="TemplateModel.FK_Flight_Trip" FromRole="Flight" ToRole="Trip" />
+          <Property Name="StopInformation" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Parameter">
           <Key>
@@ -2605,7 +2627,7 @@
           <Property Name="SearchSuccess" Type="Boolean" Nullable="false" />
           <Property Name="EndSearchDate" Type="DateTime" Precision="3" />
           <Property Name="AttemptsNumber" Type="Int32" Nullable="false" />
-          <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Provider" Relationship="TemplateModel.FK_SearchTripProvider_Provider" FromRole="SearchTripProvider" ToRole="Provider" />
           <NavigationProperty Name="SearchTrip" Relationship="TemplateModel.FK_SearchTripProvider_SearchTrip" FromRole="SearchTripProvider" ToRole="SearchTrip" />
           <NavigationProperty Name="Trips" Relationship="TemplateModel.FK_Trip_SearchTripProvider" FromRole="SearchTripProvider" ToRole="Trip" />
@@ -2638,6 +2660,8 @@
           <NavigationProperty Name="Currency" Relationship="TemplateModel.FK_SearchTripWishes_Currency" FromRole="SearchTripWish" ToRole="Currency" />
           <NavigationProperty Name="SearchTrips" Relationship="TemplateModel.FK_SearchTrip_SearchTripWishesId" FromRole="SearchTripWish" ToRole="SearchTrip" />
           <NavigationProperty Name="User" Relationship="TemplateModel.FK_SearchTripWishes_CreationUser" FromRole="SearchTripWish" ToRole="User" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Distance" Type="Single" />
         </EntityType>
         <EntityType Name="Trip">
           <Key>
@@ -2648,10 +2672,11 @@
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="25" Scale="2" />
           <Property Name="SearchTripProviderId" Type="Int32" Nullable="false" />
           <Property Name="EuroPrice" Type="Decimal" Precision="25" Scale="2" />
-          <Property Name="Url" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Currency" Relationship="TemplateModel.FK_Trip_Currency" FromRole="Trip" ToRole="Currency" />
           <NavigationProperty Name="Flights" Relationship="TemplateModel.FK_Flight_Trip" FromRole="Trip" ToRole="Flight" />
           <NavigationProperty Name="SearchTripProvider" Relationship="TemplateModel.FK_Trip_SearchTripProvider" FromRole="Trip" ToRole="SearchTripProvider" />
+          <Property Name="Attractiveness" Type="Decimal" Nullable="false" Precision="25" Scale="12" />
         </EntityType>
         <Association Name="FK_Flight_Airline">
           <End Type="TemplateModel.Airline" Role="Airline" Multiplicity="1" />
@@ -3272,10 +3297,10 @@
           <EntitySetMapping Name="Airports">
             <EntityTypeMapping TypeName="TemplateModel.Airport">
               <MappingFragment StoreEntitySet="Airport">
-                <ScalarProperty Name="BusyAirport" ColumnName="BusyAirport" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="BusyAirport" ColumnName="BusyAirport" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -3296,6 +3321,7 @@
           <EntitySetMapping Name="Flights">
             <EntityTypeMapping TypeName="TemplateModel.Flight">
               <MappingFragment StoreEntitySet="Flight">
+                <ScalarProperty Name="StopInformation" ColumnName="StopInformation" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="FlightTypeId" ColumnName="FlightTypeId" />
                 <ScalarProperty Name="TripId" ColumnName="TripId" />
@@ -3358,6 +3384,8 @@
           <EntitySetMapping Name="SearchTripWishes">
             <EntityTypeMapping TypeName="TemplateModel.SearchTripWish">
               <MappingFragment StoreEntitySet="SearchTripWishes">
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="EuroWishedPrice" ColumnName="EuroWishedPrice" />
                 <ScalarProperty Name="WishedPrice" ColumnName="WishedPrice" />
                 <ScalarProperty Name="WishedPriceCurrencyId" ColumnName="WishedPriceCurrencyId" />
@@ -3381,6 +3409,7 @@
           <EntitySetMapping Name="Trips">
             <EntityTypeMapping TypeName="TemplateModel.Trip">
               <MappingFragment StoreEntitySet="Trip">
+                <ScalarProperty Name="Attractiveness" ColumnName="Attractiveness" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="EuroPrice" ColumnName="EuroPrice" />
                 <ScalarProperty Name="SearchTripProviderId" ColumnName="SearchTripProviderId" />

@@ -100,6 +100,7 @@ namespace Data.Repositories
             }
             catch (Exception e)
             {
+                result = false;
                 Logger.GenerateError(e,  typeof(GenericRepository<Object>));
             }
             return result;
@@ -116,7 +117,7 @@ namespace Data.Repositories
             catch (Exception e)
             {
                 result = false;
-                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "ProcedureName : " + ProcedureName + " and Parameters :" + Parameters.ToString());
+                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "ProcedureName : " + ProcedureName + " and Parameters :" + String.Join(", ", Parameters));
             }
             return result;
         }
