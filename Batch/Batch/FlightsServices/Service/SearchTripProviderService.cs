@@ -62,7 +62,7 @@ namespace FlightsServices
 
                 if(SearchTrip!=null)
                 {
-                    DateTime CutOff = DateTime.UtcNow.AddHours(-1);
+                    DateTime CutOff = DateTime.UtcNow.AddHours(-2);
                     var SearchTripProvider = _searchTripProviderRepo.FindAllBy(s => s.ProviderId==ProviderId && s.SearchTripId== SearchTrip.Id && s.CreationDate> CutOff).FirstOrDefault();
                     if(SearchTripProvider==null)
                     {

@@ -7,7 +7,7 @@ using System;
 using System.Data.SqlClient;
 using System.Data;
 using Data.Helpers;
-
+using System.Linq;
 
 namespace Data.Model
 {
@@ -26,7 +26,7 @@ namespace Data.Model
                     if (var != null && var.Item1 != null && var.Item2 != null)
                         if (var.Item2.GetType() == typeof(string))
                         {
-                            command += " " + var.Item1 + "='" + var.Item2.ToString() + "',";
+                            command += " " + var.Item1 + "='" + var.Item2.ToString().Replace("'","''") + "',";
                         }
                         else
                         {
@@ -52,7 +52,7 @@ namespace Data.Model
             catch (System.Exception e)
             {
                 result = false;
-                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "ProcedureName : " + ProcedureName + " and Parameters :" + Parameters.ToString());
+                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "ProcedureName : " + ProcedureName + " and Parameters.Count = " + Parameters.Count + " and Parameters = " + string.Join(",", Parameters.Select(t => string.Format("[ '{0}', '{1}']", (t.Item1 ?? "NULL"), (t.Item2 ?? "NULL")))));
             }
             return result;
         }

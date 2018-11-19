@@ -117,7 +117,7 @@ namespace Data.Repositories
             catch (Exception e)
             {
                 result = false;
-                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "ProcedureName : " + ProcedureName + " and Parameters :" + String.Join(", ", Parameters));
+                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "ProcedureName : " + ProcedureName + " and Parameters.Count = " + Parameters.Count + " and Parameters = " + string.Join(",", Parameters.Select(t => string.Format("[ '{0}', '{1}']", (t.Item1 ?? "NULL"), (t.Item2 ?? "NULL")))));
             }
             return result;
         }

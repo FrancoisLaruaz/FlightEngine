@@ -165,10 +165,6 @@ namespace FlightsServices
                                     Logger.GenerateInfo("InsertTrips : Error in procedure InsertTripWithTransaction for SearchTripProviderId = " + Trip.SearchTripProviderId + " and Price = " + Trip.Price + " and OneWayTrip_ToAirportCode = " + (Trip.OneWayTrip_ToAirportCode ?? "N/A") + " and OneWayTrip_DepartureDate =" + (Trip.OneWayTrip_DepartureDate ?? "N/A") + " and Trip.OneWayTrip_FromAirportCode = " + (Trip.OneWayTrip_FromAirportCode ?? "N/A") + " and airlinename = " + (Trip.OneWayTrip_AirlineName ?? "N/A"));
                                 }
                             }
-                            else
-                            {
-                                Logger.GenerateInfo("InsertTrips : OneWayTrip_ToAirportCode NULL  for SearchTripProviderId = " + Trip.SearchTripProviderId );
-                            }
                         }
                         catch(Exception ex)
                         {
