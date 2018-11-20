@@ -44,11 +44,14 @@ namespace Models.Class.Email
         public string AuditGuidId { get; set; }
 
         public List<Tuple<string,string>> EmailContent { get; set; }
+
+        public int AttemptNumber { get; set; }
         public Email()
         {
             EmailContent = new List<Tuple<string, string>>();
             Attachments = new List<string>() ;
             CCList = new List<string>();
+            AttemptNumber = 1;
         }
 
         public Email(int _UserId,int _EMailTypeId)
@@ -56,6 +59,7 @@ namespace Models.Class.Email
             this.UserId = _UserId;
             this.EMailTypeId = _EMailTypeId;
             EmailContent = new List<Tuple<string, string>>();
+            AttemptNumber = 1;
         }
     }
 }

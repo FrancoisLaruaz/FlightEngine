@@ -49,6 +49,8 @@ namespace FlightsEngine.FlighsAPI
             List<TripItem> Trips = new List<TripItem>();
             try
             {
+                var context = new TemplateEntities1();
+                SearchTripProviderService _searchTripProviderService = new SearchTripProviderService(context);
                 for (int i = 0; i <= filters.MaxStopsNumber; i++)
                 {
                     AttemptsNumber = 1;
@@ -62,8 +64,6 @@ namespace FlightsEngine.FlighsAPI
                             var client = new HttpClient();
                             var queryString = HttpUtility.ParseQueryString(string.Empty);
 
-                            var context = new TemplateEntities1();
-                            SearchTripProviderService _searchTripProviderService = new SearchTripProviderService(context);
 
                             // Request parameters
                             if (!String.IsNullOrWhiteSpace(filters.FromAirportCode))
@@ -233,8 +233,6 @@ namespace FlightsEngine.FlighsAPI
                                             }
                                         }
 
-                                        TripsService _tripService = new TripsService(context);
-                                        _tripService.InsertTrips(Trips);
                                     }
                                 }
                                 else
@@ -254,6 +252,8 @@ namespace FlightsEngine.FlighsAPI
                         }
                     }
                 }
+                TripsService _tripService = new TripsService(context);
+                _tripService.InsertTrips(Trips);
             }
             catch (Exception e)
             {
