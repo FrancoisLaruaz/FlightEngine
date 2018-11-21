@@ -124,6 +124,7 @@ namespace Service.Admin
                 TaskHelper.ScheduleRecurringTask(JobBuilder.Create<DeleteUploadedFile>(), TaskHelper.GetDailyCronSchedule("16", "33"));
                 TaskHelper.ScheduleRecurringTask(JobBuilder.Create<ConvertCurrency>(), TaskHelper.GetDailyCronSchedule("17", "10"));
                 TaskHelper.ScheduleRecurringTask(JobBuilder.Create<DownloadImages>(), TaskHelper.GetDailyCronSchedule("15", "55"));
+                TaskHelper.ScheduleRecurringTask(JobBuilder.Create<WeatherHistory>(), TaskHelper.GetDailyCronSchedule("15", "55"));
             }
             catch (Exception e)
             {

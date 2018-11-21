@@ -34,7 +34,7 @@ namespace Service.UserArea
         }
 
 
-        public List<SearchItem> GetSearch(SearchFilter filter, int UserId)
+        public List<SearchItem> GetSearch(SearchFilter filter, int UserId,string BrowserLanguage)
         {
             List<SearchItem> result = new List<SearchItem>();
             try
@@ -73,6 +73,12 @@ namespace Service.UserArea
                 if (!isAdmin)
                     searchId = InsertSearchResultItem(term, UserId, result.Count > maxCount ? maxCount : result.Count, true);
 
+                string urlPrefix = "";
+                if ((loggedUser != null && loggedUser.LanguageId == Languages.French) || (loggedUser == null && BrowserLanguage.ToLower().StartsWith("fr")))
+                {
+                    urlPrefix = "/fr";
+                }
+
                 foreach (var element in result)
                 {
                     Id = Id + 1;
@@ -83,6 +89,7 @@ namespace Service.UserArea
                     {
                         element.Name = element.Name.Substring(0, 30) + "[...]";
                     }
+                    element.Url = urlPrefix + element.Url;
                 }
 
                 result = result.OrderBy(i => i.Name).OrderBy(i => i.Order).OrderBy(i => i.TypeOrder).Take(maxCount).ToList();
@@ -279,7 +286,7 @@ namespace Service.UserArea
         }
 
 
-        public SearchIndexResultViewModel GetSearchIndexResultViewModel(SearchFilter filter, int UserId)
+        public SearchIndexResultViewModel GetSearchIndexResultViewModel(SearchFilter filter, int UserId,string BrowserLanguage)
         {
             SearchIndexResultViewModel model = new SearchIndexResultViewModel();
             try
@@ -304,14 +311,19 @@ namespace Service.UserArea
                 if (!isAdmin)
                     searchId = InsertSearchResultItem(term, UserId, 0, false);
 
+                string urlPrefix = "";
+                if ((loggedUser != null && loggedUser.LanguageId == Languages.French) || (loggedUser == null && BrowserLanguage.ToLower().StartsWith("fr")))
+                {
+                    urlPrefix = "/fr";
+                }
 
                 if (filter.ShowUsers)
                 {
-                    model.Users = new SearchIndexResultTypeViewModel(fixSearchItemsList(GetSearchUsers(term, loggedUser, maxCount), maxCount, searchId), "[[[Users]]]", "user");
+                    model.Users = new SearchIndexResultTypeViewModel(fixSearchItemsList(GetSearchUsers(term, loggedUser, maxCount), maxCount, searchId, urlPrefix), "[[[Users]]]", "user");
                 }
                 if (filter.ShowPages)
                 {
-                    model.Pages = new SearchIndexResultTypeViewModel(fixSearchItemsList(GetSearchPages(term, maxCount, loggedUser, isAdmin), maxCount, searchId), "[[[Pages]]]", "globe");
+                    model.Pages = new SearchIndexResultTypeViewModel(fixSearchItemsList(GetSearchPages(term, maxCount, loggedUser, isAdmin), maxCount, searchId, urlPrefix), "[[[Pages]]]", "globe");
                 }
                 model.SearchResultsGeneralCount = model.Pages.Items.Count + model.Users.Items.Count;
 
@@ -333,7 +345,7 @@ namespace Service.UserArea
         }
 
 
-        public List<SearchItem> fixSearchItemsList(List<SearchItem> list, int maxCount, int searchId)
+        public List<SearchItem> fixSearchItemsList(List<SearchItem> list, int maxCount, int searchId,string urlPrefix)
         {
             try
             {
@@ -344,6 +356,7 @@ namespace Service.UserArea
                     Id = Id + 1;
                     element.Id = Id;
                     element.SearchId = searchId;
+                    element.Url = urlPrefix + element.Url;
                 }
             }
             catch (Exception e)

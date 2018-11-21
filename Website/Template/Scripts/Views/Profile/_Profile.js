@@ -266,9 +266,9 @@ function SetUrlRedirect() {
     $(".redirectToUrl_js").on("click", function (e) {
         e.preventDefault();
         ShowSpinner();
-        var companyUrl = $(this).data("redirecturl");
-        if (companyUrl != null) {
-            window.location.href = companyUrl;
+        var redirectUrl = $(this).data("redirecturl");
+        if (redirectUrl != null) {
+            window.location.href = FixPartialUrlWithCulture(redirectUrl);
         }
     });
 }

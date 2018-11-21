@@ -60,7 +60,7 @@ namespace Website.Controllers
                     LoggedUserId = UserSession.UserId;
                 }
                 SearchFilter filter = new SearchFilter(term);
-                var searchList = _searchService.GetSearch(filter, LoggedUserId);
+                var searchList = _searchService.GetSearch(filter, LoggedUserId, BrowserLanguage);
 
                 return Json(searchList, JsonRequestBehavior.AllowGet);
             }
@@ -158,7 +158,7 @@ namespace Website.Controllers
                 {
                     LoggedUserId = UserSession.UserId;
                 }
-                model = _searchService.GetSearchIndexResultViewModel(filter, LoggedUserId);
+                model = _searchService.GetSearchIndexResultViewModel(filter, LoggedUserId,BrowserLanguage);
 
                 return PartialView(model);
 

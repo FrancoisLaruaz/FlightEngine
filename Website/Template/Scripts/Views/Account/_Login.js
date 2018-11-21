@@ -55,12 +55,15 @@ function LoginSuccess(Data) {
 
             if (toGo.indexOf("http") == -1 && toGo.indexOf("www.") == -1) {
 
-                if (language != null && language != "") {
+                var addLanguagePrefix = true;
+                if (typeof (language) === "string" && language!=null && language.length > 0 && language !== "en") {
                     toGo = "/" + language + toGo;
+                    addLanguagePrefix = false;
                 }
-                var Base = GetHomePageUrl();
+                var Base = GetHomePageUrl(addLanguagePrefix);
 
                 toGo = Base + toGo;
+
             }
 
             window.location.href = toGo;

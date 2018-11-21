@@ -70,10 +70,12 @@ function externalAuthentificationCallback(success, returnUrl, error, media, isSi
 
                     if (toGo.indexOf("http") == -1 && toGo.indexOf("www.") == -1) {
 
-                        if (language != null && language != "") {
+                        var addLanguagePrefix = true;
+                        if (typeof (language) === "string" && language != null && language != "" && language !== "en") {
                             toGo = "/" + language + toGo;
+                            addLanguagePrefix = false;
                         }
-                        var Base = GetHomePageUrl();
+                        var Base = GetHomePageUrl(addLanguagePrefix);
 
                         toGo = Base + toGo;
                     }

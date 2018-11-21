@@ -103,7 +103,7 @@ function SetSearchBarAutoComplete() {
                 var selectedObj = ui.item;
                 if (selectedObj.SearchItemType != Constants.SearchItemType.SearchAll && HasValue(selectedObj.Url)) {
                     if (window.location.href != null && window.location.href.split('#')[0].toLowerCase() != GetHomePageUrl().toLowerCase() + selectedObj.Url.split('#')[0].toLowerCase()) {
-                        window.location.href = encodeURI(GetHomePageUrl() + selectedObj.Url.trim());
+                        window.location.href = encodeURI(selectedObj.Url.trim());
                         ShowSpinner();
                     }
                     else {
@@ -179,7 +179,7 @@ function SetSearchBarAutoComplete() {
 function GoToSearch() {
     var term = cleanUrlTerm($('.HiddenSearchTerm_js').first().val());
     ShowSpinner();
-    window.location.href = encodeURI(GetHomePageUrl() + '/SearchItems/' + term.trim());
+    window.location.href = encodeURI(FixPartialUrlWithCulture('/SearchItems/' + term.trim()));
 
 }
 

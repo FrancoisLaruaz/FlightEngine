@@ -17,11 +17,11 @@ namespace Service.UserArea.Interface
 {
     public interface ISearchService
     {
-        List<SearchItem> GetSearch(SearchFilter filter, int UserId);
+        List<SearchItem> GetSearch(SearchFilter filter, int UserId, string BrowserLanguage);
 
         bool SetUrlClickedForSearch(int SearchId, string Url);
 
-        SearchIndexResultViewModel GetSearchIndexResultViewModel(SearchFilter filter, int UserId);
+        SearchIndexResultViewModel GetSearchIndexResultViewModel(SearchFilter filter, int UserId, string BrowserLanguage);
 
     }
 }

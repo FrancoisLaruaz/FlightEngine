@@ -48,11 +48,24 @@ function isStaging() {
 }
 
 
-function GetHomePageUrl() {
+function GetHomePageUrl(addLanguagePrefix) {
     var result = null;
     try {
         var OldURL = window.location.href.toLowerCase();
         var newURL = OldURL;
+
+        var languagePrefix = '';
+        // By default we are going to add the language
+        if (typeof addLanguagePrefix == "undefined" || addLanguagePrefix == null) {
+            addLanguagePrefix = true;
+        }
+
+        if (addLanguagePrefix) {
+            if (getLanguageWebsite().indexOf('fr') > -1) {
+                languagePrefix = '/fr'
+            }
+        }
+
         var prefix = "";
         if (OldURL.indexOf("https") > -1) {
             prefix = "https://";
@@ -70,7 +83,7 @@ function GetHomePageUrl() {
         if (newURL.split('?').length > 0) {
             newURL = newURL.split('?')[0];
         }
-        result = newURL;
+        result = newURL + languagePrefix;
 
     }
     catch (err) {
@@ -211,8 +224,12 @@ function CallFunction(functionName, args, CallNumber) {
     }
 }
 
-function FixUrlWithCulture(url) {
+function FixPartialUrlWithCulture(url) {
+
+    var homePageUrl = GetHomePageUrl(false);
+
     var result = url;
+
     var LanguageSelector = $('#LanguageSelector');
     if (LanguageSelector.length > 0) {
         var language = LanguageSelector.find(":selected").text();
@@ -221,8 +238,28 @@ function FixUrlWithCulture(url) {
             if (language.toLowerCase().indexOf('fr') > -1) {
                 code = 'fr-CA';
             }
+            if (url.indexOf('/' + code + '/') == -1 && code != 'en') {
+                result = '/' + code + url.replace(homePageUrl, '');
+            }
+        }
+    }
+    return result;
+}
 
-            result = url.replace('/', '/' + code + '/');
+
+function FixUrlWithCulture(url) {
+    var result = url;
+    var LanguageSelector = $('#LanguageSelector');
+    if (LanguageSelector.length > 0) {
+        var language = LanguageSelector.find(":selected").text();
+        if (HasValue(language)) {
+            var code = 'en';
+            if (language.toLowerCase().indexOf('fr') > -1) {
+                code = 'fr';
+            }
+            if (url.indexOf('/' + code + '/') == -1 && code != 'en') {
+                result = url.replace('/', '/' + code + '/');
+            }
         }
     }
     return url;

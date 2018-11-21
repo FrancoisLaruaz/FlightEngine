@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\EMailHelper.cs" />
+    <Compile Include="Service\Admin\AirportService.cs" />
     <Compile Include="Service\Admin\FileUploadService.cs" />
+    <Compile Include="Service\Admin\Interface\IAirportService.cs" />
     <Compile Include="Service\Admin\Interface\ICurrencyService.cs" />
     <Compile Include="Service\Admin\Interface\IUserRolesService.cs" />
     <Compile Include="Service\Admin\Interface\ITaskLogService.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="Service\User\SearchService.cs" />
     <Compile Include="Service\User\SocialMediaConnectionService.cs" />
     <Compile Include="Task\OneShot\SendNews.cs" />
+    <Compile Include="Task\Recurring\WeatherHistory.cs" />
     <Compile Include="Task\Recurring\DownloadImages.cs" />
     <Compile Include="Task\Recurring\DeleteLogs.cs" />
     <Compile Include="Task\Recurring\DeleteUploadedFiles.cs" />
