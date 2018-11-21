@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-15 15:05-08:00\n"
+"POT-Creation-Date: 2018-11-16 13:48-08:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -381,6 +381,10 @@ msgstr ""
 msgid "Email from "
 msgstr ""
 
+#: ..\DataEntities\Const\Const.cs:146
+msgid "Email Not Opened"
+msgstr ""
+
 #: ..\DataEntities\Const\Const.cs:150
 msgid "Email Opened"
 msgstr ""
@@ -713,10 +717,7 @@ msgid "No result"
 msgstr ""
 
 #: ..\DataEntities\Const\Const.cs:144
-msgid ""
-"Not Watched]]\";\n"
-"                case EmailNotOpened:\n"
-"                    return \"[[[Email Not Opened"
+msgid "Not Watched"
 msgstr ""
 
 #: Scripts\General\DateHelper.js:34

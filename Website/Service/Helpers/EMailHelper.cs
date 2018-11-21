@@ -74,7 +74,7 @@ namespace Service.Helpers
 
                 if (!String.IsNullOrWhiteSpace(GuidId))
                 {
-                    UrlWatcher = ConfigurationManager.AppSettings["WebsiteURL"] + "/Email/Redirect?EmailAuditGuidId=" + GuidId + "&Url=" + Uri.EscapeDataString(url);
+                    UrlWatcher = ConfigurationManager.AppSettings["Website"] + "/Email/Redirect?EmailAuditGuidId=" + GuidId + "&Url=" + Uri.EscapeDataString(url);
                 }
 
             }

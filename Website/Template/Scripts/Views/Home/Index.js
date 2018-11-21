@@ -21,6 +21,11 @@ $(document).ready(function () {
     {
         ShowSignUpFormNow(false);
     }
+
+    if ($("#LogOff").prop("checked")) {
+        setCookie('LanguageCookie', null, 3000);
+    }
+
     SetNavBar();
     setTimeout(slideShow, imgDuration);
     HideSpinner();

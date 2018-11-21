@@ -46,6 +46,34 @@ namespace Website.Controllers
             }
         }
 
+        protected string BrowserLanguage
+        {
+            get
+            {
+                string languageBrowser = CommonsConst.Const.DefaultCulture;
+                try
+                {
+                    if (Request != null)
+                    {
+                        string[] languages = Request?.UserLanguages;
+                        if (languages != null && languages.Length > 0)
+                        {
+                            string language = languages[0];
+                            if (language.IndexOf("fr") > -1)
+                            {
+                                languageBrowser = "fr";
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+                return languageBrowser;
+            }
+        }
+
         protected string JsonConstants
         {
             get

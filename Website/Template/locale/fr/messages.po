@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-16 13:48-08:00\n"
-"PO-Revision-Date: 2018-11-16 13:48-08:00\n"
+"POT-Creation-Date: 2018-11-20 18:34-08:00\n"
+"PO-Revision-Date: 2018-11-20 18:34-08:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,21 +16,21 @@ msgstr ""
 msgid " and "
 msgstr ""
 
-#: Controllers\AccountController.cs:1006
+#: Controllers\AccountController.cs:1007
 msgid " is already registered on "
 msgstr ""
 
-#: Controllers\AccountController.cs:831
+#: Controllers\AccountController.cs:832
 msgid " login. Try signing up instead."
 msgstr ""
 
-#: Controllers\AccountController.cs:819
-#: Controllers\AccountController.cs:825
+#: Controllers\AccountController.cs:820
+#: Controllers\AccountController.cs:826
 msgid " registered using an email address. Please log in with this email using a password."
 msgstr ""
 
-#: Controllers\AccountController.cs:836
-#: Controllers\AccountController.cs:1031
+#: Controllers\AccountController.cs:837
+#: Controllers\AccountController.cs:1032
 msgid " to access your email address in order to sign up."
 msgstr ""
 
@@ -72,7 +72,7 @@ msgid ""
 "                    <a class=\"viewMoreSearchResultsLink\">[[[Show more results"
 msgstr ""
 
-#: Controllers\AccountController.cs:1307
+#: Controllers\AccountController.cs:1308
 msgid "[Your account is currently lockout."
 msgstr ""
 
@@ -92,7 +92,7 @@ msgstr ""
 msgid "A password is required."
 msgstr ""
 
-#: Controllers\AccountController.cs:768
+#: Controllers\AccountController.cs:769
 msgid "A user verification is required."
 msgstr ""
 
@@ -148,16 +148,16 @@ msgstr "Vous avez déjà un compte ?"
 msgid "An email has been set to "
 msgstr ""
 
-#: Controllers\AccountController.cs:993
-#: Controllers\AccountController.cs:1012
+#: Controllers\AccountController.cs:994
+#: Controllers\AccountController.cs:1013
 msgid "An error occured while creating the user."
 msgstr ""
 
-#: Controllers\AccountController.cs:372
+#: Controllers\AccountController.cs:373
 msgid "An error occured while saving yhe profile. Please try again ."
 msgstr ""
 
-#: Controllers\AccountController.cs:352
+#: Controllers\AccountController.cs:353
 msgid "An error occured while uploading the image."
 msgstr ""
 
@@ -259,7 +259,7 @@ msgstr "CC"
 msgid "Change"
 msgstr ""
 
-#: Controllers\AccountController.cs:1464
+#: Controllers\AccountController.cs:1465
 msgid "Change My Password"
 msgstr ""
 
@@ -412,8 +412,8 @@ msgstr ""
 msgid "Error"
 msgstr "Erreur"
 
-#: Controllers\AccountController.cs:1129
-#: Controllers\AccountController.cs:1140
+#: Controllers\AccountController.cs:1130
+#: Controllers\AccountController.cs:1141
 msgid "Error while creating the user."
 msgstr ""
 
@@ -530,7 +530,7 @@ msgstr ""
 msgid "Id"
 msgstr "Id"
 
-#: Controllers\AccountController.cs:1320
+#: Controllers\AccountController.cs:1321
 msgid "Incorrect password."
 msgstr ""
 
@@ -538,9 +538,9 @@ msgstr ""
 msgid "Internal camera plugin error"
 msgstr ""
 
-#: Controllers\AccountController.cs:1310
-#: Controllers\AccountController.cs:1324
-#: Controllers\AccountController.cs:1615
+#: Controllers\AccountController.cs:1311
+#: Controllers\AccountController.cs:1325
+#: Controllers\AccountController.cs:1616
 msgid "Invalid login attempt."
 msgstr ""
 
@@ -651,11 +651,11 @@ msgstr ""
 msgid "May"
 msgstr ""
 
-#: Scripts\General\Utils.js:357
+#: Scripts\General\Utils.js:335
 msgid "Minimum investment is required"
 msgstr ""
 
-#: Controllers\AccountController.cs:649
+#: Controllers\AccountController.cs:650
 #: Controllers\ProfileController.cs:101
 #: Views\Profile\Profile.cshtml:36
 #: Views\Shared\Layout\_Header.cshtml:62
@@ -695,16 +695,16 @@ msgstr ""
 msgid "No"
 msgstr "Non"
 
-#: Controllers\AccountController.cs:831
+#: Controllers\AccountController.cs:832
 msgid "No account exists for that "
 msgstr ""
 
-#: Controllers\AccountController.cs:851
+#: Controllers\AccountController.cs:852
 msgid "No account exists for that login. Try signing up instead."
 msgstr ""
 
-#: Controllers\AccountController.cs:720
-#: Controllers\AccountController.cs:913
+#: Controllers\AccountController.cs:721
+#: Controllers\AccountController.cs:914
 msgid "No login information have been provided."
 msgstr ""
 
@@ -765,7 +765,7 @@ msgstr ""
 msgid "Password"
 msgstr "Mot de passe"
 
-#: Controllers\AccountController.cs:1545
+#: Controllers\AccountController.cs:1546
 msgid "Password Changed"
 msgstr ""
 
@@ -798,65 +798,65 @@ msgstr ""
 msgid "Please enter a new password to complete your password reset."
 msgstr ""
 
-#: Scripts\General\Utils.js:392
+#: Scripts\General\Utils.js:370
 msgid "Please enter a valid credit card number."
 msgstr ""
 
-#: Scripts\General\Utils.js:389
+#: Scripts\General\Utils.js:367
 msgid "Please enter a valid date (ISO)."
 msgstr ""
 
-#: Scripts\General\Utils.js:388
+#: Scripts\General\Utils.js:366
 msgid "Please enter a valid date."
 msgstr ""
 
-#: Controllers\AccountController.cs:1151
+#: Controllers\AccountController.cs:1152
 #: Controllers\HomeController.cs:135
-#: Scripts\General\Utils.js:386
+#: Scripts\General\Utils.js:364
 msgid "Please enter a valid email address."
 msgstr ""
 
-#: Scripts\General\Utils.js:390
+#: Scripts\General\Utils.js:368
 msgid "Please enter a valid number."
 msgstr ""
 
-#: Scripts\General\Utils.js:387
+#: Scripts\General\Utils.js:365
 msgid "Please enter a valid URL"
 msgstr ""
 
-#: Scripts\General\Utils.js:397
+#: Scripts\General\Utils.js:375
 msgid "Please enter a value between {0} and {1} characters long."
 msgstr ""
 
-#: Scripts\General\Utils.js:398
+#: Scripts\General\Utils.js:376
 msgid "Please enter a value between {0} and {1}."
 msgstr ""
 
-#: Scripts\General\Utils.js:400
+#: Scripts\General\Utils.js:378
 msgid "Please enter a value greater than or equal to {0}."
 msgstr ""
 
-#: Scripts\General\Utils.js:399
+#: Scripts\General\Utils.js:377
 msgid "Please enter a value less than or equal to {0}."
 msgstr ""
 
-#: Scripts\General\Utils.js:394
+#: Scripts\General\Utils.js:372
 msgid "Please enter a value with a valid extension."
 msgstr ""
 
-#: Scripts\General\Utils.js:396
+#: Scripts\General\Utils.js:374
 msgid "Please enter at least {0} characters."
 msgstr ""
 
-#: Scripts\General\Utils.js:395
+#: Scripts\General\Utils.js:373
 msgid "Please enter no more than {0} characters."
 msgstr ""
 
-#: Scripts\General\Utils.js:391
+#: Scripts\General\Utils.js:369
 msgid "Please enter only digits."
 msgstr ""
 
-#: Scripts\General\Utils.js:393
+#: Scripts\General\Utils.js:371
 msgid "Please enter the same value again."
 msgstr ""
 
@@ -876,7 +876,7 @@ msgstr ""
 msgid "Please enter your message. We will do our best to answer as soon as possible."
 msgstr ""
 
-#: Scripts\General\Utils.js:385
+#: Scripts\General\Utils.js:363
 msgid "Please fix this field."
 msgstr ""
 
@@ -884,23 +884,23 @@ msgstr ""
 msgid "Please log in to access your profile."
 msgstr ""
 
-#: Controllers\AccountController.cs:261
-#: Controllers\AccountController.cs:367
-#: Controllers\AccountController.cs:421
-#: Controllers\AccountController.cs:496
-#: Controllers\AccountController.cs:571
+#: Controllers\AccountController.cs:262
+#: Controllers\AccountController.cs:368
+#: Controllers\AccountController.cs:422
+#: Controllers\AccountController.cs:497
+#: Controllers\AccountController.cs:572
 msgid "Please log in to perform the action."
 msgstr ""
 
-#: Controllers\AccountController.cs:1006
+#: Controllers\AccountController.cs:1007
 msgid "Please log in. "
 msgstr ""
 
-#: Controllers\AccountController.cs:1170
+#: Controllers\AccountController.cs:1171
 msgid "Please prove that you are not a robot by clicking on the captcha."
 msgstr ""
 
-#: Controllers\AccountController.cs:1025
+#: Controllers\AccountController.cs:1026
 msgid "Please review and provide any missing information to finish signing up."
 msgstr ""
 
@@ -908,7 +908,7 @@ msgstr ""
 msgid "Please smile"
 msgstr ""
 
-#: Controllers\AccountController.cs:357
+#: Controllers\AccountController.cs:358
 msgid "Please upload an image."
 msgstr ""
 
@@ -922,7 +922,7 @@ msgstr ""
 msgid "Privacy"
 msgstr ""
 
-#: Controllers\AccountController.cs:1444
+#: Controllers\AccountController.cs:1445
 #: Views\Account\SignUp\_SignUpForm.cshtml:82
 msgid "Privacy Policy"
 msgstr ""
@@ -969,7 +969,7 @@ msgstr ""
 msgid "Remember me ?"
 msgstr ""
 
-#: Controllers\AccountController.cs:1568
+#: Controllers\AccountController.cs:1569
 msgid "Reset My Password"
 msgstr ""
 
@@ -1124,12 +1124,12 @@ msgstr ""
 msgid "Sorry, no webcam has been found ..."
 msgstr ""
 
-#: Controllers\AccountController.cs:1516
-#: Controllers\AccountController.cs:1627
+#: Controllers\AccountController.cs:1517
+#: Controllers\AccountController.cs:1628
 msgid "Sorry, the user has not been found."
 msgstr ""
 
-#: Controllers\AccountController.cs:1683
+#: Controllers\AccountController.cs:1684
 msgid "Sorry, this user has not been found."
 msgstr ""
 
@@ -1164,7 +1164,7 @@ msgstr ""
 msgid "Terms & Conditions"
 msgstr ""
 
-#: Controllers\AccountController.cs:1425
+#: Controllers\AccountController.cs:1426
 msgid "Terms And Conditions"
 msgstr ""
 
@@ -1192,7 +1192,7 @@ msgstr "Le document doit être une image ou in pdf."
 msgid "The email is required."
 msgstr ""
 
-#: Controllers\AccountController.cs:377
+#: Controllers\AccountController.cs:378
 msgid "The file is empty. Please upload another file."
 msgstr ""
 
@@ -1228,7 +1228,7 @@ msgstr ""
 msgid "The news has been successfully saved."
 msgstr ""
 
-#: Controllers\AccountController.cs:1507
+#: Controllers\AccountController.cs:1508
 msgid "The old password is incorrect."
 msgstr ""
 
@@ -1277,17 +1277,17 @@ msgstr ""
 msgid "The user has been successfully deleted."
 msgstr ""
 
-#: Controllers\AccountController.cs:765
+#: Controllers\AccountController.cs:766
 msgid "The user is currently locked out."
 msgstr ""
 
-#: Controllers\AccountController.cs:1017
-#: Controllers\AccountController.cs:1136
-#: Controllers\AccountController.cs:1146
+#: Controllers\AccountController.cs:1018
+#: Controllers\AccountController.cs:1137
+#: Controllers\AccountController.cs:1147
 msgid "This email address is already used."
 msgstr ""
 
-#: Scripts\General\Utils.js:384
+#: Scripts\General\Utils.js:362
 msgid "This field is required."
 msgstr ""
 
@@ -1295,7 +1295,7 @@ msgstr ""
 msgid "This is the email you need to use to log in the platform. It can not be changed."
 msgstr ""
 
-#: Controllers\AccountController.cs:1315
+#: Controllers\AccountController.cs:1316
 msgid "This user is not registered. Please sign-up."
 msgstr ""
 
@@ -1404,9 +1404,9 @@ msgstr "Oui"
 msgid "You are almost there !"
 msgstr ""
 
-#: Controllers\AccountController.cs:711
-#: Controllers\AccountController.cs:904
-#: Controllers\AccountController.cs:1163
+#: Controllers\AccountController.cs:712
+#: Controllers\AccountController.cs:905
+#: Controllers\AccountController.cs:1164
 msgid "You are already logged in."
 msgstr ""
 
@@ -1422,21 +1422,21 @@ msgstr ""
 msgid "You are not authorized to perform this action."
 msgstr ""
 
-#: Controllers\AccountController.cs:1234
+#: Controllers\AccountController.cs:1235
 #: Areas\Admin\Controllers\NewsController.cs:164
 msgid "You are not logged in."
 msgstr ""
 
-#: Controllers\AccountController.cs:256
-#: Controllers\AccountController.cs:362
-#: Controllers\AccountController.cs:416
-#: Controllers\AccountController.cs:491
-#: Controllers\AccountController.cs:566
+#: Controllers\AccountController.cs:257
+#: Controllers\AccountController.cs:363
+#: Controllers\AccountController.cs:417
+#: Controllers\AccountController.cs:492
+#: Controllers\AccountController.cs:567
 msgid "You don't have the rights to edit this user."
 msgstr ""
 
-#: Controllers\AccountController.cs:836
-#: Controllers\AccountController.cs:1031
+#: Controllers\AccountController.cs:837
+#: Controllers\AccountController.cs:1032
 msgid "You must authorize "
 msgstr ""
 

@@ -152,13 +152,15 @@ namespace Website.Controllers
 
         public ActionResult Index(bool SignUp = false,
             bool PromptLogin = false,
-            string RedirectTo = "/")
+            string RedirectTo = "/",
+             bool LogOff = false)
         {
             var model = new HomeViewModel();
             try
             {
                 ViewBag.ShowVideo = false;
                 model.SignUp = SignUp;
+                model.LogOff = LogOff;
                 model.PromptLogin = PromptLogin;
                 model.RedirectTo = RedirectTo;
                 model.SliderHomePageJson = JsonConvert.SerializeObject(Utils.GetPropertiesList(typeof(CommonsConst.SliderHomePage)));

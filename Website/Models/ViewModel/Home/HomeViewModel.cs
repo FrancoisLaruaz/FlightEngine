@@ -17,6 +17,8 @@ namespace Models.ViewModels.Home
 
         public string SliderHomePageJson { get; set; }
 
+        public bool LogOff { get; set; }
+
         public HomeViewModel()
         {
            

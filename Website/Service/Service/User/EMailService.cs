@@ -193,6 +193,7 @@ namespace Service.UserArea
                     if (InsertEMailAudit(Email, Email.Attachments.Count, Email.CCList.Count))
                     {
                         Task.Factory.StartNew(() => SendMailAsync(Email));
+                        result = true;
                     }
                 }
                 else

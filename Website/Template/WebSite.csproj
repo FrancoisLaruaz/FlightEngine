@@ -307,6 +307,8 @@
     <Content Include="Ressources\Files\Images\ProductIcon\drinks.png" />
     <Content Include="Ressources\Files\Images\Search\noresult.png" />
     <Content Include="Ressources\Files\Images\titlebackground.jpg" />
+    <Content Include="Scripts\General\CookieHelper.js" />
+    <Content Include="Scripts\General\LanguageHelper.js" />
     <Content Include="Scripts\General\FormaterHelper.js" />
     <Content Include="Scripts\General\DateHelper.js" />
     <Content Include="Scripts\General\CarouselHelper.js" />
@@ -703,6 +705,7 @@
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <PropertyGroup>
-    <PostBuildEvent>"$(TargetDir)i18n.PostBuild.exe"  "$(ProjectDir)web.config"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

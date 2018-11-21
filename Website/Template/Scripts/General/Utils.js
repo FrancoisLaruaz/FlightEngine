@@ -29,18 +29,23 @@ function HasValue(element)
     return result;
 }
 
-function getLanguageWebsite() {
-    var result = Constants.Const.DefaultCulture;
-    var LanguageSelector = $('#LanguageSelector');
-    if (LanguageSelector.length > 0) {
-        var language = LanguageSelector.find(":selected").text();
-        if (HasValue(language)) {
-            result = language.substr(0, 2).toLowerCase();
-        }
+
+function isLocalhost() {
+    var url = window.location.href;
+    if (typeof url === "string" && url.toLowerCase().indexOf("localhost") > -1) {
+        return true;
     }
-    return result;
+    return false;
 }
 
+
+function isStaging() {
+    var url = window.location.href;
+    if (typeof url === "string" && url.toLowerCase().indexOf("staging.com") > -1) {
+        return true;
+    }
+    return false;
+}
 
 
 function GetHomePageUrl() {
@@ -234,33 +239,6 @@ function executeFunctionByName(functionName, context, args) {
 }
 
 
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(name) {
-    var dc = document.cookie;
-    var prefix = name + "=";
-    var begin = dc.indexOf("; " + prefix);
-    if (begin == -1) {
-        begin = dc.indexOf(prefix);
-        if (begin != 0) return null;
-    }
-    else
-    {
-        begin += 2;
-        var end = document.cookie.indexOf(";", begin);
-        if (end == -1) {
-        end = dc.length;
-        }
-    }
-    // because unescape has been deprecated, replaced with decodeURI
-    //return unescape(dc.substring(begin + prefix.length, end));
-    return decodeURI(dc.substring(begin + prefix.length, end));
-} 
 
 function animateValue(id, start, end, duration) {
 

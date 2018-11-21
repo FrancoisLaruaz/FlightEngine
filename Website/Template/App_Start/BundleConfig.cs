@@ -35,7 +35,10 @@ namespace Template
                 "~/Scripts/General/Toastr.js",
                 "~/Scripts/General/ToastrHelper.js",
                 "~/Scripts/General/Utils.js",
-                "~/Scripts/General/Error.js"
+                "~/Scripts/General/Error.js",
+                 "~/Scripts/General/Cookie.js",
+                "~/Scripts/General/CookieHelper.js",
+                 "~/Scripts/General/LanguageHelper.js"
                 ));
 
 
@@ -51,7 +54,6 @@ namespace Template
                  "~/Scripts/moment.min.js",
                  "~/Scripts/bootstrap-datetimepicker.min.js",
                  "~/Scripts/General/daterangepicker.js",
-                 "~/Scripts/General/Cookie.js",
                  "~/Scripts/General/BackToTop.js",
                 "~/Scripts/General/AudioHelper.js",
                 "~/Scripts/General/FileFormHelper.js",
@@ -112,6 +114,7 @@ namespace Template
                     "~/Content/General/toastr.csss",
                    "~/Content/General/webcam.css",
                    "~/Content/General/googleMap.css",
+                   "~/Content/Views/Shared/_LanguageSelector.css",
                     "~/Content/General/jtsage-datebox.min.css",
                     "~/Content/General/jtsage-syntax.css",
                     "~/Content/Views/Account/_PasswordPolicy.css",

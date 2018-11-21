@@ -31,6 +31,7 @@ using Service.UserArea.Interface;
 using Models.ViewModels.Account;
 using Models.Class.SignUp;
 using Commons.Attributes;
+using System.Configuration;
 
 namespace Website.Controllers
 {
@@ -1363,7 +1364,7 @@ namespace Website.Controllers
             {
                 Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, null);
             }
-            return RedirectToAction("Index", "Home");
+            return Redirect(string.Format("{0}/{1}/?LogOff=True", ConfigurationManager.AppSettings["Website"], BrowserLanguage));
         }
 
         [HttpGet]
@@ -1374,7 +1375,7 @@ namespace Website.Controllers
             Session.Clear();
             Session.Abandon();
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return Redirect(string.Format("{0}/{1}/?LogOff=True", ConfigurationManager.AppSettings["Website"], BrowserLanguage));
         }
 
         /// <summary>
@@ -1385,7 +1386,7 @@ namespace Website.Controllers
         [HttpGet]
         public ActionResult LogOff(int a = 0)
         {
-            return RedirectToAction("Index", "Home");
+            return Redirect(string.Format("{0}/{1}/?LogOff=True", ConfigurationManager.AppSettings["Website"], BrowserLanguage));
         }
 
 

@@ -78,11 +78,11 @@ namespace FlightsServices
                             TripsFromHtmlResult Result = new TripsFromHtmlResult();
                             if (SearchTripProvider.ProviderId == Providers.Kayak)
                             {
-                                Result = ScrappingHelper.GetKayakTripsFromHtml(Html, SearchTripProviderId, SearchTripProvider.Url,SearchTripProvider.SearchTrip.FromDate, SearchTripProvider.SearchTrip.ToDate);
+                                Result = ScrappingHelper.GetKayakTripsFromHtml(Html, SearchTripProviderId, SearchTripProvider.Url, SearchTripProvider.SearchTrip.FromDate, SearchTripProvider.SearchTrip.ToDate);
                             }
                             if (Result.Success)
                             {
-                                if(InsertTrips(Result.Trips))
+                                if (InsertTrips(Result.Trips))
                                 {
                                     File.Delete(HtmlFile);
                                 }
@@ -160,16 +160,12 @@ namespace FlightsServices
                                     Parameters.Add(new Tuple<string, object>("@ReturnTrip_ToAirportCode", Trip.ReturnTrip_ToAirportCode));
                                 bool procedureExecution = _tripRepo.ExecuteStoredProcedure("[dbo].[InsertTripWithTransaction]", Parameters);
                                 result = result & procedureExecution;
-                                if (!procedureExecution)
-                                {
-                                    Logger.GenerateInfo("InsertTrips : Error in procedure InsertTripWithTransaction for SearchTripProviderId = " + Trip.SearchTripProviderId + " and Price = " + Trip.Price + " and OneWayTrip_ToAirportCode = " + (Trip.OneWayTrip_ToAirportCode ?? "N/A") + " and OneWayTrip_DepartureDate =" + (Trip.OneWayTrip_DepartureDate ?? "N/A") + " and Trip.OneWayTrip_FromAirportCode = " + (Trip.OneWayTrip_FromAirportCode ?? "N/A") + " and airlinename = " + (Trip.OneWayTrip_AirlineName ?? "N/A"));
-                                }
                             }
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             result = false;
-                            FlightsEngine.Utils.Logger.GenerateError(ex, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "InsertTrips Loop,  = " + Trip.SearchTripProviderId+" and price = "+Trip.Price);
+                            FlightsEngine.Utils.Logger.GenerateError(ex, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "InsertTrips Loop,  = " + Trip.SearchTripProviderId + " and price = " + Trip.Price);
                         }
                     }
                 }

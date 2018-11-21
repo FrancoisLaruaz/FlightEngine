@@ -26,7 +26,7 @@ namespace Data.Model
                     if (var != null && var.Item1 != null && var.Item2 != null)
                         if (var.Item2.GetType() == typeof(string))
                         {
-                            command += " " + var.Item1 + "='" + var.Item2.ToString().Replace("'","''") + "',";
+                            command += " " + var.Item1 + "='" + var.Item2.ToString().Replace("'", "''") + "',";
                         }
                         else
                         {
