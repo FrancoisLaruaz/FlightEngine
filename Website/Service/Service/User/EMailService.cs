@@ -315,19 +315,21 @@ namespace Service.UserArea
                     Email.UserId = UserId;
                     Email.EMailTypeId = EMailTypeId;
                     Email.RootPathDefault = FileHelper.GetRootPathDefault() + @"\";
+                    string baseUrl = WebsiteURL + "/" + Languages.ToString(UserMail.LanguageId);
+
                     List<Tuple<string, string>> EmailContent = new List<Tuple<string, string>>();
                     switch (EMailTypeId)
                     {
                         case CommonsConst.EmailTypes.Forgotpassword:
-                            string ResetPasswordUrl =  WebsiteURL + "/ResetPassword/" + UserMail.Id + "/" + Commons.HashHelpers.HashEncode(UserMail.ResetPasswordToken);
+                            string ResetPasswordUrl = baseUrl + "/ResetPassword/" + UserMail.Id + "/" + Commons.HashHelpers.HashEncode(UserMail.ResetPasswordToken);
                             EmailContent.Add(new Tuple<string, string>("#ResetPasswordUrl_watcher#", ResetPasswordUrl));
                             break;
                         case CommonsConst.EmailTypes.UserWelcome:
-                            string ConfirmEmailUrl = WebsiteURL + "/ConfirmEmail?UserId=" + UserMail.Id + "&Token=" + Commons.HashHelpers.HashEncode(UserMail.EmailConfirmationToken);
+                            string ConfirmEmailUrl = baseUrl + "/ConfirmEmail?UserId=" + UserMail.Id + "&Token=" + Commons.HashHelpers.HashEncode(UserMail.EmailConfirmationToken);
                             EmailContent.Add(new Tuple<string, string>("#ConfirmEmailUrl_watcher#", ConfirmEmailUrl));
                             break;
                         case CommonsConst.EmailTypes.ResetPassword:
-                            string ChangePasswordUrl = WebsiteURL + "/MyProfile/password";
+                            string ChangePasswordUrl = baseUrl + "/MyProfile/password";
                             EmailContent.Add(new Tuple<string, string>("#ChangePasswordUrl_watcher#", ChangePasswordUrl));
                             break;
                     }

@@ -1,7 +1,7 @@
 $(function () {
     var is_cookie_compliance_accepted = getCookie(Constants.JavascriptCookies.ComplianceAccepted);
 
-    if (is_cookie_compliance_accepted != null && is_cookie_compliance_accepted.toLowerCase() == 'true') {
+    if (is_cookie_compliance_accepted != null && is_cookie_compliance_accepted != 'null' && is_cookie_compliance_accepted.toLowerCase().indexOf('true') > -1) {
         SetLiveChat();
     }
 });
