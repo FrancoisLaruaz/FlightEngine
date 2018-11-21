@@ -96,6 +96,7 @@ namespace Service.Helpers
             bool result = false;
             try
             {
+                Email SavedEmail = Email;
                 MailAddress fromAddress = new MailAddress(Email.FromEmail, MailName);
 
 
@@ -186,7 +187,7 @@ namespace Service.Helpers
                             message.CC.Add(CC);
                         }
                     }
-                    smtp.SendAsync(message, Email.AuditGuidId);
+                    smtp.SendAsync(message, SavedEmail);
                     result = true;
                 }
             }
@@ -202,21 +203,38 @@ namespace Service.Helpers
         {
             try
             {
-                string emailToken = (string)e.UserState;
+                Email email = (Email)e.UserState;
+                if (email != null)
+                {
+                    string emailToken = email.AuditGuidId;
+                    string error = "";
+                    bool emailSent = false;
 
-                if (e.Cancelled)
-                {
-                    Logger.GenerateInfo("SendCompletedCallback Mail CANCELLED : emailToken = '" + (emailToken ?? "") + "' " + (e.Error != null ? " and error = " + e.Error.ToString() : ""));
-                }
-                else if (e.Error != null)
-                {
-                    Logger.GenerateInfo("SendCompletedCallback Mail Error :  emailToken = '" + (emailToken ?? "") + "' and error = " + e.Error.ToString());
-                }
-                else
-                {
-                    SetEmailAsSent(emailToken);
-                }
+                    if (e.Cancelled)
+                    {
+                        error = "SendCompletedCallback Mail CANCELLED : emailToken = '" + (emailToken ?? "") + "' " + (e.Error != null ? " and error = " + e.Error.ToString() : "");
+                    }
+                    else if (e.Error != null)
+                    {
+                        error = "SendCompletedCallback Mail Error :  emailToken = '" + (emailToken ?? "") + "' and error = " + e.Error.ToString();
+                    }
+                    else
+                    {
+                        emailSent = true;
+                        SetEmailAsSent(emailToken);
+                    }
 
+                    if (!emailSent && (email.AttemptNumber + 1) <= 4)
+                    {
+                        System.Threading.Thread.Sleep(100);
+                        email.AttemptNumber = email.AttemptNumber + 1;
+                        SendMail(email);
+                    }
+                    else if (!String.IsNullOrWhiteSpace(error))
+                    {
+                        Logger.GenerateInfo(error);
+                    }
+                }
             }
             catch (Exception ex)
             {
