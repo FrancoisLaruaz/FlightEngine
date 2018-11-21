@@ -21,6 +21,8 @@ namespace Data.Model
             this.Flights1 = new HashSet<Flight>();
             this.SearchTripWishes = new HashSet<SearchTripWish>();
             this.SearchTripWishes1 = new HashSet<SearchTripWish>();
+            this.AirportsTrips = new HashSet<AirportsTrip>();
+            this.AirportsTrips1 = new HashSet<AirportsTrip>();
         }
     
         public int Id { get; set; }
@@ -30,6 +32,7 @@ namespace Data.Model
         public bool BusyAirport { get; set; }
         public Nullable<float> Latitude { get; set; }
         public Nullable<float> Longitude { get; set; }
+        public bool Active { get; set; }
     
         public virtual City City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -40,5 +43,9 @@ namespace Data.Model
         public virtual ICollection<SearchTripWish> SearchTripWishes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SearchTripWish> SearchTripWishes1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AirportsTrip> AirportsTrips { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AirportsTrip> AirportsTrips1 { get; set; }
     }
 }

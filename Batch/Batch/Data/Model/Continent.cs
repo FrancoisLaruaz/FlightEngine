@@ -12,27 +12,19 @@ namespace Data.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Country
+    public partial class Continent
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Country()
+        public Continent()
         {
-            this.Cities = new HashSet<City>();
-            this.Provinces = new HashSet<Province>();
-            this.Providers = new HashSet<Provider>();
+            this.Countries = new HashSet<Country>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public int ContinentId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<City> Cities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Province> Provinces { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Provider> Providers { get; set; }
-        public virtual Continent Continent { get; set; }
+        public virtual ICollection<Country> Countries { get; set; }
     }
 }

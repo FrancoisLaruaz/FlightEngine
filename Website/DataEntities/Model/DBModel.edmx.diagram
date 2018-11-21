@@ -92,6 +92,11 @@
         <AssociationConnector Association="TemplateModel.FK_SearchTripWishes_CreationUser" />
         <AssociationConnector Association="TemplateModel.ProviderCountry" />
         <AssociationConnector Association="TemplateModel.FK_EmailAudit_EmailWatcherStatusId" />
+        <EntityTypeShape EntityType="TemplateModel.AirportsTrip" Width="1.5" PointX="9.75" PointY="24.375" />
+        <EntityTypeShape EntityType="TemplateModel.Continent" Width="1.5" PointX="0.75" PointY="16.75" />
+        <AssociationConnector Association="TemplateModel.FK_AirportsTrip_FromAirport" />
+        <AssociationConnector Association="TemplateModel.FK_AirportsTrip_ToAirport" />
+        <AssociationConnector Association="TemplateModel.FK_Country_ContinentId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
