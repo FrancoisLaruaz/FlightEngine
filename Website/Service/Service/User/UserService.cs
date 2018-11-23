@@ -732,7 +732,53 @@ namespace Service.UserArea
             return result;
         }
 
+        /// <summary>
+        /// Set the email address of the user as verified
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        public bool VerifyUserEmailAddress(int UserId)
+        {
+            bool result = false;
+            try
+            {
+                if (UserId <= 0)
+                {
+                    result = false;
+                }
+                else
+                {
+                    User user = _userRepo.Get(UserId);
+                    if (user != null)
+                    {
+                        user.EmailConfirmationToken = null;
+                        user.AspNetUser.EmailConfirmed = true;
+                        if(!String.IsNullOrWhiteSpace(user.UserNameModification))
+                        {
+                            user.AspNetUser.UserName = user.UserNameModification;
+                            user.AspNetUser.Email = user.UserNameModification;
+                            user.UserNameModification = null;
+                        }
+                        user.ModificationDate = DateTime.UtcNow;
+                        _userRepo.Edit(user);
+                        result = _userRepo.Save();
+                    }
+                }
 
+            }
+            catch (Exception e)
+            {
+                result = false;
+                Logger.GenerateError(e,  System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "UserId = " + UserId);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Check if an email address is available
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <returns></returns>
         public bool IsEmailAvailable(string UserName)
         {
             bool result = true;

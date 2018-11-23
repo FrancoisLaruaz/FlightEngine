@@ -39,6 +39,14 @@ namespace Models.Class.Email
         public int? NewsId { get; set; }
         public string NewsTitle { get; set; }
 
+        public bool EmailSent { get; set; }
+
+        public int EmailWatcherStatusId { get; set; }
+
+        public DateTime? EmailOpenedDate { get; set; }
+
+        public DateTime? EmailLinkClickedDate { get; set; }
+
         public string CommentToDisplay
         {
             get

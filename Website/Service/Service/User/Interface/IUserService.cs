@@ -18,6 +18,7 @@ namespace Service.UserArea.Interface
 {
     public interface IUserService
     {
+        bool VerifyUserEmailAddress(int UserId);
         bool CanUserEditProfile(int toBeEditedUserId, string currentUserName);
         bool SetUserLastConnectionDate(string UserName);
         bool IsEmailAvailable(string UserName);

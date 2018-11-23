@@ -114,6 +114,19 @@ namespace Service.Admin
                 Keys.Add(new APIKey("fada50cfd88b7364f0de7272c0446f90"));
                 Keys.Add(new APIKey("1dc8c93c862d080d435e23e8441a4a5f"));
                 Keys.Add(new APIKey("ad8e91aa8511ac2e68a28b43670d94db"));
+                Keys.Add(new APIKey("703708d9bb26be5db461cb55df9c322a"));
+                Keys.Add(new APIKey("6c68181da024a1e6ffe067bb91ba81cd"));
+                Keys.Add(new APIKey("bd3fded169268ba8af871490c0db3990"));
+                Keys.Add(new APIKey("a99f8b9cab49975c659a27f9830557df"));
+                Keys.Add(new APIKey("acfce707d4ae405210e032e63f260b2d"));
+                Keys.Add(new APIKey("1ea3d77ef1f1086da23b08bfeaa126d1"));
+                Keys.Add(new APIKey("de854affd68a2fca04670f309945d1e5"));
+                Keys.Add(new APIKey("f6b966f0b40949d8d5f6f64f7ea1f7fe"));
+                Keys.Add(new APIKey("3738d4cf9a5225703577fde59ef21d72"));
+                Keys.Add(new APIKey("c3085013199ba2d249405f5506eaa0f5"));
+                Keys.Add(new APIKey("c37cc8d06de6118f10372198e4f1eca9"));
+                Keys.Add(new APIKey("1583cf425f7255ad532249ba590152e3"));
+                Keys.Add(new APIKey("d354ca951d6d7f556ec8cd171a2d357c"));
 
                 List<Airport> Airports = _airportRepo.FindAllBy(a => a.Active).ToList();
                 //Airports = Airports.Where(a => a.Id == 7921 || a.Id == 2565).ToList();

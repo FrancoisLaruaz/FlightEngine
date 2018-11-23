@@ -16,6 +16,7 @@ using CommonsConst;
 using Service.UserArea.Interface;
 using Models.Class.Localization;
 using System.Security.Claims;
+using System.Configuration;
 
 namespace Website.Controllers
 {
@@ -29,6 +30,16 @@ namespace Website.Controllers
             )
         {
             _userService = userService;
+        }
+
+
+        public string MyProfileUrl
+        {
+            get
+            {
+
+                return ConfigurationManager.AppSettings["Website"] + "/" + CurrentLangTag + "/MyProfile";
+            }
         }
 
         public string CurrentLangTag
@@ -218,7 +229,7 @@ namespace Website.Controllers
                     else
                     {
                         LocalizationItem loc = Session[CommonsConst.Const.DefaultUserLocalization] as LocalizationItem;
-                        if (Request?.UserHostAddress != null && loc.userHostAddress!=null && Request?.UserHostAddress == loc.userHostAddress)
+                        if (Request?.UserHostAddress != null && loc.userHostAddress != null && Request?.UserHostAddress == loc.userHostAddress)
                         {
                             return loc;
                         }

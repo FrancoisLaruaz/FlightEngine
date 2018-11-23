@@ -325,7 +325,7 @@ namespace Service.UserArea
                             EmailContent.Add(new Tuple<string, string>("#ResetPasswordUrl_watcher#", ResetPasswordUrl));
                             break;
                         case CommonsConst.EmailTypes.UserWelcome:
-                            string ConfirmEmailUrl = baseUrl + "/ConfirmEmail?UserId=" + UserMail.Id + "&Token=" + Commons.HashHelpers.HashEncode(UserMail.EmailConfirmationToken);
+                            string ConfirmEmailUrl = baseUrl + "/ConfirmEmail/" + UserMail.Id + "/" + Commons.HashHelpers.HashEncode(UserMail.EmailConfirmationToken);
                             EmailContent.Add(new Tuple<string, string>("#ConfirmEmailUrl_watcher#", ConfirmEmailUrl));
                             break;
                         case CommonsConst.EmailTypes.ResetPassword:
@@ -470,7 +470,10 @@ namespace Service.UserArea
                     emailAuditItem.NewsTitle = audit.ScheduledTask?.News?.Title;
                     emailAuditItem.Comment = audit.Comment;
                     emailAuditItem.EMailTypeName = audit.EmailTypeLanguage?.EmailType?.Name;
-
+                    emailAuditItem.EmailSent = audit.EmailSent;
+                    emailAuditItem.EmailWatcherStatusId = audit.EmailWatcherStatusId;
+                    emailAuditItem.EmailOpenedDate = audit.EmailOpenedDate;
+                    emailAuditItem.EmailLinkClickedDate = audit.EmailLinkClickedDate;
                     model.AuditsList.Add(emailAuditItem);
                 }
 

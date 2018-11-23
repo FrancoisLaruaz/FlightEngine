@@ -1346,7 +1346,34 @@ namespace Website.Controllers
         }
         #endregion
 
-        #region Login / Logoff
+        #region Logoff
+
+        [HttpGet]
+        public ActionResult AutomaticLogOffAndRedirectToLogin(string RedirectTo = null)
+        {
+            try
+            {
+
+                Session[CommonsConst.Const.UserSession] = null;
+                Session[CommonsConst.Const.JsonConstantsSession] = null;
+                Session.Clear();
+                Session.Abandon();
+                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+                if (String.IsNullOrWhiteSpace(RedirectTo))
+                {
+                    RedirectTo = Request?.Url?.AbsoluteUri?.ToString();
+                    if (RedirectTo != null && RedirectTo.Contains("AutomaticLogOffAndRedirectToLogin"))
+                        RedirectTo = null;
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "RedirectTo = " + RedirectTo);
+            }
+            return RedirectToAction("Index", "Home", new { PromptLogin = true, SignUp = false, RedirectTo = RedirectTo, LogOff=true });
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken, AntiForgeryExceptionAttributeLogOff]
         public ActionResult LogOff()
@@ -1389,6 +1416,9 @@ namespace Website.Controllers
             return Redirect(string.Format("{0}/{1}/?LogOff=True", ConfigurationManager.AppSettings["Website"], BrowserLanguage));
         }
 
+        #endregion
+
+        #region Login
 
         public ActionResult Login(string returnUrl = null)
         {
@@ -1694,6 +1724,38 @@ namespace Website.Controllers
                 Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "UserName = " + model.UserName);
             }
             return Json(new { Result = _Result, Error = _Error, UserMail = _UserMail });
+        }
+
+        #endregion
+
+        #region emailVerification
+
+        public ActionResult ConfirmEmail(int UserId, string Token)
+        {
+            ResetPasswordViewModel model = new ResetPasswordViewModel();
+            try
+            {
+
+                var user = _userService.GetUserById(model.UserId);
+                if (user != null && !String.IsNullOrWhiteSpace(user.EmailConfirmationToken) && Token == HashHelpers.HashEncode(user.EmailConfirmationToken))
+                {
+                    bool UserNameModified = !String.IsNullOrWhiteSpace(user.UserNameModification);
+                    if (_userService.VerifyUserEmailAddress(UserId))
+                    {
+
+                        if (UserNameModified)
+                            return RedirectToAction("AutomaticLogOffAndRedirectToLogin", "Account", new { RedirectTo = MyProfileUrl + "/email" });
+                        else
+                            return  Redirect(MyProfileUrl + "/email");
+                    }
+                }
+                ViewBag.Title = "[[[Email Confirmation]]]";
+            }
+            catch (Exception e)
+            {
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "UserId = " + UserId+ " and Token  = "+ Token);
+            }
+            return View("~/Views/Account/InvalidToken.cshtml");
         }
 
         #endregion

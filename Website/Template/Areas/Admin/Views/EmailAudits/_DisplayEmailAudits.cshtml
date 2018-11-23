@@ -1,5 +1,5 @@
 ﻿@model Models.ViewModels.Admin.Email.DisplayEmailAuditViewModel
-
+@using Commons.Extensions;
 
 
 
@@ -19,6 +19,7 @@
                 <th>[[[Language]]]</th>
                 <th>[[[Attachments]]]</th>
                 <th>[[[CC]]]</th>
+                <th>[[[Status]]]</th>
             </tr>
         </thead>
 
@@ -29,13 +30,42 @@
             <tr>
                 <td>@item.Id</td>
                 <td>@Commons.FormaterHelper.GetFormatStringForDateDisplay(@item.Date)</td>
-                <td>@item.EMailTypeName</td>
+                <td>@item.EMailTypeName.SpaceBeforeCapitals()</td>
                 <td><span title="[[[Email from ]]]@item.EMailFromDecrypt">@item.EMailToDecrypt</span></td>
                 <td title="UserId : @item.UserId">@item.UserFirstNameDecrypt @item.UserLastNameDecrypt</td>
                 <td>@item.CommentToDisplay</td>
                 <td>@item.LanguageName</td>
                 <td>@item.AttachmentNumber</td>
                 <td>@item.CCUsersNumber</td>
+                <td>
+                    @if (item.EmailSent)
+                    {
+                    if (item.EmailWatcherStatusId == CommonsConst.EmailWatcherStatus.NotWatched)
+                    {
+                    <span class="glyphicon glyphicon-send mailIcon" style="color:green;" title="[[[Email sent (no 'watcher' information available)]]]"></span>
+                    }
+                    else if (item.EmailWatcherStatusId == CommonsConst.EmailWatcherStatus.EmailNotOpened)
+                    {
+                    <span class="glyphicon glyphicon-eye-close mailIcon" style="color:orange" title="[[[Email sent but not opened]]]"></span>
+                    }
+                    else if (item.EmailWatcherStatusId == CommonsConst.EmailWatcherStatus.EmailOpened)
+                    {
+                    <span class="glyphicon glyphicon-eye-open mailIcon" style="color:green" title="[[[Email opened at ]]]@Commons.FormaterHelper.GetFormatStringForDateDisplay(@item.EmailOpenedDate.Value.ToLocalTime())"></span>
+                    }
+                    else if (item.EmailWatcherStatusId == CommonsConst.EmailWatcherStatus.LinkClicked)
+                    {
+                    <span class="glyphicon glyphicon glyphicon-ok mailIcon" style="color:green" title="[[[Link clicked at ]]]@Commons.FormaterHelper.GetFormatStringForDateDisplay(@item.EmailLinkClickedDate.Value.ToLocalTime())"></span>
+                    }
+                    else
+                    {
+                    <span class="glyphicon glyphicon-question-sign mailIcon" title="[[[Mail sent but unknown status]]]"></span>
+                    }
+                    }
+                    else
+                    {
+                    <span class="glyphicon glyphicon-remove mailIcon" style="color:red" title="[[[Email not sent]]]"></span>
+                    }
+                </td>
             </tr>
         }
 
