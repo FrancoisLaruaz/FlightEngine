@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\API\APIKey.cs" />
     <Compile Include="Class\Email\EMailAuditItem.cs" />
     <Compile Include="Class\ExternalAuthentification\ExternalSignUpInformation.cs" />
     <Compile Include="Class\ExternalAuthentification\FacebookOauthResponse.cs" />
@@ -81,6 +82,9 @@
     <Compile Include="Class\Email\Email.cs" />
     <Compile Include="Class\Shared\BaseModelPager.cs" />
     <Compile Include="Class\Shared\SelectionListItem.cs" />
+    <Compile Include="Class\Weather\DailyWeather.cs" />
+    <Compile Include="Class\Weather\HistoricWeather.cs" />
+    <Compile Include="Class\Weather\DataWeather.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\Account\MyProfile\MyProfileAddressViewModel.cs" />
     <Compile Include="ViewModel\Account\MyProfile\MyProfileEditViewModel.cs" />

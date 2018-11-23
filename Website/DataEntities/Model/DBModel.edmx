@@ -131,8 +131,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" />
           <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Timezone" Type="varchar" MaxLength="10" />
           <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="OffSetHours" Type="decimal" Precision="5" Scale="2" />
         </EntityType>
         <EntityType Name="Continent">
           <Key>
@@ -208,6 +208,24 @@
           <Property Name="FlightTypeId" Type="int" Nullable="false" />
           <Property Name="Duration" Type="int" Nullable="false" />
           <Property Name="StopInformation" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="HistoricWeather">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Summary" Type="varchar" MaxLength="2000" />
+          <Property Name="Icon" Type="varchar" MaxLength="2000" />
+          <Property Name="PrecipType" Type="varchar" MaxLength="2000" />
+          <Property Name="PrecipIntensity" Type="decimal" Precision="25" Scale="12" Nullable="false" />
+          <Property Name="PrecipProbability" Type="decimal" Precision="25" Scale="12" Nullable="false" />
+          <Property Name="TemperatureHigh" Type="decimal" Precision="25" Scale="12" Nullable="false" />
+          <Property Name="TemperatureLow" Type="decimal" Precision="25" Scale="12" Nullable="false" />
+          <Property Name="Humidity" Type="decimal" Precision="25" Scale="12" Nullable="false" />
+          <Property Name="CloudCover" Type="decimal" Precision="25" Scale="12" Nullable="false" />
+          <Property Name="AirportId" Type="int" Nullable="false" />
+          <Property Name="WindSpeed" Type="decimal" Precision="25" Scale="12" Nullable="false" />
         </EntityType>
         <EntityType Name="Log4Net">
           <Key>
@@ -756,6 +774,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HistoricWeather_Airport">
+          <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
+          <End Role="HistoricWeather" Type="Self.HistoricWeather" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HistoricWeather">
+              <PropertyRef Name="AirportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_News_LastModificationUserId">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="News" Type="Self.News" Multiplicity="*" />
@@ -1261,6 +1291,7 @@
           <EntitySet Name="EmailAudit" EntityType="Self.EmailAudit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmailTypeLanguage" EntityType="Self.EmailTypeLanguage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Flight" EntityType="Self.Flight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistoricWeather" EntityType="Self.HistoricWeather" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log4Net" EntityType="Self.Log4Net" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Parameter" EntityType="Self.Parameter" Schema="dbo" store:Type="Tables" />
@@ -1374,6 +1405,10 @@
           <AssociationSet Name="FK_Flight_Trip" Association="Self.FK_Flight_Trip">
             <End Role="Trip" EntitySet="Trip" />
             <End Role="Flight" EntitySet="Flight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HistoricWeather_Airport" Association="Self.FK_HistoricWeather_Airport">
+            <End Role="Airport" EntitySet="Airport" />
+            <End Role="HistoricWeather" EntitySet="HistoricWeather" />
           </AssociationSet>
           <AssociationSet Name="FK_News_LastModificationUserId" Association="Self.FK_News_LastModificationUserId">
             <End Role="User" EntitySet="User" />
@@ -1862,6 +1897,11 @@
           <AssociationSet Name="FK_Country_ContinentId" Association="TemplateModel.FK_Country_ContinentId">
             <End Role="Continent" EntitySet="Continents" />
             <End Role="Country" EntitySet="Countries" />
+          </AssociationSet>
+          <EntitySet Name="HistoricWeathers" EntityType="TemplateModel.HistoricWeather" />
+          <AssociationSet Name="FK_HistoricWeather_Airport" Association="TemplateModel.FK_HistoricWeather_Airport">
+            <End Role="Airport" EntitySet="Airports" />
+            <End Role="HistoricWeather" EntitySet="HistoricWeathers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRole">
@@ -2638,6 +2678,7 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AirportsTrips" Relationship="TemplateModel.FK_AirportsTrip_FromAirport" FromRole="Airport" ToRole="AirportsTrip" />
           <NavigationProperty Name="AirportsTrips1" Relationship="TemplateModel.FK_AirportsTrip_ToAirport" FromRole="Airport" ToRole="AirportsTrip" />
+          <NavigationProperty Name="HistoricWeathers" Relationship="TemplateModel.FK_HistoricWeather_Airport" FromRole="Airport" ToRole="HistoricWeather" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -2646,12 +2687,12 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Timezone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="CountryId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Airports" Relationship="TemplateModel.FK_Airport_City" FromRole="City" ToRole="Airport" />
           <NavigationProperty Name="Country" Relationship="TemplateModel.FK_City_Country" FromRole="City" ToRole="Country" />
           <NavigationProperty Name="SearchTripWishes" Relationship="TemplateModel.FK_SearchTripWishes_FromCityId" FromRole="City" ToRole="SearchTripWish" />
           <NavigationProperty Name="SearchTripWishes1" Relationship="TemplateModel.FK_SearchTripWishes_ToCityId" FromRole="City" ToRole="SearchTripWish" />
+          <Property Name="OffSetHours" Type="Decimal" Precision="5" Scale="2" />
         </EntityType>
         <EntityType Name="Flight">
           <Key>
@@ -3057,6 +3098,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="HistoricWeather">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Summary" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Icon" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="PrecipType" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="PrecipIntensity" Type="Decimal" Nullable="false" Precision="25" Scale="12" />
+          <Property Name="PrecipProbability" Type="Decimal" Nullable="false" Precision="25" Scale="12" />
+          <Property Name="TemperatureHigh" Type="Decimal" Nullable="false" Precision="25" Scale="12" />
+          <Property Name="TemperatureLow" Type="Decimal" Nullable="false" Precision="25" Scale="12" />
+          <Property Name="Humidity" Type="Decimal" Nullable="false" Precision="25" Scale="12" />
+          <Property Name="CloudCover" Type="Decimal" Nullable="false" Precision="25" Scale="12" />
+          <Property Name="AirportId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Airport" Relationship="TemplateModel.FK_HistoricWeather_Airport" FromRole="HistoricWeather" ToRole="Airport" />
+          <Property Name="WindSpeed" Type="Decimal" Nullable="false" Precision="25" Scale="12" />
+        </EntityType>
+        <Association Name="FK_HistoricWeather_Airport">
+          <End Type="TemplateModel.Airport" Role="Airport" Multiplicity="1" />
+          <End Type="TemplateModel.HistoricWeather" Role="HistoricWeather" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HistoricWeather">
+              <PropertyRef Name="AirportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3459,8 +3531,8 @@
           <EntitySetMapping Name="Cities">
             <EntityTypeMapping TypeName="TemplateModel.City">
               <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="OffSetHours" ColumnName="OffSetHours" />
                 <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="Timezone" ColumnName="Timezone" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -3595,6 +3667,25 @@
               <MappingFragment StoreEntitySet="Continent">
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistoricWeathers">
+            <EntityTypeMapping TypeName="TemplateModel.HistoricWeather">
+              <MappingFragment StoreEntitySet="HistoricWeather">
+                <ScalarProperty Name="WindSpeed" ColumnName="WindSpeed" />
+                <ScalarProperty Name="AirportId" ColumnName="AirportId" />
+                <ScalarProperty Name="CloudCover" ColumnName="CloudCover" />
+                <ScalarProperty Name="Humidity" ColumnName="Humidity" />
+                <ScalarProperty Name="TemperatureLow" ColumnName="TemperatureLow" />
+                <ScalarProperty Name="TemperatureHigh" ColumnName="TemperatureHigh" />
+                <ScalarProperty Name="PrecipProbability" ColumnName="PrecipProbability" />
+                <ScalarProperty Name="PrecipIntensity" ColumnName="PrecipIntensity" />
+                <ScalarProperty Name="PrecipType" ColumnName="PrecipType" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

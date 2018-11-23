@@ -16,6 +16,8 @@ using DataEntities.Model;
 using Models.Class.Email;
 using Models.ViewModels.Admin.Email;
 using Service.Admin.Interface;
+using Models.Class.API;
+using Models.Class.Weather;
 
 namespace Service.Admin
 {
@@ -39,7 +41,7 @@ namespace Service.Admin
         }
 
 
-
+      
 
     }
 }

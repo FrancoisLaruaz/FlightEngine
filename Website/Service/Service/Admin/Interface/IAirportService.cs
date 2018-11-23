@@ -16,6 +16,6 @@ namespace Service.Admin.Interface
     public interface IAirportService
     {
 
-
+      
     }
 }

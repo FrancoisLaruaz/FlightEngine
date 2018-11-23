@@ -23,6 +23,7 @@ namespace DataEntities.Model
             this.SearchTripWishes1 = new HashSet<SearchTripWish>();
             this.AirportsTrips = new HashSet<AirportsTrip>();
             this.AirportsTrips1 = new HashSet<AirportsTrip>();
+            this.HistoricWeathers = new HashSet<HistoricWeather>();
         }
     
         public int Id { get; set; }
@@ -47,5 +48,7 @@ namespace DataEntities.Model
         public virtual ICollection<AirportsTrip> AirportsTrips { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AirportsTrip> AirportsTrips1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HistoricWeather> HistoricWeathers { get; set; }
     }
 }

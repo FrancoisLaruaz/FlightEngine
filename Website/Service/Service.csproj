@@ -53,6 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\EMailHelper.cs" />
+    <Compile Include="Service\Admin\Interface\IWeatherService.cs" />
+    <Compile Include="Service\Admin\WeatherService.cs" />
     <Compile Include="Service\Admin\AirportService.cs" />
     <Compile Include="Service\Admin\FileUploadService.cs" />
     <Compile Include="Service\Admin\Interface\IAirportService.cs" />
