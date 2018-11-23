@@ -674,7 +674,7 @@ namespace Website.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("MyProfile");
+            return Redirect("/MyProfile");
         }
         #endregion
 
@@ -1391,18 +1391,26 @@ namespace Website.Controllers
             {
                 Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, null);
             }
-            return Redirect(string.Format("{0}/{1}/?LogOff=True", ConfigurationManager.AppSettings["Website"], BrowserLanguage));
+            return Redirect(string.Format("{0}/{1}/?LogOff=True", ConfigurationManager.AppSettings["Website"], CurrentLangTag));
         }
 
         [HttpGet]
         public ActionResult AutomaticLogOff()
         {
-            Session[CommonsConst.Const.UserSession] = null;
-            Session[CommonsConst.Const.JsonConstantsSession] = null;
-            Session.Clear();
-            Session.Abandon();
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return Redirect(string.Format("{0}/{1}/?LogOff=True", ConfigurationManager.AppSettings["Website"], BrowserLanguage));
+            try
+            {
+                Session[CommonsConst.Const.UserSession] = null;
+                Session[CommonsConst.Const.JsonConstantsSession] = null;
+                Session.Clear();
+                Session.Abandon();
+                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+               
+            }
+            catch (Exception e)
+            {
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, null);
+            }
+            return Redirect(string.Format("{0}/{1}/?LogOff=True", ConfigurationManager.AppSettings["Website"], CurrentLangTag));
         }
 
         /// <summary>
@@ -1413,7 +1421,7 @@ namespace Website.Controllers
         [HttpGet]
         public ActionResult LogOff(int a = 0)
         {
-            return Redirect(string.Format("{0}/{1}/?LogOff=True", ConfigurationManager.AppSettings["Website"], BrowserLanguage));
+            return Redirect(string.Format("{0}/{1}/?LogOff=True", ConfigurationManager.AppSettings["Website"], CurrentLangTag));
         }
 
         #endregion
@@ -1732,11 +1740,10 @@ namespace Website.Controllers
 
         public ActionResult ConfirmEmail(int UserId, string Token)
         {
-            ResetPasswordViewModel model = new ResetPasswordViewModel();
             try
             {
 
-                var user = _userService.GetUserById(model.UserId);
+                var user = _userService.GetUserById(UserId);
                 if (user != null && !String.IsNullOrWhiteSpace(user.EmailConfirmationToken) && Token == HashHelpers.HashEncode(user.EmailConfirmationToken))
                 {
                     bool UserNameModified = !String.IsNullOrWhiteSpace(user.UserNameModification);

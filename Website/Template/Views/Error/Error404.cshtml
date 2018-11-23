@@ -7,10 +7,17 @@
 {
     @Html.Partial("_PageTitle")
 }
+
+@section head {
+    @Html.CssImportContent("~/Content/Views/Error/Error.css")
+}
+
+
+
 <div class="col-xs-12 col-md-10 col-md-offset-1">
 
-    <div class="main-content" style="text-align:center;padding-bottom:40px;">
-        <img src="~/Ressources/Files/Images/Error/404.gif" onclick="GoBackToHomePage();" style="cursor:pointer;width:100%;padding-top:0px !important;margin-top:0px !important;" />
+    <div class="main-content" id="Error404PicDiv">
+        <img id="Error404Pic" src="~/Ressources/Files/Images/Error/404.gif" onclick="GoBackToHomePage();" />
     </div>
 </div>
 

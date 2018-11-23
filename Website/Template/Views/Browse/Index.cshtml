@@ -1,8 +1,10 @@
 ﻿@model Models.ViewModels.Browse.BrowseIndexViewModel
 
-@Html.CssImportContent("~/Content/Views/Browse/Index.css")
 
 
+@section head {
+    @Html.CssImportContent("~/Content/Views/Browse/Index.css")
+}
 
 @Html.Partial("_PageTitle")
 

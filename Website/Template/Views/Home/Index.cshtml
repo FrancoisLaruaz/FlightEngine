@@ -1,6 +1,12 @@
 ﻿@model Models.ViewModels.Home.HomeViewModel
 
-@Html.CssImportContent("~/Content/Views/Home/Index.css")
+
+
+@section head {
+    @Html.CssImportContent("~/Content/Views/Home/Index.css")
+}
+
+
 @Html.HiddenFor(m => m.SliderHomePageJson)
 <div id="background_homepage" class="background_homepage" style="background-image:  url(@CommonsConst.SliderHomePage.Image1.Replace("~", ""))">
 </div>

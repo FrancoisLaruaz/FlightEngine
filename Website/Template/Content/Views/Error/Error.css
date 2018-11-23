@@ -1,0 +1,11 @@
+﻿#Error404PicDiv {
+    text-align: center;
+    padding-bottom: 40px
+}
+
+#Error404Pic {
+    cursor: pointer;
+    width: 100%;
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+}

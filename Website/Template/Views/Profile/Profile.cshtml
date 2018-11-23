@@ -2,10 +2,11 @@
 
 
 
-@Html.CssImportContent("~/Content/Views/Profile/Profile.css")
-@Html.CssImportContent("~/Content/Views/Shared/FollowUserBtn.css")
-@Html.CssImportContent("~/Content/Views/Shared/SquaredCheckBox.css")
-
+@section head {
+    @Html.CssImportContent("~/Content/Views/Profile/Profile.css")
+    @Html.CssImportContent("~/Content/Views/Shared/FollowUserBtn.css")
+    @Html.CssImportContent("~/Content/Views/Shared/SquaredCheckBox.css")
+}
 
 
 

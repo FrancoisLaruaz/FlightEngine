@@ -465,15 +465,15 @@ function SetGenericAjaxForm(FormId, OnSuccess, Onfailure, OnBegin) {
     $("#" + FormId).on("submit", function (e) {
         e.preventDefault();
         var Form = $(this);
-        var Model = $(Form).serialize();
-        var url = $(Form).attr('action');
+
 
         if ($(this).valid()) {
 
             if (typeof (OnBegin) === "function") {
                 OnBegin.apply(this, null);
             }
-
+            var Model = $(Form).serialize();
+            var url = $(Form).attr('action');
             $.ajax({
                 url: url,
                 type: "POST",

@@ -2,7 +2,11 @@
 
 @Html.Partial("_PageTitle")
 
-@Html.CssImportContent("~/Content/Views/Home/ContactUs.css")
+
+
+@section head {
+    @Html.CssImportContent("~/Content/Views/Home/ContactUs.css")
+}
 
 <div class="col-md-12 col-xs-12 divMaxLengthWrap" style="padding-top:50px;">
     <div class="mainDivContent" id="DivFormContactUs">

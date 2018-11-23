@@ -1,13 +1,17 @@
 ﻿@model Models.ViewModels.Account.MyProfileViewModel
 
-@Html.CssImportContent("~/Content/Views/Account/MyProfile.css")
+
+@section head {
+
+    @Html.CssImportContent("~/Content/Views/Account/MyProfile.css")
+}
 
 
 @Html.Partial("_PageTitle")
 
 
 <div class="col-md-10 col-xs-12 col-md-offset-1 col-md-offset-0 row" id="MyProfileMainDiv">
-    @Html.HiddenFor(m => m.UserId,new { id="HiddenUserId"})
+    @Html.HiddenFor(m => m.UserId, new { id = "HiddenUserId" })
     <div class="col-xs-12 col-md-3 paddingHorizontalOnlyFullScreen">
         <ul class="ulAlignLeft">
             <li class="navVerticalList">

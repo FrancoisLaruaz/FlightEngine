@@ -270,6 +270,7 @@
     <Content Include="Content\Views\Account\_SignUp.css" />
     <Content Include="Content\Views\Account\_SignUpProcess.css" />
     <Content Include="Content\Views\Admin\News\Edit.css" />
+    <Content Include="Content\Views\Error\Error.css" />
     <Content Include="Content\Views\Experiment\Experiment.css" />
     <Content Include="Content\General\sweetalert.css" />
     <Content Include="Content\General\animate.css" />
