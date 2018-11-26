@@ -47,30 +47,35 @@ namespace FlightsEngine
                         var SearchTripWishes = SearchTripWishesItem._SearchTripWishes;
 
                         #region Kiwi
+
+                        APIAirlineSearch APIAirlineSearchItem = new APIAirlineSearch();
+                        APIAirlineSearchItem.SearchTripWishesId = SearchTripWishes.Id;
+                        if (SearchTripWishes.FromAirport != null)
+                            APIAirlineSearchItem.FromAirportCode = SearchTripWishes.FromAirport.Code;
+                        APIAirlineSearchItem.FromDateMax = SearchTripWishes.FromDateMax;
+                        APIAirlineSearchItem.FromDateMin = SearchTripWishes.FromDateMin;
+                        if (SearchTripWishes.ToAirport != null)
+                            APIAirlineSearchItem.ToAirportCode = SearchTripWishes.ToAirport.Code;
+                        if (SearchTripWishes.ToDateMin != null)
+                        {
+                            APIAirlineSearchItem.Return = true;
+                            APIAirlineSearchItem.ToDateMin = SearchTripWishes.ToDateMin;
+                            APIAirlineSearchItem.ToDateMax = SearchTripWishes.ToDateMax;
+                        }
+                        APIAirlineSearchItem.AdultsNumber = 1;
+                        APIAirlineSearchItem.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
+                        APIAirlineSearchItem.DurationMin = SearchTripWishes.DurationMin;
+                        APIAirlineSearchItem.DurationMax = SearchTripWishes.DurationMax;
+                        APIAirlineSearchItem.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
+
                         if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.Kiwi))
                         {
-                            KiwiAirlineSearch KiwiFilter = new KiwiAirlineSearch();
-                            KiwiFilter.SearchTripWishesId = SearchTripWishes.Id;
-                            if (SearchTripWishes.FromAirport != null)
-                                KiwiFilter.FromAirportCode = SearchTripWishes.FromAirport.Code;
-                            KiwiFilter.FromDateMax = SearchTripWishes.FromDateMax;
-                            KiwiFilter.FromDateMin = SearchTripWishes.FromDateMin;
-                            if (SearchTripWishes.ToAirport != null)
-                                KiwiFilter.ToAirportCode = SearchTripWishes.ToAirport.Code;
-                            if (SearchTripWishes.ToDateMin != null)
-                            {
-                                KiwiFilter.Return = true;
-                                KiwiFilter.ToDateMin = SearchTripWishes.ToDateMin;
-                                KiwiFilter.ToDateMax = SearchTripWishes.ToDateMax;
-                            }
-                            KiwiFilter.AdultsNumber = 1;
-                            KiwiFilter.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
-                            KiwiFilter.DurationMin = SearchTripWishes.DurationMin;
-                            KiwiFilter.DurationMax = SearchTripWishes.DurationMax;
-                            KiwiFilter.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
-                            Kiwi.SearchFlights(KiwiFilter);
+                            Kiwi.SearchFlights(APIAirlineSearchItem);
                         }
-
+                        if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.AirFranceKLM))
+                        {
+                            FlightsEngine.FlighsAPI.AirFranceKLM.SearchFlights(APIAirlineSearchItem);
+                        }
                         #endregion kiwi
 
                         result = true;
@@ -171,15 +176,10 @@ namespace FlightsEngine
                                     else
                                     {
 
-                                        if (provider.Id == Providers.Kiwi)
-                                        {
-                                            //  Kiwi.SearchFlights(filter);
-                                        }
-                                        else
-                                        {
+                               
                                             int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, null, null);
                                             filter.SearchTripProviderId = SearchTripProviderId;
-                                        }
+                                        
                                     }
                                 }
 

@@ -62,6 +62,7 @@ namespace FlightsEngine.Models
 
         public int? ReturnTrip_Stops { get; set; }
 
+        public string Comment { get; set; }
 
     }
 }

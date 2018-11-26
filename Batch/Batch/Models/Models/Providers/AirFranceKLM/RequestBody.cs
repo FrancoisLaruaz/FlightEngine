@@ -11,12 +11,11 @@ namespace FlightsEngine.Models.AirFranceKLM
     {
         public RequestBody()
         {
-            cabinClass = "ECONOMY";
+            commercialCabins = new List<string>() { "ECONOMY" };
             discountCode = "";
             currency = FlightsEngine.Models.Constants.Constants.DefaultCurrency;
             passengerCount = new passengerCount();
-            passengerCount.ADULT = 1;
-            minimumAccuracy = "";
+            passengerCount.ADT = 1;
             requestedConnections = new List<connection>();
         }
 
@@ -25,7 +24,7 @@ namespace FlightsEngine.Models.AirFranceKLM
 
         public string minimumAccuracy { get; set; }
 
-        public string cabinClass { get; set; }
+        public List<string> commercialCabins { get; set; }
 
         public string currency { get; set; }
 
@@ -42,7 +41,7 @@ namespace FlightsEngine.Models.AirFranceKLM
         }
 
         public string code { get; set; }
-}
+    }
 
     public class place
     {
@@ -65,22 +64,14 @@ namespace FlightsEngine.Models.AirFranceKLM
 
         public place destination { get; set; }
 
-        public string departureDate { get; set; }
+        public string dateInterval { get; set; }
+
+        public int? minDaysOfStay { get; set; }
+
+        public int? maxDaysOfStay { get; set; }
     }
 
-    public class OriginDestination
-    {
-        public OriginDestination()
-        {
 
-        }
-
-        public string Origin { get; set; }
-        public string Destination { get; set; }
-
-        public string TravelDate { get; set; }
-
-    }
 
     public class passengerCount
     {
@@ -89,11 +80,11 @@ namespace FlightsEngine.Models.AirFranceKLM
 
         }
 
-        public int YOUNG_ADULT { get; set; }
-        public int INFANT { get; set; }
+        public int YTH { get; set; }
+        public int INF { get; set; }
 
-        public int ADULT { get; set; }
-        public int CHILD { get; set; }
+        public int ADT { get; set; }
+        public int CHD { get; set; }
 
 
     }

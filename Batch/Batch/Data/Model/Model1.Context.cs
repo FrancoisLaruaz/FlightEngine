@@ -65,6 +65,7 @@ namespace Data.Model
         public virtual DbSet<SearchTripWish> SearchTripWishes { get; set; }
         public virtual DbSet<AirportsTrip> AirportsTrips { get; set; }
         public virtual DbSet<Continent> Continents { get; set; }
+        public virtual DbSet<HistoricWeather> HistoricWeathers { get; set; }
     
         public virtual int DeleteNewsById(Nullable<int> newsId)
         {

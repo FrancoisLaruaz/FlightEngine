@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlightsEngine.Models
 {
-    public class KiwiAirlineSearch
+    public class APIAirlineSearch
     {
-        public KiwiAirlineSearch()
+        public APIAirlineSearch()
         {
 
         }
@@ -62,7 +62,7 @@ namespace FlightsEngine.Models
                 error = error + " | ChildrenNumber =  " + ChildrenNumber;
                 error = error + " | BabiesNumber =  " + BabiesNumber;
             }
-            catch (Exception ex)
+            catch
             {
                 
             }

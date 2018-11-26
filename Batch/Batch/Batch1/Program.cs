@@ -25,6 +25,10 @@ namespace Batch1
                 if (args.Length >= 1)
                 {
                     SearchTripWishesId = Convert.ToInt32(args[0]);
+                    if(SearchTripWishesId<0)
+                    {
+                        SearchTripWishesId = null;
+                    }
                 }
                 if (args.Length >= 2)
                 {

@@ -112,6 +112,9 @@
     <Compile Include="Model\Flight.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\HistoricWeather.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Log4Net.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

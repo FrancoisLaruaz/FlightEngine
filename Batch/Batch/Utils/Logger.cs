@@ -42,8 +42,9 @@ namespace FlightsEngine.Utils
             return result;
         }
 
-        public static void GenerateWebError(WebException e, System.Type type = null, string Details = null)
+        public static string GenerateWebError(WebException e, System.Type type = null, string Details = null)
         {
+            string webError = "";
             try
             {
                 var response = ((HttpWebResponse)e.Response);
@@ -53,6 +54,7 @@ namespace FlightsEngine.Utils
                 if (reader != null)
                     error = error + " : " + reader.ReadToEnd();
                 error= error + " and " + Details;
+                webError = error;
                 GenerateError(e, type, error);
             }
             catch (WebException ex2)
@@ -66,6 +68,7 @@ namespace FlightsEngine.Utils
                     Logger.GenerateInfo("Error while creating a web Log : " + ex2?.ToString());
                 }
             }
+            return webError;
         }
 
         public static void GenerateError(Exception Ex, System.Type type = null, string Details = null)

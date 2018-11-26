@@ -88,7 +88,7 @@ namespace FlightsServices
                             }
                             else if (FromCountryId > 0 && ToCountryId > 0)
                             {
-                                addProvider = provider.Countries.Where(c => c.Id == FromCountryId).Any() && provider.Countries.Where(c => c.Id == ToCountryId).Any();
+                                addProvider = provider.Countries.Where(c => c.Id == FromCountryId).Any() || provider.Countries.Where(c => c.Id == ToCountryId).Any();
                             }
 
                             if (addProvider)

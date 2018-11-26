@@ -66,8 +66,8 @@ INSERT INTO [dbo].[SearchTripWishes]
            ,[Active])
 select
            GETUTCDATE()
-           ,7921
-           ,Id
+           ,FromAirportId
+           ,ToAirportId
            , DATEADD(day, 7, GETDATE())
            , DATEADD(day, 200, GETDATE())
            , DATEADD(day, 7, GETDATE())
@@ -82,8 +82,9 @@ select
            ,null
            ,null
            ,1
-		   from dbo.Airport
-		   where id<>7921 AND Longitude!=0 
+		   from dbo.AirportsTrip
+		   where FromAirportId= 7921 
 
+		   
 		   
 		   

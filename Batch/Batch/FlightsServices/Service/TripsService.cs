@@ -134,6 +134,8 @@ namespace FlightsServices
                                 Parameters.Add(new Tuple<string, object>("@OneWayTrip_FromAirportCode", Trip.OneWayTrip_FromAirportCode));
                                 Parameters.Add(new Tuple<string, object>("@OneWayTrip_Stops", Trip.OneWayTrip_Stops));
                                 Parameters.Add(new Tuple<string, object>("@OneWayTrip_ToAirportCode", Trip.OneWayTrip_ToAirportCode));
+                                if (!string.IsNullOrWhiteSpace(Trip.Comment))
+                                    Parameters.Add(new Tuple<string, object>("@Comment", Trip.Comment));
                                 if (!string.IsNullOrWhiteSpace(Trip.OneWayTrip_StopInformation))
                                     Parameters.Add(new Tuple<string, object>("@OneWayTrip_StopInformation", Trip.OneWayTrip_StopInformation ?? ""));
                                 if (!string.IsNullOrWhiteSpace(Trip.OneWayTrip_FlightNumber))

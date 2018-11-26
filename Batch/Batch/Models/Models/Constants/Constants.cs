@@ -13,7 +13,9 @@ namespace FlightsEngine.Models.Constants
     public static class Constants
     {
         public const string DefaultCurrency ="CAD";
-
+        public const int MaxRequestAttempts = 3;
+        public const int APIMaxDaysNumberForSearch = 70;
+        public const string Separator = " - ";
     }
 
     public static class HTTPStatus
@@ -34,6 +36,7 @@ namespace FlightsEngine.Models.Constants
         public const int Edreams = 1;
         public const int Kayak = 2;
         public const int Kiwi = 3;
+        public const int AirFranceKLM = 4;
 
         public static string ToString(int value)
         {
@@ -51,6 +54,10 @@ namespace FlightsEngine.Models.Constants
             {
                 result = "Kiwi";
             }
+            else if (value == AirFranceKLM)
+            {
+                result = "Air France KLM";
+            }
 
             return result;
         }
@@ -67,6 +74,21 @@ namespace FlightsEngine.Models.Constants
     {
         public const string KL = "KL";
         public const string AF = "AF";
+        public static string ToString(string value)
+        {
+            string result = "N/A";
 
+            if (value == KL)
+            {
+                result = "KLM";
+            }
+            else if (value == AF)
+            {
+                result = "Air France";
+            }
+
+
+            return result;
+        }
     }
 }
