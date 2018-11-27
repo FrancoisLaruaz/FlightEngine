@@ -12,7 +12,7 @@ INSERT INTO [dbo].[Provider]
            ,1)
 GO
 
-deleet from [dbo].[ProviderCountry] where providerid=4
+delete from [dbo].[ProviderCountry] where providerid=4
 INSERT INTO [dbo].[ProviderCountry]
            ([ProviderId]
            ,[CountryId])
