@@ -57,9 +57,9 @@ namespace FlightsEngine.FlighsAPI
             try
             {
                 int MaxRequestAttempts = FlightsEngine.Models.Constants.Constants.MaxRequestAttempts;
-                int MaxDaysNumberForSearch =20;
+                int MaxDaysNumberForSearch= 35;
                 int AttemptsNumber = 1;
-                String OriginalSearchType = "MONTH";
+                String OriginalSearchType = "OVERALL";
                 String SearchType = OriginalSearchType;
 
 
@@ -155,7 +155,7 @@ namespace FlightsEngine.FlighsAPI
                                 if (webError.ToUpper().Contains("UNSPECIFIED/TIME_OUT") && MaxDaysNumberForSearch > 10)
                                 {
                                     MaxDaysNumberForSearch = MaxDaysNumberForSearch - 5;
-                                    ToDateMax = ToDateMax.AddDays(-5);
+                                    ToDateMax = FromDateMin.AddDays(MaxDaysNumberForSearch);
                                 }
                                 else if (webError.ToLower().Contains("requestedconnections[0].destination.airport.code"))
                                 {
@@ -163,8 +163,9 @@ namespace FlightsEngine.FlighsAPI
                                 }
                                 else
                                 {
-                                    SearchType = "MONTH";
-                                    MaxDaysNumberForSearch = FlightsEngine.Models.Constants.Constants.APIMaxDaysNumberForSearch;
+                                    SearchType = "OVERALL";
+                                    MaxDaysNumberForSearch = MaxDaysNumberForSearch-5;
+                                    ToDateMax = FromDateMin.AddDays(MaxDaysNumberForSearch);
                                 }
                             }
 
