@@ -99,6 +99,7 @@
         <AssociationConnector Association="TemplateModel.FK_Country_ContinentId" />
         <EntityTypeShape EntityType="TemplateModel.HistoricWeather" Width="1.5" PointX="9.25" PointY="28.125" />
         <AssociationConnector Association="TemplateModel.FK_HistoricWeather_Airport" />
+        <AssociationConnector Association="TemplateModel.AirportsTripProvider" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

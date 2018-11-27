@@ -19,6 +19,7 @@ namespace DataEntities.Model
         {
             this.SearchTripProviders = new HashSet<SearchTripProvider>();
             this.Countries = new HashSet<Country>();
+            this.AirportsTrips = new HashSet<AirportsTrip>();
         }
     
         public int Id { get; set; }
@@ -32,5 +33,7 @@ namespace DataEntities.Model
         public virtual ICollection<SearchTripProvider> SearchTripProviders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Country> Countries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AirportsTrip> AirportsTrips { get; set; }
     }
 }

@@ -52,6 +52,14 @@
           <Property Name="ToAirportId" Type="int" Nullable="false" />
           <Property Name="Attractiveness" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="AirportsTripProvider">
+          <Key>
+            <PropertyRef Name="AirportsTripId" />
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="AirportsTripId" Type="int" Nullable="false" />
+          <Property Name="ProviderId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -447,6 +455,7 @@
           <Property Name="EuroPrice" Type="decimal" Precision="25" Scale="2" />
           <Property Name="Url" Type="nvarchar" MaxLength="4000" />
           <Property Name="Attractiveness" Type="decimal" Precision="25" Scale="12" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2000" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -547,6 +556,30 @@
             </Principal>
             <Dependent Role="AirportsTrip">
               <PropertyRef Name="ToAirportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AirportsTripProvider_AirportsTrip">
+          <End Role="AirportsTrip" Type="Self.AirportsTrip" Multiplicity="1" />
+          <End Role="AirportsTripProvider" Type="Self.AirportsTripProvider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AirportsTrip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AirportsTripProvider">
+              <PropertyRef Name="AirportsTripId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AirportsTripProvider_Provider">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
+          <End Role="AirportsTripProvider" Type="Self.AirportsTripProvider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AirportsTripProvider">
+              <PropertyRef Name="ProviderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1220,11 +1253,13 @@
           <Parameter Name="Price" Type="decimal" Mode="In" />
           <Parameter Name="CurrencyCode" Type="varchar" Mode="In" />
           <Parameter Name="Url" Type="varchar" Mode="In" />
+          <Parameter Name="Comment" Type="nvarchar" Mode="In" />
           <Parameter Name="OneWayTrip_FromAirportCode" Type="varchar" Mode="In" />
           <Parameter Name="OneWayTrip_ToAirportCode" Type="varchar" Mode="In" />
           <Parameter Name="OneWayTrip_DepartureDate" Type="varchar" Mode="In" />
           <Parameter Name="OneWayTrip_ArrivalDate" Type="varchar" Mode="In" />
           <Parameter Name="OneWayTrip_Duration" Type="int" Mode="In" />
+          <Parameter Name="ProviderId" Type="int" Mode="In" />
           <Parameter Name="OneWayTrip_AirlineName" Type="varchar" Mode="In" />
           <Parameter Name="OneWayTrip_StopInformation" Type="varchar" Mode="In" />
           <Parameter Name="OneWayTrip_AirlineLogoSrc" Type="varchar" Mode="In" />
@@ -1277,6 +1312,7 @@
           <EntitySet Name="Airline" EntityType="Self.Airline" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Airport" EntityType="Self.Airport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AirportsTrip" EntityType="Self.AirportsTrip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AirportsTripProvider" EntityType="Self.AirportsTripProvider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -1333,6 +1369,14 @@
           <AssociationSet Name="FK_AirportsTrip_ToAirport" Association="Self.FK_AirportsTrip_ToAirport">
             <End Role="Airport" EntitySet="Airport" />
             <End Role="AirportsTrip" EntitySet="AirportsTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AirportsTripProvider_AirportsTrip" Association="Self.FK_AirportsTripProvider_AirportsTrip">
+            <End Role="AirportsTrip" EntitySet="AirportsTrip" />
+            <End Role="AirportsTripProvider" EntitySet="AirportsTripProvider" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AirportsTripProvider_Provider" Association="Self.FK_AirportsTripProvider_Provider">
+            <End Role="Provider" EntitySet="Provider" />
+            <End Role="AirportsTripProvider" EntitySet="AirportsTripProvider" />
           </AssociationSet>
           <AssociationSet Name="FK_Category_CategoryTypeId" Association="Self.FK_Category_CategoryTypeId">
             <End Role="CategoryType" EntitySet="CategoryType" />
@@ -1855,11 +1899,13 @@
             <Parameter Name="Price" Mode="In" Type="Decimal" />
             <Parameter Name="CurrencyCode" Mode="In" Type="String" />
             <Parameter Name="Url" Mode="In" Type="String" />
+            <Parameter Name="Comment" Mode="In" Type="String" />
             <Parameter Name="OneWayTrip_FromAirportCode" Mode="In" Type="String" />
             <Parameter Name="OneWayTrip_ToAirportCode" Mode="In" Type="String" />
             <Parameter Name="OneWayTrip_DepartureDate" Mode="In" Type="String" />
             <Parameter Name="OneWayTrip_ArrivalDate" Mode="In" Type="String" />
             <Parameter Name="OneWayTrip_Duration" Mode="In" Type="Int32" />
+            <Parameter Name="ProviderId" Mode="In" Type="Int32" />
             <Parameter Name="OneWayTrip_AirlineName" Mode="In" Type="String" />
             <Parameter Name="OneWayTrip_StopInformation" Mode="In" Type="String" />
             <Parameter Name="OneWayTrip_AirlineLogoSrc" Mode="In" Type="String" />
@@ -1902,6 +1948,10 @@
           <AssociationSet Name="FK_HistoricWeather_Airport" Association="TemplateModel.FK_HistoricWeather_Airport">
             <End Role="Airport" EntitySet="Airports" />
             <End Role="HistoricWeather" EntitySet="HistoricWeathers" />
+          </AssociationSet>
+          <AssociationSet Name="AirportsTripProvider" Association="TemplateModel.AirportsTripProvider">
+            <End Role="AirportsTrip" EntitySet="AirportsTrips" />
+            <End Role="Provider" EntitySet="Providers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRole">
@@ -2735,6 +2785,7 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="SearchTripProviders" Relationship="TemplateModel.FK_SearchTripProvider_Provider" FromRole="Provider" ToRole="SearchTripProvider" />
           <NavigationProperty Name="Countries" Relationship="TemplateModel.ProviderCountry" FromRole="Provider" ToRole="Country" />
+          <NavigationProperty Name="AirportsTrips" Relationship="TemplateModel.AirportsTripProvider" FromRole="Provider" ToRole="AirportsTrip" />
         </EntityType>
         <EntityType Name="SearchTrip">
           <Key>
@@ -2809,6 +2860,7 @@
           <NavigationProperty Name="Flights" Relationship="TemplateModel.FK_Flight_Trip" FromRole="Trip" ToRole="Flight" />
           <NavigationProperty Name="SearchTripProvider" Relationship="TemplateModel.FK_Trip_SearchTripProvider" FromRole="Trip" ToRole="SearchTripProvider" />
           <Property Name="Attractiveness" Type="Decimal" Nullable="false" Precision="25" Scale="12" />
+          <Property Name="Comment" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Flight_Airline">
           <End Type="TemplateModel.Airline" Role="Airline" Multiplicity="1" />
@@ -3052,6 +3104,7 @@
           <Property Name="Attractiveness" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Airport" Relationship="TemplateModel.FK_AirportsTrip_FromAirport" FromRole="AirportsTrip" ToRole="Airport" />
           <NavigationProperty Name="Airport1" Relationship="TemplateModel.FK_AirportsTrip_ToAirport" FromRole="AirportsTrip" ToRole="Airport" />
+          <NavigationProperty Name="Providers" Relationship="TemplateModel.AirportsTripProvider" FromRole="AirportsTrip" ToRole="Provider" />
         </EntityType>
         <EntityType Name="Continent">
           <Key>
@@ -3128,6 +3181,10 @@
               <PropertyRef Name="AirportId" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="AirportsTripProvider">
+          <End Type="TemplateModel.AirportsTrip" Role="AirportsTrip" Multiplicity="*" />
+          <End Type="TemplateModel.Provider" Role="Provider" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -3630,6 +3687,7 @@
           <EntitySetMapping Name="Trips">
             <EntityTypeMapping TypeName="TemplateModel.Trip">
               <MappingFragment StoreEntitySet="Trip">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Attractiveness" ColumnName="Attractiveness" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="EuroPrice" ColumnName="EuroPrice" />
@@ -3690,6 +3748,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="AirportsTripProvider" TypeName="TemplateModel.AirportsTripProvider" StoreEntitySet="AirportsTripProvider">
+            <EndProperty Name="Provider">
+              <ScalarProperty Name="Id" ColumnName="ProviderId" />
+            </EndProperty>
+            <EndProperty Name="AirportsTrip">
+              <ScalarProperty Name="Id" ColumnName="AirportsTripId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

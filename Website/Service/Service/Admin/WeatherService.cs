@@ -128,7 +128,7 @@ namespace Service.Admin
                 Keys.Add(new APIKey("1583cf425f7255ad532249ba590152e3"));
                 Keys.Add(new APIKey("d354ca951d6d7f556ec8cd171a2d357c"));
 
-                List<Airport> Airports = _airportRepo.FindAllBy(a => a.Active).ToList();
+                List<Airport> Airports = _airportRepo.FindAllBy(a => a.Active).OrderBy(ra =>ra.Id).ToList();
                 //Airports = Airports.Where(a => a.Id == 7921 || a.Id == 2565).ToList();
 
                 DateTime Start = new DateTime(2015, 01, 01);

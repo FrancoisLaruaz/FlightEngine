@@ -241,7 +241,7 @@ namespace DataEntities.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertLog", error_MessageParameter, exceptionParameter);
         }
     
-        public virtual int InsertTripWithTransaction(Nullable<int> searchTripProviderId, Nullable<decimal> price, string currencyCode, string url, string oneWayTrip_FromAirportCode, string oneWayTrip_ToAirportCode, string oneWayTrip_DepartureDate, string oneWayTrip_ArrivalDate, Nullable<int> oneWayTrip_Duration, string oneWayTrip_AirlineName, string oneWayTrip_StopInformation, string oneWayTrip_AirlineLogoSrc, string oneWayTrip_FlightNumber, Nullable<int> oneWayTrip_Stops, string returnTrip_FromAirportCode, string returnTrip_ToAirportCode, string returnTrip_DepartureDate, string returnTrip_ArrivalDate, Nullable<int> returnTrip_Duration, string returnTrip_AirlineName, string returnTrip_AirlineLogoSrc, string returnTrip_StopInformation, string returnTrip_FlightNumber, Nullable<int> returnTrip_Stops)
+        public virtual int InsertTripWithTransaction(Nullable<int> searchTripProviderId, Nullable<decimal> price, string currencyCode, string url, string comment, string oneWayTrip_FromAirportCode, string oneWayTrip_ToAirportCode, string oneWayTrip_DepartureDate, string oneWayTrip_ArrivalDate, Nullable<int> oneWayTrip_Duration, Nullable<int> providerId, string oneWayTrip_AirlineName, string oneWayTrip_StopInformation, string oneWayTrip_AirlineLogoSrc, string oneWayTrip_FlightNumber, Nullable<int> oneWayTrip_Stops, string returnTrip_FromAirportCode, string returnTrip_ToAirportCode, string returnTrip_DepartureDate, string returnTrip_ArrivalDate, Nullable<int> returnTrip_Duration, string returnTrip_AirlineName, string returnTrip_AirlineLogoSrc, string returnTrip_StopInformation, string returnTrip_FlightNumber, Nullable<int> returnTrip_Stops)
         {
             var searchTripProviderIdParameter = searchTripProviderId.HasValue ?
                 new ObjectParameter("SearchTripProviderId", searchTripProviderId) :
@@ -258,6 +258,10 @@ namespace DataEntities.Model
             var urlParameter = url != null ?
                 new ObjectParameter("Url", url) :
                 new ObjectParameter("Url", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
     
             var oneWayTrip_FromAirportCodeParameter = oneWayTrip_FromAirportCode != null ?
                 new ObjectParameter("OneWayTrip_FromAirportCode", oneWayTrip_FromAirportCode) :
@@ -278,6 +282,10 @@ namespace DataEntities.Model
             var oneWayTrip_DurationParameter = oneWayTrip_Duration.HasValue ?
                 new ObjectParameter("OneWayTrip_Duration", oneWayTrip_Duration) :
                 new ObjectParameter("OneWayTrip_Duration", typeof(int));
+    
+            var providerIdParameter = providerId.HasValue ?
+                new ObjectParameter("ProviderId", providerId) :
+                new ObjectParameter("ProviderId", typeof(int));
     
             var oneWayTrip_AirlineNameParameter = oneWayTrip_AirlineName != null ?
                 new ObjectParameter("OneWayTrip_AirlineName", oneWayTrip_AirlineName) :
@@ -339,7 +347,7 @@ namespace DataEntities.Model
                 new ObjectParameter("ReturnTrip_Stops", returnTrip_Stops) :
                 new ObjectParameter("ReturnTrip_Stops", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertTripWithTransaction", searchTripProviderIdParameter, priceParameter, currencyCodeParameter, urlParameter, oneWayTrip_FromAirportCodeParameter, oneWayTrip_ToAirportCodeParameter, oneWayTrip_DepartureDateParameter, oneWayTrip_ArrivalDateParameter, oneWayTrip_DurationParameter, oneWayTrip_AirlineNameParameter, oneWayTrip_StopInformationParameter, oneWayTrip_AirlineLogoSrcParameter, oneWayTrip_FlightNumberParameter, oneWayTrip_StopsParameter, returnTrip_FromAirportCodeParameter, returnTrip_ToAirportCodeParameter, returnTrip_DepartureDateParameter, returnTrip_ArrivalDateParameter, returnTrip_DurationParameter, returnTrip_AirlineNameParameter, returnTrip_AirlineLogoSrcParameter, returnTrip_StopInformationParameter, returnTrip_FlightNumberParameter, returnTrip_StopsParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertTripWithTransaction", searchTripProviderIdParameter, priceParameter, currencyCodeParameter, urlParameter, commentParameter, oneWayTrip_FromAirportCodeParameter, oneWayTrip_ToAirportCodeParameter, oneWayTrip_DepartureDateParameter, oneWayTrip_ArrivalDateParameter, oneWayTrip_DurationParameter, providerIdParameter, oneWayTrip_AirlineNameParameter, oneWayTrip_StopInformationParameter, oneWayTrip_AirlineLogoSrcParameter, oneWayTrip_FlightNumberParameter, oneWayTrip_StopsParameter, returnTrip_FromAirportCodeParameter, returnTrip_ToAirportCodeParameter, returnTrip_DepartureDateParameter, returnTrip_ArrivalDateParameter, returnTrip_DurationParameter, returnTrip_AirlineNameParameter, returnTrip_AirlineLogoSrcParameter, returnTrip_StopInformationParameter, returnTrip_FlightNumberParameter, returnTrip_StopsParameter);
         }
     
         public virtual int UpdatePricesWithCurrenciesRates()

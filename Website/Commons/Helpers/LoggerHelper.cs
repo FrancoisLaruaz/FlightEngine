@@ -189,11 +189,6 @@ namespace Commons
                     Logger.GenerateInfo("Error while creating a Log : " + ex2?.ToString());
                 }
             }
-
-            if (LoggeError && Utils.IsLocalhost() && (type != typeof(HttpApplication) || type == null) && type?.FullName!= "Commons.CurrencyHelper")
-            {
-                throw Ex;
-            }
         }
 
         public static void GenerateWebError(WebException e, string Details = null, System.Type type = null)
