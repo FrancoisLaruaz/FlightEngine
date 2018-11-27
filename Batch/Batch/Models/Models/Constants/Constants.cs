@@ -36,7 +36,8 @@ namespace FlightsEngine.Models.Constants
         public const int Edreams = 1;
         public const int Kayak = 2;
         public const int Kiwi = 3;
-        public const int AirFranceKLM = 4;
+        public const int AirFrance = 4;
+        public const int KLM = 5;
 
         public static string ToString(int value)
         {
@@ -54,11 +55,14 @@ namespace FlightsEngine.Models.Constants
             {
                 result = "Kiwi";
             }
-            else if (value == AirFranceKLM)
+            else if (value == AirFrance)
             {
-                result = "Air France KLM";
+                result = "Air France";
             }
-
+            else if (value == KLM)
+            {
+                result = "KLM";
+            }
             return result;
         }
 

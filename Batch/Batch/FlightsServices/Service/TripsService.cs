@@ -123,6 +123,7 @@ namespace FlightsServices
                             {
                                 List<Tuple<string, object>> Parameters = new List<Tuple<string, object>>();
                                 Parameters.Add(new Tuple<string, object>("@SearchTripProviderId", Trip.SearchTripProviderId));
+                                Parameters.Add(new Tuple<string, object>("@ProviderId", Trip.ProviderId));
                                 Parameters.Add(new Tuple<string, object>("@CurrencyCode", Trip.CurrencyCode));
                                 Parameters.Add(new Tuple<string, object>("@Price", Trip.Price));
                                 Parameters.Add(new Tuple<string, object>("@Url", Trip.Url));

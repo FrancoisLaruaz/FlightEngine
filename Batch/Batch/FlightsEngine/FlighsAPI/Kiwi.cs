@@ -161,7 +161,7 @@ namespace FlightsEngine.FlighsAPI
                                                 try
                                                 {
                                                     TripItem Trip = new TripItem();
-
+                                                    Trip.ProviderId = Providers.Kiwi;
                                                     string lastCity = null;
                                                     string lastAirportCode = null;
                                                     string LastDepartureDate = null;

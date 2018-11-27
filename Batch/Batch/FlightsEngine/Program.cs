@@ -11,6 +11,7 @@ using FlightsEngine.Models;
 using FlightsEngine.Models.Constants;
 using FlightsEngine.Utils;
 using FlightsServices;
+using Models.Models.Shared;
 
 namespace FlightsEngine
 {
@@ -68,13 +69,25 @@ namespace FlightsEngine
                         APIAirlineSearchItem.DurationMax = SearchTripWishes.DurationMax;
                         APIAirlineSearchItem.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
 
+                        List<APIKey> AFKLMKeys = new List<APIKey>();
+                        AFKLMKeys.Add(new APIKey("jqgd23tz7qk7u7vu6ayes2w3"));
+                        AFKLMKeys.Add(new APIKey("e53xg7bdqnptwjxtzyh5zgmq"));
+
                         if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.Kiwi))
                         {
                             Kiwi.SearchFlights(APIAirlineSearchItem);
                         }
-                        if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.AirFranceKLM))
+                        if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.AirFrance))
                         {
-                            FlightsEngine.FlighsAPI.AirFranceKLM.SearchFlights(APIAirlineSearchItem);
+                            APIKey KeyToUse = AFKLMKeys.Where(k => k.RequestsNumber < 5000).OrderBy(k => k.RequestsNumber).FirstOrDefault();
+                            if(KeyToUse!=null)
+                                AFKLMKeys.Where(k => k.Key == KeyToUse.Key).FirstOrDefault().RequestsNumber = KeyToUse.RequestsNumber + FlightsEngine.FlighsAPI.AirFranceKLM.SearchFlights(APIAirlineSearchItem, Providers.AirFrance, KeyToUse.Key);
+                        }
+                        if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.KLM))
+                        {
+                            APIKey KeyToUse = AFKLMKeys.Where(k => k.RequestsNumber < 5000).OrderBy(k => k.RequestsNumber).FirstOrDefault();
+                            if (KeyToUse != null)
+                                AFKLMKeys.Where(k => k.Key == KeyToUse.Key).FirstOrDefault().RequestsNumber = KeyToUse.RequestsNumber + FlightsEngine.FlighsAPI.AirFranceKLM.SearchFlights(APIAirlineSearchItem, Providers.KLM, KeyToUse.Key);
                         }
                         #endregion kiwi
 

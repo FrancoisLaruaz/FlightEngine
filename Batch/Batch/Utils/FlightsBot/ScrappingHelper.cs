@@ -221,7 +221,7 @@ namespace FlightsEngine.Utils
                         {
                             TripItem Trip = new TripItem();
                             Trip.SearchTripProviderId = SearchTripProviderId;
-
+                            Trip.ProviderId = Providers.Kayak;
                             #region price
                             var strPrice = node.SelectSingleNode(".//span[contains(@class,'price option-text')]").InnerHtml.Replace("\n", "");
                             Tuple<string, decimal> PriceAndCurrency = GetPriceWithCurrencyFromHtml(strPrice);

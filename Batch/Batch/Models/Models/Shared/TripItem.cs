@@ -14,6 +14,7 @@ namespace FlightsEngine.Models
            
         }
 
+        public int ProviderId { get; set; }
         public int SearchTripProviderId { get; set; }
 
         public decimal Price { get; set; }
