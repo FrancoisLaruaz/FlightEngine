@@ -19,11 +19,23 @@ namespace FlightsEngine
     {
 
 
+        public static bool ResetConfig()
+        {
+            bool result = false;
+            try
+            {
+                FlightsEngine.FlighsAPI.Transavia.GetRoutes();
+            }
+            catch (Exception e2)
+            {
+                result = false;
+                FlightsEngine.Utils.Logger.GenerateError(e2, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+            }
+            return result;
+        }
 
 
-
-
-        public static bool SearchFlights(int? SearchTripWishesId, string ScrappingFolder, string FirefoxExeFolder,int? ProviderId=null)
+        public static bool SearchFlights(int? SearchTripWishesId, string ScrappingFolder, string FirefoxExeFolder, int? ProviderId = null)
         {
             bool result = false;
             try
@@ -36,7 +48,7 @@ namespace FlightsEngine
 
 
 
-                List<ProxyItem> Proxies =null;
+                List<ProxyItem> Proxies = null;
 
                 string lastSuccessfullProxy = null;
 
@@ -69,11 +81,7 @@ namespace FlightsEngine
                         APIAirlineSearchItem.DurationMax = SearchTripWishes.DurationMax;
                         APIAirlineSearchItem.MaxStopsNumber = SearchTripWishes.MaxStopNumber;
 
-                        List<APIKey> AFKLMKeys = new List<APIKey>();
-                     //   AFKLMKeys.Add(new APIKey("jqgd23tz7qk7u7vu6ayes2w3"));
-                        AFKLMKeys.Add(new APIKey("e53xg7bdqnptwjxtzyh5zgmq"));
-                        AFKLMKeys.Add(new APIKey("gg3wtw9utay5nbj2yjyypuss"));
-                        AFKLMKeys.Add(new APIKey("ah94hzz3kgsf4x9t795dcb22"));
+                        List<APIKey> AFKLMKeys = FlightsEngine.FlighsAPI.AirFranceKLM.GetAPIKeys();
 
                         if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.Kiwi))
                         {
@@ -82,7 +90,7 @@ namespace FlightsEngine
                         if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.AirFrance))
                         {
                             APIKey KeyToUse = AFKLMKeys.Where(k => k.RequestsNumber < 5000).OrderBy(k => k.RequestsNumber).FirstOrDefault();
-                            if(KeyToUse!=null)
+                            if (KeyToUse != null)
                                 AFKLMKeys.Where(k => k.Key == KeyToUse.Key).FirstOrDefault().RequestsNumber = KeyToUse.RequestsNumber + FlightsEngine.FlighsAPI.AirFranceKLM.SearchFlights(APIAirlineSearchItem, Providers.AirFrance, KeyToUse.Key);
                         }
                         if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.KLM))
@@ -90,6 +98,10 @@ namespace FlightsEngine
                             APIKey KeyToUse = AFKLMKeys.Where(k => k.RequestsNumber < 5000).OrderBy(k => k.RequestsNumber).FirstOrDefault();
                             if (KeyToUse != null)
                                 AFKLMKeys.Where(k => k.Key == KeyToUse.Key).FirstOrDefault().RequestsNumber = KeyToUse.RequestsNumber + FlightsEngine.FlighsAPI.AirFranceKLM.SearchFlights(APIAirlineSearchItem, Providers.KLM, KeyToUse.Key);
+                        }
+                        if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.Transavia))
+                        {
+                             FlightsEngine.FlighsAPI.Transavia.SearchFlights(APIAirlineSearchItem);
                         }
                         #endregion kiwi
 
@@ -191,10 +203,10 @@ namespace FlightsEngine
                                     else
                                     {
 
-                               
-                                            int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, null, null);
-                                            filter.SearchTripProviderId = SearchTripProviderId;
-                                        
+
+                                        int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, null, null);
+                                        filter.SearchTripProviderId = SearchTripProviderId;
+
                                     }
                                 }
 
@@ -219,12 +231,12 @@ namespace FlightsEngine
                         }
                     }
                 }
-        
+
             }
             catch (Exception e)
             {
                 result = false;
-                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SearchTripWishesId = " + (SearchTripWishesId ??-1) + " and ScrappingFolder = " + ScrappingFolder + " and FirefoxExeFolder = " + FirefoxExeFolder);
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SearchTripWishesId = " + (SearchTripWishesId ?? -1) + " and ScrappingFolder = " + ScrappingFolder + " and FirefoxExeFolder = " + FirefoxExeFolder);
             }
             return result;
         }

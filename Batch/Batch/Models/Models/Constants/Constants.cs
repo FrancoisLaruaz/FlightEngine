@@ -38,6 +38,7 @@ namespace FlightsEngine.Models.Constants
         public const int Kiwi = 3;
         public const int AirFrance = 4;
         public const int KLM = 5;
+        public const int Transavia =6;
 
         public static string ToString(int value)
         {
@@ -62,6 +63,10 @@ namespace FlightsEngine.Models.Constants
             else if (value == KLM)
             {
                 result = "KLM";
+            }
+            else if (value == Transavia)
+            {
+                result = "Transavia";
             }
             return result;
         }

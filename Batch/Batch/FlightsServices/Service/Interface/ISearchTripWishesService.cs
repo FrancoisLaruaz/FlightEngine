@@ -11,7 +11,7 @@ namespace FlightsServices
 {
     public interface ISearchTripWishesService
     {
-
+        bool DisableSearchTripWishes(int SearchTripWishesId);
         List<SearchTripWishesItem> GetSearchTripWishesById(int? SearchTripWishesId, int? ProviderId);
 
     }

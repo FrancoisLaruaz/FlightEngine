@@ -36,6 +36,28 @@ namespace FlightsServices
             _providerRepo = new GenericRepository<Provider>(context);
         }
 
+        public bool DisableSearchTripWishes(int SearchTripWishesId)
+        {
+            bool result = false;
+            try
+            {
+                var _SearchTripWishes = _searchTripWishRepo.Get(SearchTripWishesId);
+                if(_SearchTripWishes!=null)
+                {
+                    _SearchTripWishes.Active = false;
+                    _searchTripWishRepo.Edit(_SearchTripWishes);
+                    result = _searchTripWishRepo.Save();
+                }
+
+            }
+            catch (Exception e)
+            {
+                result = false;
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SearchTripWishesId = " + SearchTripWishesId);
+            }
+            return result;
+        }
+
 
         public List<SearchTripWishesItem> GetSearchTripWishesById(int? SearchTripWishesId, int? ProviderId)
         {
@@ -86,11 +108,15 @@ namespace FlightsServices
                             {
                                 addProvider = true;
                             }
-                            else if (FromCountryId > 0 && ToCountryId > 0)
+                            else 
                             {
-                                addProvider = provider.Countries.Where(c => c.Id == FromCountryId).Any() || provider.Countries.Where(c => c.Id == ToCountryId).Any();
+                                addProvider = provider.AirportsTrips.Where(a => a.FromAirportId == SearchTripWish.FromAirportId && a.ToAirportId == SearchTripWish.ToAirportId).Any();
+                                if(!addProvider && FromCountryId > 0 && ToCountryId > 0))
+                                    {
+                                    addProvider = provider.Countries.Where(c => c.Id == FromCountryId).Any() || provider.Countries.Where(c => c.Id == ToCountryId).Any();
+                                }
                             }
-
+       
                             if (addProvider)
                             {
                                 item.ProvidersToSearch.Add(provider);

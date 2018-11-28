@@ -44,6 +44,8 @@
     <Compile Include="Models\Providers\AirFranceKLM\AirFranceKLMResponse.cs" />
     <Compile Include="Models\Providers\AirFranceKLM\RequestBody.cs" />
     <Compile Include="Models\Providers\AirHob\RequestBody.cs" />
+    <Compile Include="Models\Providers\Transavia\TransaviaRoutesResponse.cs" />
+    <Compile Include="Models\Shared\AirportItem.cs" />
     <Compile Include="Models\Shared\APIKey.cs" />
     <Compile Include="Models\Shared\KiwiAirlineSearch.cs" />
     <Compile Include="Models\Shared\AirlineSearch.cs" />
