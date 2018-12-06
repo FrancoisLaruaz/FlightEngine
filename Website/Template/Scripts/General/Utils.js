@@ -519,6 +519,22 @@ function SetGenericAjaxForm(FormId, OnSuccess, Onfailure, OnBegin) {
     SetValidationForm(FormId);
 }
 
+//this is a boilerplate function to append a new script to your head tag
+function loadScript(url, callback) {
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+
+    //bind the event to the callback function.
+    script.onreadystatechange = callback;
+    script.onload = callback;
+
+    // Fire the loading
+    head.appendChild(script);
+}
+
+
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }

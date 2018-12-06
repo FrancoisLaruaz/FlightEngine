@@ -54,13 +54,16 @@ namespace FlightsServices
                 if(airportsTrip==null)
                 {
                     airportsTrip = new AirportsTrip();
-                    airportsTrip.FromAirportId = (_airportRepo.FindAllBy(a => a.Code.ToLower() == fromAirportCode).FirstOrDefault()).Id;
-                    airportsTrip.ToAirportId = (_airportRepo.FindAllBy(a => a.Code.ToLower() == toAirportCode).FirstOrDefault()).Id;
-                    airportsTrip.Attractiveness = 100;
-                    _airportsTripRepo.Add(airportsTrip);
-                    _airportsTripRepo.Save();
+                    airportsTrip.FromAirportId = (_airportRepo.FindAllBy(a => a.Code.ToLower() == fromAirportCode)?.FirstOrDefault())?.Id ?? 0;
+                    airportsTrip.ToAirportId = (_airportRepo.FindAllBy(a => a.Code.ToLower() == toAirportCode)?.FirstOrDefault())?.Id ?? 0;
+                    if (airportsTrip.ToAirportId > 0 && airportsTrip.FromAirportId > 0)
+                    {
+                        airportsTrip.Attractiveness = 100;
+                        _airportsTripRepo.Add(airportsTrip);
+                        _airportsTripRepo.Save();
+                    }
                 }
-                if(airportsTrip!=null && !airportsTrip.Providers.Where(p => p.Id== ProviderId).Any())
+                if(airportsTrip!=null && airportsTrip.Id>0 && !airportsTrip.Providers.Where(p => p.Id== ProviderId).Any())
                 {
                     airportsTrip.Providers.Add(_providerRepo.Get(ProviderId));
                 }

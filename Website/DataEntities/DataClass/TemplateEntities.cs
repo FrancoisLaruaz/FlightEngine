@@ -22,19 +22,22 @@ namespace DataEntities.Model
             try
             {
                 string command = "exec @Return = " + ProcedureName + " ";
-                foreach (Tuple<string, object> var in Parameters)
+                if (Parameters != null)
                 {
+                    foreach (Tuple<string, object> var in Parameters)
+                    {
 
-                    if (var != null && var.Item1 != null && var.Item2 != null)
-                        if (var.Item2.GetType() == typeof(string))
-                        {
-                            command += " " + var.Item1 + "='" + var.Item2.ToString().Replace("'", "''") + "',";
-                        }
-                        else
-                        {
-                            command += " " + var.Item1 + "=" + var.Item2.ToString() + ",";
-                        }
+                        if (var != null && var.Item1 != null && var.Item2 != null)
+                            if (var.Item2.GetType() == typeof(string))
+                            {
+                                command += " " + var.Item1 + "='" + var.Item2.ToString().Replace("'", "''") + "',";
+                            }
+                            else
+                            {
+                                command += " " + var.Item1 + "=" + var.Item2.ToString() + ",";
+                            }
 
+                    }
                 }
                 command = command.Remove(command.Length - 1).Trim();
                 SqlParameter parm = new SqlParameter()

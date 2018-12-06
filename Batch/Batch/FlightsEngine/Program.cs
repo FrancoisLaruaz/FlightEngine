@@ -24,7 +24,10 @@ namespace FlightsEngine
             bool result = false;
             try
             {
-                FlightsEngine.FlighsAPI.Transavia.GetRoutes();
+                Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " **  START ResetConfig *");
+                //  FlightsEngine.FlighsAPI.Transavia.GetRoutes();
+                FlightsEngine.FlighsAPI.RyanAir.GetRoutes();
+                Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " **  END ResetConfig *");
             }
             catch (Exception e2)
             {
@@ -101,7 +104,15 @@ namespace FlightsEngine
                         }
                         if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.Transavia))
                         {
-                             FlightsEngine.FlighsAPI.Transavia.SearchFlights(APIAirlineSearchItem);
+                            FlightsEngine.FlighsAPI.Transavia.SearchFlights(APIAirlineSearchItem);
+                        }
+                        if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.TurkishAirlines))
+                        {
+                            FlightsEngine.FlighsAPI.TurkishAirlines.SearchFlights(APIAirlineSearchItem);
+                        }
+                        if (SearchTripWishesItem.ProvidersToSearch.Select(p => p.Id).Contains(Providers.RyanAir))
+                        {
+                            FlightsEngine.FlighsAPI.RyanAir.SearchFlights(APIAirlineSearchItem);
                         }
                         #endregion kiwi
 
@@ -202,7 +213,10 @@ namespace FlightsEngine
                                     }
                                     else
                                     {
-
+                                        if (provider.Id == Providers.Transavia)
+                                        {
+                                          //  FlightsEngine.FlighsAPI.Transavia.SearchFlights(filter);
+                                        }
 
                                         int SearchTripProviderId = _searchTripProviderService.InsertSearchTripProvider(provider.Id, searchTrip.Id, null, null);
                                         filter.SearchTripProviderId = SearchTripProviderId;

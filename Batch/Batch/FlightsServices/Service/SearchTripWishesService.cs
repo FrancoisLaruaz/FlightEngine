@@ -42,7 +42,7 @@ namespace FlightsServices
             try
             {
                 var _SearchTripWishes = _searchTripWishRepo.Get(SearchTripWishesId);
-                if(_SearchTripWishes!=null)
+                if (_SearchTripWishes != null)
                 {
                     _SearchTripWishes.Active = false;
                     _searchTripWishRepo.Edit(_SearchTripWishes);
@@ -80,12 +80,22 @@ namespace FlightsServices
 
                 // All or only API
                 bool APIOnly = false;
-                if (ProviderId < 0 || ProviderId==null)
+                if (ProviderId < 0 || ProviderId == null)
                 {
                     APIOnly = true;
                 }
 
-                var Providers = _providerRepo.FindAllBy(p => p.Active && (!APIOnly || p.HasAPI)).ToList();
+                var Providers = new List<Provider>();
+
+                // Specific provider
+                if (ProviderId > 0)
+                {
+                    Providers.Add(_providerRepo.FindAllBy(p => p.Active && p.Id == ProviderId.Value).FirstOrDefault());
+                }
+                else
+                {
+                    Providers = _providerRepo.FindAllBy(p => p.Active && (!APIOnly || p.HasAPI)).ToList();
+                }
 
                 foreach (var SearchTripWish in SearchTripWishes)
                 {
@@ -98,37 +108,32 @@ namespace FlightsServices
                     int ToCountryId = item._SearchTripWishes.ToAirport?.City?.CountryId ?? (item._SearchTripWishes.ToCity?.CountryId ?? 0);
 
 
-                    // All or only API
-                    if (ProviderId == null || ProviderId < 0)
+                    foreach (var provider in Providers)
                     {
-                        foreach (var provider in Providers)
+                        bool addProvider = false;
+                        if (provider.IsSearchEngine)
                         {
-                            bool addProvider = false;
-                            if (provider.IsSearchEngine)
+                            addProvider = true;
+                        }
+                        else
+                        {
+                            addProvider = provider.AirportsTrips.Where(a => (a.FromAirportId == SearchTripWish.FromAirportId && a.ToAirportId == SearchTripWish.ToAirportId) || (a.ToAirportId == SearchTripWish.FromAirportId && a.FromAirportId == SearchTripWish.ToAirportId)).Any();
+                            if (!addProvider && FromCountryId > 0 && ToCountryId > 0)
                             {
-                                addProvider = true;
-                            }
-                            else 
-                            {
-                                addProvider = provider.AirportsTrips.Where(a => a.FromAirportId == SearchTripWish.FromAirportId && a.ToAirportId == SearchTripWish.ToAirportId).Any();
-                                if(!addProvider && FromCountryId > 0 && ToCountryId > 0))
-                                    {
-                                    addProvider = provider.Countries.Where(c => c.Id == FromCountryId).Any() || provider.Countries.Where(c => c.Id == ToCountryId).Any();
-                                }
-                            }
-       
-                            if (addProvider)
-                            {
-                                item.ProvidersToSearch.Add(provider);
+                                addProvider = provider.Countries.Where(c => c.Id == FromCountryId).Any() || provider.Countries.Where(c => c.Id == ToCountryId).Any();
                             }
                         }
+
+                        if (addProvider)
+                        {
+                            item.ProvidersToSearch.Add(provider);
+                        }
                     }
-                    // Specific provider
-                    else if (ProviderId > 0)
+
+                    if (item.ProvidersToSearch.Count > 0)
                     {
-                        item.ProvidersToSearch.Add(_providerRepo.FindAllBy(p => p.Active && p.Id == ProviderId.Value).FirstOrDefault());
+                        result.Add(item);
                     }
-                    result.Add(item);
                 }
 
             }

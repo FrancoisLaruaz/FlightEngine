@@ -36,7 +36,7 @@ namespace Batch1
                 }
 
                bool result = FlightsEngine.Program.SearchFlights(SearchTripWishesId, ConfigurationManager.AppSettings["ScrappingFolder"], ConfigurationManager.AppSettings["FirefoxExeFolder"], ProviderId);
-                //bool result = FlightsEngine.Program.ResetConfig();
+              //  bool result = FlightsEngine.Program.ResetConfig();
 
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " *  END BATCH *");
                 if (result)

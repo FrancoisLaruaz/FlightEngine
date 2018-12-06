@@ -300,7 +300,18 @@ namespace FlightsEngine.FlighsAPI
                                 }
 
                                 FromDateMin = FromDateMin.AddDays(MaxDaysNumberForSearch);
-                                ToDateMax = FromDateMin.AddDays(MaxDaysNumberForSearch);
+                                if (ToDateMax == originalToDateMax)
+                                {
+                                    ToDateMax = ToDateMax.AddDays(1);
+                                }
+                                else if (ToDateMax.AddDays(MaxDaysNumberForSearch) > originalToDateMax)
+                                {
+                                    ToDateMax = originalToDateMax;
+                                }
+                                else
+                                {
+                                    ToDateMax = FromDateMin.AddDays(MaxDaysNumberForSearch);
+                                }
                             }
 
                             System.Threading.Thread.Sleep(200);
