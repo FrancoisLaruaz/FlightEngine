@@ -17,6 +17,7 @@ using FlightsEngine.Models.Constants;
 using Newtonsoft.Json;
 using Data.Model;
 using FlightsServices;
+using Models.Models.Shared;
 
 namespace FlightsEngine.FlighsAPI
 {
@@ -49,6 +50,16 @@ namespace FlightsEngine.FlighsAPI
             return RequestsNumbers;
         }
 
+        public static List<APIKey> GetAPIKeys()
+        {
+            List<APIKey> AFKLMKeys = new List<APIKey>();
+            AFKLMKeys.Add(new APIKey("jqgd23tz7qk7u7vu6ayes2w3"));
+            AFKLMKeys.Add(new APIKey("e53xg7bdqnptwjxtzyh5zgmq"));
+            AFKLMKeys.Add(new APIKey("gg3wtw9utay5nbj2yjyypuss"));
+            AFKLMKeys.Add(new APIKey("ah94hzz3kgsf4x9t795dcb22"));
+            return AFKLMKeys;
+        }
+
 
         static int MakeRequest(APIAirlineSearch filters, string TravelHost,string Key)
         {
@@ -61,6 +72,7 @@ namespace FlightsEngine.FlighsAPI
                 int AttemptsNumber = 1;
                 String OriginalSearchType = "OVERALL";
                 String SearchType = OriginalSearchType;
+                bool endOfPreSearch = false;
 
 
                 DateTime originalFromDateMin = filters.FromDateMin;
@@ -156,21 +168,25 @@ namespace FlightsEngine.FlighsAPI
                                 {
                                     MaxDaysNumberForSearch = MaxDaysNumberForSearch - 5;
                                     ToDateMax = FromDateMin.AddDays(MaxDaysNumberForSearch);
+                                    endOfPreSearch = false;
                                 }
                                 else if (webError.ToLower().Contains("requestedconnections[0].destination.airport.code"))
                                 {
                                     NeedToContinueSearch = false;
+                                    endOfPreSearch = true;
                                 }
                                 else
                                 {
                                     SearchType = "OVERALL";
                                     MaxDaysNumberForSearch = MaxDaysNumberForSearch-5;
                                     ToDateMax = FromDateMin.AddDays(MaxDaysNumberForSearch);
+                                    endOfPreSearch = false;
                                 }
                             }
 
                             if (result)
                             {
+                                endOfPreSearch = true;
                                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                                 {
                                     var requestResult = streamReader.ReadToEnd();
@@ -284,7 +300,18 @@ namespace FlightsEngine.FlighsAPI
                                 }
 
                                 FromDateMin = FromDateMin.AddDays(MaxDaysNumberForSearch);
-                                ToDateMax = FromDateMin.AddDays(MaxDaysNumberForSearch);
+                                if (ToDateMax == originalToDateMax)
+                                {
+                                    ToDateMax = ToDateMax.AddDays(1);
+                                }
+                                else if (ToDateMax.AddDays(MaxDaysNumberForSearch) > originalToDateMax)
+                                {
+                                    ToDateMax = originalToDateMax;
+                                }
+                                else
+                                {
+                                    ToDateMax = FromDateMin.AddDays(MaxDaysNumberForSearch);
+                                }
                             }
 
                             System.Threading.Thread.Sleep(200);
@@ -300,6 +327,11 @@ namespace FlightsEngine.FlighsAPI
                 }
                 TripsService _tripService = new TripsService(context);
                 _tripService.InsertTrips(Trips);
+                if(endOfPreSearch)
+                {
+                    SearchTripWishesService _searchTripWishesService = new SearchTripWishesService(context);
+                    _searchTripWishesService.DisableSearchTripWishes(filters.SearchTripWishesId);
+                }
             }
             catch (Exception e)
             {

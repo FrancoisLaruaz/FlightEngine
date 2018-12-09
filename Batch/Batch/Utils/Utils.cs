@@ -36,6 +36,26 @@ namespace FlightsEngine.Utils
             return dtDateTime;
         }
 
+        public static int GetDaysAtDestination(DateTime dateFrom,DateTime dateTo)
+        {
+            int result = 0;
+            try
+            {
+                DateTime dateFromFormat = new DateTime(dateFrom.Year, dateFrom.Month, dateFrom.Day);
+                DateTime dateToFormat = new DateTime(dateTo.Year, dateTo.Month, dateTo.Day); 
+   
+                if (dateFromFormat < dateToFormat)
+                {
+                    result = Convert.ToInt32((dateToFormat - dateFromFormat).TotalDays);
+                }
+            }
+            catch (Exception e)
+            {
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "dateFrom = " + dateFrom+ " and dateTo  ="+ dateTo);
+            }
+            return result;
+        }
+
         public static DateTime? GetDateFromunixTimeStamp(string unixTimeStamp)
         {
             try

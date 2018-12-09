@@ -19,14 +19,17 @@ namespace FlightsServices
         private readonly IGenericRepository<SearchTripProvider> _searchTripProviderRepo;
         private readonly IGenericRepository<Trip> _tripRepo;
         private readonly IGenericRepository<Flight> _flightRepo;
+        private readonly IGenericRepository<Airport> _airportRepo;
 
         public TripsService(IGenericRepository<SearchTripProvider> SearchTripProvider,
             IGenericRepository<Trip> tripRepo,
-            IGenericRepository<Flight> flightRepo)
+            IGenericRepository<Flight> flightRepo,
+            IGenericRepository<Airport> airportRepo)
         {
             _searchTripProviderRepo = SearchTripProvider;
             _tripRepo = tripRepo;
             _flightRepo = flightRepo;
+            _airportRepo = airportRepo;
         }
 
         public TripsService(TemplateEntities1 context)
@@ -34,6 +37,7 @@ namespace FlightsServices
             _searchTripProviderRepo = new GenericRepository<SearchTripProvider>(context);
             _tripRepo = new GenericRepository<Trip>(context);
             _flightRepo = new GenericRepository<Flight>(context);
+            _airportRepo = new GenericRepository<Airport>(context);
         }
 
         public TripsService()
@@ -42,8 +46,32 @@ namespace FlightsServices
             _searchTripProviderRepo = new GenericRepository<SearchTripProvider>(context);
             _tripRepo = new GenericRepository<Trip>(context);
             _flightRepo = new GenericRepository<Flight>(context);
+            _airportRepo = new GenericRepository<Airport>(context);
         }
 
+        public  int GetTripDuration(DateTime fromDate,DateTime toDate,string fromAirportCode,string toAirportCode)
+        {
+            int result = 0;
+
+            try
+            {
+                decimal? offsetFrom = _airportRepo.FindAllBy(a => a.Code.ToUpper() == fromAirportCode.ToUpper()).FirstOrDefault()?.City.OffSetHours ;
+                decimal ?offsetTo = _airportRepo.FindAllBy(a => a.Code.ToUpper() == toAirportCode.ToUpper()).FirstOrDefault()?.City.OffSetHours ;
+
+                if(offsetFrom != null && offsetTo!=null)
+                {
+                    double offset = Convert.ToDouble(offsetTo.Value - offsetFrom.Value)*60;
+                    TimeSpan span = toDate - fromDate;
+                    result = Convert.ToInt32(span.TotalMinutes-offset);
+                }
+
+            }
+            catch (Exception e)
+            {
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "fromDate = " + fromDate+" and toDate = "+toDate+ " and fromAirportCode= "+ fromAirportCode+ " and toAirportCode = "+ toAirportCode);
+            }
+            return result;
+        }
 
         public bool InsertTrips(int SearchTripProviderId)
         {

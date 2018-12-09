@@ -60,9 +60,11 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Interface\ISearchTripProviderService.cs" />
+    <Compile Include="Service\Interface\IAirportService.cs" />
     <Compile Include="Service\Interface\ITripsService.cs" />
     <Compile Include="Service\Interface\ISearchTripWishesService.cs" />
     <Compile Include="Service\SearchTripProviderService.cs" />
+    <Compile Include="Service\AirportService.cs" />
     <Compile Include="Service\TripsService.cs" />
     <Compile Include="Service\SearchTripWishesService.cs" />
   </ItemGroup>

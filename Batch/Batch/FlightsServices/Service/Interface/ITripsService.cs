@@ -12,7 +12,7 @@ namespace FlightsServices
     public interface ITripsService
     {
 
-
+        int GetTripDuration(DateTime fromDate, DateTime toDate, string fromAirportCode, string toAirportCode);
         bool InsertTrips(int SearchTripProviderId);
 
     }

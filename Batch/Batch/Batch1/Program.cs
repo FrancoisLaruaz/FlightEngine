@@ -35,8 +35,8 @@ namespace Batch1
                     ProviderId = Convert.ToInt32(args[1]);
                 }
 
-                bool result = FlightsEngine.Program.SearchFlights(SearchTripWishesId, ConfigurationManager.AppSettings["ScrappingFolder"], ConfigurationManager.AppSettings["FirefoxExeFolder"], ProviderId);
-                // bool result = FlightsEngine.FlighsBot.ScrappingHelper.Run();
+               bool result = FlightsEngine.Program.SearchFlights(SearchTripWishesId, ConfigurationManager.AppSettings["ScrappingFolder"], ConfigurationManager.AppSettings["FirefoxExeFolder"], ProviderId);
+              //  bool result = FlightsEngine.Program.ResetConfig();
 
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " *  END BATCH *");
                 if (result)

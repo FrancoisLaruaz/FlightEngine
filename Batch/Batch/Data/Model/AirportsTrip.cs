@@ -14,6 +14,12 @@ namespace Data.Model
     
     public partial class AirportsTrip
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AirportsTrip()
+        {
+            this.Providers = new HashSet<Provider>();
+        }
+    
         public int Id { get; set; }
         public int FromAirportId { get; set; }
         public int ToAirportId { get; set; }
@@ -21,5 +27,7 @@ namespace Data.Model
     
         public virtual Airport Airport { get; set; }
         public virtual Airport Airport1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Provider> Providers { get; set; }
     }
 }
