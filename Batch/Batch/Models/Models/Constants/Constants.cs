@@ -41,6 +41,7 @@ namespace FlightsEngine.Models.Constants
         public const int Transavia =6;
         public const int TurkishAirlines = 7;
         public const int RyanAir = 8;
+        public const int BritishAirways = 9;
 
         public static string ToString(int value)
         {
@@ -77,6 +78,10 @@ namespace FlightsEngine.Models.Constants
             else if (value == RyanAir)
             {
                 result = "Ryan Air";
+            }
+            else if (value == BritishAirways)
+            {
+                result = "British Airways";
             }
             return result;
         }

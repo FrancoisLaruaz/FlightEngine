@@ -26,7 +26,8 @@ namespace FlightsEngine
             {
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " **  START ResetConfig *");
                 //  FlightsEngine.FlighsAPI.Transavia.GetRoutes();
-                FlightsEngine.FlighsAPI.RyanAir.GetRoutes();
+                //   FlightsEngine.FlighsAPI.RyanAir.GetRoutes();
+                FlightsEngine.FlighsAPI.BritishAirways.GetRoutes();
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " **  END ResetConfig *");
             }
             catch (Exception e2)

@@ -7,11 +7,44 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace FlightsEngine.Utils
 {
     public static class Utils
     {
+        public static bool IsObjectsList(dynamic settings)
+        {
+            bool result = false;
+            try
+            {
+                var castAttempt = (List<object>)settings;
+                result = true;
+            }
+            catch (Exception e)
+            {
+                result = false;
+               // FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+            }
+            return result;
+        }
+
+        public static bool IsObjectsArray(dynamic settings)
+        {
+            bool result = false;
+            try
+            {
+                var castAttempt = (object[])settings;
+                result = true;
+            }
+            catch (Exception e)
+            {
+                result = false;
+                // FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+            }
+            return result;
+        }
+
         public static bool IsPropertyExist(dynamic settings, string name)
         {
             bool result = false;
@@ -22,7 +55,7 @@ namespace FlightsEngine.Utils
             catch (Exception e)
             {
                 result = false;
-                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "name = " + name);
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "name = " + name+" abd json = "+ ( JsonConvert.SerializeObject(settings) ??""));
             }
             return result;
         }

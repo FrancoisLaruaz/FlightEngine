@@ -14,6 +14,8 @@ namespace Models.Models.Shared
 
         public int CityId { get; set; }
 
+        public string CityCode { get; set; }
+
         public int CountryId { get; set; }
 
         public int ContinentId { get; set; }
@@ -23,13 +25,14 @@ namespace Models.Models.Shared
 
         }
 
-        public AirportItem(string _Code,int _Id,int _CityId,int _CountryId,int _ContinentId)
+        public AirportItem(string _Code,int _Id,int _CityId,int _CountryId,int _ContinentId,string _CityCode)
         {
             Code = _Code;
             Id = _Id;
             CityId = _CityId;
             CountryId = _CountryId;
             ContinentId = _ContinentId;
+            CityCode = _CityCode;
         }
 
     }

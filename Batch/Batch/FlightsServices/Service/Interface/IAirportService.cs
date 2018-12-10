@@ -12,7 +12,8 @@ namespace FlightsServices
 {
     public interface IAirportService
     {
-
+        AirportsTrip GetAirportsTripForProviderRoute(int ProviderId);
+        AirportItem GetLastAirportForProviderRoute(int ProviderId);
         bool DeleteAirportsTripProvider(int ProviderId);
         List<AirportItem> GetActiveAirports();
         bool AddAirportsTripProviderItem(string fromAirportCode, string toAirportCode, int ProviderId);

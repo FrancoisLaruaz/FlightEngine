@@ -201,3 +201,17 @@ AS
 			execute [dbo].[InsertLog] @Error_message,@Exception
 		    print 'FAILURE : rollback => '+ERROR_MESSAGE()
     end catch
+go
+INSERT INTO [dbo].[Provider]
+           ([Name]
+           ,[ImageSrc]
+           ,[HasAPI]
+           ,[IsSearchEngine]
+           ,[Active])
+     VALUES
+           ('British Airways'
+           ,null
+           ,1
+           ,0
+           ,1)
+GO		   

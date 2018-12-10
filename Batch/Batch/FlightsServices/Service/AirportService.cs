@@ -45,13 +45,13 @@ namespace FlightsServices
             _providerRepo = new GenericRepository<Provider>(context);
         }
 
-        public bool AddAirportsTripProviderItem(string fromAirportCode,string toAirportCode,int ProviderId)
+        public bool AddAirportsTripProviderItem(string fromAirportCode, string toAirportCode, int ProviderId)
         {
             bool result = false;
             try
             {
                 AirportsTrip airportsTrip = _airportsTripRepo.FindAllBy(a => (a.Airport.Code.ToLower() == toAirportCode && a.Airport1.Code.ToLower() == fromAirportCode) || ((a.Airport.Code.ToLower() == fromAirportCode && a.Airport1.Code.ToLower() == toAirportCode))).FirstOrDefault();
-                if(airportsTrip==null)
+                if (airportsTrip == null)
                 {
                     airportsTrip = new AirportsTrip();
                     airportsTrip.FromAirportId = (_airportRepo.FindAllBy(a => a.Code.ToLower() == fromAirportCode)?.FirstOrDefault())?.Id ?? 0;
@@ -63,14 +63,14 @@ namespace FlightsServices
                         _airportsTripRepo.Save();
                     }
                 }
-                if(airportsTrip!=null && airportsTrip.Id>0 && !airportsTrip.Providers.Where(p => p.Id== ProviderId).Any())
+                if (airportsTrip != null && airportsTrip.Id > 0 && !airportsTrip.Providers.Where(p => p.Id == ProviderId).Any())
                 {
                     airportsTrip.Providers.Add(_providerRepo.Get(ProviderId));
                 }
             }
             catch (Exception e)
             {
-                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "fromAirportCode = " + fromAirportCode+" and ToAirpoderCode = "+toAirportCode+ " and ProviderId = "+ ProviderId);
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "fromAirportCode = " + fromAirportCode + " and ToAirpoderCode = " + toAirportCode + " and ProviderId = " + ProviderId);
             }
             finally
             {
@@ -84,7 +84,7 @@ namespace FlightsServices
             List<AirportItem> result = new List<AirportItem>();
             try
             {
-                result = _airportRepo.FindAllBy(a => a.Active).Select(t => new AirportItem(t.Code,t.Id,t.CityId,t.City.CountryId,t.City.Country.ContinentId)).ToList();
+                result = _airportRepo.FindAllBy(a => a.Active).Select(t => new AirportItem(t.Code, t.Id, t.CityId, t.City.CountryId, t.City.Country.ContinentId, t.City.Code)).OrderBy(a => a.Id).ToList();
 
             }
             catch (Exception e)
@@ -97,11 +97,11 @@ namespace FlightsServices
 
         public bool DeleteAirportsTripProvider(int ProviderId)
         {
-           bool result = false;
+            bool result = false;
             try
             {
                 var airportsTrips = _airportsTripRepo.FindAllBy(a => a.Providers.Where(p => p.Id == ProviderId).Any()).ToList();
-                foreach(var airportTrip in airportsTrips)
+                foreach (var airportTrip in airportsTrips)
                 {
                     airportTrip.Providers.Remove(airportTrip.Providers.Where(p => p.Id == ProviderId).FirstOrDefault());
                     _airportsTripRepo.Edit(airportTrip);
@@ -110,11 +110,53 @@ namespace FlightsServices
             }
             catch (Exception e)
             {
-                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "ProviderId = "+ ProviderId);
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "ProviderId = " + ProviderId);
             }
             finally
             {
                 result = _airportsTripRepo.Save();
+            }
+            return result;
+        }
+
+        public AirportsTrip GetAirportsTripForProviderRoute(int ProviderId)
+        {
+            AirportsTrip result = null;
+            try
+            {
+                var airportsTrips = _airportsTripRepo.FindAllBy(a => a.Providers.Where(p => p.Id == ProviderId).Any()).ToList();
+                if (airportsTrips != null && airportsTrips.Count > 0)
+                {
+                    return airportsTrips.OrderBy(a => a.Id).OrderBy(t => t.Airport1.Code).OrderBy(t => t.Airport.Code).FirstOrDefault();
+                }
+
+            }
+            catch (Exception e)
+            {
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "ProviderId = " + ProviderId);
+            }
+            return result;
+        }
+
+        public AirportItem GetLastAirportForProviderRoute(int ProviderId)
+        {
+            AirportItem result =null;
+            try
+            {
+                var airportsTrips = _airportsTripRepo.FindAllBy(a => a.Providers.Where(p => p.Id == ProviderId).Any()).ToList();
+                if (airportsTrips != null && airportsTrips.Count > 0)
+                {
+                    var airportTrip = airportsTrips.OrderBy(a => a.Id).OrderBy(t => t.Airport.Code).FirstOrDefault();
+                    if(airportTrip != null)
+                    {
+                        result = new AirportItem(airportTrip.Airport.Code, airportTrip.Airport.Id, airportTrip.Airport.CityId, airportTrip.Airport.City.CountryId, airportTrip.Airport.City.Country.ContinentId, airportTrip.Airport.City.Code);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                FlightsEngine.Utils.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "ProviderId = " + ProviderId);
             }
             return result;
         }

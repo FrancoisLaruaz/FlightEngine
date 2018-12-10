@@ -112,6 +112,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FlighsAPI\BritishAirways.cs" />
     <Compile Include="FlighsAPI\TurkishAirlines.cs" />
     <Compile Include="FlighsAPI\RyanAir.cs" />
     <Compile Include="FlighsAPI\AirHob.cs" />
