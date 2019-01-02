@@ -15,6 +15,8 @@ namespace Models.ViewModels.Shared
 
         public string PictureThumbnailSrc { get; set; }
 
+        public bool NeedToRedirectToLogin { get; set; }
+
         public HeaderViewModel()
         {
             UserNameDecrypt = "User Profile";

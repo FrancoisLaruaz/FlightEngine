@@ -40,26 +40,26 @@
                 <td>
                     @if (item.EmailSent)
                     {
-                    if (item.EmailWatcherStatusId == CommonsConst.EmailWatcherStatus.NotWatched)
-                    {
-                    <span class="glyphicon glyphicon-send mailIcon" style="color:green;" title="[[[Email sent (no 'watcher' information available)]]]"></span>
-                    }
-                    else if (item.EmailWatcherStatusId == CommonsConst.EmailWatcherStatus.EmailNotOpened)
-                    {
-                    <span class="glyphicon glyphicon-eye-close mailIcon" style="color:orange" title="[[[Email sent but not opened]]]"></span>
-                    }
-                    else if (item.EmailWatcherStatusId == CommonsConst.EmailWatcherStatus.EmailOpened)
-                    {
-                    <span class="glyphicon glyphicon-eye-open mailIcon" style="color:green" title="[[[Email opened at ]]]@Commons.FormaterHelper.GetFormatStringForDateDisplay(@item.EmailOpenedDate.Value.ToLocalTime())"></span>
-                    }
-                    else if (item.EmailWatcherStatusId == CommonsConst.EmailWatcherStatus.LinkClicked)
-                    {
-                    <span class="glyphicon glyphicon glyphicon-ok mailIcon" style="color:green" title="[[[Link clicked at ]]]@Commons.FormaterHelper.GetFormatStringForDateDisplay(@item.EmailLinkClickedDate.Value.ToLocalTime())"></span>
-                    }
-                    else
-                    {
-                    <span class="glyphicon glyphicon-question-sign mailIcon" title="[[[Mail sent but unknown status]]]"></span>
-                    }
+                        if (item.EmailWatcherStatusId == CommonsConst.EmailWatcherStatus.NotWatched)
+                        {
+                        <span class="glyphicon glyphicon-send mailIcon" style="color:green;" title="[[[Email sent (no 'watcher' information available)]]]"></span>
+                        }
+                        else if (item.EmailWatcherStatusId == CommonsConst.EmailWatcherStatus.EmailNotOpened)
+                        {
+                        <span class="glyphicon glyphicon-eye-close mailIcon" style="color:orange" title="[[[Email sent but not opened]]]"></span>
+                        }
+                        else if (item.EmailWatcherStatusId == CommonsConst.EmailWatcherStatus.EmailOpened)
+                        {
+                        <span class="glyphicon glyphicon-eye-open mailIcon" style="color:green" title="[[[Email opened at ]]]@Commons.FormaterHelper.GetFormatStringForDateDisplay(@item.EmailOpenedDate.Value.ToLocalTime())"></span>
+                        }
+                        else if (item.EmailWatcherStatusId == CommonsConst.EmailWatcherStatus.LinkClicked)
+                        {
+                        <span class="glyphicon glyphicon glyphicon-ok mailIcon" style="color:green" title="[[[Link clicked at ]]]@Commons.FormaterHelper.GetFormatStringForDateDisplay(@item.EmailLinkClickedDate.Value.ToLocalTime())"></span>
+                        }
+                        else
+                        {
+                        <span class="glyphicon glyphicon-question-sign mailIcon" title="[[[Mail sent but unknown status]]]"></span>
+                        }
                     }
                     else
                     {

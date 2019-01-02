@@ -30,8 +30,8 @@ namespace Website.Controllers
             IEMailService emailService
             ) : base(userService)
         {
-            _emailService=emailService;
-    }
+            _emailService = emailService;
+        }
 
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -72,9 +72,16 @@ namespace Website.Controllers
 
                 if (User.Identity.IsAuthenticated)
                 {
-                    model.UserFirstName = UserSession.FirstName;
-                    model.UserNameDecrypt = UserSession.UserName;
-                    model.PictureThumbnailSrc = FileHelper.GetDecryptedFilePath(UserSession.PictureThumbnailSrc, true, true).Replace("~", "");
+                    if (UserSession == null || UserSession.UserId <= 0)
+                    {
+                        model.NeedToRedirectToLogin = true;
+                    }
+                    else
+                    {
+                        model.UserFirstName = UserSession.FirstName;
+                        model.UserNameDecrypt = UserSession.UserName;
+                        model.PictureThumbnailSrc = FileHelper.GetDecryptedFilePath(UserSession.PictureThumbnailSrc, true, true).Replace("~", "");
+                    }
                 }
             }
             catch (Exception e)
@@ -167,7 +174,7 @@ namespace Website.Controllers
             }
             catch (Exception e)
             {
-                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SignUp = "+ SignUp+ " and PromptLogin = "+ PromptLogin+ " and RedirectTo = "+ RedirectTo);
+                Commons.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "SignUp = " + SignUp + " and PromptLogin = " + PromptLogin + " and RedirectTo = " + RedirectTo);
             }
 
             return View(model);

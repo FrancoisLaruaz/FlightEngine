@@ -273,7 +273,7 @@ namespace Website.Controllers
                         if (Session[CommonsConst.Const.UserSession] == null)
                         {
                             UserSession ConnectedUser = _userService.GetUserSession(User.Identity.GetUserName());
-                            if (ConnectedUser == null)
+                            if (ConnectedUser == null || ConnectedUser.UserId<=0)
                             {
                                 return null;
                             }

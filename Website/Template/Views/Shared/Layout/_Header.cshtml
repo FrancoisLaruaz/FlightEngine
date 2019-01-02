@@ -4,6 +4,8 @@
 @Html.CssImportContent("~/Content/Views/Search/Search_Bar.css")
 @Html.CssImportContent("~/Content/Views/Shared/_Header.css")
 
+@Html.HiddenFor(m => m.NeedToRedirectToLogin)
+
 <header class="sub-nav" id="MainHeader">
     @Html.Hidden("CentralGoToUrl")
     <nav class="navbar navbar-default navigation navBarBottomBorder navBarBackgroundColor" id="homeNavDefault">

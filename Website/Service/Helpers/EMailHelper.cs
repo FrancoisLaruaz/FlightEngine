@@ -23,7 +23,7 @@ namespace Service.Helpers
 
         static string MailName = "Zaural Website Ltd";
         public static string MailAdress = "zaural.website@gmail.com";
-        static string PasswordMailAdress = "071185004154171035122139135090006102148063065162163134156047062127032176181228062101123048131167";
+        static string PasswordMailAdress = "015054082165110051118109063176001020061040082198";
         static string Banner = "http://mjcloreillecassee.com/home/wp-content/uploads/2017/03/Banniere-Soiree-Latino-site-OKC.jpg";
         static string Signature = "Zaural Website Team";
         static string CompanyDescription = "EMails and Website made by Zaural Website Ltd.";

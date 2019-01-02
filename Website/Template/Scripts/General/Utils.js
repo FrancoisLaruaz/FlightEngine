@@ -224,11 +224,21 @@ function CallFunction(functionName, args, CallNumber) {
     }
 }
 
+function OpenUrlInNewTab(url) {
+    var win = window.open(url, '_blank');
+    win.focus();
+}
+
 function FixPartialUrlWithCulture(url) {
 
     var homePageUrl = GetHomePageUrl(false);
 
     var result = url;
+
+    if (!isLocalhost()) {
+        homePageUrl = homePageUrl.toLowerCase().replace('http:', 'https:');
+        url = url.toLowerCase().replace('http:', 'https:');
+    }
 
     var LanguageSelector = $('#LanguageSelector');
     if (LanguageSelector.length > 0) {
@@ -236,7 +246,7 @@ function FixPartialUrlWithCulture(url) {
         if (HasValue(language)) {
             var code = 'en';
             if (language.toLowerCase().indexOf('fr') > -1) {
-                code = 'fr-CA';
+                code = 'fr';
             }
             if (url.indexOf('/' + code + '/') == -1 && code != 'en') {
                 result = '/' + code + url.replace(homePageUrl, '');

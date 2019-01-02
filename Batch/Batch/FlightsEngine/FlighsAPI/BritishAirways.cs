@@ -21,18 +21,17 @@ namespace FlightsEngine.FlighsAPI
 {
     public static class BritishAirways
     {
-        public static string Key = "59szstcpxtrezug5hc9xbpy9";
-
+ 
         // https://developer.iairgroup.com/british_airways/apis/BA_Destinations
 
         #region getRoutes
-        public static bool GetRoutes()
+        public static bool GetRoutes(string Key)
         {
             bool result = false;
             try
             {
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " ***  START British Airways GetRoutes ***");
-                GetAirportsRoutes();
+                GetAirportsRoutes(Key);
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " ***  END British Airways GetRoutes ***");
             }
             catch (Exception e)
@@ -42,7 +41,15 @@ namespace FlightsEngine.FlighsAPI
             return result;
         }
 
-        public static List<AirportItem> getBADestinations()
+        public static List<APIKey> GetAPIKeys()
+        {
+            List<APIKey> AFKLMKeys = new List<APIKey>();
+            AFKLMKeys.Add(new APIKey("59szstcpxtrezug5hc9xbpy9"));
+            AFKLMKeys.Add(new APIKey("5t2hdprf6tu773qnr8kwwkjx "));
+            return AFKLMKeys;
+        }
+
+        public static List<AirportItem> getBADestinations(string Key)
         {
             List<AirportItem> Airports = new List<AirportItem>();
             try
@@ -173,7 +180,7 @@ namespace FlightsEngine.FlighsAPI
         }
 
 
-        static bool GetAirportsRoutes()
+        static bool GetAirportsRoutes(string Key)
         {
             bool resultRoutes = true; ;
             List<AirportItem> Airports = new List<AirportItem>();
@@ -182,7 +189,7 @@ namespace FlightsEngine.FlighsAPI
                 var context = new TemplateEntities1();
                 AirportService _airportService = new AirportService(context);
                 //   _airportService.DeleteAirportsTripProvider(Providers.BritishAirways);
-                List<AirportItem> AirportsList = getBADestinations();
+                List<AirportItem> AirportsList = getBADestinations(Key);
                 AirportsList = AirportsList.OrderBy(a => a.Code).ToList();
                 AirportsTrip lastAirportsTrip = _airportService.GetAirportsTripForProviderRoute(Providers.BritishAirways);
 
@@ -255,38 +262,6 @@ namespace FlightsEngine.FlighsAPI
                                     }
                                 }
                                 System.Threading.Thread.Sleep(1000);
-                                /*
-                                            if (response != null)
-                                {
-                                    if (response.IsSuccessStatusCode)
-                                    {
-                                        var contents = await response.Content.ReadAsStringAsync();
-                                        if (!String.IsNullOrWhiteSpace(contents))
-                                        {
-                                            List<RyanAirAirports> AirportsList = JsonConvert.DeserializeObject<List<RyanAirAirports>>(contents);
-                                            if (AirportsList != null)
-                                            {
-                                                foreach (RyanAirAirports ResultItem in AirportsList)
-                                                {
-                                                    string FromAirportCode = ResultItem.iataCode.ToUpper();
-                                                    foreach (string route in ResultItem.routes)
-                                                    {
-                                                        if (route != null && route.ToLower().Contains("airport"))
-                                                        {
-                                                            _airportService.AddAirportsTripProviderItem(FromAirportCode, route.Split(':')[1].ToUpper(), Providers.RyanAir);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    FlightsEngine.Utils.Logger.GenerateInfo("British Airways Response null ");
-                                }
-
-                            */
                             }
                         }
                     }

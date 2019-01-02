@@ -16,10 +16,13 @@ namespace Service.UserArea
     {
 
         private readonly IGenericRepository<SocialMediaConnection> _socialMediaRepo;
+        private readonly IGenericRepository<AspNetUserLogin> _aspNetUserLogin;
 
-        public SocialMediaConnectionService(IGenericRepository<SocialMediaConnection> socialMediaRepo)
+        public SocialMediaConnectionService(IGenericRepository<SocialMediaConnection> socialMediaRepo,
+             IGenericRepository<AspNetUserLogin> aspNetUserLogin)
         {
             _socialMediaRepo = socialMediaRepo;
+            _aspNetUserLogin = aspNetUserLogin;
         }
 
         /// <summary>
@@ -44,7 +47,7 @@ namespace Service.UserArea
                 {
                     foreach (string Friend in FriendsList)
                     {
-                        if(!String.IsNullOrWhiteSpace(ProviderKey) && !String.IsNullOrWhiteSpace(LoginProvider) && !String.IsNullOrWhiteSpace(Friend))
+                        if(!String.IsNullOrWhiteSpace(ProviderKey) && !String.IsNullOrWhiteSpace(LoginProvider) && !String.IsNullOrWhiteSpace(Friend) && _aspNetUserLogin.FindAllBy(a => a.LoginProvider==LoginProvider && a.ProviderKey==Friend).Any())
                         {
                             SocialMediaConnection connection = new SocialMediaConnection();
                             connection.ProviderKeyUserFriend = Friend;

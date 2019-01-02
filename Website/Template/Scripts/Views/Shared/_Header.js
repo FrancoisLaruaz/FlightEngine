@@ -1,5 +1,9 @@
 $(document).ready(function () {
-
+    var NeedToRedirectToLogin = $('#NeedToRedirectToLogin').val().toLowerCase() == "true" ? true : false;
+    if (NeedToRedirectToLogin) {
+        var oldUrl = window.location.href;
+        window.location.href = '/Account/AutomaticLogOffAndRedirectToLogin?RedirectTo=' + encodeURI(oldUrl);
+    }
 
     fixToTopNavBar('homeNavDefault');
 

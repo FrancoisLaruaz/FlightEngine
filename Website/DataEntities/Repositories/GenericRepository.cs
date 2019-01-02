@@ -181,7 +181,7 @@ namespace DataEntities.Repositories
             catch (Exception e)
             {
                 result = false;
-                Logger.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "ProcedureName : " + ProcedureName + " and Parameters.Count = " + Parameters.Count + " and Parameters = " + string.Join(",", Parameters.Select(t => string.Format("[ '{0}', '{1}']", (t.Item1 ?? "NULL"), (t.Item2 ?? "NULL")))));
+                Logger.Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "ProcedureName : " + ProcedureName + " and Parameters = " + (Parameters != null ? string.Join(",", Parameters.Select(t => string.Format("[ '{0}', '{1}']", (t.Item1 ?? "NULL"), (t.Item2 ?? "NULL")))) : "NULL"));
             }
             return result;
         }
