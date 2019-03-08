@@ -59,7 +59,7 @@ namespace Website.Controllers
                 {
                     LoggedUserId = UserSession.UserId;
                 }
-                SearchFilter filter = new SearchFilter(term);
+                SearchFilter filter = new SearchFilter(HttpUtility.UrlDecode(term));
                 var searchList = _searchService.GetSearch(filter, LoggedUserId, BrowserLanguage);
 
                 return Json(searchList, JsonRequestBehavior.AllowGet);

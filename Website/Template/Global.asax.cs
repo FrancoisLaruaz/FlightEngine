@@ -38,7 +38,7 @@ namespace Template
                 FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
                 HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
                 SetGlobalization();
-
+                MvcHandler.DisableMvcResponseHeader = true;
 
             }
             catch (Exception e)
@@ -273,12 +273,17 @@ namespace Template
                                 ClearHeaders = false;
                                 break;
                             case 500:
-                                //  action = "Http500";
+                                redirection = WebsiteURL + "/Error404";
                                 break;
                             default:
-        
+                                redirection = WebsiteURL + "/Error404";
                                 break;
                         }
+                    }
+                    else if (ex.StackTrace != null && ex.StackTrace.Contains(".cshtml"))
+                    {
+                        ClearHeaders = false;
+                        redirection = WebsiteURL + "/Error404";
                     }
                 }
 

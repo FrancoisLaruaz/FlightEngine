@@ -191,11 +191,11 @@ namespace Commons
             }
         }
 
-        public static void GenerateWebError(WebException e, string Details = null, System.Type type = null)
+        public static string GetWebExceptionBody(WebException e)
         {
+            string error = "";
             try
             {
-                string error = "WEB EXCEPTION";
                 if (e != null && e.Response != null)
                 {
                     var response = ((HttpWebResponse)e.Response);
@@ -204,9 +204,26 @@ namespace Commons
                     error = "WEB EXCEPTION :  error type : " + e.Status;
                     if (reader != null)
                         error = error + " : " + reader.ReadToEnd();
-                    error = error + " and " + Details;
                 }
+                else
+                {
+                    error = "EMPTY WEB EXCEPTION";
+                }
+            }
+            catch (Exception e2)
+            {
+                Logger.GenerateError(e2, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,"Error : " + e?.ToString());
+            }
+            return error;
+        }
 
+        public static string GenerateWebError(WebException e, string Details = null, System.Type type = null)
+        {
+            string error = "";
+            try
+            {
+                error = GetWebExceptionBody(e);
+                error = error + " and " + Details;
                 GenerateError(e,  type,error);
             }
             catch (WebException ex2)
@@ -220,6 +237,7 @@ namespace Commons
                     Logger.GenerateInfo("Error while creating a web Log : " + ex2?.ToString());
                 }
             }
+            return error;
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System.Web.Routing;
 using System;
 using System.Web.Optimization;
+using Commons;
 
 namespace Template
 {
@@ -136,7 +137,14 @@ namespace Template
                 RegisterJSBundles(bundles);
 
                 //this forces development mode to also minify and compress scripts bundle
-                BundleTable.EnableOptimizations = true;
+                if (Utils.IsProductionWebsite())
+                {
+                    BundleTable.EnableOptimizations = true;
+                }
+                else
+                {
+                    BundleTable.EnableOptimizations = false;
+                }
             }
             catch (Exception e)
             {

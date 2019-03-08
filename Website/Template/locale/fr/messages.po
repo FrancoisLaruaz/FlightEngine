@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-11-20 18:34-08:00\n"
-"PO-Revision-Date: 2018-11-20 18:34-08:00\n"
+"POT-Creation-Date: 2019-01-22 09:46-08:00\n"
+"PO-Revision-Date: 2019-01-22 09:46-08:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -127,7 +127,7 @@ msgstr ""
 msgid "Add a News"
 msgstr ""
 
-#: Views\Account\MyProfile.cshtml:20
+#: Views\Account\MyProfile.cshtml:24
 #: ..\Models\ViewModel\Account\MyProfile\MyProfileAddressViewModel.cs:17
 #: ..\Models\ViewModel\Account\MyProfile\MyProfileAddressViewModel.cs:20
 #: ..\Models\ViewModel\Account\MyProfile\MyProfileAddressViewModel.cs:23
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
-#: Views\Shared\Layout\_Header.cshtml:34
+#: Views\Shared\Layout\_Header.cshtml:36
 msgid "Admin"
 msgstr "Admin"
 
@@ -162,7 +162,7 @@ msgid "An error occured while uploading the image."
 msgstr ""
 
 #: Scripts\Views\Account\ExternalAuthentification.js:44
-#: Scripts\Views\Account\ExternalAuthentification.js:89
+#: Scripts\Views\Account\ExternalAuthentification.js:91
 msgid "An unexpected error occured. Please try again."
 msgstr ""
 
@@ -234,8 +234,8 @@ msgid "back"
 msgstr ""
 
 #: Views\Account\InvalidToken.cshtml:13
-#: Views\Account\PasswordChanged.cshtml:14
-#: Views\Home\ContactUs.cshtml:80
+#: Views\Account\PasswordChanged.cshtml:19
+#: Views\Home\ContactUs.cshtml:84
 msgid "Back"
 msgstr ""
 
@@ -259,7 +259,7 @@ msgstr "CC"
 msgid "Change"
 msgstr ""
 
-#: Controllers\AccountController.cs:1465
+#: Controllers\AccountController.cs:1503
 msgid "Change My Password"
 msgstr ""
 
@@ -284,11 +284,11 @@ msgstr "Confirmation requise"
 msgid "Confirming your email address will allow you to enjoy all the possibilities of our platform."
 msgstr ""
 
-#: ..\Service\Service\User\SearchService.cs:192
+#: ..\Service\Service\User\SearchService.cs:199
 msgid "Contact"
 msgstr ""
 
-#: Controllers\HomeController.cs:102
+#: Controllers\HomeController.cs:109
 #: Views\Shared\Layout\_Footer.cshtml:23
 msgid "Contact Us"
 msgstr ""
@@ -370,15 +370,19 @@ msgstr "Modifier le profil"
 #: ..\Models\ViewModel\Account\LoginViewModel.cs:15
 #: ..\Models\ViewModel\Account\SignUpViewModel.cs:25
 #: ..\Models\ViewModel\Home\ContactUsViewModel.cs:26
-#: ..\Service\Service\User\SearchService.cs:186
+#: ..\Service\Service\User\SearchService.cs:193
 msgid "Email"
 msgstr "Courriel"
 
-#: Views\Shared\Layout\_Header.cshtml:37
+#: Views\Shared\Layout\_Header.cshtml:39
 msgid "Email Audits"
 msgstr "Email Audits"
 
-#: Areas\Admin\Views\EmailAudits\_DisplayEmailAudits.cshtml:33
+#: Controllers\AccountController.cs:1759
+msgid "Email Confirmation"
+msgstr ""
+
+#: Areas\Admin\Views\EmailAudits\_DisplayEmailAudits.cshtml:34
 msgid "Email from "
 msgstr ""
 
@@ -386,12 +390,28 @@ msgstr ""
 msgid "Email Not Opened"
 msgstr ""
 
+#: Areas\Admin\Views\EmailAudits\_DisplayEmailAudits.cshtml:66
+msgid "Email not sent"
+msgstr ""
+
 #: ..\DataEntities\Const\Const.cs:150
 msgid "Email Opened"
 msgstr ""
 
-#: ..\Service\Service\User\SearchService.cs:184
+#: Areas\Admin\Views\EmailAudits\_DisplayEmailAudits.cshtml:53
+msgid "Email opened at "
+msgstr ""
+
+#: ..\Service\Service\User\SearchService.cs:191
 msgid "Email Preferences"
+msgstr ""
+
+#: Areas\Admin\Views\EmailAudits\_DisplayEmailAudits.cshtml:45
+msgid "Email sent (no 'watcher' information available)"
+msgstr ""
+
+#: Areas\Admin\Views\EmailAudits\_DisplayEmailAudits.cshtml:49
+msgid "Email sent but not opened"
 msgstr ""
 
 #: Areas\Admin\Views\News\_News.cshtml:26
@@ -433,8 +453,8 @@ msgstr ""
 msgid "Facebook"
 msgstr ""
 
-#: Controllers\HomeController.cs:92
-#: ..\Service\Service\User\SearchService.cs:188
+#: Controllers\HomeController.cs:99
+#: ..\Service\Service\User\SearchService.cs:195
 msgid "FAQ"
 msgstr ""
 
@@ -521,7 +541,7 @@ msgstr ""
 msgid "Group Name"
 msgstr ""
 
-#: Views\Home\_VideoHomePage.cshtml:21
+#: Views\Home\_VideoHomePage.cshtml:25
 msgid "Hello world. How are you ?"
 msgstr ""
 
@@ -540,7 +560,7 @@ msgstr ""
 
 #: Controllers\AccountController.cs:1311
 #: Controllers\AccountController.cs:1325
-#: Controllers\AccountController.cs:1616
+#: Controllers\AccountController.cs:1654
 msgid "Invalid login attempt."
 msgstr ""
 
@@ -602,15 +622,19 @@ msgstr "Nom de famille"
 msgid "Link Clicked"
 msgstr ""
 
+#: Areas\Admin\Views\EmailAudits\_DisplayEmailAudits.cshtml:57
+msgid "Link clicked at "
+msgstr ""
+
 #: Views\Profile\Profile\_EditGeneralInformation.cshtml:43
 msgid "Links"
 msgstr ""
 
 #: Views\Account\_LoginForm.cshtml:48
 #: Views\Account\_LoginOrSignInModal.cshtml:15
-#: Scripts\Views\Account\_Login.js:92
+#: Scripts\Views\Account\_Login.js:95
 #: Views\Account\SignUp\_SignUpFormLinks.cshtml:2
-#: Views\Shared\Layout\_Header.cshtml:75
+#: Views\Shared\Layout\_Header.cshtml:77
 msgid "Log In"
 msgstr "Se connecter"
 
@@ -618,7 +642,7 @@ msgstr "Se connecter"
 msgid "Log In using your "
 msgstr ""
 
-#: Views\Shared\Layout\_Header.cshtml:67
+#: Views\Shared\Layout\_Header.cshtml:69
 msgid "Log Off"
 msgstr "Se déconnecter"
 
@@ -626,12 +650,16 @@ msgstr "Se déconnecter"
 msgid "Logging In ..."
 msgstr ""
 
-#: Views\Shared\Layout\_Header.cshtml:36
+#: Views\Shared\Layout\_Header.cshtml:38
 msgid "Logs"
 msgstr "Logs"
 
 #: Areas\Admin\Views\News\EditNews.cshtml:66
 msgid "Mail Preview"
+msgstr ""
+
+#: Areas\Admin\Views\EmailAudits\_DisplayEmailAudits.cshtml:61
+msgid "Mail sent but unknown status"
 msgstr ""
 
 #: Areas\Admin\Scripts\Views\News\EditNews.js:19
@@ -651,14 +679,14 @@ msgstr ""
 msgid "May"
 msgstr ""
 
-#: Scripts\General\Utils.js:335
+#: Scripts\General\Utils.js:382
 msgid "Minimum investment is required"
 msgstr ""
 
 #: Controllers\AccountController.cs:650
 #: Controllers\ProfileController.cs:101
-#: Views\Profile\Profile.cshtml:36
-#: Views\Shared\Layout\_Header.cshtml:62
+#: Views\Profile\Profile.cshtml:37
+#: Views\Shared\Layout\_Header.cshtml:64
 msgid "My Profile"
 msgstr ""
 
@@ -671,11 +699,11 @@ msgstr ""
 msgid "New Password"
 msgstr ""
 
-#: Views\Shared\Layout\_Header.cshtml:38
+#: Views\Shared\Layout\_Header.cshtml:40
 msgid "News"
 msgstr ""
 
-#: ..\Models\Class\Email\EMailAuditItem.cs:54
+#: ..\Models\Class\Email\EMailAuditItem.cs:62
 msgid "News : "
 msgstr ""
 
@@ -754,7 +782,7 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: ..\Service\Service\User\SearchService.cs:314
+#: ..\Service\Service\User\SearchService.cs:326
 #: Views\Search\Index.cshtml:46
 msgid "Pages"
 msgstr ""
@@ -765,7 +793,7 @@ msgstr ""
 msgid "Password"
 msgstr "Mot de passe"
 
-#: Controllers\AccountController.cs:1546
+#: Controllers\AccountController.cs:1584
 msgid "Password Changed"
 msgstr ""
 
@@ -785,7 +813,7 @@ msgstr ""
 msgid "Phone number"
 msgstr ""
 
-#: Views\Account\MyProfile.cshtml:17
+#: Views\Account\MyProfile.cshtml:21
 #: Views\Account\MyProfile\_MyProfilePhotos.cshtml:7
 msgid "Photos"
 msgstr ""
@@ -798,65 +826,65 @@ msgstr ""
 msgid "Please enter a new password to complete your password reset."
 msgstr ""
 
-#: Scripts\General\Utils.js:370
+#: Scripts\General\Utils.js:417
 msgid "Please enter a valid credit card number."
 msgstr ""
 
-#: Scripts\General\Utils.js:367
+#: Scripts\General\Utils.js:414
 msgid "Please enter a valid date (ISO)."
 msgstr ""
 
-#: Scripts\General\Utils.js:366
+#: Scripts\General\Utils.js:413
 msgid "Please enter a valid date."
 msgstr ""
 
 #: Controllers\AccountController.cs:1152
-#: Controllers\HomeController.cs:135
-#: Scripts\General\Utils.js:364
+#: Controllers\HomeController.cs:142
+#: Scripts\General\Utils.js:411
 msgid "Please enter a valid email address."
 msgstr ""
 
-#: Scripts\General\Utils.js:368
+#: Scripts\General\Utils.js:415
 msgid "Please enter a valid number."
 msgstr ""
 
-#: Scripts\General\Utils.js:365
+#: Scripts\General\Utils.js:412
 msgid "Please enter a valid URL"
 msgstr ""
 
-#: Scripts\General\Utils.js:375
+#: Scripts\General\Utils.js:422
 msgid "Please enter a value between {0} and {1} characters long."
 msgstr ""
 
-#: Scripts\General\Utils.js:376
+#: Scripts\General\Utils.js:423
 msgid "Please enter a value between {0} and {1}."
 msgstr ""
 
-#: Scripts\General\Utils.js:378
+#: Scripts\General\Utils.js:425
 msgid "Please enter a value greater than or equal to {0}."
 msgstr ""
 
-#: Scripts\General\Utils.js:377
+#: Scripts\General\Utils.js:424
 msgid "Please enter a value less than or equal to {0}."
 msgstr ""
 
-#: Scripts\General\Utils.js:372
+#: Scripts\General\Utils.js:419
 msgid "Please enter a value with a valid extension."
 msgstr ""
 
-#: Scripts\General\Utils.js:374
+#: Scripts\General\Utils.js:421
 msgid "Please enter at least {0} characters."
 msgstr ""
 
-#: Scripts\General\Utils.js:373
+#: Scripts\General\Utils.js:420
 msgid "Please enter no more than {0} characters."
 msgstr ""
 
-#: Scripts\General\Utils.js:369
+#: Scripts\General\Utils.js:416
 msgid "Please enter only digits."
 msgstr ""
 
-#: Scripts\General\Utils.js:371
+#: Scripts\General\Utils.js:418
 msgid "Please enter the same value again."
 msgstr ""
 
@@ -872,11 +900,11 @@ msgstr ""
 msgid "Please enter your last name."
 msgstr ""
 
-#: Views\Home\ContactUs.cshtml:16
+#: Views\Home\ContactUs.cshtml:20
 msgid "Please enter your message. We will do our best to answer as soon as possible."
 msgstr ""
 
-#: Scripts\General\Utils.js:363
+#: Scripts\General\Utils.js:410
 msgid "Please fix this field."
 msgstr ""
 
@@ -917,12 +945,12 @@ msgstr ""
 msgid "Plese upload a valid image."
 msgstr ""
 
-#: ..\Service\Service\User\SearchService.cs:194
+#: ..\Service\Service\User\SearchService.cs:201
 #: Views\Shared\Layout\_Footer.cshtml:29
 msgid "Privacy"
 msgstr ""
 
-#: Controllers\AccountController.cs:1445
+#: Controllers\AccountController.cs:1483
 #: Views\Account\SignUp\_SignUpForm.cshtml:82
 msgid "Privacy Policy"
 msgstr ""
@@ -931,7 +959,7 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
-#: Views\Account\MyProfile.cshtml:14
+#: Views\Account\MyProfile.cshtml:18
 #: Views\Account\MyProfile\_MyProfileEdit.cshtml:8
 msgid "Profile"
 msgstr ""
@@ -969,11 +997,11 @@ msgstr ""
 msgid "Remember me ?"
 msgstr ""
 
-#: Controllers\AccountController.cs:1569
+#: Controllers\AccountController.cs:1607
 msgid "Reset My Password"
 msgstr ""
 
-#: ..\Service\Service\User\SearchService.cs:180
+#: ..\Service\Service\User\SearchService.cs:187
 msgid "Reset Password"
 msgstr ""
 
@@ -1020,7 +1048,7 @@ msgid "Schedule Time"
 msgstr ""
 
 #: Controllers\SearchController.cs:103
-#: ..\Service\Service\User\SearchService.cs:190
+#: ..\Service\Service\User\SearchService.cs:197
 #: Views\Search\_SearchBar.cshtml:9
 #: Views\Search\_SearchBar.cshtml:10
 msgid "Search"
@@ -1034,7 +1062,7 @@ msgstr ""
 msgid "SearchAll"
 msgstr ""
 
-#: Scripts\Views\Shared\_Header.js:78
+#: Scripts\Views\Shared\_Header.js:82
 msgid "See you soon !"
 msgstr ""
 
@@ -1056,7 +1084,7 @@ msgstr ""
 msgid "Select the language for your mails and the website."
 msgstr ""
 
-#: Views\Home\ContactUs.cshtml:61
+#: Views\Home\ContactUs.cshtml:65
 msgid "Send"
 msgstr ""
 
@@ -1072,8 +1100,8 @@ msgstr ""
 msgid "Set profile"
 msgstr ""
 
-#: ..\Service\Service\User\SearchService.cs:182
-#: Views\Profile\Profile.cshtml:43
+#: ..\Service\Service\User\SearchService.cs:189
+#: Views\Profile\Profile.cshtml:44
 msgid "Settings"
 msgstr ""
 
@@ -1082,13 +1110,13 @@ msgstr ""
 msgid "Shoot !"
 msgstr ""
 
-#: ..\Service\Service\User\SearchService.cs:91
+#: ..\Service\Service\User\SearchService.cs:98
 msgid "Show all the results"
 msgstr ""
 
 #: Views\Account\_LoginOrSignInModal.cshtml:19
 #: Views\Account\SignUp\_SignUpForm.cshtml:90
-#: Views\Shared\Layout\_Header.cshtml:76
+#: Views\Shared\Layout\_Header.cshtml:78
 msgid "Sign Up"
 msgstr ""
 
@@ -1108,15 +1136,15 @@ msgstr ""
 msgid "Skip for now"
 msgstr ""
 
-#: Views\Home\Index.cshtml:9
+#: Views\Home\Index.cshtml:15
 msgid "Slider Title1"
 msgstr ""
 
-#: Views\Home\Index.cshtml:12
+#: Views\Home\Index.cshtml:18
 msgid "Slider Title2"
 msgstr ""
 
-#: Controllers\HomeController.cs:140
+#: Controllers\HomeController.cs:147
 msgid "Sorry, an error has been detected in the form :(."
 msgstr ""
 
@@ -1124,12 +1152,12 @@ msgstr ""
 msgid "Sorry, no webcam has been found ..."
 msgstr ""
 
-#: Controllers\AccountController.cs:1517
-#: Controllers\AccountController.cs:1628
+#: Controllers\AccountController.cs:1555
+#: Controllers\AccountController.cs:1666
 msgid "Sorry, the user has not been found."
 msgstr ""
 
-#: Controllers\AccountController.cs:1684
+#: Controllers\AccountController.cs:1722
 msgid "Sorry, this user has not been found."
 msgstr ""
 
@@ -1137,8 +1165,12 @@ msgstr ""
 msgid "Start Date"
 msgstr ""
 
-#: Views\Home\Index.cshtml:17
+#: Views\Home\Index.cshtml:23
 msgid "Start now"
+msgstr ""
+
+#: Areas\Admin\Views\EmailAudits\_DisplayEmailAudits.cshtml:22
+msgid "Status"
 msgstr ""
 
 #: ..\Models\ViewModel\Home\ContactUsViewModel.cs:21
@@ -1155,20 +1187,20 @@ msgid "Tap the link in this email in order to reset your password."
 msgstr ""
 
 #: Areas\Admin\Controllers\TasksController.cs:48
-#: Views\Shared\Layout\_Header.cshtml:39
+#: Views\Shared\Layout\_Header.cshtml:41
 msgid "Tasks"
 msgstr ""
 
-#: ..\Service\Service\User\SearchService.cs:196
+#: ..\Service\Service\User\SearchService.cs:203
 #: Views\Shared\Layout\_Footer.cshtml:26
 msgid "Terms & Conditions"
 msgstr ""
 
-#: Controllers\AccountController.cs:1426
+#: Controllers\AccountController.cs:1464
 msgid "Terms And Conditions"
 msgstr ""
 
-#: Views\Home\ContactUs.cshtml:74
+#: Views\Home\ContactUs.cshtml:78
 msgid "Thanks for your message. We will respond to your enquiry as soon as possible."
 msgstr ""
 
@@ -1228,7 +1260,7 @@ msgstr ""
 msgid "The news has been successfully saved."
 msgstr ""
 
-#: Controllers\AccountController.cs:1508
+#: Controllers\AccountController.cs:1546
 msgid "The old password is incorrect."
 msgstr ""
 
@@ -1287,7 +1319,7 @@ msgstr ""
 msgid "This email address is already used."
 msgstr ""
 
-#: Scripts\General\Utils.js:362
+#: Scripts\General\Utils.js:409
 msgid "This field is required."
 msgstr ""
 
@@ -1303,7 +1335,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: Views\Home\_VideoHomePage.cshtml:20
+#: Views\Home\_VideoHomePage.cshtml:24
 msgid "Title1"
 msgstr ""
 
@@ -1315,11 +1347,11 @@ msgstr "A"
 msgid "To create a new account, please log out first."
 msgstr "Afin de créer in nouveau compte, merci de vous déconnecter."
 
-#: Views\Shared\Layout\_Header.cshtml:12
+#: Views\Shared\Layout\_Header.cshtml:14
 msgid "To use this website you must enable javascript in your browser settings."
 msgstr ""
 
-#: Views\Account\MyProfile.cshtml:23
+#: Views\Account\MyProfile.cshtml:27
 #: Views\Account\MyProfile\_MyProfileTrustAndVerifications.cshtml:8
 msgid "Trust and Verification"
 msgstr ""
@@ -1373,10 +1405,10 @@ msgstr "Utilisateur"
 msgid "User Name"
 msgstr ""
 
-#: ..\Service\Service\User\SearchService.cs:310
+#: ..\Service\Service\User\SearchService.cs:322
 #: Views\Search\Index.cshtml:32
 #: Areas\Admin\Controllers\UsersController.cs:52
-#: Views\Shared\Layout\_Header.cshtml:40
+#: Views\Shared\Layout\_Header.cshtml:42
 msgid "Users"
 msgstr ""
 
@@ -1456,7 +1488,7 @@ msgstr ""
 msgid "Your file size exceeds 500 KB. Please upload another picture."
 msgstr ""
 
-#: Views\Account\PasswordChanged.cshtml:8
+#: Views\Account\PasswordChanged.cshtml:13
 msgid "Your password has been successfully changed."
 msgstr ""
 

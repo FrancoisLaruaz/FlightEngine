@@ -1,4 +1,15 @@
-﻿
+﻿$(document).ready(function () {
+    $(window).keydown(function (event) {
+        if (event.keyCode == 27) {
+            swal.close();
+            return false;
+        }
+    });
+}); //closing doc ready
+
+
+
+
 function sweetConfirmation(text, title, ConfirmFunction, ConfirmFunctionParams , RejectFunction , RejectFunctionParams) {
 
     if (ConfirmFunctionParams === undefined) {
@@ -21,6 +32,7 @@ function sweetConfirmation(text, title, ConfirmFunction, ConfirmFunctionParams ,
         text: text,
         type: "warning",
         showCancelButton: true,
+        allowEscapeKey: false,
         confirmButtonColor: Constants.Const.ColorWebsite,
         confirmButtonText: "[[[Yes]]]",
         cancelButtonText: "[[[No]]]",

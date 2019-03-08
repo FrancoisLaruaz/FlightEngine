@@ -208,7 +208,14 @@ namespace Website.Controllers
                                     contentType = "text/css";
                                 }
 
-                                return new FilePathResult(originalUrl, contentType);
+                                if (!String.IsNullOrWhiteSpace(contentType))
+                                {
+                                    return new FilePathResult(originalUrl, contentType);
+                                }
+                                else
+                                {
+                                    return null;
+                                }
                             }
                             else
                             {
@@ -233,7 +240,8 @@ namespace Website.Controllers
             }
             finally
             {
-                _lock.ExitReadLock();
+                if (_lock.IsReadLockHeld)
+                    _lock.ExitReadLock();
             }
             return null;
         }

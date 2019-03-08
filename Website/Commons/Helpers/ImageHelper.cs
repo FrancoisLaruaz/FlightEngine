@@ -50,6 +50,25 @@ namespace Commons
             }
         }
 
+        public static string GetHttpUrl(string WebsitePath)
+        {
+            string httpUrl = WebsitePath;
+            try
+            {
+                if (!String.IsNullOrWhiteSpace(httpUrl))
+                {
+                    if (!httpUrl.ToLower().StartsWith("http"))
+                    {
+                        httpUrl = ConfigurationManager.AppSettings["Website"] + httpUrl.Replace("~", "");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.GenerateError(e, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, "WebsitePath = " + WebsitePath);
+            }
+            return httpUrl;
+        }
 
         public static byte[] ConvertImageToBytesArray(Image x)
         {

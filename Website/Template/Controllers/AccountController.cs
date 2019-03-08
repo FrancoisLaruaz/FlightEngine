@@ -627,9 +627,9 @@ namespace Website.Controllers
                     if (UserSession.UserId == UserId)
                     {
                         Session[CommonsConst.Const.UserSession] = null;
+                        Request.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
                         Session.Clear();
                         Session.Abandon();
-                        AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
                     }
                 }
             }
@@ -686,7 +686,7 @@ namespace Website.Controllers
         [AntiForgeryExceptionAttributeExternalAuthentification]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            Request.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
@@ -874,7 +874,7 @@ namespace Website.Controllers
         [AntiForgeryExceptionAttributeExternalAuthentification]
         public ActionResult ExternalSignUp(string provider, string returnUrl)
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            Request.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalSignUpCallback", "Account", new { ReturnUrl = returnUrl }));
         }
@@ -882,7 +882,7 @@ namespace Website.Controllers
 
         public ActionResult ExternalAuthentificationError()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            Request.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
             return View("~/Views/Account/ExternalAuthentificationResult.cshtml", new ExternalAuthentificationResult(false, null, null, null, null, false, null,  true));
         }
 
@@ -1114,7 +1114,7 @@ namespace Website.Controllers
                                         if (_userService.CreateUser(userSignUp) > 0)
                                         {
 
-                                            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                                            Request.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
                                             await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                                             if (!String.IsNullOrWhiteSpace(model.Email))
                                             {
@@ -1283,7 +1283,7 @@ namespace Website.Controllers
             {
                 if (!User.Identity.IsAuthenticated)
                 {
-                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                    Request.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
                     if (ModelState.IsValid)
                     {
                         model.Email = model.Email.Trim().ToLower();
@@ -1356,9 +1356,9 @@ namespace Website.Controllers
 
                 Session[CommonsConst.Const.UserSession] = null;
                 Session[CommonsConst.Const.JsonConstantsSession] = null;
+                Request.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
                 Session.Clear();
                 Session.Abandon();
-                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
                 if (String.IsNullOrWhiteSpace(RedirectTo))
                 {
@@ -1382,9 +1382,9 @@ namespace Website.Controllers
             {
                 Session[CommonsConst.Const.UserSession] = null;
                 Session[CommonsConst.Const.JsonConstantsSession] = null;
+                Request.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
                 Session.Clear();
                 Session.Abandon();
-                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
             }
             catch (Exception e)
@@ -1401,10 +1401,10 @@ namespace Website.Controllers
             {
                 Session[CommonsConst.Const.UserSession] = null;
                 Session[CommonsConst.Const.JsonConstantsSession] = null;
+                Request.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
                 Session.Clear();
                 Session.Abandon();
-                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-               
+
             }
             catch (Exception e)
             {
